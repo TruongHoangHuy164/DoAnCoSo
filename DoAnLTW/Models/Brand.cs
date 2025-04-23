@@ -10,8 +10,8 @@ namespace DoAnLTW.Models
 
         [Required(ErrorMessage = "Thương hiệu là bắt buộc")]
         [StringLength(50, ErrorMessage = "Thương hiệu không được quá 50 ký tự")]
-        public string Name { get; set; } 
-
+        public string ?Name { get; set; }
+        public string ?ImageUrl { get; set; } 
         // Một brand có thể được dùng bởi nhiều sản phẩm
         public List<Product> Products { get; set; } = new List<Product>();
     }

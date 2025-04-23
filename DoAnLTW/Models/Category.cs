@@ -12,7 +12,7 @@
 
         // Một danh mục có nhiều sản phẩm
         [Required(ErrorMessage = "ảnh danh mục là bắt buộc")]
-        public string ImageUrl { get; set; }
+        public string ?ImageUrl { get; set; }
         public List<Product> Products { get; set; } = new List<Product>();
         }
     }

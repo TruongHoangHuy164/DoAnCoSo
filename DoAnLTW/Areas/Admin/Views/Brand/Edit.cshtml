@@ -1,28 +1,48 @@
 ﻿@model DoAnLTW.Models.Brand
 
 @{
-    ViewData["Title"] = "Sửa Thương Hiệu";
+    ViewData["Title"] = "Sửa thương hiệu";
     Layout = "~/Areas/Admin/Views/Shared/layoutAdmin.cshtml";
 }
 
-<h2 class="text-center">Sửa Thương Hiệu</h2>
+<h1>Sửa thương hiệu</h1>
 
+<hr />
 <div class="row">
-    <div class="col-md-8 offset-md-2">
-        <form asp-action="Edit" asp-controller="Brand" asp-area="Admin" method="post">
+    <div class="col-md-4">
+        <form asp-action="Edit" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="BrandId" />
-
-            <div class="form-group mb-3">
-                <label asp-for="Name" class="control-label">Tên thương hiệu</label>
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
                 <input asp-for="Name" class="form-control" />
                 <span asp-validation-for="Name" class="text-danger"></span>
             </div>
-
-            <div class="form-group text-center">
-                <button type="submit" class="btn btn-success">Cập nhật</button>
-                <a asp-action="Index" asp-controller="Brand" asp-area="Admin" class="btn btn-secondary">Quay lại</a>
+            <div class="form-group">
+                <label asp-for="ImageUrl" class="control-label">Hình ảnh hiện tại</label>
+                @if (!string.IsNullOrEmpty(Model.ImageUrl))
+                {
+                    <div>
+                        <img src="@Model.ImageUrl" alt="@Model.Name" style="width:100px; height:auto;" />
+                    </div>
+                }
+                else
+                {
+                    <div>Không có hình ảnh</div>
+                }
+                <label class="control-label">Chọn hình ảnh mới (nếu muốn thay đổi)</label>
+                <input type="file" name="ImageFile" class="form-control" accept="image/*" />
+            </div>
+            <div class="form-group mt-3">
+                <input type="submit" value="Lưu" class="btn btn-primary" />
+                <a asp-action="Index" class="btn btn-secondary">Quay lại</a>
             </div>
         </form>
     </div>
 </div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

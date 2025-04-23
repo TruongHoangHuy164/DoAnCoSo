@@ -1,4 +1,4 @@
-﻿@model DoAnLTW.Models.Category
+﻿@* @model DoAnLTW.Models.Category
 
 @{
     ViewData["Title"] = "Xóa danh mục";
@@ -32,3 +32,21 @@
         }
     </div>
 </div>
+ *@
+
+            @model DoAnLTW.Models.Brand
+
+@{
+    ViewData["Title"] = "Xóa Thương Hiệu";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<p>Bạn có chắc chắn muốn xóa thương hiệu <strong>@Model.Name</strong>?</p>
+<img src="@Model.ImageUrl" alt="@Model.Name" style="width: 200px; margin-top: 10px;">
+
+<form asp-action="DeleteConfirmed" method="post">
+    <input type="hidden" name="id" value="@Model.BrandId" />
+    <button type="submit" class="btn btn-danger">Xóa</button>
+    <a href="@Url.Action("Index", "Brand")" class="btn btn-secondary">Hủy</a>
+</form>

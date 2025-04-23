@@ -32,6 +32,7 @@
   <ItemGroup>
     <Folder Include="Areas\Admin\Data\" />
     <Folder Include="ViewComponents\" />
+    <Folder Include="wwwroot\img\brands\" />
     <Folder Include="wwwroot\img\products\" />
   </ItemGroup>
 

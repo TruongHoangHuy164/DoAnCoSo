@@ -1,19 +1,36 @@
 ﻿@model DoAnLTW.Models.Brand
 
 @{
-    ViewData["Title"] = "Thêm Thương Hiệu";
+    ViewData["Title"] = "Thêm thương hiệu";
     Layout = "~/Areas/Admin/Views/Shared/layoutAdmin.cshtml";
 }
 
-<h2>Thêm Thương Hiệu</h2>
+<h1>Thêm thương hiệu mới</h1>
 
-<form asp-action="Create" method="post">
-    <div class="form-group mb-3">
-        <label for="Name">Tên Thương Hiệu</label>
-        <input asp-for="Name" class="form-control" required />
-        <span asp-validation-for="Name" class="text-danger"></span>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ImageUrl" class="control-label">Hình ảnh</label>
+                <input type="file" name="ImageFile" class="form-control" accept="image/*" />
+            </div>
+            <div class="form-group mt-3">
+                <input type="submit" value="Thêm" class="btn btn-primary" />
+                <a asp-action="Index" class="btn btn-secondary">Quay lại</a>
+            </div>
+        </form>
     </div>
+</div>
 
-    <button type="submit" class="btn btn-success mt-2">Lưu</button>
-    <a asp-action="Index" class="btn btn-secondary mt-2">Quay lại</a>
-</form>
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
