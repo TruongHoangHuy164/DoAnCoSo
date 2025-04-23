@@ -1,4 +1,6 @@
-﻿@{
+﻿@model DoAnLTW.ViewModels.HomeViewModel
+
+@{
     ViewData["Title"] = "Home Page";
 }
 
@@ -14,7 +16,7 @@
                 </ol>
                 <div class="carousel-inner">
                     <div class="carousel-item position-relative active" style="height: 430px;">
-                        <img class="position-absolute w-100 h-100" src="img/slider1.jpg" style="object-fit: cover;">
+                        <img class="position-absolute w-100 h-100" src="~/img/slider1.jpg" style="object-fit: cover;" alt="Slider 1">
                         <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">
                             <div class="p-3" style="max-width: 700px;">
                                 <h1 class="display-4 text-white mb-3 animate__animated animate__fadeInDown">Yêu Boss Hết Mình</h1>
@@ -24,7 +26,7 @@
                         </div>
                     </div>
                     <div class="carousel-item position-relative" style="height: 430px;">
-                        <img class="position-absolute w-100 h-100" src="img/slider2.jpg" style="object-fit: cover;">
+                        <img class="position-absolute w-100 h-100" src="~/img/slider2.jpg" style="object-fit: cover;" alt="Slider 2">
                         <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">
                             <div class="p-3" style="max-width: 700px;">
                                 <h1 class="display-4 text-white mb-3 animate__animated animate__fadeInDown">Sống Chất Cùng Boss</h1>
@@ -34,7 +36,7 @@
                         </div>
                     </div>
                     <div class="carousel-item position-relative" style="height: 430px;">
-                        <img class="position-absolute w-100 h-100" src="img/slider3.jpg" style="object-fit: cover;">
+                        <img class="position-absolute w-100 h-100" src="~/img/slider3.jpg" style="object-fit: cover;" alt="Slider 3">
                         <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">
                             <div class="p-3" style="max-width: 700px;">
                                 <h1 class="display-4 text-white mb-3 animate__animated animate__fadeInDown">Boss Vui, Sen Mới Chill</h1>
@@ -44,24 +46,21 @@
                         </div>
                     </div>
                 </div>
-
             </div>
         </div>
 
-        @* Giảm giá *@
-
+        <!-- Giảm giá -->
         <div class="col-lg-4">
             <div class="product-offer mb-30" style="height: 200px;">
-                <img class="img-fluid" src="img/giamgia1.jpg" alt="Giảm giá 1">
+                <img class="img-fluid" src="~/img/giamgia1.jpg" alt="Giảm giá 1">
                 <div class="offer-text">
                     <h6 class="text-white text-uppercase">Save 20%</h6>
                     <h3 class="text-white mb-3">Special Offer</h3>
                     <a asp-controller="Shop" asp-action="Index" class="btn btn-primary">Shop Now</a>
                 </div>
             </div>
-
             <div class="product-offer mb-30" style="height: 200px;">
-                <img class="img-fluid" src="img/giamgia2.jpg" alt="Giảm giá 2">
+                <img class="img-fluid" src="~/img/giamgia2.jpg" alt="Giảm giá 2">
                 <div class="offer-text">
                     <h6 class="text-white text-uppercase">Save 20%</h6>
                     <h3 class="text-white mb-3">Special Offer</h3>
@@ -69,8 +68,6 @@
                 </div>
             </div>
         </div>
-
-
     </div>
 </div>
 <!-- Carousel End -->
@@ -103,18 +100,17 @@
         </div>
     </div>
 </div>
-<!-- Tiêu chí  End -->
+<!-- Tiêu chí End -->
 <!-- Phân loại sản phẩm Start -->
 <div class="container-fluid pt-5">
     <h2 class="section-title position-relative text-uppercase mx-xl-5 mb-4">
         <span class="bg-secondary pr-3">Phân loại sản phẩm</span>
     </h2>
-
     <div class="row px-xl-5 pb-3">
         @foreach (var category in Model.Categories)
         {
             <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
-                <a class="text-decoration-none" href="#">
+                <a class="text-decoration-none" asp-controller="Shop" asp-action="Index" asp-route-categoryId="@category.CategoryId">
                     <div class="cat-item d-flex align-items-center mb-4">
                         <div class="overflow-hidden" style="width: 100px; height: 100px;">
                             <img class="img-fluid" src="@category.ImageUrl" alt="@category.Name">
@@ -161,18 +157,16 @@
                     <div class="product-img position-relative overflow-hidden">
                         <img class="img-fluid w-100" src="@product.ImageUrl" alt="@product.Name">
                         <div class="product-action">
-                            <a class="btn btn-outline-dark btn-square" href="#"><i class="fa fa-shopping-cart"></i></a>
+                            <a class="btn btn-outline-dark btn-square" asp-controller="Cart" asp-action="Add" asp-route-productId="@product.ProductId"><i class="fa fa-shopping-cart"></i></a>
                             <a class="btn btn-outline-dark btn-square" href="#"><i class="far fa-heart"></i></a>
                             <a class="btn btn-outline-dark btn-square" href="#"><i class="fa fa-sync-alt"></i></a>
-                            <a asp-controller="Shop" asp-action="Detail" asp-route-id="@product.Id" class="btn btn-outline-dark btn-square">
-                                <i class="fa fa-search"></i>
-                            </a>
+                            <a asp-controller="Shop" asp-action="Detail" asp-route-id="@product.ProductId" class="btn btn-outline-dark btn-square"><i class="fa fa-search"></i></a>
                         </div>
                     </div>
                     <div class="text-center py-4">
-                        <a class="h6 text-decoration-none text-truncate" href="#">@product.Name</a>
+                        <a class="h6 text-decoration-none text-truncate" asp-controller="Shop" asp-action="Detail" asp-route-id="@product.ProductId">@product.Name</a>
                         <div class="d-flex align-items-center justify-content-center mt-2">
-                            <h5>@product.Price.ToString("#,##0 VNĐ")</h5>
+                            <h5>@product..ToString("#,##0 VNĐ")</h5>
                         </div>
                     </div>
                 </div>
@@ -181,12 +175,12 @@
     </div>
 </div>
 <!-- Sản phẩm nổi bật End -->
-<!-- giảm giá Start -->
+<!-- Giảm giá Start -->
 <div class="container-fluid pt-5 pb-3">
     <div class="row px-xl-5">
         <div class="col-md-6">
             <div class="product-offer mb-30" style="height: 300px;">
-                <img class="img-fluid" src="img/giamgia1.jpg" alt="">
+                <img class="img-fluid" src="~/img/giamgia1.jpg" alt="Giảm giá 1">
                 <div class="offer-text">
                     <h6 class="text-white text-uppercase">Save 20%</h6>
                     <h3 class="text-white mb-3">Special Offer</h3>
@@ -196,7 +190,7 @@
         </div>
         <div class="col-md-6">
             <div class="product-offer mb-30" style="height: 300px;">
-                <img class="img-fluid" src="img/giamgia2.jpg" alt="">
+                <img class="img-fluid" src="~/img/giamgia2.jpg" alt="Giảm giá 2">
                 <div class="offer-text">
                     <h6 class="text-white text-uppercase">Save 20%</h6>
                     <h3 class="text-white mb-3">Special Offer</h3>
@@ -206,7 +200,7 @@
         </div>
     </div>
 </div>
-<!-- giảm giá End -->
+<!-- Giảm giá End -->
 <!-- Sản phẩm gần đây Start -->
 <div class="container-fluid pt-5 pb-3">
     <h2 class="section-title position-relative text-uppercase mx-xl-5 mb-4">
@@ -220,18 +214,16 @@
                     <div class="product-img position-relative overflow-hidden">
                         <img class="img-fluid w-100" src="@product.ImageUrl" alt="@product.Name">
                         <div class="product-action">
-                            <a class="btn btn-outline-dark btn-square" href="#"><i class="fa fa-shopping-cart"></i></a>
+                            <a class="btn btn-outline-dark btn-square" asp-controller="Cart" asp-action="Add" asp-route-productId="@product.ProductId"><i class="fa fa-shopping-cart"></i></a>
                             <a class="btn btn-outline-dark btn-square" href="#"><i class="far fa-heart"></i></a>
                             <a class="btn btn-outline-dark btn-square" href="#"><i class="fa fa-sync-alt"></i></a>
-                            <a asp-controller="Shop" asp-action="Detail" asp-route-id="@product.Id" class="btn btn-outline-dark btn-square">
-                                <i class="fa fa-search"></i>
-                            </a>
+                            <a asp-controller="Shop" asp-action="Detail" asp-route-id="@product.ProductId" class="btn btn-outline-dark btn-square"><i class="fa fa-search"></i></a>
                         </div>
                     </div>
                     <div class="text-center py-4">
-                        <a class="h6 text-decoration-none text-truncate" href="#">@product.Name</a>
+                        <a class="h6 text-decoration-none text-truncate" asp-controller="Shop" asp-action="Detail" asp-route-id="@product.ProductId">@product.Name</a>
                         <div class="d-flex align-items-center justify-content-center mt-2">
-                            <h5>@product.Price.ToString("#,##0 VNĐ")</h5>
+                            <h5>@product..ToString("#,##0 VNĐ")</h5>
                         </div>
                     </div>
                 </div>
@@ -270,3 +262,22 @@
     </div>
 </div>
 <!-- Vendor End -->
+@section Scripts {
+    <!-- Owl Carousel JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            // Khởi tạo Owl Carousel
+            $('.vendor-carousel').owlCarousel({
+                loop: true,
+                margin: 10,
+                nav: true,
+                responsive: {
+                    0: { items: 1 },
+                    600: { items: 3 },
+                    1000: { items: 5 }
+                }
+            });
+        });
+    </script>
+}

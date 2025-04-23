@@ -12,7 +12,7 @@ namespace DoAnLTW.Models
         public int ProductId { get; set; } // Khóa ngoại liên kết với Product
 
         [Required(ErrorMessage = "Đường dẫn hình ảnh là bắt buộc")]
-        public string ImageUrl { get; set; } // Lưu đường dẫn ảnh
+        public string ?ImageUrl { get; set; } // Lưu đường dẫn ảnh
 
         [ForeignKey("ProductId")]
         public Product? Product { get; set; } // Navigation property

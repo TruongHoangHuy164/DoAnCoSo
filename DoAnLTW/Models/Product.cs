@@ -25,14 +25,14 @@ namespace DoAnLTW.Models
         [ForeignKey("CategoryId")]
         public Category? Category { get; set; }
 
-        public List<Product_Images> Images { get; set; } = new List<Product_Images>();
+        public List<Product_Images>? Images { get; set; } = new List<Product_Images>();
 
 
         // Liên kết với bảng trung gian ProductSize
-        public List<ProductSize> ProductSizes { get; set; } = new List<ProductSize>();
+        public List<ProductSize>? ProductSizes { get; set; } = new List<ProductSize>();
 
         [NotMapped]
-        public string ImageUrl { get; set; }
+        public string ?ImageUrl { get; set; }
 
         [NotMapped]
         public int TotalStock => ProductSizes?.Sum(ps => ps.Stock) ?? 0;

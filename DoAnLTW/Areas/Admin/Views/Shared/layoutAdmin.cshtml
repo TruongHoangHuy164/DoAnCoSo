@@ -212,11 +212,11 @@
                             <i class="fa-solid fa-file-invoice-dollar menu-icon"></i>
                         </a>
                     </li>
-
-                    @if(User.IsInRole("Admin")){
+                    @if (User.IsInRole("Admin"))
+                    {
                         <li class="nav-item">
                             <a class="nav-link" asp-area="Admin" asp-controller="Admin" asp-action="PhanQuyen">
-                                <span class="menu-title">Quản lý phân quyền</span>
+                                <span class="menu-title">Quản lý phân quyền</span>
                                 <i class="fa-solid fa-ruler menu-icon"></i>
                             </a>
                         </li>
@@ -228,8 +228,6 @@
                         </a>
                     </li>
                 </ul>
-
-
             </nav>
             <!-- partial -->
             <div class="main-panel">
@@ -237,10 +235,6 @@
                     @RenderBody()
                 </div>
                 <!-- content-wrapper ends -->
-
-                <!-- ✅ Thêm dòng này để render Scripts -->
-    @RenderSection("Scripts", required: false)
-
                 <!-- partial:../../partials/_footer.html -->
                 <footer class="footer">
                 </footer>
@@ -252,13 +246,15 @@
     </div>
     <!-- container-scroller -->
     <!-- plugins:js -->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/LayoutAdmin/assets/vendors/js/vendor.bundle.base.js"></script>
     <!-- inject:js -->
     <script src="~/LayoutAdmin/assets/js/off-canvas.js"></script>
     <script src="~/LayoutAdmin/assets/js/hoverable-collapse.js"></script>
     <script src="~/LayoutAdmin/assets/js/misc.js"></script>
-    <!-- Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Render Scripts section for Views -->
+    @RenderSection("Scripts", required: false)
 </body>
 </html>

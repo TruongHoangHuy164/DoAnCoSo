@@ -1,4 +1,4 @@
-﻿@model List<DoAnLTW.Models.Product>
+﻿@* @model List<DoAnLTW.Models.Product>
 
 @{
     ViewData["Title"] = "Danh sách sản phẩm";
@@ -249,4 +249,60 @@
             </tr>
         }
     </tbody>
-</table>
+</table> *@
+
+ @model IEnumerable<DoAnLTW.Models.Product>
+
+@{
+    ViewData["Title"] = "Danh sách sản phẩm";
+    Layout = "~/Areas/Admin/Views/Shared/layoutAdmin.cshtml";
+}
+
+<div class="container mt-4">
+    <h2>Danh sách sản phẩm</h2>
+
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <div class="alert alert-success">@TempData["SuccessMessage"]</div>
+    }
+    @if (TempData["ErrorMessage"] != null)
+    {
+        <div class="alert alert-danger">@TempData["ErrorMessage"]</div>
+    }
+
+    <p>
+        <a asp-action="Create" class="btn btn-primary">Thêm sản phẩm mới</a>
+    </p>
+
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>Hình ảnh</th>
+                <th>Tên sản phẩm</th>
+                <th>Thương hiệu</th>
+                <th>Danh mục</th>
+                <th>Tổng kho</th>
+                <th>Hành động</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var product in Model)
+            {
+                <tr>
+                    <td>
+                        <img src="@product.ImageUrl" alt="@product.Name" style="width: 100px; height: auto;" />
+                    </td>
+                    <td>@product.Name</td>
+                    <td>@product.Brand?.Name</td>
+                    <td>@product.Category?.Name</td>
+                    <td>@product.TotalStock</td>
+                    <td>
+                        <a asp-action="Details" asp-route-id="@product.ProductId" class="btn btn-info btn-sm">Chi tiết</a>
+                        <a asp-action="Edit" asp-route-id="@product.ProductId" class="btn btn-warning btn-sm">Sửa</a>
+                        <a asp-action="Delete" asp-route-id="@product.ProductId" class="btn btn-danger btn-sm">Xóa</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

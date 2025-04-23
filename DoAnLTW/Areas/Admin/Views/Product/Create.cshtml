@@ -1,4 +1,4 @@
-﻿@model DoAnLTW.Models.Product
+﻿@* @model DoAnLTW.Models.Product
 
 @{
     ViewData["Title"] = "Thêm sản phẩm";
@@ -99,6 +99,127 @@
                 inputs.prop("disabled", !this.checked);
                 if (!this.checked) {
                     inputs.val("");
+                }
+            });
+        });
+    </script>
+} *@
+@model DoAnLTW.Models.Product
+
+@{
+    ViewData["Title"] = "Thêm sản phẩm mới";
+    Layout = "~/Areas/Admin/Views/Shared/layoutAdmin.cshtml";
+}
+
+<div class="container mt-4">
+    <h2>Thêm sản phẩm mới</h2>
+
+    @if (TempData["ErrorMessage"] != null)
+    {
+        <div class="alert alert-danger">@TempData["ErrorMessage"]</div>
+    }
+
+    @if (!ViewData.ModelState.IsValid)
+    {
+        <div class="alert alert-danger">
+            <ul>
+                @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+                {
+                    <li>@error.ErrorMessage</li>
+                }
+            </ul>
+        </div>
+    }
+
+    <form asp-action="Create" method="post" enctype="multipart/form-data">
+        <div class="form-group">
+            <label asp-for="Name" class="control-label"></label>
+            <input asp-for="Name" class="form-control" />
+            <span asp-validation-for="Name" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Description" class="control-label"></label>
+            <textarea asp-for="Description" class="form-control" rows="5"></textarea>
+            <span asp-validation-for="Description" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="CategoryId" class="control-label"></label>
+            <select asp-for="CategoryId" class="form-control" asp-items="ViewBag.Categories"></select>
+            <span asp-validation-for="CategoryId" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="BrandId" class="control-label"></label>
+            <select asp-for="BrandId" class="form-control" asp-items="ViewBag.Brands"></select>
+            <span asp-validation-for="BrandId" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <h5>Kích thước và giá</h5>
+            <table class="table table-bordered" id="sizeTable">
+                <thead>
+                    <tr>
+                        <th>Kích thước</th>
+                        <th>Số lượng</th>
+                        <th>Giá</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <select name="selectedSizes" class="form-control">
+                                @foreach (var size in ViewBag.Sizes)
+                                {
+                                    <option value="@size.SizeId">@size.size</option>
+                                }
+                            </select>
+                        </td>
+                        <td><input type="number" name="sizeQuantities" class="form-control" min="0" /></td>
+                        <td><input type="number" name="sizePrices" class="form-control" min="0" step="0.01" /></td>
+                        <td><button type="button" class="btn btn-danger remove-row">Xóa</button></td>
+                    </tr>
+                </tbody>
+            </table>
+            <button type="button" class="btn btn-success" id="addSizeRow">Thêm kích thước</button>
+        </div>
+
+        <div class="form-group">
+            <label>Thêm hình ảnh sản phẩm</label>
+            <input type="file" name="imageFiles" multiple class="form-control" accept=".jpg,.jpeg,.png,.gif" />
+            <small class="form-text text-muted">Chọn một hoặc nhiều hình ảnh (jpg, jpeg, png, gif).</small>
+        </div>
+
+        <div class="form-group mt-3">
+            <button type="submit" class="btn btn-primary">Lưu sản phẩm</button>
+            <a asp-action="Index" class="btn btn-secondary">Hủy</a>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script>
+        $(document).ready(function () {
+            $("#addSizeRow").click(function () {
+                var row = `<tr>
+                    <td>
+                        <select name="selectedSizes" class="form-control">
+        @foreach (var size in ViewBag.Sizes)
+        {
+                                    <option value="@size.SizeId">@size.size</option>
+        }
+                        </select>
+                    </td>
+                    <td><input type="number" name="sizeQuantities" class="form-control" min="0" /></td>
+                    <td><input type="number" name="sizePrices" class="form-control" min="0" step="0.01" /></td>
+                    <td><button type="button" class="btn btn-danger remove-row">Xóa</button></td>
+                </tr>`;
+                $("#sizeTable tbody").append(row);
+            });
+
+            $(document).on("click", ".remove-row", function () {
+                if ($("#sizeTable tbody tr").length > 1) {
+                    $(this).closest("tr").remove();
                 }
             });
         });

@@ -1,10 +1,12 @@
 ﻿using System.Diagnostics;
 using System.Linq;
+using System.Threading.Tasks;
 using DoAnLTW.Models;
+using DoAnLTW.Models.Repositories;
+using DoAnLTW.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
-using DoAnLTW.Models.Repositories;
 
 namespace DoAnLTW.Controllers
 {
@@ -13,75 +15,54 @@ namespace DoAnLTW.Controllers
         private readonly ILogger<HomeController> _logger;
         private readonly ApplicationDbContext _context;
         private readonly IProductRepository _productRepository;
+        private readonly ICategoryRepository _categoryRepository;
 
-        public HomeController(ILogger<HomeController> logger, ApplicationDbContext context, IProductRepository productRepository)
+        public HomeController(
+            ILogger<HomeController> logger,
+            ApplicationDbContext context,
+            IProductRepository productRepository,
+            ICategoryRepository categoryRepository)
         {
             _logger = logger;
             _context = context;
             _productRepository = productRepository;
+            _categoryRepository = categoryRepository;
         }
 
         public async Task<IActionResult> Index()
         {
             SetCartCount();
 
-            // Lấy danh sách danh mục
-            var categories = await _context.Categories
-                .Include(c => c.Products)
-                    .ThenInclude(p => p.ProductSizes)
-                .ToListAsync();
-
-            // Lấy danh sách sản phẩm
-            var products = await _context.Products
-                .Include(p => p.Images)
-                .Include(p => p.ProductSizes)
-                    .ThenInclude(ps => ps.Size)
-                .Include(p => p.Brand)
-                .Select(p => new Product
-                {
-                    ProductId = p.ProductId,
-                    Name = p.Name,
-                    Description = p.Description,
-                    Brand = p.Brand,
-                    CategoryId = p.CategoryId,
-                    ProductSizes = p.ProductSizes,
-                    ImageUrl = p.Images != null && p.Images.Any()
-                        ? p.Images.First().ImageUrl
-                        : null
-                })
-                .ToListAsync();
-
-            // Lấy 4 sản phẩm mới nhất (Id giảm dần)
-            var recentProducts = await _context.Products
-                .Include(p => p.Images)
-                .Include(p => p.ProductSizes)
-                    .ThenInclude(ps => ps.Size)
-                .Include(p => p.Brand)
-                .OrderByDescending(p => p.ProductId)
-                .Take(4)
-                .Select(p => new Product
-                {
-                    ProductId = p.ProductId,
-                    Name = p.Name,
-                    Description = p.Description,
-                    Brand = p.Brand,
-                    CategoryId = p.CategoryId,
-                    ProductSizes = p.ProductSizes,
-                    ImageUrl = p.Images != null && p.Images.Any()
-                        ? p.Images.First().ImageUrl
-                        : null
-                })
-                .ToListAsync();
-
-            // Tạo model ViewModel để truyền cả hai danh sách vào View
-            var viewModel = new HomeViewModel
+            try
             {
-                Categories = categories,
-                Products = products,
-                RecentProducts = recentProducts
-            };
+                // Lấy danh sách danh mục và chuyển thành List
+                var categories = await _categoryRepository.GetAllAsync();
+                var categoryList = categories.ToList(); // Explicitly convert to List<Category>
 
-            return View(viewModel);
+                // Lấy tất cả sản phẩm (giới hạn để tối ưu)
+                var products = await _productRepository.GetAllAsync();
+
+                // Lấy 4 sản phẩm mới nhất
+                var recentProducts = products
+                    .OrderByDescending(p => p.ProductId)
+                    .Take(4)
+                    .ToList();
+
+                // Tạo ViewModel
+                var viewModel = new HomeViewModel
+                {
+                    Categories = categoryList, // Assign List<Category>
+                    Products = products.Take(8).ToList(), // Lấy tối đa 8 sản phẩm nổi bật
+                    RecentProducts = recentProducts
+                };
+
+                return View(viewModel);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error loading home page data");
+                return View("Error", new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            }
         }
 
         public IActionResult Privacy()

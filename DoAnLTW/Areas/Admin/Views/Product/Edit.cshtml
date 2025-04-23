@@ -1,168 +1,173 @@
 ﻿@model DoAnLTW.Models.Product
-
 @{
-    ViewData["Title"] = "Sửa sản phẩm";
+    ViewData["Title"] = "Sửa Sản Phẩm";
     Layout = "~/Areas/Admin/Views/Shared/layoutAdmin.cshtml";
+    }
+<h2>Sửa Sản Phẩm</h2>
+
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger">@TempData["ErrorMessage"]</div>
+}
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success">@TempData["SuccessMessage"]</div>
 }
 
-<h2 class="text-center">Sửa sản phẩm</h2>
+<form asp-action="Edit" method="post" enctype="multipart/form-data">
+    <input type="hidden" asp-for="ProductId" />
 
-<div class="row">
-    <div class="col-md-8 offset-md-2">
-        <form asp-action="Edit" asp-controller="Product" asp-area="Admin" method="post" enctype="multipart/form-data">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="ProductId" />
-
-            <div class="form-group mb-3">
-                <label asp-for="Name" class="control-label">Tên sản phẩm</label>
-                <input asp-for="Name" class="form-control" />
-                <span asp-validation-for="Name" class="text-danger"></span>
-            </div>
-
-            <div class="form-group mb-3">
-                <label asp-for="Description" class="control-label">Mô tả sản phẩm</label>
-                <textarea asp-for="Description" class="form-control" rows="4"></textarea>
-                <span asp-validation-for="Description" class="text-danger"></span>
-            </div>
-
-            <div class="form-group mb-3">
-                <label asp-for="BrandId" class="control-label">Thương hiệu</label>
-                <select asp-for="BrandId" class="form-control" asp-items="ViewBag.BrandList">
-                    <option value="">-- Chọn thương hiệu --</option>
-                </select>
-                <span asp-validation-for="BrandId" class="text-danger"></span>
-            </div>
-
-            <div class="form-group mb-3">
-                <label asp-for="CategoryId" class="control-label">Danh mục</label>
-                <select asp-for="CategoryId" class="form-control" asp-items="ViewBag.CategoryList">
-                    <option value="">-- Chọn danh mục --</option>
-                </select>
-                <span asp-validation-for="CategoryId" class="text-danger"></span>
-            </div>
-
-            <div class="form-group mb-3">
-                <label>Chọn kích thước, số lượng và giá</label>
-                <table class="table table-bordered">
-                    <thead>
-                        <tr>
-                            <th>Kích thước</th>
-                            <th>Số lượng</th>
-                            <th>Giá (VND)</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (var size in ViewBag.Sizes)
-                        {
-                            var productSize = Model.ProductSizes?.FirstOrDefault(ps => ps.SizeId == size.Id);
-                            <tr>
-                                <td>
-                                    <input type="checkbox" name="selectedSizes" value="@size.Id" id="size_@size.Id" @(productSize != null ? "checked" : "") />
-                                    <label for="size_@size.Id">@size.size</label>
-                                </td>
-                                <td>
-                                    <input type="number" name="sizeQuantities" class="form-control" min="0" value="@(productSize != null ? productSize.Stock : "")" @(productSize == null ? "disabled" : "") />
-                                </td>
-                                <td>
-                                    <input type="number" name="sizePrices" class="form-control" min="0" step="0.01" value="@(productSize != null ? productSize.Price : "")" @(productSize == null ? "disabled" : "") />
-                                </td>
-                            </tr>
-                        }
-                    </tbody>
-                </table>
-            </div>
-
-            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editImageModal">
-                Chỉnh sửa ảnh
-            </button>
-
-            <div class="form-group text-center mt-3">
-                <button type="submit" class="btn btn-success">Cập nhật</button>
-                <a asp-action="Index" asp-controller="Product" asp-area="Admin" class="btn btn-secondary">Quay lại</a>
-            </div>
-        </form>
+    <div class="form-group">
+        <label asp-for="Name" class="control-label">Tên sản phẩm</label>
+        <input asp-for="Name" class="form-control" />
+        <span asp-validation-for="Name" class="text-danger"></span>
     </div>
-</div>
 
-<!-- Modal chỉnh sửa ảnh -->
-<div class="modal fade" id="editImageModal" tabindex="-1" aria-labelledby="editImageModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="editImageModalLabel">Chỉnh sửa ảnh sản phẩm</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <div class="image-container d-flex flex-wrap gap-2">
-                    @if (Model.Images != null && Model.Images.Any())
-                    {
-                        @foreach (var img in Model.Images)
-                        {
-                            <div class="image-item position-relative">
-                                <img src="@img.ImageUrl" alt="Ảnh sản phẩm" class="product-image" />
-                                <form asp-action="DeleteImage" method="post" class="delete-form d-inline">
-                                    <input type="hidden" name="imageId" value="@img.ProductId" />
-                                    <button type="submit" class="delete-btn">✖</button>
-                                </form>
-                            </div>
-                        }
-                    }
-                    else
-                    {
-                        <p>Chưa có hình ảnh</p>
-                    }
+    <div class="form-group">
+        <label asp-for="Description" class="control-label">Mô tả</label>
+        <textarea asp-for="Description" class="form-control" rows="4"></textarea>
+        <span asp-validation-for="Description" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="CategoryId" class="control-label">Danh mục</label>
+        <select asp-for="CategoryId" class="form-control" asp-items="ViewBag.Categories"></select>
+        <span asp-validation-for="CategoryId" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="BrandId" class="control-label">Thương hiệu</label>
+        <select asp-for="BrandId" class="form-control" asp-items="ViewBag.Brands"></select>
+        <span asp-validation-for="BrandId" class="text-danger"></span>
+    </div>
+
+    <!-- Product Sizes -->
+    <h4>Kích thước và giá</h4>
+    <div id="size-container" class="mb-3">
+        @if (Model.ProductSizes != null && Model.ProductSizes.Any())
+        {
+            for (int i = 0; i < Model.ProductSizes.Count; i++)
+            {
+                <div class="size-row row mb-2">
+                    <div class="col-md-4">
+                        <label>Kích thước</label>
+                        <select name="selectedSizes[@i]" class="form-control">
+                            @foreach (var size in ViewBag.Sizes)
+                            {
+                                <option value="@size.SizeId" selected="@(size.SizeId == Model.ProductSizes[i].SizeId ? "selected" : null)">@(size.size ?? "Không có tên")</option>
+                            }
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <label>Số lượng</label>
+                        <input type="number" name="sizeQuantities[@i]" class="form-control" value="@Model.ProductSizes[i].Stock" min="0" />
+                    </div>
+                    <div class="col-md-3">
+                        <label>Giá (VNĐ)</label>
+                        <input type="number" name="sizePrices[@i]" class="form-control" value="@Model.ProductSizes[i].Price" step="0.01" min="0" />
+                    </div>
+                    <div class="col-md-2">
+                        <button type="button" class="btn btn-danger remove-size mt-4">Xóa</button>
+                    </div>
                 </div>
-                <form asp-action="UploadImages" asp-controller="Product" asp-area="Admin" method="post" enctype="multipart/form-data" class="mt-3">
-                    <input type="hidden" name="ProductId" value="@Model.ProductId" />
-                    <div class="form-group mb-3">
-                        <label class="control-label">Chọn hình ảnh</label>
-                        <input type="file" name="ImageFiles" multiple class="form-control" />
-                    </div>
-                    <div class="form-group text-center">
-                        <button type="submit" class="btn btn-success">Tải lên</button>
-                    </div>
-                </form>
-            </div>
-        </div>
+            }
+        }
     </div>
-</div>
+    <button type="button" id="add-size" class="btn btn-primary mb-3">Thêm kích thước</button>
 
-<style>
-    .product-image {
-        width: 60px;
-        height: 60px;
-        object-fit: cover;
-        border: 1px solid #ddd;
-        border-radius: 5px;
-    }
+    <!-- Images -->
+    <h4>Hình ảnh sản phẩm</h4>
+    <div class="form-group">
+        <label>Thêm hình ảnh mới</label>
+        <input type="file" name="imageFiles" class="form-control-file" multiple accept="image/*" />
+    </div>
+    <div class="row">
+        @if (Model.Images != null && Model.Images.Any())
+        {
+            foreach (var image in Model.Images)
+            {
+                <div class="col-md-3 mb-3">
+                    <img src="@image.ImageUrl" class="img-fluid" style="max-height: 150px;" alt="Hình ảnh sản phẩm" />
+                    <button type="button" class="btn btn-danger btn-sm mt-2 delete-image" data-image-id="@image.Product_ImagesId">Xóa</button>
+                </div>
+            }
+        }
+        else
+        {
+            <p>Chưa có hình ảnh.</p>
+        }
+    </div>
 
-    .delete-btn {
-        position: absolute;
-        top: -5px;
-        right: -5px;
-        background: red;
-        color: white;
-        border: none;
-        border-radius: 50%;
-        width: 20px;
-        height: 20px;
-        cursor: pointer;
-        font-size: 14px;
-        line-height: 20px;
-        text-align: center;
-    }
-</style>
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary">Lưu</button>
+        <a asp-action="Index" class="btn btn-secondary">Hủy</a>
+    </div>
+</form>
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
     <script>
         $(document).ready(function () {
-            $("input[name='selectedSizes']").change(function () {
-                var row = $(this).closest("tr");
-                var inputs = row.find("input[name='sizeQuantities'], input[name='sizePrices']");
-                inputs.prop("disabled", !this.checked);
-                if (!this.checked) {
-                    inputs.val("");
+            let sizeIndex = @Model.ProductSizes?.Count ?? 0;
+
+            // Thêm hàng kích thước mới
+            $("#add-size").click(function () {
+                let sizeOptions = `@foreach (var size in ViewBag.Sizes)
+        {
+                        <option value="@size.SizeId">@(size.size ?? "Không có tên")</option>
+        }`;
+                let html = `
+                    <div class="size-row row mb-2">
+                        <div class="col-md-4">
+                            <label>Kích thước</label>
+                            <select name="selectedSizes[${sizeIndex}]" class="form-control">
+                                ${sizeOptions}
+                            </select>
+                        </div>
+                        <div class="col-md-3">
+                            <label>Số lượng</label>
+                            <input type="number" name="sizeQuantities[${sizeIndex}]" class="form-control" value="0" min="0" />
+                        </div>
+                        <div class="col-md-3">
+                            <label>Giá (VNĐ)</label>
+                            <input type="number" name="sizePrices[${sizeIndex}]" class="form-control" value="0" step="0.01" min="0" />
+                        </div>
+                        <div class="col-md-2">
+                            <button type="button" class="btn btn-danger remove-size mt-4">Xóa</button>
+                        </div>
+                    </div>`;
+                $("#size-container").append(html);
+                sizeIndex++;
+            });
+
+            // Xóa hàng kích thước
+            $(document).on("click", ".remove-size", function () {
+                $(this).closest(".size-row").remove();
+            });
+
+            // Xóa hình ảnh
+            $(document).on("click", ".delete-image", function () {
+                let imageId = $(this).data("image-id");
+                if (confirm("Bạn có chắc muốn xóa hình ảnh này?")) {
+                    $.ajax({
+                        url: '@Url.Action("DeleteImage", "Product", new { area = "Admin" })',
+                        type: 'POST',
+                        data: { imageId: imageId },
+                        headers: {
+                            'RequestVerificationToken': $('input[name="__RequestVerificationToken"]').val()
+                        },
+                        success: function (result) {
+                            if (result.success) {
+                                $(`button[data-image-id="${imageId}"]`).closest(".col-md-3").remove();
+                                alert("Xóa hình ảnh thành công!");
+                            } else {
+                                alert(result.message);
+                            }
+                        },
+                        error: function () {
+                            alert("Lỗi khi xóa hình ảnh.");
+                        }
+                    });
                 }
             });
         });
