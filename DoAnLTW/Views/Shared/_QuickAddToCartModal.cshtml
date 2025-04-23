@@ -1,0 +1,176 @@
+@model DoAnLTW.Models.Product
+
+<div class="modal fade" id="quickAddToCartModal" tabindex="-1" role="dialog" aria-labelledby="quickAddToCartModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="quickAddToCartModalLabel">Chọn size</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label><strong>Chọn Size:</strong></label>
+                    <div class="size-options">
+                        @foreach (var ps in Model.ProductSizes.DistinctBy(p => p.Size.size))
+                        {
+                            <input type="radio" id="modal_size_@ps.Size.size" name="modal_size" value="@ps.Size.size" data-stock="@ps.Stock" class="size-radio">
+                            <label for="modal_size_@ps.Size.size" class="size-label">Size @ps.Size.size</label>
+                        }
+                    </div>
+                </div>
+
+                <p id="modalStockQuantity" class="text-success mt-3"><strong>Số lượng có sẵn: </strong> <span id="modalAvailableStock">0</span></p>
+
+                <div class="form-group mt-3">
+                    <label for="modalQuantityInput"><strong>Số lượng:</strong></label>
+                    <div class="input-group justify-content-center quantity-box">
+                        <button class="btn btn-black" type="button" onclick="changeModalQuantity(-1)">−</button>
+                        <input type="number" id="modalQuantityInput" class="form-control text-center mx-2 small-input" value="1" min="1">
+                        <button class="btn btn-black" type="button" onclick="changeModalQuantity(1)">+</button>
+                    </div>
+                </div>
+                <input type="hidden" id="modalProductId" value="@Model.ProductId" />
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                <button type="button" class="btn btn-primary" onclick="addToCartFromModal()">Thêm vào giỏ hàng</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.querySelectorAll('input[name="modal_size"]').forEach(radio => {
+        radio.addEventListener('change', function() {
+            let stock = this.getAttribute("data-stock") || "0";
+            document.getElementById("modalAvailableStock").innerText = stock;
+            document.getElementById("modalQuantityInput").value = 1;
+        });
+    });
+
+    function changeModalQuantity(amount) {
+        let quantityInput = document.getElementById("modalQuantityInput");
+        let stockQuantity = parseInt(document.getElementById("modalAvailableStock").innerText || "0");
+
+        let currentQuantity = parseInt(quantityInput.value) || 1;
+        let newQuantity = currentQuantity + amount;
+
+        if (newQuantity < 1) {
+            newQuantity = 1;
+        } else if (newQuantity > stockQuantity) {
+            newQuantity = stockQuantity;
+        }
+
+        quantityInput.value = newQuantity;
+    }
+
+    function addToCartFromModal() {
+        var productId = document.getElementById("modalProductId").value;
+        var selectedSize = document.querySelector('input[name="modal_size"]:checked');
+        var size = selectedSize ? selectedSize.value : "";
+        var quantity = document.getElementById("modalQuantityInput").value;
+
+        if (!size) {
+            alert("Vui lòng chọn size trước khi thêm vào giỏ hàng!");
+            return;
+        }
+
+        fetch('/Cart/AddToCart?productId=' + productId + '&size=' + size + '&quantity=' + quantity, {
+            method: 'GET'
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                // Cập nhật số lượng trên icon giỏ hàng
+                document.querySelectorAll('.fa-shopping-cart').forEach(icon => {
+                    const badge = icon.nextElementSibling;
+                    if (badge) {
+                        badge.textContent = data.count;
+                    }
+                });
+                alert("Sản phẩm đã được thêm vào giỏ hàng!");
+                $('#quickAddToCartModal').modal('hide');
+            } else {
+                alert(data.message);
+            }
+        })
+        .catch(error => {
+            console.error('Lỗi:', error);
+            alert("Lỗi! Không thể thêm vào giỏ hàng: " + error.message);
+        });
+    }
+
+    document.getElementById("modalQuantityInput").addEventListener("input", function() {
+        let stockQuantity = parseInt(document.getElementById("modalAvailableStock").innerText || "0");
+        let inputValue = parseInt(this.value) || 1;
+
+        if (inputValue < 1) {
+            this.value = 1;
+        } else if (inputValue > stockQuantity) {
+            this.value = stockQuantity;
+        }
+    });
+</script>
+
+<style>
+    .size-options {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+
+    .size-radio {
+        display: none;
+    }
+
+    .size-label {
+        padding: 10px 15px;
+        border: 2px solid #ccc;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 16px;
+        background-color: #fff;
+        transition: all 0.3s ease;
+    }
+
+    .size-radio:checked + .size-label {
+        background-color: black;
+        color: white;
+        border-color: black;
+    }
+
+    .quantity-box {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 5px;
+    }
+
+    .small-input {
+        width: 50px;
+        height: 35px;
+        text-align: center;
+        font-size: 16px;
+        padding: 5px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+
+    .btn-black {
+        background-color: black !important;
+        color: white !important;
+        border: none;
+        width: 35px;
+        height: 35px;
+        font-size: 20px;
+        text-align: center;
+        line-height: 30px;
+        border-radius: 5px;
+    }
+
+    .btn-black:hover {
+        background-color: #333 !important;
+    }
+</style> 

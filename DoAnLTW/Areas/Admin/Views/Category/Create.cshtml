@@ -1,0 +1,45 @@
+﻿@model DoAnLTW.Models.Category
+
+@{
+    ViewData["Title"] = "Thêm Danh Mục";
+    Layout = "~/Areas/Admin/Views/Shared/layoutAdmin.cshtml";
+}
+
+<h2>Thêm Danh Mục</h2>
+
+<form asp-action="Create" method="post" enctype="multipart/form-data">
+    <div class="form-group">
+        <label for="Name">Tên Danh Mục</label>
+        <input asp-for="Name" class="form-control" required />
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+    <div class="form-group mb-3">
+        <label class="control-label">Hình ảnh danh mục</label>
+        <input type="file" name="ImageFile" class="form-control" accept="image/*" id="imageInput" onchange="previewImage(event)" />
+
+        @if (!string.IsNullOrEmpty(Model?.ImageUrl))
+        {
+            <img id="preview" src="@Model.ImageUrl" alt="Ảnh danh mục" width="100" class="mt-2" />
+        }
+        else
+        {
+            <img id="preview" src="#" alt="Ảnh danh mục" width="100" class="mt-2" style="display: none;" />
+        }
+
+        <span class="text-danger" asp-validation-for="ImageUrl"></span>
+    </div>
+
+    <button type="submit" class="btn btn-success mt-2">Lưu</button>
+    <a asp-action="Index" class="btn btn-secondary mt-2">Quay lại</a>
+</form>
+<script>
+    function previewImage(event) {
+        var reader = new FileReader();
+        reader.onload = function(){
+            var output = document.getElementById('preview');
+            output.src = reader.result;
+            output.style.display = "block";
+        };
+        reader.readAsDataURL(event.target.files[0]);
+    }
+</script>

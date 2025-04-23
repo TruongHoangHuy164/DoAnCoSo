@@ -1,0 +1,202 @@
+﻿@model List<DoAnLTW.Models.ProductSize>
+
+@{
+    ViewData["Title"] = "Danh sách Size sản phẩm";
+    Layout = "~/Areas/Admin/Views/Shared/layoutAdmin.cshtml";
+}
+
+<style>
+    /* Tùy chỉnh bảng */
+    .table {
+        border-collapse: separate;
+        border-spacing: 0 10px;
+        background-color: #fff;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        border-radius: 10px;
+        overflow: hidden;
+    }
+
+        .table thead th {
+            background-color: #007bff;
+            color: white;
+            text-transform: uppercase;
+            font-weight: bold;
+            padding: 15px;
+            border: none;
+        }
+
+        .table tbody tr {
+            transition: all 0.3s ease;
+        }
+
+            .table tbody tr:hover {
+                background-color: #f1f8ff;
+                transform: scale(1.02);
+                box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+            }
+
+        .table td {
+            padding: 15px;
+            vertical-align: middle;
+        }
+
+    /* Tùy chỉnh tiêu đề */
+    h2.text-center {
+        color: #007bff;
+        font-weight: bold;
+        text-transform: uppercase;
+        margin-bottom: 30px;
+        animation: fadeInDown 0.5s ease-in-out;
+    }
+
+    /* Tùy chỉnh nút Thêm Size */
+    .btn-success {
+        padding: 10px 20px;
+        background-color: #28a745;
+        border: none;
+        border-radius: 5px;
+        font-weight: bold;
+        transition: all 0.3s ease;
+    }
+
+        .btn-success:hover {
+            background-color: #218838;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(40, 167, 69, 0.3);
+        }
+
+    /* Tùy chỉnh nút Sửa */
+    .btn-warning {
+        padding: 8px 15px;
+        background-color: #ffc107;
+        color: #212529;
+        border: none;
+        border-radius: 5px;
+        font-weight: bold;
+        transition: all 0.3s ease;
+    }
+
+        .btn-warning:hover {
+            background-color: #e0a800;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(255, 193, 7, 0.3);
+        }
+
+    /* Tùy chỉnh nút Xóa */
+    .btn-danger {
+        padding: 8px 15px;
+        background-color: #dc3545;
+        border: none;
+        border-radius: 5px;
+        font-weight: bold;
+        transition: all 0.3s ease;
+    }
+
+        .btn-danger:hover {
+            background-color: #c82333;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(220, 53, 69, 0.3);
+        }
+
+    /* Tùy chỉnh nút cập nhật số lượng (+ và -) */
+    .update-quantity.btn-danger {
+        padding: 5px 10px;
+        font-size: 14px;
+        transition: all 0.3s ease;
+    }
+
+        .update-quantity.btn-danger:hover {
+            background-color: #c82333;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(220, 53, 69, 0.3);
+        }
+
+    .update-quantity.btn-success {
+        padding: 5px 10px;
+        font-size: 14px;
+        transition: all 0.3s ease;
+    }
+
+        .update-quantity.btn-success:hover {
+            background-color: #218838;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(40, 167, 69, 0.3);
+        }
+
+    /* Tùy chỉnh số lượng */
+    .d-flex span {
+        font-weight: bold;
+        color: #333;
+        min-width: 30px;
+        text-align: center;
+    }
+
+    /* Hiệu ứng animation */
+    @@keyframes fadeInDown {
+        from {
+            opacity: 0;
+            transform: translateY(-20px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+</style>
+
+<h2 class="text-center">Danh sách Size sản phẩm</h2>
+
+<a asp-action="Create" class="btn btn-success mb-3">Thêm Size</a>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Tên sản phẩm</th>
+            <th>Size</th>
+            <th>Số lượng</th>
+            <th>Hành động</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Product?.Name</td>
+                <td>@item.Size?.size</td>
+                <td class="d-flex align-items-center">
+                    <button class="btn btn-sm btn-danger me-2 update-quantity" data-id="@item.Id" data-change="-1">-</button>
+                    <span id="quantity-@item.Id">@item.Stock</span>
+                    <button class="btn btn-sm btn-success ms-2 update-quantity" data-id="@item.Id" data-change="1">+</button>
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-warning btn-sm">Sửa</a>
+                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger btn-sm" onclick="return confirm('Bạn có chắc chắn muốn xóa?');">Xóa</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<script>
+    document.querySelectorAll('.update-quantity').forEach(button => {
+        button.addEventListener('click', function () {
+            let id = this.getAttribute('data-id');
+            let change = parseInt(this.getAttribute('data-change'));
+
+            fetch(`/Admin/ProductSize/UpdateQuantity?id=${id}&change=${change}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-Requested-With': 'XMLHttpRequest'
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    document.getElementById(`quantity-${id}`).textContent = data.quantity;
+                }
+            });
+        });
+    });
+</script>

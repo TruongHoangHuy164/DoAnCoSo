@@ -1,0 +1,509 @@
+﻿@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_LayoutHome.cshtml";
+}
+
+<!-- Breadcrumb Start -->
+<div class="container-fluid">
+    <div class="row px-xl-5">
+        <div class="col-12">
+            <nav class="breadcrumb bg-light mb-30">
+                <a class="breadcrumb-item text-dark" asp-controller="Home" asp-action="Index">Trang chủ</a>
+                <a class="breadcrumb-item text-dark" asp-controller="Shop" asp-action="Index">Sản phẩm</a>
+            </nav>
+        </div>
+    </div>
+</div>
+<!-- Breadcrumb End -->
+<!-- Shop Start -->
+<div class="container-fluid">
+    <div class="row px-xl-5">
+        <!-- Shop Sidebar Start -->
+        <div class="col-lg-3 col-md-4">
+            <!-- Price Start -->
+            <h5 class="section-title position-relative text-uppercase mb-3"><span class="bg-secondary pr-3">LỌC THEO GIÁ</span></h5>
+            <div class="bg-light p-4 mb-30">
+                <form id="filterForm">
+                    <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
+                        <input type="checkbox" class="custom-control-input price-filter" checked id="price-all" value="">
+                        <label class="custom-control-label" for="price-all">Tất cả</label>
+                        <span class="badge border font-weight-normal">@ViewBag.TotalProducts</span>
+                    </div>
+                    @foreach (var range in ViewBag.PriceRanges)
+                    {
+                        var rangeText = range.Range.Max != null
+                        ? $"{range.Range.Min:N0} - {range.Range.Max:N0} VNĐ"
+                        : $"Trên {range.Range.Min:N0} VNĐ";
+                        <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
+                            <input type="checkbox" class="custom-control-input price-filter"
+                                   id="price-@range.Range.Min"
+                                   value="@range.Range.Min-@range.Range.Max">
+                            <label class="custom-control-label" for="price-@range.Range.Min">@rangeText</label>
+                            <span class="badge border font-weight-normal">@range.Count</span>
+                        </div>
+                    }
+                </form>
+            </div>
+            <!-- Price End -->
+            <!-- Category Start -->
+            <h5 class="section-title position-relative text-uppercase mb-3"><span class="bg-secondary pr-3">PHÂN LOẠI</span></h5>
+            <div class="bg-light p-4 mb-30">
+                <form>
+                    <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
+                        <input type="checkbox" class="custom-control-input category-filter" checked id="category-all" value="">
+                        <label class="custom-control-label" for="category-all">Tất cả</label>
+                        <span class="badge border font-weight-normal">@ViewBag.TotalProducts</span>
+                    </div>
+                    @foreach (var category in ViewBag.Categories)
+                    {
+                        <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
+                            <input type="checkbox" class="custom-control-input category-filter" id="category-@category.Id" value="@category.Id">
+                            <label class="custom-control-label" for="category-@category.Id">@category.Name</label>
+                            <span class="badge border font-weight-normal">@category.ProductCount</span>
+                        </div>
+                    }
+                </form>
+            </div>
+            <!-- Category End -->
+            <!-- Size Start -->
+            <h5 class="section-title position-relative text-uppercase mb-3"><span class="bg-secondary pr-3">LỌC THEO SIZE</span></h5>
+            <div class="bg-light p-4 mb-30">
+                <form>
+                    <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
+                        <input type="checkbox" class="custom-control-input size-filter" checked id="size-all" value="">
+                        <label class="custom-control-label" for="size-all">Tất cả</label>
+                        <span class="badge border font-weight-normal">@ViewBag.TotalProducts</span>
+                    </div>
+                    @foreach (var size in ViewBag.Sizes)
+                    {
+                        <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
+                            <input type="checkbox" class="custom-control-input size-filter" id="size-@size.Id" value="@size.Id">
+                            <label class="custom-control-label" for="size-@size.Id">Size @size.SizeDisplay</label>
+                            <span class="badge border font-weight-normal">@size.ProductCount</span>
+                        </div>
+                    }
+                </form>
+            </div>
+            <!-- Size End -->
+        </div>
+        <!-- Shop Sidebar End -->
+        <!-- Shop Product Start -->
+        <div class="col-lg-9 col-md-8">
+            <div class="row pb-3">
+                <div class="col-12 pb-1">
+                    <div class="d-flex align-items-center justify-content-between mb-4">
+                        <div>
+                            <button class="btn btn-sm btn-light"><i class="fa fa-th-large"></i></button>
+                            <button class="btn btn-sm btn-light ml-2"><i class="fa fa-bars"></i></button>
+                        </div>
+                        <div class="ml-2">
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-sm btn-light dropdown-toggle" data-toggle="dropdown">Sắp xếp</button>
+                                <div class="dropdown-menu dropdown-menu-right">
+                                    <a class="dropdown-item" href="#">Gần nhất</a>
+                                    <a class="dropdown-item" href="#">Phổ biến</a>
+                                    <a class="dropdown-item" href="#">Bán chạy nhất</a>
+                                </div>
+                            </div>
+                            <div class="btn-group ml-2">
+                                <button type="button" class="btn btn-sm btn-light dropdown-toggle" data-toggle="dropdown">Hiển thị</button>
+                                <div class="dropdown-menu dropdown-menu-right">
+                                    <a class="dropdown-item" href="#">10</a>
+                                    <a class="dropdown-item" href="#">20</a>
+                                    <a class="dropdown-item" href="#">30</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                @model IEnumerable<DoAnLTW.Models.Product>
+
+                <!-- Danh sách sản phẩm -->
+                <style>
+                    .product-img {
+                        position: relative;
+                        overflow: hidden;
+                        padding-top: 100%;
+                    }
+
+                        .product-img img {
+                            position: absolute;
+                            top: 0;
+                            left: 0;
+                            height: 100%;
+                            width: 100%;
+                            object-fit: cover;
+                        }
+
+                    .product-action {
+                        position: absolute;
+                        width: 100%;
+                        height: 100%;
+                        top: 0;
+                        left: 0;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        transition: .5s;
+                        background: rgba(255, 255, 255, 0.7);
+                        opacity: 0;
+                    }
+
+                        .product-action a {
+                            display: inline-block;
+                            width: 40px;
+                            height: 40px;
+                            margin: 0 5px;
+                            padding: 7px 0;
+                            text-align: center;
+                            border-radius: 0;
+                        }
+
+                    .product-item:hover .product-action {
+                        opacity: 1;
+                    }
+
+                    .size-options {
+                        display: flex;
+                        flex-wrap: wrap;
+                        gap: 10px;
+                    }
+
+                    .size-radio {
+                        display: none;
+                    }
+
+                    .size-label {
+                        padding: 10px 15px;
+                        border: 2px solid #ccc;
+                        border-radius: 5px;
+                        cursor: pointer;
+                        font-size: 16px;
+                        background-color: #fff;
+                        transition: all 0.3s ease;
+                    }
+
+                    .size-radio:checked + .size-label {
+                        background-color: black;
+                        color: white;
+                        border-color: black;
+                    }
+
+                    .quantity-box {
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        gap: 5px;
+                    }
+
+                    .small-input {
+                        width: 50px;
+                        height: 35px;
+                        text-align: center;
+                        font-size: 16px;
+                        padding: 5px;
+                        border: 1px solid #ccc;
+                        border-radius: 5px;
+                    }
+
+                    .btn-black {
+                        background-color: black !important;
+                        color: white !important;
+                        border: none;
+                        width: 35px;
+                        height: 35px;
+                        font-size: 20px;
+                        text-align: center;
+                        line-height: 30px;
+                        border-radius: 5px;
+                    }
+
+                        .btn-black:hover {
+                            background-color: #333 !important;
+                        }
+                </style>
+
+                @{
+                    var favouriteProducts = ViewBag.FavouriteProducts as List<int> ?? new List<int>();
+                }
+
+                <!-- Danh sách sản phẩm begin -->
+                @foreach (var product in Model)
+                {
+                    var minPrice = product.ProductSizes != null && product.ProductSizes.Any()
+                    ? product.ProductSizes.Min(ps => ps.Price)
+                    : 0M;
+
+                    <div class="col-lg-4 col-md-6 col-sm-6 pb-1">
+                        <div class="product-item bg-light mb-4">
+                            <div class="product-img position-relative overflow-hidden">
+                                <img class="img-fluid w-100" src="@(string.IsNullOrEmpty(product.ImageUrl) ? "/img/default-product.jpg" : product.ImageUrl)" alt="@product.Name">
+                                <div class="product-action">
+                                    <a class="btn btn-outline-dark btn-square" href="javascript:void(0)" onclick="showQuickAddToCart(@product.ProductId)">
+                                        <i class="fa fa-shopping-cart"></i>
+                                    </a>
+                                    <a class="btn btn-outline-dark btn-square" href="javascript:void(0)" onclick="toggleFavourite(@product.ProductId)">
+                                        <i class="@(favouriteProducts.Contains(product.ProductId) ? "fas fa-heart" : "far fa-heart")"></i>
+                                    </a>
+                                    <a class="btn btn-outline-dark btn-square" href="@Url.Action("Detail", "Shop", new { id = product.ProductId })">
+                                        <i class="fa fa-search"></i>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="text-center py-4">
+                                <a class="h6 text-decoration-none text-truncate" href="@Url.Action("Detail", "Shop", new { id = product.ProductId })">@product.Name</a>
+                                <div class="d-flex align-items-center justify-content-center mt-2">
+                                    <h5>@minPrice.ToString("#,##0 VNĐ")</h5>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Modal cho sản phẩm -->
+                    <div class="modal fade" id="quickAddToCartModal_@product.ProductId" tabindex="-1" role="dialog" aria-labelledby="quickAddToCartModalLabel_@product.ProductId" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="quickAddToCartModalLabel_@product.ProductId">Chọn size - @product.Name</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">×</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="form-group">
+                                        <label><strong>Chọn Size:</strong></label>
+                                        <div class="size-options">
+                                            @foreach (var ps in product.ProductSizes)
+                                            {
+                                                <input type="radio" id="modal_size_@(product.ProductId)_@ps.SizeId" name="modal_size_@product.ProductId" value="@ps.SizeId" data-stock="@ps.Stock" data-price="@ps.Price" class="size-radio">
+                                                <label for="modal_size_@(product.ProductId)_@ps.SizeId" class="size-label">Size @(ps.Size != null ? ps.Size.size : "Không xác định")</label>
+                                            }
+                                        </div>
+                                    </div>
+
+                                    <p id="modalStockQuantity_@product.ProductId" class="text-success mt-3">
+                                        <strong>Số lượng có sẵn: </strong>
+                                        <span id="modalAvailableStock_@product.ProductId">0</span>
+                                    </p>
+
+                                    <p id="modalPrice_@product.ProductId" class="text-success mt-3">
+                                        <strong>Giá: </strong>
+                                        <span id="modalPriceValue_@product.ProductId">0 VNĐ</span>
+                                    </p>
+
+                                    <div class="form-group mt-3">
+                                        <label for="modalQuantityInput_@product.ProductId"><strong>Số lượng:</strong></label>
+                                        <div class="input-group justify-content-center quantity-box">
+                                            <button class="btn btn-black" type="button" onclick="changeModalQuantity(@product.ProductId, -1)">−</button>
+                                            <input type="number" id="modalQuantityInput_@product.ProductId" class="form-control text-center mx-2 small-input" value="1" min="1">
+                                            <button class="btn btn-black" type="button" onclick="changeModalQuantity(@product.ProductId, 1)">+</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                                    <button type="button" class="btn btn-primary" onclick="addToCartFromModal(@product.ProductId)">Thêm vào giỏ hàng</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+                <!-- Danh sách sản phẩm end -->
+            </div>
+        </div>
+        <!-- Shop Product End -->
+    </div>
+</div>
+<!-- Shop End -->
+
+<script>
+    function showQuickAddToCart(productId) {
+        $(`#quickAddToCartModal_${productId}`).modal('show');
+
+        // Reset form khi mở modal
+        document.querySelectorAll(`input[name="modal_size_${productId}"]`).forEach(radio => {
+            radio.checked = false;
+        });
+        document.getElementById(`modalQuantityInput_${productId}`).value = 1;
+        document.getElementById(`modalAvailableStock_${productId}`).innerText = "0";
+        document.getElementById(`modalPriceValue_${productId}`).innerText = "0 VNĐ";
+    }
+
+    // Thêm event listener cho các radio button size
+    document.addEventListener('DOMContentLoaded', function () {
+        document.querySelectorAll('.size-radio').forEach(radio => {
+            radio.addEventListener('change', function () {
+                const productId = this.getAttribute('name').split('_')[2];
+                const stock = this.getAttribute("data-stock") || "0";
+                const price = this.getAttribute("data-price") || "0";
+                document.getElementById(`modalAvailableStock_${productId}`).innerText = stock;
+                document.getElementById(`modalPriceValue_${productId}`).innerText = parseFloat(price).toLocaleString('vi-VN') + " VNĐ";
+                document.getElementById(`modalQuantityInput_${productId}`).value = 1;
+            });
+        });
+    });
+
+    function changeModalQuantity(productId, amount) {
+        let quantityInput = document.getElementById(`modalQuantityInput_${productId}`);
+        let stockQuantity = parseInt(document.getElementById(`modalAvailableStock_${productId}`).innerText || "0");
+
+        let currentQuantity = parseInt(quantityInput.value) || 1;
+        let newQuantity = currentQuantity + amount;
+
+        if (newQuantity < 1) {
+            newQuantity = 1;
+        } else if (newQuantity > stockQuantity) {
+            newQuantity = stockQuantity;
+        }
+
+        quantityInput.value = newQuantity;
+    }
+
+    function addToCartFromModal(productId) {
+        var selectedSize = document.querySelector(`input[name="modal_size_${productId}"]:checked`);
+        var size = selectedSize ? selectedSize.value : "";
+        var quantity = document.getElementById(`modalQuantityInput_${productId}`).value;
+
+        if (!size) {
+            alert("Vui lòng chọn size trước khi thêm vào giỏ hàng!");
+            return;
+        }
+
+        fetch('/Cart/AddToCart?productId=' + productId + '&size=' + size + '&quantity=' + quantity, {
+            method: 'GET'
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    // Cập nhật số lượng trên icon giỏ hàng
+                    document.querySelectorAll('.fa-shopping-cart').forEach(icon => {
+                        const badge = icon.nextElementSibling;
+                        if (badge) {
+                            badge.textContent = data.count;
+                        }
+                    });
+                    alert("Sản phẩm đã được thêm vào giỏ hàng!");
+                    $(`#quickAddToCartModal_${productId}`).modal('hide');
+                } else {
+                    alert(data.message);
+                }
+            })
+            .catch(error => {
+                console.error('Lỗi:', error);
+                alert("Lỗi! Không thể thêm vào giỏ hàng: " + error.message);
+            });
+    }
+
+    // Xử lý nhập số lượng
+    document.addEventListener('input', function (e) {
+        if (e.target.id.startsWith('modalQuantityInput_')) {
+            const productId = e.target.id.split('_')[1];
+            let stockQuantity = parseInt(document.getElementById(`modalAvailableStock_${productId}`).innerText || "0");
+            let inputValue = parseInt(e.target.value) || 1;
+
+            if (inputValue < 1) {
+                e.target.value = 1;
+            } else if (inputValue > stockQuantity) {
+                e.target.value = stockQuantity;
+            }
+        }
+    });
+
+    // Xử lý lọc sản phẩm
+    document.addEventListener('DOMContentLoaded', function () {
+        // Xử lý khi checkbox được click
+        $('.price-filter, .brand-filter, .size-filter, .category-filter').change(function () {
+            // Xử lý checkbox "Tất cả"
+            if ($(this).attr('id').endsWith('-all')) {
+                if ($(this).prop('checked')) {
+                    $(`.${$(this).attr('class').split(' ')[1]}:not([id$=all])`).prop('checked', false);
+                }
+            } else {
+                $(`#${$(this).attr('class').split(' ')[1].replace('filter', 'all')}`).prop('checked', false);
+            }
+
+            // Lấy các giá trị đã chọn
+            var selectedPrices = getSelectedValues('price-filter');
+            var selectedBrands = getSelectedValues('brand-filter');
+            var selectedSizes = getSelectedValues('size-filter');
+            var selectedCategories = getSelectedValues('category-filter');
+
+            // Nếu không có gì được chọn trong một nhóm, chọn "Tất cả"
+            if (selectedPrices.length === 0) $('#price-all').prop('checked', true);
+            if (selectedBrands.length === 0) $('#brand-all').prop('checked', true);
+            if (selectedSizes.length === 0) $('#size-all').prop('checked', true);
+            if (selectedCategories.length === 0) $('#category-all').prop('checked', true);
+
+            // Xây dựng URL với các tham số lọc
+            var url = new URL(window.location.href);
+            url.searchParams.delete('minPrice');
+            url.searchParams.delete('maxPrice');
+            url.searchParams.delete('brandId');
+            url.searchParams.delete('size');
+            url.searchParams.delete('categoryId');
+
+            // Thêm các tham số lọc vào URL
+            if (!$('#price-all').prop('checked') && selectedPrices.length > 0) {
+                var priceRange = selectedPrices[0].split('-');
+                url.searchParams.set('minPrice', priceRange[0]);
+                if (priceRange[1] !== 'null') {
+                    url.searchParams.set('maxPrice', priceRange[1]);
+                }
+            }
+
+            if (!$('#brand-all').prop('checked') && selectedBrands.length > 0) {
+                url.searchParams.set('brandId', selectedBrands.join(','));
+            }
+
+            if (!$('#size-all').prop('checked') && selectedSizes.length > 0) {
+                url.searchParams.set('size', selectedSizes.join(','));
+            }
+
+            if (!$('#category-all').prop('checked') && selectedCategories.length > 0) {
+                url.searchParams.set('categoryId', selectedCategories[0]);
+            }
+
+            // Chuyển hướng đến URL mới
+            window.location.href = url.toString();
+        });
+
+        // Hàm lấy các giá trị đã chọn
+        function getSelectedValues(className) {
+            var values = [];
+            $('.' + className + ':checked').not('[id$=all]').each(function () {
+                values.push($(this).val());
+            });
+            return values;
+        }
+
+        // Đánh dấu các checkbox dựa trên URL hiện tại
+        var urlParams = new URLSearchParams(window.location.search);
+
+        if (urlParams.has('minPrice')) {
+            $('#price-all').prop('checked', false);
+            var min = urlParams.get('minPrice');
+            var max = urlParams.get('maxPrice') || 'null';
+            $(`input[value="${min}-${max}"]`).prop('checked', true);
+        }
+
+        if (urlParams.has('brandId')) {
+            $('#brand-all').prop('checked', false);
+            urlParams.get('brandId').split(',').forEach(function (brandId) {
+                $('#brand-' + brandId).prop('checked', true);
+            });
+        }
+
+        if (urlParams.has('size')) {
+            $('#size-all').prop('checked', false);
+            urlParams.get('size').split(',').forEach(function (size) {
+                $('#size-' + size).prop('checked', true);
+            });
+        }
+
+        if (urlParams.has('categoryId')) {
+            $('#category-all').prop('checked', false);
+            $('#category-' + urlParams.get('categoryId')).prop('checked', true);
+        }
+    });
+</script>

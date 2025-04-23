@@ -1,0 +1,14 @@
+# B? qua th? m?c build và file không c?n thi?t
+bin/
+obj/
+.vs/
+Debug/
+Release/
+*.user
+*.suo
+*.cache
+*.db
+*.exe
+*.pdb
+*.log
+*.tmp

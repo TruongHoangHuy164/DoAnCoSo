@@ -1,0 +1,272 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<!-- Carousel Start -->
+<div class="container-fluid mb-3">
+    <div class="row px-xl-5">
+        <div class="col-lg-8">
+            <div id="header-carousel" class="carousel slide carousel-fade mb-30 mb-lg-0" data-ride="carousel">
+                <ol class="carousel-indicators">
+                    <li data-target="#header-carousel" data-slide-to="0" class="active"></li>
+                    <li data-target="#header-carousel" data-slide-to="1"></li>
+                    <li data-target="#header-carousel" data-slide-to="2"></li>
+                </ol>
+                <div class="carousel-inner">
+                    <div class="carousel-item position-relative active" style="height: 430px;">
+                        <img class="position-absolute w-100 h-100" src="img/slider1.jpg" style="object-fit: cover;">
+                        <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">
+                            <div class="p-3" style="max-width: 700px;">
+                                <h1 class="display-4 text-white mb-3 animate__animated animate__fadeInDown">Yêu Boss Hết Mình</h1>
+                                <p class="mx-md-5 px-5 animate__animated animate__bounceIn">Từ thức ăn đến đồ chơi, mọi thứ boss cần đều có tại shop! 🐶🐱 Phục vụ boss chuẩn chỉnh – làm sen chuẩn gu!</p>
+                                <a asp-controller="Shop" asp-action="Index" class="btn btn-outline-light py-2 px-4 mt-3 animate__animated animate__fadeInUp">Khám Phá Ngay</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-item position-relative" style="height: 430px;">
+                        <img class="position-absolute w-100 h-100" src="img/slider2.jpg" style="object-fit: cover;">
+                        <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">
+                            <div class="p-3" style="max-width: 700px;">
+                                <h1 class="display-4 text-white mb-3 animate__animated animate__fadeInDown">Sống Chất Cùng Boss</h1>
+                                <p class="mx-md-5 px-5 animate__animated animate__bounceIn">Thời trang, phong cách, đậm cá tính – boss ra đường phải nổi bật nhất khu luôn nha! 🐾✨</p>
+                                <a asp-controller="Shop" asp-action="Index" class="btn btn-outline-light py-2 px-4 mt-3 animate__animated animate__fadeInUp">Xem Ngay</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-item position-relative" style="height: 430px;">
+                        <img class="position-absolute w-100 h-100" src="img/slider3.jpg" style="object-fit: cover;">
+                        <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">
+                            <div class="p-3" style="max-width: 700px;">
+                                <h1 class="display-4 text-white mb-3 animate__animated animate__fadeInDown">Boss Vui, Sen Mới Chill</h1>
+                                <p class="mx-md-5 px-5 animate__animated animate__bounceIn">Giúp boss khỏe mạnh, vui vẻ mỗi ngày với sản phẩm chất lượng – yêu thương từ những điều nhỏ nhất 🐕💖</p>
+                                <a asp-controller="Shop" asp-action="Index" class="btn btn-outline-light py-2 px-4 mt-3 animate__animated animate__fadeInUp">Mua Ngay</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        @* Giảm giá *@
+
+        <div class="col-lg-4">
+            <div class="product-offer mb-30" style="height: 200px;">
+                <img class="img-fluid" src="img/giamgia1.jpg" alt="Giảm giá 1">
+                <div class="offer-text">
+                    <h6 class="text-white text-uppercase">Save 20%</h6>
+                    <h3 class="text-white mb-3">Special Offer</h3>
+                    <a asp-controller="Shop" asp-action="Index" class="btn btn-primary">Shop Now</a>
+                </div>
+            </div>
+
+            <div class="product-offer mb-30" style="height: 200px;">
+                <img class="img-fluid" src="img/giamgia2.jpg" alt="Giảm giá 2">
+                <div class="offer-text">
+                    <h6 class="text-white text-uppercase">Save 20%</h6>
+                    <h3 class="text-white mb-3">Special Offer</h3>
+                    <a asp-controller="Shop" asp-action="Index" class="btn btn-primary">Shop Now</a>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+</div>
+<!-- Carousel End -->
+<!-- Tiêu chí Start -->
+<div class="container-fluid pt-5">
+    <div class="row px-xl-5 pb-3">
+        <div class="col-lg-3 col-md-6 col-sm-12 pb-1">
+            <div class="d-flex align-items-center bg-light mb-4" style="padding: 30px;">
+                <h1 class="fa fa-check text-primary m-0 mr-3"></h1>
+                <h5 class="font-weight-semi-bold m-0">Sản phẩm chất lượng</h5>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-6 col-sm-12 pb-1">
+            <div class="d-flex align-items-center bg-light mb-4" style="padding: 30px;">
+                <h1 class="fa fa-shipping-fast text-primary m-0 mr-2"></h1>
+                <h5 class="font-weight-semi-bold m-0">Giao hàng miễn phí</h5>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-6 col-sm-12 pb-1">
+            <div class="d-flex align-items-center bg-light mb-4" style="padding: 30px;">
+                <h1 class="fas fa-exchange-alt text-primary m-0 mr-3"></h1>
+                <h5 class="font-weight-semi-bold m-0">1 đổi 1 trong 14 ngày</h5>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-6 col-sm-12 pb-1">
+            <div class="d-flex align-items-center bg-light mb-4" style="padding: 30px;">
+                <h1 class="fa fa-phone-volume text-primary m-0 mr-3"></h1>
+                <h5 class="font-weight-semi-bold m-0">Hỗ trợ 24/7</h5>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Tiêu chí  End -->
+<!-- Phân loại sản phẩm Start -->
+<div class="container-fluid pt-5">
+    <h2 class="section-title position-relative text-uppercase mx-xl-5 mb-4">
+        <span class="bg-secondary pr-3">Phân loại sản phẩm</span>
+    </h2>
+
+    <div class="row px-xl-5 pb-3">
+        @foreach (var category in Model.Categories)
+        {
+            <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
+                <a class="text-decoration-none" href="#">
+                    <div class="cat-item d-flex align-items-center mb-4">
+                        <div class="overflow-hidden" style="width: 100px; height: 100px;">
+                            <img class="img-fluid" src="@category.ImageUrl" alt="@category.Name">
+                        </div>
+                        <div class="flex-fill pl-3">
+                            <h6>@category.Name</h6>
+                            <small class="text-body">@(category.Products?.Count ?? 0) Products</small>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        }
+    </div>
+</div>
+<!-- Phân loại sản phẩm End -->
+<!-- Sản phẩm nổi bật Start -->
+<style>
+    .product-img {
+        width: 100%;
+        height: auto;
+        aspect-ratio: 1 / 1; /* Đảm bảo ảnh luôn vuông */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+    }
+
+        .product-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain; /* Đảm bảo ảnh không bị méo */
+        }
+</style>
+
+<div class="container-fluid pt-5 pb-3">
+    <h2 class="section-title position-relative text-uppercase mx-xl-5 mb-4">
+        <span class="bg-secondary pr-3">Sản phẩm nổi bật</span>
+    </h2>
+    <div class="row px-xl-5">
+        @foreach (var product in Model.Products)
+        {
+            <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
+                <div class="product-item bg-light mb-4">
+                    <div class="product-img position-relative overflow-hidden">
+                        <img class="img-fluid w-100" src="@product.ImageUrl" alt="@product.Name">
+                        <div class="product-action">
+                            <a class="btn btn-outline-dark btn-square" href="#"><i class="fa fa-shopping-cart"></i></a>
+                            <a class="btn btn-outline-dark btn-square" href="#"><i class="far fa-heart"></i></a>
+                            <a class="btn btn-outline-dark btn-square" href="#"><i class="fa fa-sync-alt"></i></a>
+                            <a asp-controller="Shop" asp-action="Detail" asp-route-id="@product.Id" class="btn btn-outline-dark btn-square">
+                                <i class="fa fa-search"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="text-center py-4">
+                        <a class="h6 text-decoration-none text-truncate" href="#">@product.Name</a>
+                        <div class="d-flex align-items-center justify-content-center mt-2">
+                            <h5>@product.Price.ToString("#,##0 VNĐ")</h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+<!-- Sản phẩm nổi bật End -->
+<!-- giảm giá Start -->
+<div class="container-fluid pt-5 pb-3">
+    <div class="row px-xl-5">
+        <div class="col-md-6">
+            <div class="product-offer mb-30" style="height: 300px;">
+                <img class="img-fluid" src="img/giamgia1.jpg" alt="">
+                <div class="offer-text">
+                    <h6 class="text-white text-uppercase">Save 20%</h6>
+                    <h3 class="text-white mb-3">Special Offer</h3>
+                    <a asp-controller="Shop" asp-action="Index" class="btn btn-primary">Shop Now</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="product-offer mb-30" style="height: 300px;">
+                <img class="img-fluid" src="img/giamgia2.jpg" alt="">
+                <div class="offer-text">
+                    <h6 class="text-white text-uppercase">Save 20%</h6>
+                    <h3 class="text-white mb-3">Special Offer</h3>
+                    <a asp-controller="Shop" asp-action="Index" class="btn btn-primary">Shop Now</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- giảm giá End -->
+<!-- Sản phẩm gần đây Start -->
+<div class="container-fluid pt-5 pb-3">
+    <h2 class="section-title position-relative text-uppercase mx-xl-5 mb-4">
+        <span class="bg-secondary pr-3">Sản phẩm gần đây</span>
+    </h2>
+    <div class="row px-xl-5">
+        @foreach (var product in Model.RecentProducts)
+        {
+            <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
+                <div class="product-item bg-light mb-4">
+                    <div class="product-img position-relative overflow-hidden">
+                        <img class="img-fluid w-100" src="@product.ImageUrl" alt="@product.Name">
+                        <div class="product-action">
+                            <a class="btn btn-outline-dark btn-square" href="#"><i class="fa fa-shopping-cart"></i></a>
+                            <a class="btn btn-outline-dark btn-square" href="#"><i class="far fa-heart"></i></a>
+                            <a class="btn btn-outline-dark btn-square" href="#"><i class="fa fa-sync-alt"></i></a>
+                            <a asp-controller="Shop" asp-action="Detail" asp-route-id="@product.Id" class="btn btn-outline-dark btn-square">
+                                <i class="fa fa-search"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="text-center py-4">
+                        <a class="h6 text-decoration-none text-truncate" href="#">@product.Name</a>
+                        <div class="d-flex align-items-center justify-content-center mt-2">
+                            <h5>@product.Price.ToString("#,##0 VNĐ")</h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+<!-- Sản phẩm gần đây End -->
+<!-- Vendor Start -->
+<style>
+    .vendor-carousel .bg-light {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 120px; /* Điều chỉnh chiều cao theo nhu cầu */
+    }
+
+    .vendor-carousel img {
+        max-width: 100%;
+        max-height: 100%;
+        object-fit: contain; /* Giữ nguyên tỉ lệ ảnh, không bị méo */
+    }
+</style>
+<div class="container-fluid py-5">
+    <div class="row px-xl-5">
+        <div class="col">
+            <div class="owl-carousel vendor-carousel">
+                @foreach (var category in Model.Categories)
+                {
+                    <div class="bg-light p-4">
+                        <img src="@category.ImageUrl" alt="@category.Name">
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Vendor End -->

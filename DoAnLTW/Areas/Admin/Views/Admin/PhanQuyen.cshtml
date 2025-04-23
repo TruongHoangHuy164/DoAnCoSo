@@ -1,0 +1,174 @@
+﻿@model List<dynamic>
+@{
+    ViewData["Title"] = "Phân quyền";
+    Layout = "~/Areas/Admin/Views/Shared/layoutAdmin.cshtml";
+}
+
+<style>
+    /* Tùy chỉnh bảng */
+    .table {
+        border-collapse: separate;
+        border-spacing: 0 10px;
+        background-color: #fff;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        border-radius: 10px;
+        overflow: hidden;
+    }
+
+        .table thead th {
+            background-color: #007bff;
+            color: white;
+            text-transform: uppercase;
+            font-weight: bold;
+            padding: 15px;
+            border: none;
+        }
+
+        .table tbody tr {
+            transition: all 0.3s ease;
+        }
+
+            .table tbody tr:hover {
+                background-color: #f1f8ff;
+                transform: scale(1.02);
+                box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+            }
+
+        .table td {
+            padding: 15px;
+            vertical-align: middle;
+        }
+
+    /* Tùy chỉnh tiêu đề */
+    h2.text-center {
+        color: #007bff;
+        font-weight: bold;
+        text-transform: uppercase;
+        margin-bottom: 30px;
+        animation: fadeInDown 0.5s ease-in-out;
+    }
+
+    /* Tùy chỉnh select */
+    .role-select {
+        padding: 8px 12px;
+        border-radius: 5px;
+        border: 2px solid #007bff;
+        background-color: #fff;
+        color: #333;
+        font-weight: 500;
+        transition: all 0.3s ease;
+    }
+
+        .role-select:hover, .role-select:focus {
+            border-color: #0056b3;
+            box-shadow: 0 0 8px rgba(0, 123, 255, 0.3);
+            outline: none;
+        }
+
+    /* Tùy chỉnh nút Lưu */
+    .btn-save {
+        padding: 8px 20px;
+        background-color: #28a745;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        font-weight: bold;
+        transition: all 0.3s ease;
+    }
+
+        .btn-save:hover {
+            background-color: #218838;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(40, 167, 69, 0.3);
+        }
+
+    /* Làm mờ khi bị vô hiệu hóa */
+    .disabled-row .role-select,
+    .disabled-row .btn-save {
+        opacity: 0.5;
+        pointer-events: none; /* Ngăn tương tác */
+        cursor: not-allowed;
+    }
+
+    .disabled-row .role-select {
+        border-color: #ccc;
+    }
+
+    .disabled-row .btn-save {
+        background-color: #ccc;
+    }
+
+    /* Hiệu ứng animation */
+    @@keyframes fadeInDown {
+        from {
+            opacity: 0;
+            transform: translateY(-20px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+</style>
+
+<h2 class="text-center">Phân quyền</h2>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Username</th>
+            <th>Email</th>
+            <th>Quyền</th>
+            <th>Hành động</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var user in Model)
+        {
+            <tr class="@(user.IsCurrentAdmin ? "disabled-row" : "")">
+                <td>@user.UserName</td>
+                <td>@user.Email</td>
+                <td>
+                    <select class="role-select" data-userid="@user.Id" @(user.IsCurrentAdmin ? "disabled" : "")>
+                        <option value="Customer" selected="@(user.Role == "Customer" ? "selected" : null)">Customer</option>
+                        <option value="Employee" selected="@(user.Role == "Employee" ? "selected" : null)">Employee</option>
+                        <option value="Admin" selected="@(user.Role == "Admin" ? "selected" : null)">Admin</option>
+                    </select>
+                </td>
+                <td>
+                    <button class="btn-save" data-userid="@user.Id" @(user.IsCurrentAdmin ? "disabled" : "")>Lưu</button>
+                    @if (user.IsCurrentAdmin)
+                    {
+                        <small class="text-muted d-block mt-1">Không thể chỉnh sửa quyền của chính bạn.</small>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@section Scripts {
+    <script>
+        document.querySelectorAll('.btn-save').forEach(button => {
+            button.addEventListener('click', async function () {
+                if (this.hasAttribute('disabled')) return; // Ngăn hành động nếu nút bị vô hiệu hóa
+
+                let userId = this.getAttribute('data-userid');
+                let role = document.querySelector(`.role-select[data-userid="${userId}"]`).value;
+
+                let response = await fetch('/Admin/Admin/SetUserRole', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ userId, role })
+                });
+
+                if (response.ok) {
+                    alert("Cập nhật thành công!");
+                } else {
+                    let errorData = await response.json();
+                    alert(errorData.message || "Có lỗi xảy ra!");
+                }
+            });
+        });
+    </script>
+}

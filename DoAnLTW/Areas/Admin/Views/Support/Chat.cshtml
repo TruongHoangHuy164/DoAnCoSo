@@ -1,0 +1,155 @@
+﻿@{
+    ViewData["Title"] = "Support Chat";
+}
+
+<div class="chat-container">
+    <div class="chat-header">
+        <h3>Chat with Customer</h3>
+        <span id="staffStatus">Connected</span>
+    </div>
+    <div class="chat-body" id="messagesList"></div>
+    <div class="chat-footer">
+        <input type="hidden" id="userId" value="@ViewBag.UserId" />
+        <input type="hidden" id="role" value="@ViewBag.Role" />
+        <input type="hidden" id="customerId" value="@ViewBag.CustomerId" />
+        <textarea id="messageInput" placeholder="Type your message..." rows="1"></textarea>
+        <button id="sendButton">Send</button>
+    </div>
+</div>
+
+<style>
+    /* CSS giống như trong chat của customer */
+    .chat-container {
+        width: 400px;
+        height: 600px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        display: flex;
+        flex-direction: column;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        margin: 20px auto;
+        font-family: Arial, sans-serif;
+    }
+
+    .chat-header {
+        padding: 10px;
+        background: #0084ff;
+        color: white;
+        border-radius: 5px 5px 0 0;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .chat-body {
+        flex: 1;
+        padding: 10px;
+        overflow-y: auto;
+        background: #f0f2f5;
+    }
+
+    .message {
+        max-width: 70%;
+        margin: 5px 0;
+        padding: 8px 12px;
+        border-radius: 15px;
+        word-wrap: break-word;
+    }
+
+    .sent {
+        background: #0084ff;
+        color: white;
+        margin-left: auto;
+        text-align: right;
+    }
+
+    .received {
+        background: #fff;
+        color: #333;
+        margin-right: auto;
+        box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+    }
+
+    .chat-footer {
+        padding: 10px;
+        border-top: 1px solid #ddd;
+        display: flex;
+        align-items: center;
+        background: #fff;
+    }
+
+    #messageInput {
+        flex: 1;
+        padding: 8px;
+        border: 1px solid #ddd;
+        border-radius: 20px;
+        resize: none;
+        outline: none;
+        margin-right: 10px;
+    }
+
+    #sendButton {
+        padding: 8px 15px;
+        background: #0084ff;
+        color: white;
+        border: none;
+        border-radius: 20px;
+        cursor: pointer;
+    }
+
+        #sendButton:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+
+    #staffStatus {
+        font-size: 12px;
+    }
+</style>
+
+@section Scripts {
+    <script src="~/lib/signalr/signalr.js"></script>
+    <script>
+        "use strict";
+        const connection = new signalR.HubConnectionBuilder().withUrl("/chatHub").build();
+        document.getElementById("sendButton").disabled = true;
+
+        connection.on("ReceiveMessage", function (user, message) {
+            const messagesList = document.getElementById("messagesList");
+            const div = document.createElement("div");
+            const currentUserId = document.getElementById("userId").value;
+            div.className = user === currentUserId ? "message sent" : "message received";
+            div.textContent = message;
+            messagesList.appendChild(div);
+            messagesList.scrollTop = messagesList.scrollHeight;
+        });
+
+        connection.start().then(function () {
+            document.getElementById("sendButton").disabled = false;
+            const userId = document.getElementById("userId").value;
+            const customerId = document.getElementById("customerId").value;
+            connection.invoke("JoinSpecificChat", userId, customerId)
+                .catch(err => console.error(err));
+        }).catch(function (err) {
+            console.error(err.toString());
+        });
+
+        document.getElementById("sendButton").addEventListener("click", function (event) {
+            const userId = document.getElementById("userId").value;
+            const customerId = document.getElementById("customerId").value;
+            const message = document.getElementById("messageInput").value.trim();
+            if (message) {
+                connection.invoke("SendMessageToGroup", userId, customerId, message)
+                    .catch(err => console.error(err));
+                document.getElementById("messageInput").value = "";
+            }
+            event.preventDefault();
+        });
+
+        const textarea = document.getElementById("messageInput");
+        textarea.addEventListener("input", function () {
+            this.style.height = "auto";
+            this.style.height = this.scrollHeight + "px";
+        });
+    </script>
+}

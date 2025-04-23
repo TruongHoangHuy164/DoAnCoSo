@@ -1,0 +1,51 @@
+﻿@* @model IEnumerable<DoAnLTW.Models.Product> *@
+
+@* @{ *@
+@*     ViewData["Title"] = "Danh sách yêu thích"; *@
+@*     // Giả sử ViewBag.FavouriteProducts chứa danh sách ID sản phẩm yêu thích (được truyền từ controller) *@
+@*     var favouriteProductIds = ViewBag.FavouriteProducts as List<int> ?? new List<int>(); *@
+@* } *@
+
+@* <h2>Danh sách sản phẩm yêu thích (@ViewBag.FavouriteCount)</h2> *@
+
+@* @if (Model == null || !Model.Any()) *@
+@* { *@
+@*     <p>Bạn chưa có sản phẩm yêu thích nào.</p> *@
+@* } *@
+@* else *@
+@* { *@
+@*     <div class="row"> *@
+@*         @foreach (var product in Model) *@
+@*         { *@
+@*             bool isFavourite = favouriteProductIds.Contains(product.Id); // Kiểm tra sản phẩm có trong danh sách yêu thích không *@
+@*             <div class="col-md-3"> *@
+@*                 <div class="product-item bg-light mb-4"> *@
+@*                     <div class="product-img position-relative overflow-hidden" *@
+@*                          onmouseover="this.querySelector('.product-action').style.opacity = '1'; this.querySelector('.product-action').style.visibility = 'visible';" *@
+@*                          onmouseout="this.querySelector('.product-action').style.opacity = '0'; this.querySelector('.product-action').style.visibility = 'hidden';"> *@
+
+@*                         <img class="img-fluid w-100" src="@product.ImageUrl" alt="@product.Name" /> *@
+
+@*                         <div class="product-action" style="opacity: 0; visibility: hidden;"> *@
+@*                             <a class="btn btn-outline-dark btn-square" href="#"><i class="fa fa-shopping-cart"></i></a> *@
+
+                           
+
+@*                             <a class="btn btn-outline-dark btn-square" href="#"><i class="fa fa-sync-alt"></i></a> *@
+@*                             <a class="btn btn-outline-dark btn-square" asp-controller="Shop" asp-action="Detail" asp-route-id="@product.Id"> *@
+@*                                 <i class="fa fa-search"></i> *@
+@*                             </a> *@
+@*                         </div> *@
+@*                     </div> *@
+
+@*                     <div class="text-center py-4"> *@
+@*                         <a class="h6 text-decoration-none text-truncate" href="#">@product.Name</a> *@
+@*                         <div class="d-flex align-items-center justify-content-center mt-2"> *@
+@*                             <h5>@product.Price.ToString("C")</h5> *@
+@*                         </div> *@
+@*                     </div> *@
+@*                 </div> *@
+@*             </div> *@
+@*         } *@
+@*     </div> *@
+@* } *@

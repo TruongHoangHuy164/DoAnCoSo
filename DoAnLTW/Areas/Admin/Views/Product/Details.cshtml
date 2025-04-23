@@ -1,0 +1,89 @@
+﻿@model DoAnLTW.Models.Product
+
+@{
+    ViewData["Title"] = "Chi tiết sản phẩm";
+    Layout = "~/Areas/Admin/Views/Shared/layoutAdmin.cshtml";
+}
+
+<h2 class="text-center">Chi tiết sản phẩm</h2>
+
+<div class="row">
+    <div class="col-md-8 offset-md-2">
+        <div class="card">
+            <div class="card-body">
+                <div class="form-group mb-3">
+                    <label class="control-label">Tên sản phẩm</label>
+                    <p class="form-control-static">@Model.Name</p>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label class="control-label">Mô tả sản phẩm</label>
+                    <p class="form-control-static">@Model.Description</p>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label class="control-label">Thương hiệu</label>
+                    <p class="form-control-static">@(Model.Brand != null ? Model.Brand.Name : "Không có thương hiệu")</p>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label class="control-label">Danh mục</label>
+                    <p class="form-control-static">@(Model.Category != null ? Model.Category.Name : "Không có danh mục")</p>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label class="control-label">Kích thước, số lượng và giá</label>
+                    @if (Model.ProductSizes != null && Model.ProductSizes.Any())
+                    {
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Kích thước</th>
+                                    <th>Số lượng tồn kho</th>
+                                    <th>Giá (VND)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var ps in Model.ProductSizes)
+                                {
+                                    <tr>
+                                        <td>@(ps.Size != null ? ps.Size.size : "Không xác định")</td>
+                                        <td>@ps.Stock</td>
+                                        <td>@ps.Price.ToString("N0")</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    }
+                    else
+                    {
+                        <p class="form-control-static">Chưa có thông tin kích thước</p>
+                    }
+                </div>
+
+                <div class="form-group mb-3">
+                    <label class="control-label">Hình ảnh</label>
+                    @if (Model.Images != null && Model.Images.Any())
+                    {
+                        <div>
+                            @foreach (var img in Model.Images)
+                            {
+                                <img src="@img.ImageUrl" alt="Hình ảnh sản phẩm" style="width: 100px; height: 100px; object-fit: cover; margin-right: 5px;" />
+                            }
+                        </div>
+                    }
+                    else
+                    {
+                        <p class="form-control-static">Chưa có hình ảnh</p>
+                    }
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group text-center mt-4">
+            <a asp-action="Index" asp-controller="Product" asp-area="Admin" class="btn btn-secondary">Quay lại</a>
+            <a asp-action="Edit" asp-controller="Product" asp-area="Admin" asp-route-id="@Model.ProductId" class="btn btn-warning">Sửa</a>
+            <a asp-action="Delete" asp-controller="Product" asp-area="Admin" asp-route-id="@Model.ProductId" class="btn btn-danger">Xóa</a>
+        </div>
+    </div>
+</div>

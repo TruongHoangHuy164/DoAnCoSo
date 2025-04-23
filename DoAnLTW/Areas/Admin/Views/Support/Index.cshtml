@@ -1,0 +1,67 @@
+﻿@* @model IEnumerable<Message> *@
+
+@* @{ *@
+@*     ViewData["Title"] = "Danh sách hỗ trợ"; *@
+@* } *@
+
+@* <div class="container"> *@
+@*     <h2>Danh sách hỗ trợ</h2> *@
+@*     <div class="support-list" id="supportList"> *@
+@*         @if (Model.Any()) *@
+@*         { *@
+@*             <ul class="list-group"> *@
+@*                 @foreach (var request in Model) *@
+@*                 { *@
+@*                     <li class="list-group-item d-flex justify-content-between align-items-center"> *@
+@*                         <div> *@
+@*                             <strong>@request.CustomerName</strong> *@
+@*                             <p class="mb-0 text-muted">@request.LastMessage</p> *@
+@*                             <small class="text-muted">@request.LastMessageTime.ToString("HH:mm dd/MM/yyyy")</small> *@
+@*                         </div> *@
+@*                         <a href="@Url.Action("Chat", "Support", new { customerId = request.CustomerId })" class="btn btn-primary btn-sm">Trả lời</a> *@
+@*                     </li> *@
+@*                 } *@
+@*             </ul> *@
+@*         } *@
+@*         else *@
+@*         { *@
+@*             <p>Không có yêu cầu hỗ trợ nào đang chờ.</p> *@
+@*         } *@
+@*     </div> *@
+@* </div> *@
+
+@* <style> *@
+@*     .support-list .list-group-item { *@
+@*         margin-bottom: 10px; *@
+@*         border-radius: 5px; *@
+@*     } *@
+
+@*         .support-list .list-group-item:hover { *@
+@*             background: #f8f9fa; *@
+@*         } *@
+
+@*     .support-list p { *@
+@*         max-width: 300px; *@
+@*         white-space: nowrap; *@
+@*         overflow: hidden; *@
+@*         text-overflow: ellipsis; *@
+@*     } *@
+@* </style> *@
+
+@* @section Scripts { *@
+@*     <script src="~/lib/signalr/signalr.js"></script> *@
+@*     <script> *@
+@*         "use strict"; *@
+@*         const connection = new signalR.HubConnectionBuilder().withUrl("/chatHub").build(); *@
+
+@*         connection.on("NewSupportRequest", function (customerId) { *@
+@*             // Tải lại danh sách hoặc thêm yêu cầu mới bằng AJAX nếu cần *@
+@*             console.log("New support request from: " + customerId); *@
+@*         }); *@
+
+@*         connection.start().then(function () { *@
+@*             const userId = "@User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value"; *@
+@*             connection.invoke("JoinChat", userId, "Admin"); *@
+@*         }).catch(err => console.error(err)); *@
+@*     </script> *@
+@* } *@

@@ -1,0 +1,81 @@
+﻿@model DoAnLTW.Models.Product
+
+@{
+    ViewData["Title"] = "Xóa sản phẩm";
+    Layout = "~/Areas/Admin/Views/Shared/layoutAdmin.cshtml";
+}
+
+<h2 class="text-center">Xóa sản phẩm</h2>
+
+<div class="row">
+    <div class="col-md-8 offset-md-2">
+        <h4 class="text-danger">Bạn có chắc chắn muốn xóa sản phẩm này?</h4>
+        <hr />
+        <dl class="row">
+            <dt class="col-sm-3">Tên sản phẩm</dt>
+            <dd class="col-sm-9">@Model.Name</dd>
+
+            <dt class="col-sm-3">Mô tả</dt>
+            <dd class="col-sm-9">@Model.Description</dd>
+
+            <dt class="col-sm-3">Thương hiệu</dt>
+            <dd class="col-sm-9">@(Model.Brand != null ? Model.Brand.Name : "Không có thương hiệu")</dd>
+
+            <dt class="col-sm-3">Danh mục</dt>
+            <dd class="col-sm-9">@(Model.Category != null ? Model.Category.Name : "Không có danh mục")</dd>
+
+            <dt class="col-sm-3">Kích thước & Giá</dt>
+            <dd class="col-sm-9">
+                @if (Model.ProductSizes != null && Model.ProductSizes.Any())
+                {
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Kích thước</th>
+                                <th>Số lượng tồn kho</th>
+                                <th>Giá (VND)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var ps in Model.ProductSizes)
+                            {
+                                <tr>
+                                    <td>@(ps.Size != null ? ps.Size.size : "Không xác định")</td>
+                                    <td>@ps.Stock</td>
+                                    <td>@ps.Price.ToString("N0")</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                }
+                else
+                {
+                    <span>Chưa có thông tin kích thước</span>
+                }
+            </dd>
+
+            <dt class="col-sm-3">Hình ảnh</dt>
+            <dd class="col-sm-9">
+                @if (Model.Images != null && Model.Images.Any())
+                {
+                    foreach (var img in Model.Images)
+                    {
+                        <img src="@img.ImageUrl" alt="Hình ảnh sản phẩm" style="width: 100px; height: 100px; object-fit: cover; margin-right: 5px;" />
+                    }
+                }
+                else
+                {
+                    <span>Chưa có hình ảnh</span>
+                }
+            </dd>
+        </dl>
+
+        <form asp-action="DeleteConfirmed" asp-controller="Product" asp-area="Admin" method="post">
+            <input type="hidden" name="id" value="@Model.ProductId" />
+            <div class="form-group text-center">
+                <button type="submit" class="btn btn-danger">Xóa</button>
+                <a asp-action="Index" asp-controller="Product" asp-area="Admin" class="btn btn-secondary">Quay lại</a>
+            </div>
+        </form>
+    </div>
+</div>

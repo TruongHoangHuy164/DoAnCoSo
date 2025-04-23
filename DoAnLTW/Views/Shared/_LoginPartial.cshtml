@@ -1,0 +1,57 @@
+﻿﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+
+<ul class="navbar-nav">
+    @if (SignInManager.IsSignedIn(User))
+    {
+        var user = await UserManager.GetUserAsync(User);
+        var roles = await UserManager.GetRolesAsync(user);
+
+        if (roles.Contains("Admin")) // Nếu là Admin
+        {
+            <li class="nav-item nav-profile dropdown">
+                <a class="nav-link dropdown-toggle" id="profileDropdown" href="#" data-bs-toggle="dropdown" aria-expanded="false">
+                    <div class="nav-profile-img">
+                        <img src="~/LayoutAdmin/assets/images/faces/face1.jpg" alt="image">
+                        <span class="availability-status online"></span>
+                    </div>
+                    <div class="nav-profile-text">
+                        <p class="mb-1 text-black">@user.UserName</p>
+                    </div>
+                </a>
+                <div class="dropdown-menu navbar-dropdown" aria-labelledby="profileDropdown">
+                    <a class="dropdown-item" asp-area="" asp-controller="Account" asp-action="Manage">
+                        <i class="mdi mdi-cached me-2 text-success"></i> Quản lý tài khoản
+                    </a>
+                    <div class="dropdown-divider"></div>
+                    <form asp-area="Identity" asp-page="/Account/Logout" method="post">
+                        <button type="submit" class="dropdown-item">
+                            <i class="mdi mdi-logout me-2 text-primary"></i> Đăng xuất
+                        </button>
+                    </form>
+                </div>
+            </li>
+        }
+        else // Nếu không phải Admin -> Hiển thị đơn giản hơn
+        {
+            <li class="nav-item">
+                <a id="manage" class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index">Xin chào @user.UserName!</a>
+            </li>
+            <li class="nav-item">
+                <form id="logoutForm" class="form-inline" asp-area="Identity" asp-page="/Account/Logout" method="post">
+                    <button id="logout" type="submit" class="nav-link btn btn-link text-dark border-0">Đăng xuất</button>
+                </form>
+            </li>
+        }
+    }
+    else
+    {
+        <li class="nav-item">
+            <a class="nav-link text-dark" id="register" asp-area="Identity" asp-page="/Account/Register">Đăng ký</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link text-dark" id="login" asp-area="Identity" asp-page="/Account/Login">Đăng nhập</a>
+        </li>
+    }
+</ul>

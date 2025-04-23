@@ -1,0 +1,28 @@
+﻿@{
+    ViewData["Title"] = "Thêm ảnh sản phẩm";
+    Layout = "~/Areas/Admin/Views/Shared/layoutAdmin.cshtml";
+
+}
+
+<h2>Thêm ảnh cho sản phẩm</h2>
+
+@* <form asp-action="UploadImages" method="post" enctype="multipart/form-data"> *@
+@*     <input type="hidden" name="ProductId" value="@ViewBag.ProductId" /> *@
+
+@*     <input type="file" name="ImageFiles" multiple required /> *@
+@*     <button type="submit" class="btn btn-primary">Lưu sản phẩm</button> *@
+@* </form> *@
+<form asp-action="UploadImages" asp-controller="Product" asp-area="Admin" method="post" enctype="multipart/form-data">
+    <input type="hidden" name="ProductId" value="@ViewBag.ProductId" />
+
+    <div class="form-group mb-3">
+        <label class="control-label">Chọn hình ảnh</label>
+        <input type="file" name="ImageFiles" multiple required class="form-control" />
+    </div>
+
+    <div class="form-group text-center">
+        <button type="submit" class="btn btn-success">Tải lên</button>
+        <a asp-action="Index" asp-controller="Product" asp-area="Admin" class="btn btn-secondary">Quay lại</a>
+    </div>
+</form>
+

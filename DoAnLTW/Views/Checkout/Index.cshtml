@@ -1,0 +1,162 @@
+﻿@model DoAnLTW.Models.CheckoutViewModel
+
+@{
+    ViewData["Title"] = "Checkout";
+    Layout = "~/Views/Shared/_LayoutHome.cshtml";
+}
+
+<!-- Breadcrumb Start -->
+<div class="container-fluid">
+    <div class="row px-xl-5">
+        <div class="col-12">
+            <nav class="breadcrumb bg-light mb-30">
+                <a class="breadcrumb-item text-dark" asp-controller="Home" asp-action="Index">Trang chủ</a>
+                <a class="breadcrumb-item text-dark" asp-controller="Shop" asp-action="Index">Sản phẩm</a>
+                <span class="breadcrumb-item active">Thanh toán</span>
+            </nav>
+        </div>
+    </div>
+</div>
+<!-- Breadcrumb End -->
+<!-- Checkout Start -->
+<div class="container-fluid">
+    <div class="row px-xl-5">
+        <form asp-action="ProcessCheckout" method="post">
+            <!-- Billing Address Section -->
+            <div class="col-lg-8">
+                <h5 class="section-title position-relative text-uppercase mb-3"><span class="bg-secondary pr-3">Billing Address</span></h5>
+                <div class="bg-light p-30 mb-5">
+                    @if (TempData["Error"] != null)
+                    {
+                        <div class="alert alert-danger" role="alert">
+                            @TempData["Error"]
+                        </div>
+                    }
+
+                    <div class="row">
+                        <div class="col-md-6 form-group">
+                            <label>Họ</label>
+                            <input class="form-control" type="text" asp-for="Order.FirstName" placeholder="Hoàng Anh" required>
+                            <span asp-validation-for="Order.FirstName" class="text-danger"></span>
+                        </div>
+                        <div class="col-md-6 form-group">
+                            <label>Tên</label>
+                            <input class="form-control" type="text" asp-for="Order.LastName" placeholder="Đức" required>
+                            <span asp-validation-for="Order.LastName" class="text-danger"></span>
+                        </div>
+                        <div class="col-md-6 form-group">
+                            <label>E-mail</label>
+                            <input class="form-control" type="email" asp-for="Order.Email" placeholder="example@email.com" required>
+                            <span asp-validation-for="Order.Email" class="text-danger"></span>
+                        </div>
+                        <div class="col-md-6 form-group">
+                            <label>Số điện thoại</label>
+                            <input class="form-control" type="text" asp-for="Order.PhoneNumber" placeholder="(+84)3339542116" required>
+                            <span asp-validation-for="Order.PhoneNumber" class="text-danger"></span>
+                        </div>
+                        <div class="col-md-6 form-group">
+                            <label>Địa chỉ nhận hàng</label>
+                            <input class="form-control" type="text" asp-for="Order.Address" placeholder="123 khu phố...." required>
+                            <span asp-validation-for="Order.Address" class="text-danger"></span>
+                        </div>
+                        <div class="col-md-6 form-group">
+                            <label>Địa chỉ dự phòng</label>
+                            <input class="form-control" type="text" asp-for="Order.AlternateAddress" placeholder="123 đường số...">
+                            <span asp-validation-for="Order.AlternateAddress" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Order Total and Payment Section -->
+            <div class="col-lg-4">
+                <!-- Order Total -->
+                <h5 class="section-title position-relative text-uppercase mb-3"><span class="bg-secondary pr-3">Order Total</span></h5>
+                <div class="bg-light p-30 mb-5">
+                    <div class="border-bottom">
+                        <h6 class="mb-3">Products</h6>
+                        @for (int i = 0; i < Model.CartItems.Count; i++)
+                        {
+                            <div class="d-flex justify-content-between">
+                                <p>@Model.CartItems[i].ProductName (Size: @Model.CartItems[i].Size)</p>
+                                <p>@((Model.CartItems[i].Price * Model.CartItems[i].Quantity).ToString("#,##0 VNĐ"))</p>
+                            </div>
+                            <!-- Thêm hidden fields để truyền CartItems -->
+                            <input type="hidden" name="CartItems[@i].ProductId" value="@Model.CartItems[i].ProductId" />
+                            <input type="hidden" name="CartItems[@i].ProductName" value="@Model.CartItems[i].ProductName" />
+                            <input type="hidden" name="CartItems[@i].Size" value="@Model.CartItems[i].Size" />
+                            <input type="hidden" name="CartItems[@i].Quantity" value="@Model.CartItems[i].Quantity" />
+                            <input type="hidden" name="CartItems[@i].Price" value="@Model.CartItems[i].Price" />
+                        }
+                    </div>
+                    <div class="border-bottom pt-3 pb-2">
+                        <div class="d-flex justify-content-between mb-3">
+                            <h6>Subtotal</h6>
+                            <h6>@(Model.CartItems.Sum(item => item.Price * item.Quantity).ToString("#,##0 VNĐ"))</h6>
+                        </div>
+                        <div class="d-flex justify-content-between">
+                            <h6 class="font-weight-medium">Shipping</h6>
+                            <h6 class="font-weight-medium">@Model.ShippingFee.ToString("#,##0 VNĐ")</h6>
+                        </div>
+                    </div>
+                    <div class="pt-2">
+                        <div class="d-flex justify-content-between mt-2">
+                            <h5>Total</h5>
+                            <h5>@((Model.CartItems.Sum(item => item.Price * item.Quantity) + Model.ShippingFee).ToString("#,##0 VNĐ"))</h5>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Payment -->
+                <h5 class="section-title position-relative text-uppercase mb-3"><span class="bg-secondary pr-3">Payment</span></h5>
+                <div class="bg-light p-30">
+                    <div class="form-group">
+                        <div class="custom-control custom-radio">
+                            <input type="radio" class="custom-control-input" asp-for="PaymentMethod" name="PaymentMethod" id="momo" value="Momo" required>
+                            <label class="custom-control-label" for="momo">Thanh toán với Momo</label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="custom-control custom-radio">
+                            <input type="radio" class="custom-control-input" asp-for="PaymentMethod" name="PaymentMethod" id="cod" value="COD" required>
+                            <label class="custom-control-label" for="cod">Thanh toán khi nhận hàng</label>
+                        </div>
+                    </div>
+                    <div class="form-group mb-4">
+                        <div class="custom-control custom-radio">
+                            <input type="radio" class="custom-control-input" asp-for="PaymentMethod" name="PaymentMethod" id="vnpay" value="VNPay" required>
+                            <label class="custom-control-label" for="vnpay">Thanh toán với VNPay</label>
+                        </div>
+                    </div>
+                    <span asp-validation-for="PaymentMethod" class="text-danger"></span>
+                    <script>
+                        document.querySelector("form").addEventListener("submit", function () {
+                            console.log("Form đang gửi đi...");
+                        });
+                    </script>
+
+                    <button type="submit" class="btn btn-block btn-primary font-weight-bold py-3">Tiếp tục</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<!-- Checkout End -->
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script>
+        $(document).ready(function () {
+            $("form").submit(function (event) {
+                var paymentMethod = $("input[name='PaymentMethod']:checked").val();
+                if (!paymentMethod) {
+                    alert("Vui lòng chọn phương thức thanh toán!");
+                    event.preventDefault(); // Ngăn form submit nếu không có phương thức thanh toán
+                } else {
+                    console.log("Phương thức thanh toán đã chọn: " + paymentMethod);
+                }
+            });
+        });
+    </script>
+}
+
+

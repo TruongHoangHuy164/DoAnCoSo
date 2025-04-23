@@ -1,0 +1,34 @@
+﻿@model DoAnLTW.Models.Brand
+
+@{
+    ViewData["Title"] = "Xóa thương hiệu";
+    Layout = "~/Areas/Admin/Views/Shared/layoutAdmin.cshtml";
+}
+
+<h2 class="text-center">Xóa Thương Hiệu</h2>
+
+<div class="row">
+    <div class="col-md-8 offset-md-2">
+        @if (Model != null)
+        {
+            <h4 class="text-danger">Bạn có chắc chắn muốn xóa thương hiệu này?</h4>
+            <hr />
+            <dl class="row">
+                <dt class="col-sm-3">Tên thương hiệu</dt>
+                <dd class="col-sm-9">@Model.Name</dd>
+            </dl>
+
+            <form asp-action="DeleteConfirmed" asp-controller="Brand" asp-area="Admin" method="post">
+                <input type="hidden" name="id" value="@Model.BrandId" />
+                <div class="form-group text-center">
+                    <button type="submit" class="btn btn-danger">Xóa</button>
+                    <a asp-action="Index" asp-controller="Brand" asp-area="Admin" class="btn btn-secondary">Quay lại</a>
+                </div>
+            </form>
+        }
+        else
+        {
+            <p>Thương hiệu không tồn tại.</p>
+        }
+    </div>
+</div>

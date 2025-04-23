@@ -1,0 +1,106 @@
+﻿@model DoAnLTW.Models.Product
+
+@{
+    ViewData["Title"] = "Thêm sản phẩm";
+    Layout = "~/Areas/Admin/Views/Shared/layoutAdmin.cshtml";
+}
+
+<h2 class="text-center">Thêm sản phẩm</h2>
+
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger">@TempData["ErrorMessage"]</div>
+}
+
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success">@TempData["SuccessMessage"]</div>
+}
+
+<div class="row">
+    <div class="col-md-8 offset-md-2">
+        <form asp-action="Create" asp-controller="Product" asp-area="Admin" method="post" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="form-group mb-3">
+                <label asp-for="Name" class="control-label">Tên sản phẩm</label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+
+            <div class="form-group mb-3">
+                <label asp-for="Description" class="control-label">Mô tả sản phẩm</label>
+                <textarea asp-for="Description" class="form-control" rows="4"></textarea>
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+
+            <div class="form-group mb-3">
+                <label asp-for="BrandId" class="control-label">Thương hiệu</label>
+                <select asp-for="BrandId" class="form-control" asp-items="ViewBag.Brands">
+                    <option value="">-- Chọn thương hiệu --</option>
+                </select>
+                <span asp-validation-for="BrandId" class="text-danger"></span>
+            </div>
+
+            <div class="form-group mb-3">
+                <label asp-for="CategoryId" class="control-label">Danh mục</label>
+                <select asp-for="CategoryId" class="form-control" asp-items="ViewBag.Categories">
+                    <option value="">-- Chọn danh mục --</option>
+                </select>
+                <span asp-validation-for="CategoryId" class="text-danger"></span>
+            </div>
+
+            <div class="form-group mb-3">
+                <label>Chọn kích thước, số lượng và giá</label>
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Kích thước</th>
+                            <th>Số lượng</th>
+                            <th>Giá (VND)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @for (int i = 0; i < ViewBag.Sizes.Count; i++)
+                        {
+                            var size = ViewBag.Sizes[i];
+                            <tr>
+                                <td>
+                                    <input type="checkbox" name="selectedSizes" value="@size.Id" id="size_@size.Id" />
+                                    <label for="size_@size.Id">@size.size</label>
+                                </td>
+                                <td>
+                                    <input type="number" name="sizeQuantities" class="form-control" min="0" placeholder="Nhập số lượng" />
+                                </td>
+                                <td>
+                                    <input type="number" name="sizePrices" class="form-control" min="0" step="0.01" placeholder="Nhập giá" />
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="form-group text-center">
+                <button type="submit" class="btn btn-success">Thêm sản phẩm</button>
+                <a asp-action="Index" asp-controller="Product" asp-area="Admin" class="btn btn-secondary">Quay lại</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script>
+        $(document).ready(function () {
+            $("input[name='selectedSizes']").change(function () {
+                var row = $(this).closest("tr");
+                var inputs = row.find("input[name='sizeQuantities'], input[name='sizePrices']");
+                inputs.prop("disabled", !this.checked);
+                if (!this.checked) {
+                    inputs.val("");
+                }
+            });
+        });
+    </script>
+}

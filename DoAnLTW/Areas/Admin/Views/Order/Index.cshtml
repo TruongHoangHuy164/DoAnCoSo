@@ -1,0 +1,201 @@
+﻿@model IEnumerable<DoAnLTW.Models.Order>
+
+@{
+    ViewData["Title"] = "Danh Sách Đơn hàng";
+    Layout = "~/Areas/Admin/Views/Shared/layoutAdmin.cshtml";
+}
+
+<style>
+    /* Tùy chỉnh bảng chính */
+    .table {
+        border-collapse: separate;
+        border-spacing: 0 10px;
+        background-color: #fff;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        border-radius: 10px;
+        overflow: hidden;
+    }
+
+        .table thead th {
+            background-color: #007bff;
+            color: white;
+            text-transform: uppercase;
+            font-weight: bold;
+            padding: 15px;
+            border: none;
+        }
+
+        .table tbody tr {
+            transition: all 0.3s ease;
+        }
+
+            .table tbody tr:hover {
+                background-color: #f1f8ff;
+                transform: scale(1.02);
+                box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+            }
+
+        .table td {
+            padding: 15px;
+            vertical-align: middle;
+        }
+
+    /* Tùy chỉnh tiêu đề */
+    h2 {
+        color: #007bff;
+        font-weight: bold;
+        text-transform: uppercase;
+        margin-bottom: 30px;
+        text-align: center;
+        animation: fadeInDown 0.5s ease-in-out;
+    }
+
+    /* Tùy chỉnh chi tiết đơn hàng */
+    .order-detail {
+        background-color: #fdfdfd;
+        border: 2px solid #007bff;
+        border-radius: 8px;
+        padding: 15px;
+        margin-top: 10px;
+        box-shadow: 0 4px 8px rgba(0, 123, 255, 0.2);
+        animation: fadeIn 0.3s ease-in-out;
+    }
+
+        .order-detail strong {
+            color: #007bff;
+            font-size: 1.1em;
+        }
+
+        /* Tùy chỉnh bảng chi tiết */
+        .order-detail .table {
+            margin-top: 10px;
+            box-shadow: none;
+        }
+
+            .order-detail .table thead th {
+                background-color: #17a2b8;
+                color: white;
+            }
+
+    /* Tùy chỉnh nút Xem chi tiết */
+    .btn-primary {
+        padding: 8px 20px;
+        background-color: #007bff;
+        border: none;
+        border-radius: 5px;
+        font-weight: bold;
+        transition: all 0.3s ease;
+    }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(0, 123, 255, 0.3);
+        }
+
+    /* Hiệu ứng animation */
+    @@keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: translateY(-10px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    @@keyframes fadeInDown {
+        from {
+            opacity: 0;
+            transform: translateY(-20px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+</style>
+
+<h2>Danh sách đơn hàng</h2>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Họ tên</th>
+            <th>Email</th>
+            <th>SĐT</th>
+            <th>Địa chỉ</th>
+            <th>Ngày đặt</th>
+            <th>Tổng tiền</th>
+            <th>Thanh toán</th>
+            <th>Trạng thái</th>
+            <th>Hành động</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var order in Model.Select((value, index) => new { value, index }))
+        {
+            var orderId = "orderDetail_" + order.index;
+            <tr>
+                <td>@order.value.FirstName @order.value.LastName</td>
+                <td>@order.value.Email</td>
+                <td>@order.value.PhoneNumber</td>
+                <td>@order.value.Address</td>
+                <td>@order.value.OrderDate.ToString("dd/MM/yyyy HH:mm")</td>
+                <td>@order.value.TotalAmount.ToString("N0") VNĐ</td>
+                <td>@order.value.PaymentMethod</td>
+                <td>@(order.value.IsPaid ? "Đã thanh toán" : "Chưa thanh toán")</td>
+                <td>
+                    <button class="btn btn-primary" onclick="toggleDetail('@orderId', this)">Xem chi tiết</button>
+                </td>
+            </tr>
+
+            <tr id="@orderId" style="display:none;">
+                <td colspan="9">
+                    <div class="order-detail">
+                        <strong>Chi tiết đơn hàng:</strong>
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Tên sản phẩm</th>
+                                    <th>Size</th>
+                                    <th>Số lượng</th>
+                                    <th>Giá</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var detail in order.value.OrderDetails)
+                                {
+                                    <tr>
+                                        <td>@detail.ProductName</td>
+                                        <td>@detail.Size</td>
+                                        <td>@detail.Quantity</td>
+                                        <td>@detail.Price.ToString("N0") VNĐ</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@section Scripts {
+    <script>
+        function toggleDetail(id, btn) {
+            const row = document.getElementById(id);
+            if (row.style.display === "none") {
+                row.style.display = "";
+                btn.textContent = "Ẩn chi tiết";
+            } else {
+                row.style.display = "none";
+                btn.textContent = "Xem chi tiết";
+            }
+        }
+    </script>
+}

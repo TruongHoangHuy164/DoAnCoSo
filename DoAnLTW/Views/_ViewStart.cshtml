@@ -1,0 +1,19 @@
+﻿﻿@{
+    if (User.Identity.IsAuthenticated && User.IsInRole("Admin") || User.IsInRole("Employee"))
+    {
+        Layout = "~/Areas/Admin/Views/Shared/layoutAdmin.cshtml";
+		if (User.IsInRole("Admin"))
+		{
+			ViewData["Title"] = "Admin";
+		}
+		else
+		{
+			ViewData["Title"] = "Employee";
+
+		}
+    }
+    else
+    {
+        Layout = "_LayoutHome"; // Layout mặc định cho User
+    }
+}
