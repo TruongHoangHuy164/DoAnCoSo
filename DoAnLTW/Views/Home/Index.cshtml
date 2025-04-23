@@ -1,6 +1,4 @@
-﻿
-
-@{
+﻿@{
     ViewData["Title"] = "Home Page";
 }
 
@@ -71,6 +69,7 @@
     </div>
 </div>
 <!-- Carousel End -->
+
 <!-- Tiêu chí Start -->
 <div class="container-fluid pt-5">
     <div class="row px-xl-5 pb-3">
@@ -101,31 +100,38 @@
     </div>
 </div>
 <!-- Tiêu chí End -->
-<!-- Phân loại sản phẩm Start -->
-<div class="container-fluid pt-5">
+<!-- Vendor Start Category -->
+<style>
+    .vendor-carousel .bg-light {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 120px; /* Điều chỉnh chiều cao theo nhu cầu */
+    }
+
+    .vendor-carousel img {
+        max-width: 100%;
+        max-height: 100%;
+        object-fit: contain; /* Giữ nguyên tỉ lệ ảnh, không bị méo */
+    }
+</style>
+<div class="container-fluid py-5">
     <h2 class="section-title position-relative text-uppercase mx-xl-5 mb-4">
-        <span class="bg-secondary pr-3">Phân loại sản phẩm</span>
+        <span class="bg-secondary pr-3">Danh Mục Sản Phẩm</span>
     </h2>
-    <div class="row px-xl-5 pb-3">
-        @foreach (var category in Model.Categories)
-        {
-            <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
-                <a class="text-decoration-none" asp-controller="Shop" asp-action="Index" asp-route-categoryId="@category.CategoryId">
-                    <div class="cat-item d-flex align-items-center mb-4">
-                        <div class="overflow-hidden" style="width: 100px; height: 100px;">
-                            <img class="img-fluid" src="@category.ImageUrl" alt="@category.Name">
-                        </div>
-                        <div class="flex-fill pl-3">
-                            <h6>@category.Name</h6>
-                            <small class="text-body">@(category.Products?.Count ?? 0) Products</small>
-                        </div>
+    <div class="row px-xl-5">
+        <div class="col">
+            <div class="owl-carousel vendor-carousel">
+                @foreach (var category in Model.Categories)
+                {
+                    <div class="bg-light p-4">
+                        <img src="@category.ImageUrl" alt="@category.Name">
                     </div>
-                </a>
+                }
             </div>
-        }
+        </div>
     </div>
 </div>
-<!-- Phân loại sản phẩm End -->
 <!-- Sản phẩm nổi bật Start -->
 <style>
     .product-img {
@@ -150,23 +156,23 @@
         <span class="bg-secondary pr-3">Sản phẩm nổi bật</span>
     </h2>
     <div class="row px-xl-5">
-        @foreach (var product in Model.Products)
+        @foreach (var productWithMinPrice in Model.ProductsWithMinPrice)
         {
             <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
                 <div class="product-item bg-light mb-4">
                     <div class="product-img position-relative overflow-hidden">
-                        <img class="img-fluid w-100" src="@product.ImageUrl" alt="@product.Name">
+                        <img class="img-fluid w-100" src="@productWithMinPrice.Product.ImageUrl" alt="@productWithMinPrice.Product.Name">
                         <div class="product-action">
-                            <a class="btn btn-outline-dark btn-square" asp-controller="Cart" asp-action="Add" asp-route-productId="@product.ProductId"><i class="fa fa-shopping-cart"></i></a>
+                            <a class="btn btn-outline-dark btn-square" asp-controller="Cart" asp-action="Add" asp-route-productId="@productWithMinPrice.Product.ProductId"><i class="fa fa-shopping-cart"></i></a>
                             <a class="btn btn-outline-dark btn-square" href="#"><i class="far fa-heart"></i></a>
                             <a class="btn btn-outline-dark btn-square" href="#"><i class="fa fa-sync-alt"></i></a>
-                            <a asp-controller="Shop" asp-action="Detail" asp-route-id="@product.ProductId" class="btn btn-outline-dark btn-square"><i class="fa fa-search"></i></a>
+                            <a asp-controller="Shop" asp-action="Detail" asp-route-id="@productWithMinPrice.Product.ProductId" class="btn btn-outline-dark btn-square"><i class="fa fa-search"></i></a>
                         </div>
                     </div>
                     <div class="text-center py-4">
-                        <a class="h6 text-decoration-none text-truncate" asp-controller="Shop" asp-action="Detail" asp-route-id="@product.ProductId">@product.Name</a>
+                        <a class="h6 text-decoration-none text-truncate" asp-controller="Shop" asp-action="Detail" asp-route-id="@productWithMinPrice.Product.ProductId">@productWithMinPrice.Product.Name</a>
                         <div class="d-flex align-items-center justify-content-center mt-2">
-                            <h5>@product..ToString("#,##0 VNĐ")</h5>
+                            <h5>@productWithMinPrice.MinPrice.ToString("#,##0 VNĐ")</h5> <!-- Hiển thị giá của size nhỏ nhất -->
                         </div>
                     </div>
                 </div>
@@ -177,6 +183,9 @@
 <!-- Sản phẩm nổi bật End -->
 <!-- Giảm giá Start -->
 <div class="container-fluid pt-5 pb-3">
+    <h2 class="section-title position-relative text-uppercase mx-xl-5 mb-4">
+        <span class="bg-secondary pr-3">Sản phẩm Giảm giá</span>
+    </h2>
     <div class="row px-xl-5">
         <div class="col-md-6">
             <div class="product-offer mb-30" style="height: 300px;">
@@ -201,7 +210,8 @@
     </div>
 </div>
 <!-- Giảm giá End -->
-<!-- Sản phẩm gần đây Start -->
+
+@* <!-- Sản phẩm gần đây Start -->
 <div class="container-fluid pt-5 pb-3">
     <h2 class="section-title position-relative text-uppercase mx-xl-5 mb-4">
         <span class="bg-secondary pr-3">Sản phẩm gần đây</span>
@@ -223,66 +233,72 @@
                     <div class="text-center py-4">
                         <a class="h6 text-decoration-none text-truncate" asp-controller="Shop" asp-action="Detail" asp-route-id="@product.ProductId">@product.Name</a>
                         <div class="d-flex align-items-center justify-content-center mt-2">
-                            <h5>@product..ToString("#,##0 VNĐ")</h5>
+                            <h5>@productWithMinPrice.MinPrice.ToString("#,##0 VNĐ")</h5> <!-- Hiển thị giá của size nhỏ nhất -->
                         </div>
                     </div>
                 </div>
             </div>
         }
     </div>
-</div>
+</div> *@
 <!-- Sản phẩm gần đây End -->
-<!-- Vendor Start -->
+
+<!-- Vendor Start (for Brands) -->
 <style>
     .vendor-carousel .bg-light {
         display: flex;
         align-items: center;
         justify-content: center;
-        height: 120px; /* Điều chỉnh chiều cao theo nhu cầu */
+        height: 120px; /* Adjust height as needed */
     }
 
     .vendor-carousel img {
         max-width: 100%;
         max-height: 100%;
-        object-fit: contain; /* Giữ nguyên tỉ lệ ảnh, không bị méo */
+        object-fit: contain; /* Ensure images retain their aspect ratio */
     }
 </style>
 <div class="container-fluid py-5">
+    <h2 class="section-title position-relative text-uppercase mx-xl-5 mb-4">
+        <span class="bg-secondary pr-3">Thương Hiệu Hợp tác</span>
+    </h2>
     <div class="row px-xl-5">
         <div class="col">
             <div class="owl-carousel vendor-carousel">
-                @foreach (var category in Model.Categories)
+                @foreach (var brand in Model.Brands)
                 {
                     <div class="bg-light p-4">
-                        <img src="@category.ImageUrl" alt="@category.Name">
+                        <img src="@brand.ImageUrl" alt="@brand.Name" loading="lazy">
                     </div>
                 }
             </div>
         </div>
     </div>
 </div>
-
 <!-- Vendor End -->
+<!-- Scripts Section for Owl Carousel -->
 @section Scripts {
     <!-- Owl Carousel JS -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js" defer></script>
+
     <script>
-               $(document).ready(function () {
-            // Khởi tạo Owl Carousel
-            $('.vendor-carousel').owlCarousel({
-                loop: true,        // Quay lại đầu khi hết
-                margin: 10,        // Khoảng cách giữa các item
-                nav: true,         // Hiển thị nút điều hướng
-                autoplay: true,    // Tự động chạy carousel
-                autoplayTimeout: 3000, // Thời gian giữa mỗi slide (mặc định 3000ms = 3 giây)
-                autoplayHoverPause: true, // Dừng autoplay khi hover chuột vào carousel
-                responsive: {
-                    0: { items: 1 },       // Hiển thị 1 item trên màn hình nhỏ
-                    600: { items: 3 },     // Hiển thị 3 item trên màn hình rộng
-                    1000: { items: 5 }     // Hiển thị 5 item trên màn hình rất rộng
-                }
-            });
+        $(document).ready(function () {
+            // Initialize Owl Carousel for Brands
+                    $('.vendor-carousel').owlCarousel({
+            loop: true,
+            margin: 10,
+            nav: true,
+            autoplay: true,
+            autoplayTimeout: 0, // Faster transitions between slides
+            autoplayHoverPause: true,
+            responsive: {
+                0: { items: 1 },
+                600: { items: 3 },
+                1000: { items: 5 }
+            }
         });
 
+            });
     </script>
 }
