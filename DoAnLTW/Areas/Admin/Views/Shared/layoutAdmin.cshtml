@@ -177,41 +177,39 @@
                         </a>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link" asp-area="Admin" asp-controller="Order" asp-action="Index">
+                            <span class="menu-title">Quản Lý Đơn Hàng</span>
+                            <i class="fa-solid fa-file-invoice-dollar menu-icon"></i>
+                        </a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link" asp-area="Admin" asp-controller="Product" asp-action="Index">
-                            <span class="menu-title">Danh sách sản phẩm</span>
+                            <span class="menu-title">Quản Lý Sản Phẩm</span>
                             <i class="fa-solid fa-box menu-icon"></i>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" asp-area="Admin" asp-controller="Category" asp-action="Index">
-                            <span class="menu-title">Danh mục sản phẩm</span>
+                            <span class="menu-title">Quản Lý Danh Mục</span>
                             <i class="fa-solid fa-list menu-icon"></i>
                         </a>
                     </li>
+
                     <li class="nav-item">
-                        <a class="nav-link" asp-area="Admin" asp-controller="ProductSize" asp-action="Index">
-                            <span class="menu-title">Quản lý số lượng sản phẩm</span>
-                            <i class="fa-solid fa-ruler menu-icon"></i>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" asp-area="Admin" asp-controller="Order" asp-action="Index">
-                            <span class="menu-title">Quản lý đơn hàng</span>
+                        <a class="nav-link" asp-area="Admin" asp-controller="Brand" asp-action="Index">
+                            <span class="menu-title">Quản Lý Thương Hiệu</span>
                             <i class="fa-solid fa-file-invoice-dollar menu-icon"></i>
                         </a>
                     </li>
+
                     <li class="nav-item">
                         <a class="nav-link" asp-area="Admin" asp-controller="Size" asp-action="Index">
                             <span class="menu-title">Quản lý Size</span>
                             <i class="fa-solid fa-file-invoice-dollar menu-icon"></i>
                         </a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" asp-area="Admin" asp-controller="Brand" asp-action="Index">
-                            <span class="menu-title">Danh sách nhãn hàng</span>
-                            <i class="fa-solid fa-file-invoice-dollar menu-icon"></i>
-                        </a>
-                    </li>
+                  
+                  
                     @if (User.IsInRole("Admin"))
                     {
                         <li class="nav-item">
