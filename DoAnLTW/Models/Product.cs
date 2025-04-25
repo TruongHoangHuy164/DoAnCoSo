@@ -36,5 +36,7 @@ namespace DoAnLTW.Models
 
         [NotMapped]
         public int TotalStock => ProductSizes?.Sum(ps => ps.Stock) ?? 0;
+
+        public List<Review>? Reviews { get; set; } = new List<Review>();
     }
 }

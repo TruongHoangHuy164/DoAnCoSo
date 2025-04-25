@@ -2,6 +2,6 @@
 
 public class ProductWithMinPrice
 {
-    public Product Product { get; set; }
+    public Product ?Product { get; set; }
     public decimal MinPrice { get; set; }
 }

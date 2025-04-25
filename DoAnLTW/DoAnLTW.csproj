@@ -39,5 +39,7 @@
   <ItemGroup>
     <None Include="wwwroot\LayoutAdmin\.DS_Store" />
   </ItemGroup>
-
+	<ItemGroup>
+		<Compile Include="Models/ProductWithMinPrice.cs" />
+	</ItemGroup>
 </Project>

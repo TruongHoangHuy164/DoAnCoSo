@@ -1,4 +1,4 @@
-﻿
+﻿@* 
 @{
     ViewData["Title"] = "Home Page";
 }
@@ -166,7 +166,7 @@
                         <a class="h6 text-decoration-none text-truncate" asp-controller="Shop" asp-action="Detail" asp-route-id="@product.ProductId">@product.Name</a>
                      @*    <div class="d-flex align-items-center justify-content-center mt-2">
                             <h5>@(product.Price.HasValue ? product.Price.Value.ToString("#,##0 VNĐ") : "Liên hệ")</h5>
-                        </div> *@
+                        </div> 
                     </div>
                 </div>
             </div>
@@ -223,7 +223,7 @@
                         <a class="h6 text-decoration-none text-truncate" asp-controller="Shop" asp-action="Detail" asp-route-id="@product.ProductId">@product.Name</a>
                        @*  <div class="d-flex align-items-center justify-content-center mt-2">
                             <h5>@(product.Price.HasValue ? product.Price.Value.ToString("#,##0 VNĐ") : "Liên hệ")</h5>
-                        </div> *@
+                        </div> 
                     </div>
                 </div>
             </div>
@@ -278,5 +278,346 @@
                 }
             });
         });
+    </script>
+}
+*@
+
+@* @model List<DoAnLTW.Models.Product> *@
+
+@* @{ *@
+@*     ViewData["Title"] = "Danh Sách Sản Phẩm"; *@
+@* } *@
+
+@* <div class="container-fluid"> *@
+@*     <div class="row"> *@
+@*         <!-- Sidebar: Bộ lọc --> *@
+@*         <div class="col-md-3 bg-dark text-white p-3"> *@
+@*             <h4>LỌC SẢN PHẨM</h4> *@
+
+@*             <!-- Danh mục --> *@
+@*             <div class="mb-4"> *@
+@*                 <h5>DANH MỤC</h5> *@
+@*                 @foreach (var category in ViewBag.Categories) *@
+@*                 { *@
+@*                     <div class="form-check"> *@
+@*                         <input type="checkbox" class="form-check-input" id="category_@category.CategoryId" name="categoryId" value="@category.CategoryId" @(category.CategoryId == ViewBag.CategoryId ? "checked" : "") onchange="applyFilters()" /> *@
+@*                         <label class="form-check-label" for="category_@category.CategoryId">@category.Name (@category.Products.Count)</label> *@
+@*                     </div> *@
+@*                 } *@
+@*             </div> *@
+
+@*             <!-- Thương hiệu --> *@
+@*             <div class="mb-4"> *@
+@*                 <h5>THƯƠNG HIỆU</h5> *@
+@*                 @foreach (var brand in ViewBag.Brands) *@
+@*                 { *@
+@*                     <div class="form-check"> *@
+@*                         <input type="checkbox" class="form-check-input" id="brand_@brand.BrandId" name="brandId" value="@brand.BrandId" @(brand.BrandId == ViewBag.BrandId ? "checked" : "") onchange="applyFilters()" /> *@
+@*                         <label class="form-check-label" for="brand_@brand.BrandId">@brand.Name (@brand.Products.Count)</label> *@
+@*                     </div> *@
+@*                 } *@
+@*             </div> *@
+
+@*             <!-- Kích thước --> *@
+@*             <div class="mb-4"> *@
+@*                 <h5>KÍCH THƯỚC</h5> *@
+@*                 @foreach (var size in ViewBag.Sizes) *@
+@*                 { *@
+@*                     <div class="form-check"> *@
+@*                         <input type="checkbox" class="form-check-input" id="size_@size.SizeId" name="sizeId" value="@size.SizeId" @(size.SizeId == ViewBag.SizeId ? "checked" : "") onchange="applyFilters()" /> *@
+@*                         <label class="form-check-label" for="size_@size.SizeId">@size.size (@size.ProductSizes.Count)</label> *@
+@*                     </div> *@
+@*                 } *@
+@*             </div> *@
+
+@*             <!-- Giá --> *@
+@*             <div class="mb-4"> *@
+@*                 <h5>GIÁ</h5> *@
+@*                 <div class="form-group"> *@
+@*                     <input type="number" class="form-control" id="minPrice" name="minPrice" placeholder="0" value="@ViewBag.MinPrice" /> *@
+@*                     <input type="number" class="form-control mt-2" id="maxPrice" name="maxPrice" placeholder="6,500đ" value="@ViewBag.MaxPrice" /> *@
+@*                 </div> *@
+@*             </div> *@
+
+@*             <!-- Tình trạng hàng --> *@
+@*             <div class="mb-4"> *@
+@*                 <h5>TÌNH TRẠNG</h5> *@
+@*                 <p>Còn Hàng: @ViewBag.InStockCount</p> *@
+@*                 <p>Hết Hàng: @ViewBag.OutOfStockCount</p> *@
+@*             </div> *@
+
+@*             <!-- Nút áp dụng bộ lọc --> *@
+@*             <button class="btn btn-primary" onclick="applyFilters()">ÁP DỤNG</button> *@
+@*         </div> *@
+
+@*         <!-- Danh sách sản phẩm --> *@
+@*         <div class="col-md-9"> *@
+@*             <!-- Sắp xếp --> *@
+@*             <div class="d-flex justify-content-between mb-3"> *@
+@*                 <h4>@Model.Count SẢN PHẨM</h4> *@
+@*                @*  <select id="sortOrder" class="form-select w-25" onchange="applyFilters()"> *@
+@*                     <option value="best_selling" @(ViewBag.SortOrder == "best_selling" ? "selected" : "")>Bán chạy</option> *@
+@*                     <option value="name" @(ViewBag.SortOrder == "name" ? "selected" : "")>Tên A-Z</option> *@
+@*                 </select> *@ 
+@*             </div> *@
+
+@*             <!-- Danh sách sản phẩm --> *@
+@*             <div class="row"> *@
+@*                 @foreach (var product in Model) *@
+@*                 { *@
+@*                     var avgRating = product.Reviews.Any() ? product.Reviews.Average(r => r.Rating) : 0; *@
+@*                     var imageUrl = product.Images.FirstOrDefault()?.ImageUrl ?? product.ImageUrl ?? "/images/default.jpg"; *@
+@*                     var minPrice = product.ProductSizes.Any() ? product.ProductSizes.Min(ps => ps.Price) : 0; *@
+
+@*                     <div class="col-md-3 mb-4"> *@
+@*                         <div class="card h-100"> *@
+@*                             <img src="@imageUrl" class="card-img-top" alt="@product.Name" style="height: 200px; object-fit: cover;" /> *@
+@*                             <div class="card-body"> *@
+@*                                 <h6 class="card-title">@product.Name</h6> *@
+@*                                 <p class="card-text"> *@
+@*                                     @if (minPrice != product.ProductSizes.Min(ps => ps.Price)) *@
+@*                                     { *@
+@*                                         <span class="text-muted text-decoration-line-through">@product.ProductSizes.Min(ps => ps.Price).ToString("N0")đ</span> *@
+@*                                         <br /> *@
+@*                                     } *@
+@*                                     <span class="text-danger">@minPrice.ToString("N0")đ</span> *@
+@*                                 </p> *@
+@*                                 <p> *@
+@*                                     @for (int i = 1; i <= 5; i++) *@
+@*                                     { *@
+@*                                         if (i <= avgRating) *@
+@*                                         { *@
+@*                                             <i class="fas fa-star text-warning"></i> *@
+@*                                         } *@
+@*                                         else *@
+@*                                         { *@
+@*                                             <i class="far fa-star text-warning"></i> *@
+@*                                         } *@
+@*                                     } *@
+@*                                     <span>(@product.Reviews.Count)</span> *@
+@*                                 </p> *@
+@*                                 <p>@(product.TotalStock > 0 ? "Còn hàng" : "Hết hàng")</p> *@
+@*                             </div> *@
+@*                             <div class="card-footer"> *@
+@*                                 <a href="@Url.Action("Details", "Shop", new { id = product.ProductId })" class="btn btn-primary btn-sm">Xem chi tiết</a> *@
+@*                             </div> *@
+@*                         </div> *@
+@*                     </div> *@
+@*                 } *@
+@*             </div> *@
+@*         </div> *@
+@*     </div> *@
+@* </div> *@
+
+@* @section Scripts { *@
+@*     <script> *@
+@*         function applyFilters() { *@
+@*             var categoryId = $('input[name="categoryId"]:checked').val(); *@
+@*             var brandId = $('input[name="brandId"]:checked').val(); *@
+@*             var sizeId = $('input[name="sizeId"]:checked').val(); *@
+@*             var minPrice = $('#minPrice').val(); *@
+@*             var maxPrice = $('#maxPrice').val(); *@
+@*             var sortOrder = $('#sortOrder').val(); *@
+
+@*             var url = '@Url.Action("Index", "Shop")' + '?'; *@
+@*             if (categoryId) url += 'categoryId=' + categoryId + '&'; *@
+@*             if (brandId) url += 'brandId=' + brandId + '&'; *@
+@*             if (sizeId) url += 'sizeId=' + sizeId + '&'; *@
+@*             if (minPrice) url += 'minPrice=' + minPrice + '&'; *@
+@*             if (maxPrice) url += 'maxPrice=' + maxPrice + '&'; *@
+@*             url += 'sortOrder=' + sortOrder; *@
+
+@*             window.location.href = url; *@
+@*         } *@
+@*     </script> *@
+@* } *@
+
+@model List<DoAnLTW.Models.Product>
+
+@{
+    ViewData["Title"] = "Danh Sách Sản Phẩm";
+}
+
+<div class="container-fluid">
+    <div class="row">
+        <!-- Sidebar: Bộ lọc -->
+        <div class="col-md-3 bg-dark text-white p-3">
+            <h4>LỌC SẢN PHẨM</h4>
+
+            <!-- Danh mục -->
+            <div class="mb-4">
+                <h5>DANH MỤC</h5>
+                @foreach (var category in ViewBag.Categories)
+                {
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input" id="category_@category.CategoryId" name="categoryId" value="@category.CategoryId" @(category.CategoryId == ViewBag.CategoryId ? "checked" : "") onchange="applyFilters()" />
+                        <label class="form-check-label" for="category_@category.CategoryId">@category.Name (@category.ProductCount)</label>
+                    </div>
+                }
+            </div>
+
+            <!-- Thương hiệu -->
+            <div class="mb-4">
+                <h5>THƯƠNG HIỆU</h5>
+                @foreach (var brand in ViewBag.Brands)
+                {
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input" id="brand_@brand.BrandId" name="brandId" value="@brand.BrandId" @(brand.BrandId == ViewBag.BrandId ? "checked" : "") onchange="applyFilters()" />
+                        <label class="form-check-label" for="brand_@brand.BrandId">@brand.Name (@brand.ProductCount)</label>
+                    </div>
+                }
+            </div>
+
+            <!-- Kích thước -->
+            <div class="mb-4">
+                <h5>KÍCH THƯỚC</h5>
+                @foreach (var size in ViewBag.Sizes)
+                {
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input" id="size_@size.SizeId" name="sizeId" value="@size.SizeId" @(size.SizeId == ViewBag.SizeId ? "checked" : "") onchange="applyFilters()" />
+                        <label class="form-check-label" for="size_@size.SizeId">@size.SizeDisplay (@size.ProductCount)</label>
+                    </div>
+                }
+            </div>
+
+            <!-- Giá -->
+            <div class="mb-4">
+                <h5>GIÁ</h5>
+               @*  @foreach (var priceRange in ViewBag.PriceRanges)
+                {
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input" name="priceRange" 
+                               data-min="@priceRange.Range.Min" 
+                               data-max="@(priceRange.Range.Max?.ToString() ?? "")" 
+                               onchange="applyFilters()" />
+                        <label class="form-check-label">
+                            @if (priceRange.Range.Max != null)
+                            {
+                                @(priceRange.Range.Min.ToString("N0") + "đ - " + priceRange.Range.Max.Value.ToString("N0") + "đ")
+                            }
+                            else
+                            {
+                                @(priceRange.Range.Min.ToString("N0") + "đ trở lên")
+                            }
+                            (@priceRange.Count)
+                        </label>
+                    </div>
+                } *@
+            </div>
+
+            <!-- Tình trạng hàng -->
+            <div class="mb-4">
+                <h5>TÌNH TRẠNG</h5>
+                <p>Còn Hàng: @ViewBag.InStockCount</p>
+                <p>Hết Hàng: @ViewBag.OutOfStockCount</p>
+            </div>
+
+            <!-- Nút áp dụng bộ lọc -->
+            <button class="btn btn-primary" onclick="applyFilters()">ÁP DỤNG</button>
+        </div>
+
+        <!-- Danh sách sản phẩm -->
+        <div class="col-md-9">
+            <!-- Sắp xếp -->
+            <div class="d-flex justify-content-between mb-3">
+                <h4>@Model.Count SẢN PHẨM</h4>
+                <select id="sortOrder" class="form-select w-25" onchange="applyFilters()"> 
+                @*     <option value="best_selling" @(ViewBag.SortOrder == "best_selling" ? "selected" : "")>Bán chạy</option> *@
+                @*     <option value="name" @(ViewBag.SortOrder == "name" ? "selected" : "")>Tên A-Z</option> *@
+                 </select> 
+            </div>
+
+            <!-- Danh sách sản phẩm -->
+            <div class="row">
+                @foreach (var product in Model)
+                {
+                    var avgRating = product.Reviews.Any() ? product.Reviews.Average(r => r.Rating) : 0;
+                    var minPrice = product.ProductSizes.Any() ? product.ProductSizes.Min(ps => ps.Price) : 0;
+
+                    <div class="col-md-3 mb-4">
+                        <div class="card h-100">
+                            <img src="@product.ImageUrl" class="card-img-top" alt="@product.Name" style="height: 200px; object-fit: cover;" />
+                            <div class="card-body">
+                                <h6 class="card-title">@product.Name</h6>
+                                <p class="card-text">
+                                    <!-- Bỏ điều kiện kiểm tra giá gốc và giá giảm giá -->
+                                    <span class="text-danger">@minPrice.ToString("N0")đ</span>
+                                </p>
+                                <p>
+                                    @for (int i = 1; i <= 5; i++)
+                                    {
+                                        if (i <= avgRating)
+                                        {
+                                            <i class="fas fa-star text-warning"></i>
+                                        }
+                                        else
+                                        {
+                                            <i class="far fa-star text-warning"></i>
+                                        }
+                                    }
+                                    <span>(@product.Reviews.Count)</span>
+                                </p>
+                                <p>@(product.TotalStock > 0 ? "Còn hàng" : "Hết hàng")</p>
+                            </div>
+                            <div class="card-footer">
+                                <a href="@Url.Action("Details", "Shop", new { id = product.ProductId })" class="btn btn-primary btn-sm">Xem chi tiết</a>
+                                <button class="btn btn-outline-danger btn-sm" onclick="toggleFavourite(@product.ProductId)">
+                                    @if (ViewBag.FavouriteProducts.Contains(product.ProductId))
+                                    {
+                                        <i class="fas fa-heart"></i>
+                                    }
+                                    else
+                                    {
+                                        <i class="far fa-heart"></i>
+                                    }
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        function applyFilters() {
+            var categoryId = $('input[name="categoryId"]:checked').val();
+            var brandId = $('input[name="brandId"]:checked').val();
+            var sizeId = $('input[name="sizeId"]:checked').val();
+            var priceRange = $('input[name="priceRange"]:checked');
+            var minPrice = priceRange.length > 0 ? priceRange.data('min') : '';
+            var maxPrice = priceRange.length > 0 ? priceRange.data('max') : '';
+            var sortOrder = $('#sortOrder').val();
+            var searchString = '@ViewBag.SearchString'; // Nếu có ô tìm kiếm
+
+            var url = '@Url.Action("Index", "Shop")' + '?';
+            if (categoryId) url += 'categoryId=' + categoryId + '&';
+            if (brandId) url += 'brandId=' + brandId + '&';
+            if (sizeId) url += 'sizeId=' + sizeId + '&';
+            if (minPrice) url += 'minPrice=' + minPrice + '&';
+            if (maxPrice) url += 'maxPrice=' + maxPrice + '&';
+            url += 'sortOrder=' + sortOrder;
+            if (searchString) url += '&searchString=' + searchString;
+
+            window.location.href = url;
+        }
+
+        function toggleFavourite(productId) {
+            $.ajax({
+                url: '@Url.Action("ToggleFavourite", "Shop")',
+                type: 'POST',
+                data: { productId: productId },
+                success: function (response) {
+                    if (response.success) {
+                        location.reload();
+                    }
+                },
+                error: function () {
+                    alert('Có lỗi xảy ra khi cập nhật danh sách yêu thích.');
+                }
+            });
+        }
     </script>
 }

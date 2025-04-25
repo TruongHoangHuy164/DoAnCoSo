@@ -20,6 +20,8 @@ namespace DoAnLTW.Models
         public DbSet<Order> Orders { get; set; }
         public DbSet<OrderDetail> OrderDetails { get; set; }
         public DbSet<Review> Reviews { get; set; }
+        public DbSet<FavouriteProduct> FavouriteProducts { get; set; }
+        public DbSet<WishProductList> WishProductLists { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -69,6 +71,18 @@ namespace DoAnLTW.Models
                 .HasOne(od => od.Product)
                 .WithMany()
                 .HasForeignKey(od => od.ProductId);
+
+            // Cấu hình mối quan hệ giữa FavouriteProduct và Product
+            modelBuilder.Entity<FavouriteProduct>()
+                .HasOne(fp => fp.Product)
+                .WithMany()
+                .HasForeignKey(fp => fp.ProductId);
+
+            // Cấu hình mối quan hệ giữa WishProductList và Product
+            modelBuilder.Entity<WishProductList>()
+                .HasOne(wp => wp.Product)
+                .WithMany()
+                .HasForeignKey(wp => wp.ProductId);
 
             // Cấu hình các thuộc tính
             modelBuilder.Entity<Product>()
