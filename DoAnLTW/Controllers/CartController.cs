@@ -40,22 +40,19 @@ namespace DoAnLTW.Controllers
         }
 
         // Thêm sản phẩm vào giỏ hàng
-        public async Task<IActionResult> AddToCart(int productId, string size, int quantity)
+        [HttpPost]
+        public async Task<IActionResult> AddToCart(int productId, int sizeId, int quantity)
         {
-            // Chuyển đổi size từ string sang int (SizeId)
-            if (!int.TryParse(size, out int sizeId))
-            {
-                return Json(new { success = false, message = "Size không hợp lệ. Vui lòng chọn một size hợp lệ." });
-            }
-
-            // Kiểm tra quantity hợp lệ
+            // Default to 1 if quantity is invalid
             if (quantity < 1)
             {
-                return Json(new { success = false, message = "Số lượng phải lớn hơn hoặc bằng 1." });
+                quantity = 1; // Fallback to 1 instead of returning an error
+                // Alternatively, you can return the error as before:
+                // return Json(new { success = false, message = "Số lượng phải lớn hơn hoặc bằng 1." });
             }
 
             var cart = GetCartItems();
-            var productInCart = cart.FirstOrDefault(p => p.ProductId == productId && p.Size == size);
+            var productInCart = cart.FirstOrDefault(p => p.ProductId == productId && p.Size == sizeId.ToString());
 
             if (productInCart != null)
             {
@@ -111,7 +108,7 @@ namespace DoAnLTW.Controllers
                     ProductId = product.ProductId,
                     ProductName = product.Name,
                     Price = productSize.Price, // Lấy giá từ ProductSize
-                    Size = size, // Lưu size dưới dạng string (SizeId) để hiển thị
+                    Size = sizeId.ToString(), // Lưu size dưới dạng string (SizeId) để hiển thị
                     Quantity = quantity // Sử dụng quantity từ người dùng
                 };
 

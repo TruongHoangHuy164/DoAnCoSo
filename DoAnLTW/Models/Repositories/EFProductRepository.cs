@@ -35,22 +35,30 @@ namespace DoAnLTW.Models.Repositories
 
         public async Task<Product?> GetByIdAsync(int id)
         {
-            var product = await _context.Products
-                .Include(p => p.Category)
-                .Include(p => p.Brand)
-                .Include(p => p.ProductSizes)
-                    .ThenInclude(ps => ps.Size)
-                .Include(p => p.Images)
-                .FirstOrDefaultAsync(p => p.ProductId == id); // Sửa từ CategoryId thành ProductId
-
-            if (product != null)
+            try
             {
-                product.ImageUrl = product.Images.FirstOrDefault()?.ImageUrl ?? "/img/default-product.jpg";
+                var product = await _context.Products
+                    .Include(p => p.Category)
+                    .Include(p => p.Brand)
+                    .Include(p => p.ProductSizes)
+                        .ThenInclude(ps => ps.Size)
+                    .Include(p => p.Images)
+                    .FirstOrDefaultAsync(p => p.ProductId == id);
+
+                if (product != null)
+                {
+                    product.ImageUrl = product.Images.FirstOrDefault()?.ImageUrl ?? "/img/default-product.jpg";
+                }
+
+                return product;
             }
-
-            return product;
+            catch (Exception ex)
+            {
+                // Ghi log lỗi nếu cần
+                Console.WriteLine($"Lỗi khi lấy sản phẩm với ProductId {id}: {ex.Message}");
+                return null;
+            }
         }
-
         public async Task AddAsync(Product product)
         {
             _context.Products.Add(product);

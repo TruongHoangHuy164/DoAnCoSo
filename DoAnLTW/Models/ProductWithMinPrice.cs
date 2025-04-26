@@ -1,7 +1,8 @@
-﻿using DoAnLTW.Models;
-
-public class ProductWithMinPrice
+﻿namespace DoAnLTW.Models
 {
-    public Product ?Product { get; set; }
-    public decimal MinPrice { get; set; }
+    public class ProductWithMinPrice
+    {
+        public Product Product { get; set; }
+        public decimal MinPrice { get; set; }
+    }
 }
