@@ -5,8 +5,8 @@ namespace DoAnLTW.Models
 {
     public class ProductSize
     {
-        [Key]
-        public int Id { get; set; }
+        //[Key]
+        //public int Id { get; set; }
 
         public int ProductId { get; set; }
 
