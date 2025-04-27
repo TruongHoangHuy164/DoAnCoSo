@@ -7,86 +7,362 @@
 <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 
+<style>
+    .filter-sidebar {
+        background: #FFFFFF; /* White background */
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+    }
+
+        .filter-sidebar h4 {
+            color: #FFD700; /* Gold for main heading */
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+
+        .filter-sidebar h5 {
+            color: #000000; /* Black for subheadings */
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+
+        .filter-sidebar .form-check {
+            margin-bottom: 10px;
+            transition: all 0.2s ease;
+        }
+
+        .filter-sidebar .form-check-input {
+            cursor: pointer;
+            border: 2px solid #000000; /* Black border */
+        }
+
+            .filter-sidebar .form-check-input:checked {
+                background-color: #FFD700; /* Gold for checked state */
+                border-color: #FFD700;
+            }
+
+        .filter-sidebar .form-check-label {
+            color: #000000; /* Black text */
+            cursor: pointer;
+        }
+
+        .filter-sidebar .form-check:hover {
+            background: #F0F0F0; /* Light gray for hover */
+            border-radius: 5px;
+            padding-left: 5px;
+        }
+
+        .filter-sidebar .btn-primary {
+            background-color: #FFD700; /* Gold button */
+            border: none;
+            color: #000000; /* Black text */
+            width: 100%;
+            padding: 10px;
+            font-weight: 500;
+            transition: background-color 0.3s ease;
+        }
+
+            .filter-sidebar .btn-primary:hover {
+                background-color: #D4AF37; /* Darker gold for hover */
+            }
+
+    .stock-status p {
+        margin: 5px 0;
+        font-weight: 500;
+    }
+
+    .stock-status .in-stock {
+        color: #FFD700; /* Gold for in-stock */
+    }
+
+    .stock-status .out-stock {
+        color: #000000; /* Black for out-of-stock */
+    }
+
+    /* Product List Styling */
+    /* Cải thiện card-body */
+    .card-body {
+        padding: 20px; /* Đảm bảo có đủ khoảng cách */
+        display: flex; /* Sử dụng Flexbox */
+        flex-direction: column; /* Sắp xếp các phần tử theo chiều dọc */
+        justify-content: space-between; /* Căn đều giữa các phần tử */
+        height: 100%; /* Đảm bảo nội dung card-body chiếm đầy chiều cao */
+    }
+
+        /* Căn chỉnh tiêu đề (Tên sản phẩm) */
+        .card-body .card-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #000000; /* Đảm bảo màu sắc tiêu đề rõ ràng */
+            margin-bottom: 10px; /* Thêm khoảng cách dưới tiêu đề */
+            text-align: center; /* Căn giữa tên sản phẩm */
+        }
+
+        /* Căn chỉnh giá (và làm nổi bật giá) */
+        .card-body .card-text .text-danger {
+            font-size: 18px;
+            color: #FFD700 !important; /* Màu vàng cho giá */
+            font-weight: 700; /* Làm nổi bật giá */
+            text-align: center; /* Căn giữa giá */
+            margin-bottom: 15px; /* Thêm khoảng cách dưới giá */
+        }
+
+        /* Cải thiện phần đánh giá sản phẩm */
+        .card-body .card-text .rating {
+            display: flex;
+            justify-content: center; /* Căn giữa các sao */
+            gap: 5px; /* Khoảng cách giữa các sao */
+            margin-bottom: 15px; /* Thêm khoảng cách dưới phần đánh giá */
+        }
+
+        /* Căn chỉnh phần tình trạng hàng (Còn hàng / Hết hàng) */
+        .card-body .stock-status {
+            display: flex;
+            justify-content: center; /* Căn giữa */
+            align-items: center;
+            font-size: 14px;
+            font-weight: 500;
+            color: #000000;
+        }
+
+            .card-body .stock-status .in-stock {
+                color: #FFD700; /* Màu vàng cho Còn hàng */
+            }
+
+            .card-body .stock-status .out-stock {
+                color: #000000; /* Màu đen cho Hết hàng */
+            }
+
+    .card {
+        background: #FFFFFF; /* White card background */
+        
+        transition: transform 0.2s ease, box-shadow 0.2s ease; /* Smooth hover transition */
+        cursor: pointer; /* Indicate card is clickable */
+    }
+
+        .card:hover {
+            transform: scale(1.05); /* Slight scale-up on hover */
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Enhanced shadow */
+        }
+
+        .card .card-footer {
+            display: flex;
+            background: #FFFFFF; /* Ensure footer matches card */
+        }
+
+        .card .btn {
+            pointer-events: auto; /* Ensure buttons remain interactive */
+        }
+
+    .card-title {
+        font-size: 23px;
+        color: #000000; /* Black title */
+    }
+
+    .card-text .text-danger {
+        font-size: 16px;
+        color: #FFD700 !important; /* Gold for price */
+    }
+
+    .card-footer .btn-primary {
+        background-color: #FFD700; /* Gold button */
+        color: #000000; /* Black text */
+        border: none;
+    }
+
+        .card-footer .btn-primary:hover {
+            background-color: #D4AF37; /* Darker gold */
+        }
+
+    .card-footer .btn-outline-danger {
+        border-color: #000000; /* Black border */
+        color: #000000; /* Black icon */
+    }
+
+        .card-footer .btn-outline-danger:hover {
+            background-color: #FFD700; /* Gold background on hover */
+            color: #000000;
+        }
+
+    /* Sorting and View Toggle Buttons */
+    .btn-outline-secondary {
+        border-color: burlywood; /* Black border */
+        color: #000000; /* Black text/icon */
+    }
+
+        .btn-outline-secondary:hover {
+            background-color: #FFD700; /* Gold on hover */
+            color: #000000;
+        }
+
+        .btn-outline-secondary.active {
+            background-color: #FFD700; /* Gold for active state */
+            color: #000000;
+            border-color: #000000;
+        }
+
+    .btn-outline-primary {
+        border-color: #000000; /* Black border */
+        color: #000000; /* Black icon */
+    }
+
+        .btn-outline-primary:hover {
+            background-color: #FFD700; /* Gold on hover */
+            color: #000000;
+        }
+
+    /* Table View */
+    .table {
+        background: #FFFFFF; /* White table background */
+        color: #000000; /* Black text */
+    }
+
+        .table th {
+            background: #000000; /* Black header background */
+            color: #FFFFFF; /* White text */
+        }
+
+        .table td {
+            border-color: #000000; /* Black borders */
+        }
+
+    .table-hover tbody tr:hover {
+        background-color: #F0F0F0; /* Light gray on hover */
+    }
+
+    .table .text-danger {
+        color: #FFD700 !important; /* Gold for price */
+    }
+
+    /* Pagination */
+    .pagination .page-link {
+        color: #000000; /* Black text */
+        border-color: #000000; /* Black border */
+    }
+
+    .pagination .page-item.active .page-link {
+        background-color: #FFD700; /* Gold for active page */
+        border-color: #000000;
+        color: #000000; /* Black text */
+    }
+
+    .pagination .page-link:hover {
+        background-color: #FFD700; /* Gold on hover */
+        color: #000000;
+    }
+
+    /* Ensure Font Awesome icons match gold theme */
+    .fa-star, .fa-heart {
+        color: #FFD700 !important;
+    }
+</style>
+
 <div class="container-fluid">
     <div class="row">
         <!-- Sidebar: Bộ lọc -->
-        <div class="col-md-3 bg-white text-dark p-3">
-            <h4>LỌC SẢN PHẨM</h4>
+        <div class="col-md-3">
+            <div class="filter-sidebar">
+                <h4>LỌC SẢN PHẨM</h4>
 
-            <!-- Danh mục -->
-            <div class="mb-4">
-                <h5>DANH MỤC</h5>
-                @foreach (var category in ViewBag.Categories)
-                {
-                    <div class="form-check">
-                        <input type="checkbox" class="form-check-input" id="category_@category.CategoryId" name="categoryId" value="@category.CategoryId" @(category.CategoryId == ViewBag.CategoryId ? "checked" : "") onchange="applyFilters()" />
-                        <label class="form-check-label" for="category_@category.CategoryId">@category.Name (@category.ProductCount)</label>
-                    </div>
-                }
-            </div>
+                <!-- Danh mục -->
+                <div class="mb-4">
+                    <h5>DANH MỤC</h5>
+                    @foreach (var category in ViewBag.Categories)
+                    {
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input"
+                                   id="category_@category.CategoryId"
+                                   name="categoryId"
+                                   value="@category.CategoryId"
+                            @(category.CategoryId == ViewBag.CategoryId ? "checked" : "")
+                                   onchange="applyFilters()" />
+                            <label class="form-check-label" for="category_@category.CategoryId">
+                                @category.Name (@category.ProductCount)
+                            </label>
+                        </div>
+                    }
+                </div>
 
-            <!-- Thương hiệu -->
-            <div class="mb-4">
-                <h5>THƯƠNG HIỆU</h5>
-                @foreach (var brand in ViewBag.Brands)
-                {
-                    <div class="form-check">
-                        <input type="checkbox" class="form-check-input" id="brand_@brand.BrandId" name="brandId" value="@brand.BrandId" @(brand.BrandId == ViewBag.BrandId ? "checked" : "") onchange="applyFilters()" />
-                        <label class="form-check-label" for="brand_@brand.BrandId">@brand.Name (@brand.ProductCount)</label>
-                    </div>
-                }
-            </div>
+                <!-- Thương hiệu -->
+                <div class="mb-4">
+                    <h5>THƯƠNG HIỆU</h5>
+                    @foreach (var brand in ViewBag.Brands)
+                    {
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input"
+                                   id="brand_@brand.BrandId"
+                                   name="brandId"
+                                   value="@brand.BrandId"
+                            @(brand.BrandId == ViewBag.BrandId ? "checked" : "")
+                                   onchange="applyFilters()" />
+                            <label class="form-check-label" for="brand_@brand.BrandId">
+                                @brand.Name (@brand.ProductCount)
+                            </label>
+                        </div>
+                    }
+                </div>
 
-            <!-- Kích thước -->
-            <div class="mb-4">
-                <h5>KÍCH THƯỚC</h5>
-                @foreach (var size in ViewBag.Sizes)
-                {
-                    <div class="form-check">
-                        <input type="checkbox" class="form-check-input" id="size_@size.SizeId" name="sizeId" value="@size.SizeId" @(size.SizeId == ViewBag.SizeId ? "checked" : "") onchange="applyFilters()" />
-                        <label class="form-check-label" for="size_@size.SizeId">@size.SizeDisplay (@size.ProductCount)</label>
-                    </div>
-                }
-            </div>
+                <!-- Kích thước -->
+                <div class="mb-4">
+                    <h5>KÍCH THƯỚC</h5>
+                    @foreach (var size in ViewBag.Sizes)
+                    {
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input"
+                                   id="size_@size.SizeId"
+                                   name="sizeId"
+                                   value="@size.SizeId"
+                            @(size.SizeId == ViewBag.SizeId ? "checked" : "")
+                                   onchange="applyFilters()" />
+                            <label class="form-check-label" for="size_@size.SizeId">
+                                @size.SizeDisplay (@size.ProductCount)
+                            </label>
+                        </div>
+                    }
+                </div>
 
-            <!-- Giá -->
-            <div class="mb-4">
-                <h5>GIÁ</h5>
-                @foreach (var priceRange in ViewBag.PriceRanges)
-                {
-                    var rangeText = priceRange.Range.Max != null
+                <!-- Giá -->
+                <div class="mb-4">
+                    <h5>GIÁ</h5>
+                    @foreach (var priceRange in ViewBag.PriceRanges)
+                    {
+                        var rangeText = priceRange.Range.Max != null
                         ? $"{priceRange.Range.Min:N0} - {priceRange.Range.Max:N0} VNĐ"
                         : $"Trên {priceRange.Range.Min:N0} VNĐ";
-                    <div class="form-check">
-                        <input type="checkbox" class="form-check-input price-filter"
-                               id="price-@priceRange.Range.Min"
-                               value="@priceRange.Range.Min-@priceRange.Range.Max"
-                               onchange="applyFilters()"
-                               @(priceRange.Range.Min == ViewBag.MinPrice && priceRange.Range.Max == ViewBag.MaxPrice ? "checked" : "") />
-                        <label class="form-check-label" for="price-@priceRange.Range.Min">
-                            @rangeText (@priceRange.Count)
-                        </label>
-                    </div>
-                }
-            </div>
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input price-filter"
+                                   id="price-@priceRange.Range.Min"
+                                   value="@priceRange.Range.Min-@priceRange.Range.Max"
+                                   onchange="applyFilters()"
+                            @(priceRange.Range.Min == ViewBag.MinPrice && priceRange.Range.Max == ViewBag.MaxPrice ? "checked" : "") />
+                            <label class="form-check-label" for="price-@priceRange.Range.Min">
+                                @rangeText (@priceRange.Count)
+                            </label>
+                        </div>
+                    }
+                </div>
 
-            <!-- Tình trạng hàng -->
-            <div class="mb-4">
-                <h5>TÌNH TRẠNG</h5>
-                <p>Còn Hàng: @ViewBag.InStockCount</p>
-                <p>Hết Hàng: @ViewBag.OutOfStockCount</p>
-            </div>
+                <!-- Tình trạng hàng -->
+                <div class="mb-4 stock-status">
+                    <h5>TÌNH TRẠNG</h5>
+                    <p class="in-stock"><i class="fas fa-check-circle me-1"></i> Còn Hàng: @ViewBag.InStockCount</p>
+                    <p class="out-stock"><i class="fas fa-times-circle me-1"></i> Hết Hàng: @ViewBag.OutOfStockCount</p>
+                </div>
 
-            <!-- Nút áp dụng bộ lọc -->
-            <button class="btn btn-primary" onclick="applyFilters()">ÁP DỤNG</button>
+                <!-- Nút áp dụng bộ lọc -->
+                <button class="btn btn-primary" onclick="applyFilters()">ÁP DỤNG BỘ LỌC</button>
+            </div>
         </div>
 
         <!-- Danh sách sản phẩm -->
         <div class="col-md-9">
-            <!-- Sắp xếp và chuyển đổi giao diện -->
+            <!-- Sắp xếp  và chuyển đổi giao diện -->
             <div class="d-flex justify-content-between mb-3 align-items-center">
                 <h4 class="mb-0">@Model.Count SẢN PHẨM</h4>
                 <div class="d-flex align-items-center gap-2">
+                    <!-- Hidden input for sort order -->
+                    <input type="hidden" id="sortOrder" value="@ViewBag.SortOrder" />
                     <!-- Sorting Button Group -->
                     <div class="btn-group" role="group" aria-label="Sort options">
                         <button type="button" class="btn btn-outline-secondary btn-sm @(ViewBag.SortOrder == "best_selling" ? "active" : "")"
@@ -128,7 +404,7 @@
                     var minPrice = product.ProductSizes.Any() ? product.ProductSizes.Min(ps => ps.Price) : 0;
 
                     <div class="col-md-3 mb-4 product-item">
-                        <div class="card h-100">
+                        <div class="card h-100" onclick="goToDetails(@product.ProductId)">
                             <img src="@product.ImageUrl" class="card-img-top" alt="@product.Name" style="height: 200px; object-fit: cover;" />
                             <div class="card-body">
                                 <h6 class="card-title">@product.Name</h6>
@@ -152,8 +428,8 @@
                                 <p>@(product.TotalStock > 0 ? "Còn hàng" : "Hết hàng")</p>
                             </div>
                             <div class="card-footer">
-                                <a href="@Url.Action("Details", "Shop", new { id = product.ProductId })" class="btn btn-primary btn-sm">Xem chi tiết</a>
-                                <button class="btn btn-outline-danger btn-sm" onclick="toggleFavourite(@product.ProductId)">
+                                <a href="@Url.Action("Details", "Shop", new { id = product.ProductId })" class="btn btn-primary btn-sm" onclick="event.stopPropagation();">Xem chi tiết</a>
+                                <button class="btn btn-outline-danger btn-sm" onclick="event.stopPropagation(); toggleFavourite(@product.ProductId)">
                                     @if (ViewBag.FavouriteProducts.Contains(product.ProductId))
                                     {
                                         <i class="fas fa-heart"></i>
@@ -291,6 +567,11 @@
             }
         });
 
+        function setSortOrder(sortValue) {
+            $('#sortOrder').val(sortValue);
+            applyFilters();
+        }
+
         function toggleView(view) {
             if (view === 'card') {
                 $('#cardView').show();
@@ -330,13 +611,24 @@
                 data: { productId: productId },
                 success: function (response) {
                     if (response.success) {
-                        location.reload();
+                        // Toggle heart icon dynamically
+                        let btn = $(`button[onclick*='toggleFavourite(${productId})']`);
+                        let icon = btn.find('i');
+                        if (icon.hasClass('far')) {
+                            icon.removeClass('far fa-heart').addClass('fas fa-heart');
+                        } else {
+                            icon.removeClass('fas fa-heart').addClass('far fa-heart');
+                        }
                     }
                 },
                 error: function () {
                     alert('Có lỗi xảy ra khi cập nhật danh sách yêu thích.');
                 }
             });
+        }
+
+        function goToDetails(productId) {
+            window.location.href = '@Url.Action("Details", "Shop")' + '/' + productId;
         }
     </script>
 }
