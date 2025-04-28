@@ -1,145 +1,476 @@
 ﻿@model DoAnLTW.Models.Product
-
 @{
-    ViewData["Title"] = "Chi tiết sản phẩm";
+    ViewData["Title"] = "Detail";
+    Layout = "~/Views/Shared/_LayoutHome.cshtml";
 }
 
-<!-- Bootstrap CSS -->
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-
-<div class="container mt-5">
-    <div class="row">
-        <!-- Carousel hiển thị ảnh sản phẩm -->
-        <div class="col-md-6">
-            <div id="productCarousel" class="carousel slide" data-bs-ride="carousel">
-                <!-- Carousel indicators -->
-                <div class="carousel-indicators">
-                    @for (int i = 0; i < Model.Images.Count; i++)
-                    {
-                        <button type="button" data-bs-target="#productCarousel" data-bs-slide-to="@i" class="@(i == 0 ? "active" : "")" aria-current="@(i == 0 ? "true" : "false")" aria-label="Slide @(i + 1)"></button>
-                    }
-                </div>
-
-                <!-- Carousel items -->
-                <div class="carousel-inner">
-                    @if (Model.Images != null && Model.Images.Any())
-                    {
-                        @for (int i = 0; i < Model.Images.Count; i++)
-                        {
-                            var image = Model.Images.ElementAt(i);
-                            <div class="carousel-item @(i == 0 ? "active" : "")">
-                                <img src="@image.ImageUrl" class="d-block w-100" alt="Hình ảnh sản phẩm @(i + 1)" style="object-fit: cover; height: 400px;">
-                            </div>
-                        }
-                    }
-                    else
-                    {
-                        <!-- Hình ảnh mặc định nếu không có ảnh -->
-                        <div class="carousel-item active">
-                            <img src="/img/default-product.jpg" class="d-block w-100" alt="Hình ảnh mặc định" style="object-fit: cover; height: 400px;">
-                        </div>
-                    }
-                </div>
-
-                <!-- Carousel controls -->
-                <button class="carousel-control-prev" type="button" data-bs-target="#productCarousel" data-bs-slide="prev">
-                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Previous</span>
-                </button>
-                <button class="carousel-control-next" type="button" data-bs-target="#productCarousel" data-bs-slide="next">
-                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Next</span>
-                </button>
-            </div>
-        </div>
-
-        <!-- Thông tin sản phẩm -->
-        <div class="col-md-6">
-            <h2>@Model.Name</h2>
-            <p><strong>Thương hiệu:</strong> @Model.Brand?.Name</p>
-            <p><strong>Danh mục:</strong> @Model.Category?.Name</p>
-            <p><strong>Mô tả:</strong> @Model.Description</p>
-
-            <!-- Kích thước và giá -->
-            <h4>Kích thước và giá</h4>
-            <ul>
-                @foreach (var productSize in Model.ProductSizes)
-                {
-                    <li>
-                        Kích thước: @productSize.Size.size - Giá: @productSize.Price.ToString("C", new System.Globalization.CultureInfo("vi-VN"))
-                        (@(productSize.Stock > 0 ? $"{productSize.Stock} sản phẩm có sẵn" : "Hết hàng"))
-                    </li>
-                }
-            </ul>
-
-            <!-- Form thêm vào giỏ hàng -->
-            <form asp-action="AddToCart" method="post" class="mt-3">
-                <input type="hidden" name="productId" value="@Model.ProductId" />
-                <div class="mb-3">
-                    <label for="sizeId" class="form-label">Chọn kích thước:</label>
-                    <select name="sizeId" id="sizeId" class="form-select" required>
-                        @foreach (var productSize in Model.ProductSizes.Where(ps => ps.Stock > 0))
-                        {
-                            <option value="@productSize.SizeId">@productSize.Size.size</option>
-                        }
-                    </select>
-                </div>
-                <div class="mb-3">
-                    <label for="quantity" class="form-label">Số lượng:</label>
-                    <input type="number" name="quantity" id="quantity" class="form-control" min="1" value="1" required />
-                </div>
-                <button type="submit" class="btn btn-primary">Thêm vào giỏ hàng</button>
-            </form>
-
-            <!-- Nút thêm vào danh sách yêu thích -->
-            <form asp-action="ToggleFavourite" method="post" class="mt-3">
-                <input type="hidden" name="productId" value="@Model.ProductId" />
-                <button type="submit" class="btn btn-outline-danger">
-                    @if (ViewBag.FavouriteProducts != null && ViewBag.FavouriteProducts.Contains(Model.ProductId))
-                    {
-                        <span>Xóa khỏi yêu thích</span>
-                    }
-                    else
-                    {
-                        <span>Thêm vào yêu thích</span>
-                    }
-                </button>
-            </form>
-
-            <!-- Đánh giá sản phẩm -->
-            <h4 class="mt-4">Đánh giá sản phẩm</h4>
-            @if (Model.Reviews != null && Model.Reviews.Any())
-            {
-                foreach (var review in Model.Reviews)
-                {
-                    <div class="border p-3 mb-2">
-                        <p><strong>Điểm:</strong> @review.Rating/5</p>
-                        <p><strong>Bình luận:</strong> @review.Comment</p>
-                        <p><strong>Ngày:</strong> @review.CreatedAt.ToString("dd/MM/yyyy")</p>
-                    </div>
-                }
-            }
-            else
-            {
-                <p>Chưa có đánh giá nào.</p>
-            }
-
-            <!-- Form thêm đánh giá -->
-            <form asp-action="AddReview" method="post" class="mt-3">
-                <input type="hidden" name="productId" value="@Model.ProductId" />
-                <div class="mb-3">
-                    <label for="rating" class="form-label">Điểm đánh giá (1-5):</label>
-                    <input type="number" name="rating" id="rating" class="form-control" min="1" max="5" required />
-                </div>
-                <div class="mb-3">
-                    <label for="comment" class="form-label">Bình luận:</label>
-                    <textarea name="comment" id="comment" class="form-control" rows="4"></textarea>
-                </div>
-                <button type="submit" class="btn btn-success">Gửi đánh giá</button>
-            </form>
+<!-- Breadcrumb Start -->
+<div class="container-fluid">
+    <div class="row px-xl-5">
+        <div class="col-12">
+            <nav class="breadcrumb bg-light mb-30">
+                <a class="breadcrumb-item text-dark" asp-controller="Home" asp-action="Index">Trang chủ</a>
+                <a class="breadcrumb-item text-dark" asp-controller="Shop" asp-action="Index">Sản phẩm</a>
+                <span class="breadcrumb-item active">Chi tiết sản phẩm</span>
+            </nav>
         </div>
     </div>
 </div>
+<!-- Breadcrumb End -->
+<!-- Shop Detail Start -->
+<div class="container-fluid pb-5">
+    <div class="row px-xl-5">
+        <div class="col-lg-5 mb-30">
+            <div id="product-carousel" class="carousel slide" data-ride="carousel">
+                <div class="carousel-inner bg-light">
+                    @if (Model.Images != null && Model.Images.Any())
+                    {
+                        var firstImage = true;
+                        foreach (var image in Model.Images)
+                        {
+                            <div class="carousel-item @(firstImage ? "active" : "")">
+                                <img class="w-100 h-100" src="@image.ImageUrl" alt="@Model.Name">
+                            </div>
+                            firstImage = false;
+                        }
+                    }
+                    else
+                    {
+                        <div class="carousel-item active">
+                            <img class="w-100 h-100" src="/img/default-product.jpg" alt="@Model.Name">
+                        </div>
+                    }
+                </div>
+                <a class="carousel-control-prev" href="#product-carousel" data-slide="prev">
+                    <i class="fa fa-2x fa-angle-left text-dark"></i>
+                </a>
+                <a class="carousel-control-next" href="#product-carousel" data-slide="next">
+                    <i class="fa fa-2x fa-angle-right text-dark"></i>
+                </a>
+            </div>
+        </div>
 
-<!-- Bootstrap JS -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+        <div class="col-lg-7 h-auto mb-30">
+            <div class="h-100 bg-light p-30">
+                <h3>@Model.Name</h3>
+                <div class="d-flex mb-3">
+                    <div class="text-primary mr-2">
+                        @if (Model.Reviews != null && Model.Reviews.Any())
+                        {
+                            var avgRating = Model.Reviews.Average(r => r.Rating);
+                            for (int i = 1; i <= 5; i++)
+                            {
+                                if (i <= avgRating)
+                                {
+                                    <small class="fas fa-star"></small>
+                                }
+                                else if (i <= avgRating + 0.5)
+                                {
+                                    <small class="fas fa-star-half-alt"></small>
+                                }
+                                else
+                                {
+                                    <small class="far fa-star"></small>
+                                }
+                            }
+                        }
+                        else
+                        {
+                            for (int i = 1; i <= 5; i++)
+                            {
+                                <small class="far fa-star"></small>
+                            }
+                        }
+                    </div>
+                    <small class="pt-1">(@(Model.Reviews?.Count ?? 0) Đánh giá)</small>
+                </div>
+                <h3 class="font-weight-semi-bold mb-4">
+                    <span id="productPrice">
+                        @(Model.ProductSizes != null && Model.ProductSizes.Any() ? Model.ProductSizes.Min(ps => ps.Price).ToString("#,##0 VNĐ") : "0 VNĐ")
+                    </span>
+                </h3>
+                <p class="mb-4">@Model.Description</p>
+                <div class="d-flex mb-3">
+                    <strong class="text-dark mr-3">Kích thước:</strong>
+                    <form>
+                        @if (Model.ProductSizes != null && Model.ProductSizes.Any())
+                        {
+                            var firstSize = true;
+                            foreach (var ps in Model.ProductSizes.OrderBy(ps => ps.Size.size))
+                            {
+                                <div class="custom-control custom-radio custom-control-inline">
+                                    <input type="radio" class="custom-control-input size-radio" id="size-@ps.SizeId" name="size" value="@ps.SizeId" data-stock="@ps.Stock" data-price="@ps.Price" @(firstSize ? "checked" : "")>
+                                    <label class="custom-control-label" for="size-@ps.SizeId">@ps.Size.size</label>
+                                </div>
+                                firstSize = false;
+                            }
+                        }
+                        else
+                        {
+                            <span>Không có kích thước</span>
+                        }
+                    </form>
+                </div>
+                <div class="d-flex align-items-center mb-4 pt-2">
+                    <div class="input-group quantity mr-3" style="width: 130px;">
+                        <div class="input-group-btn">
+                            <button class="btn btn-primary btn-minus" onclick="changeQuantity(-1)">
+                                <i class="fa fa-minus"></i>
+                            </button>
+                        </div>
+                        <input type="text" id="quantityInput" class="form-control bg-secondary border-0 text-center" value="1">
+                        <div class="儿group-btn">
+                            <button class="btn btn-primary btn-plus" onclick="changeQuantity(1)">
+                                <i class="fa fa-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <button class="btn btn-primary px-3" onclick="addToCart()"><i class="fa fa-shopping-cart mr-1"></i> Thêm vào giỏ hàng</button>
+                    <button class="btn btn-outline-danger px-3 ml-2" onclick="toggleFavourite(@Model.ProductId)">
+                        <i class="far fa-heart mr-1 @(ViewBag.FavouriteProducts != null && ViewBag.FavouriteProducts.Contains(Model.ProductId) ? "fas text-danger" : "")"></i> Yêu thích
+                    </button>
+                </div>
+                <div class="d-flex pt-2">
+                    <strong class="text-dark mr-2">Chia sẻ:</strong>
+                    <div class="d-inline-flex">
+                        <a class="text-dark px-2" href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a class="text-dark px-2" href="#"><i class="fab fa-twitter"></i></a>
+                        <a class="text-dark px-2" href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a class="text-dark px-2" href="#"><i class="fab fa-pinterest"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row px-xl-5">
+        <div class="col">
+            <div class="bg-light p-30">
+                <div class="nav nav-tabs mb-4">
+                    <a class="nav-item nav-link text-dark active" data-toggle="tab" href="#tab-pane-1">Mô tả</a>
+                    <a class="nav-item nav-link text-dark" data-toggle="tab" href="#tab-pane-3">Đánh giá (@(Model.Reviews?.Count ?? 0))</a>
+                </div>
+                <div class="tab-content">
+                    <div class="tab-pane fade show active" id="tab-pane-1">
+                        <h4 class="mb-3">Mô tả sản phẩm</h4>
+                        <p>@Model.Description</p>
+                    </div>
+                    <div class="tab-pane fade" id="tab-pane-3">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h4 class="mb-4">@(Model.Reviews?.Count ?? 0) đánh giá cho "@Model.Name"</h4>
+                                @if (Model.Reviews != null && Model.Reviews.Any())
+                                {
+                                    foreach (var review in Model.Reviews)
+                                    {
+                                        <div class="media mb-4">
+                                            <img src="/img/user.jpg" alt="User" class="img-fluid mr-3 mt-1" style="width: 45px;">
+                                            <div class="media-body">
+                                                <h6>Người dùng ẩn danh <small> - <i>@review.CreatedAt.ToString("dd MMM yyyy")</i></small></h6>
+                                                <div class="text-primary mb-2">
+                                                    @for (int i = 1; i <= 5; i++)
+                                                    {
+                                                        if (i <= review.Rating)
+                                                        {
+                                                            <i class="fas fa-star"></i>
+                                                        }
+                                                        else
+                                                        {
+                                                            <i class="far fa-star"></i>
+                                                        }
+                                                    }
+                                                </div>
+                                                <p>@review.Comment</p>
+                                            </div>
+                                        </div>
+                                    }
+                                }
+                                else
+                                {
+                                    <p>Chưa có đánh giá nào cho sản phẩm này.</p>
+                                }
+                            </div>
+                            <div class="col-md-6">
+                                <h4 class="mb-4">Để lại đánh giá</h4>
+                                <small>Các trường bắt buộc được đánh dấu *</small>
+                                <div class="d-flex my-3">
+                                    <p class="mb-0 mr-2">Đánh giá của bạn * :</p>
+                                    <div class="text-primary" id="ratingStars">
+                                        <i class="far fa-star" data-value="1"></i>
+                                        <i class="far fa-star" data-value="2"></i>
+                                        <i class="far fa-star" data-value="3"></i>
+                                        <i class="far fa-star" data-value="4"></i>
+                                        <i class="far fa-star" data-value="5"></i>
+                                    </div>
+                                    <input type="hidden" id="ratingValue" value="0">
+                                </div>
+                                <form id="reviewForm">
+                                    <div class="form-group">
+                                        <label for="message">Đánh giá của bạn *</label>
+                                        <textarea id="message" cols="30" rows="5" class="form-control" required></textarea>
+                                    </div>
+                                    <div class="form-group mb-0">
+                                        <button type="button" onclick="submitReview()" class="btn btn-primary px-3">Gửi đánh giá</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Shop Detail End -->
+<!-- Products Start -->
+<div class="container-fluid py-5">
+    <h2 class="section-title position-relative text-uppercase mx-xl-5 mb-4">
+        <span class="bg-secondary pr-3">Bạn có thể thích</span>
+    </h2>
+    <div class="row px-xl-5">
+        @{
+            var relatedProducts = ViewBag.RelatedProducts as List<Product> ?? new List<Product>();
+        }
+        @if (relatedProducts.Any())
+        {
+            foreach (var product in relatedProducts)
+            {
+                <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
+                    <div class="product-item bg-light mb-4">
+                        <div class="product-img position-relative overflow-hidden">
+                            <img class="img-fluid w-100" src="@(string.IsNullOrEmpty(product.ImageUrl) ? "/img/default-product.jpg" : product.ImageUrl)" alt="@product.Name">
+                            <div class="product-action">
+                                <a class="btn btn-outline-dark btn-square" asp-controller="Shop" asp-action="Details" asp-route-id="@product.ProductId"><i class="fa fa-shopping-cart"></i></a>
+                                <a class="btn btn-outline-dark btn-square" onclick="toggleFavourite(@product.ProductId)"><i class="far fa-heart @(ViewBag.FavouriteProducts != null && ViewBag.FavouriteProducts.Contains(product.ProductId) ? "fas text-danger" : "")"></i></a>
+                                <a asp-controller="Shop" asp-action="Details" asp-route-id="@product.ProductId" class="btn btn-outline-dark btn-square"><i class="fa fa-search"></i></a>
+                            </div>
+                        </div>
+                        <div class="text-center py-4">
+                            <a class="h6 text-decoration-none text-truncate" asp-controller="Shop" asp-action="Details" asp-route-id="@product.ProductId">@product.Name</a>
+                            <div class="d-flex align-items-center justify-content-center mt-2">
+                                <h5>@(product.ProductSizes != null && product.ProductSizes.Any() ? product.ProductSizes.Min(ps => ps.Price).ToString("#,##0 VNĐ") : "0 VNĐ")</h5>
+                            </div>
+                            <div class="d-flex align-items-center justify-content-center mb-1">
+                                @if (product.Reviews != null && product.Reviews.Any())
+                                {
+                                    var avgRating = product.Reviews.Average(r => r.Rating);
+                                    for (int i = 1; i <= 5; i++)
+                                    {
+                                        if (i <= avgRating)
+                                        {
+                                            <small class="fa fa-star text-primary mr-1"></small>
+                                        }
+                                        else if (i <= avgRating + 0.5)
+                                        {
+                                            <small class="fa fa-star-half-alt text-primary mr-1"></small>
+                                        }
+                                        else
+                                        {
+                                            <small class="far fa-star text-primary mr-1"></small>
+                                        }
+                                    }
+                                    <small>(@product.Reviews.Count)</small>
+                                }
+                                else
+                                {
+                                    <small>Chưa có đánh giá</small>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+        else
+        {
+            <p>Không có sản phẩm liên quan.</p>
+        }
+    </div>
+</div>
+<!-- Products End -->
+
+<style>
+    #ratingStars i {
+        cursor: pointer;
+        font-size: 20px;
+        margin-right: 5px;
+    }
+
+        #ratingStars i.selected {
+            color: #ffd700;
+        }
+
+    .fas.fa-heart {
+        color: #dc3545;
+    }
+</style>
+
+<script>
+    let selectedSizeId = null;
+    let selectedStock = 0;
+    let productId = @Model.ProductId;
+
+    // Xử lý chọn kích thước
+    document.addEventListener('DOMContentLoaded', function () {
+        // Khởi tạo size mặc định
+        const firstSizeRadio = document.querySelector('.size-radio:checked');
+        if (firstSizeRadio) {
+            selectedSizeId = firstSizeRadio.value;
+            selectedStock = parseInt(firstSizeRadio.getAttribute("data-stock")) || 0;
+            const price = parseFloat(firstSizeRadio.getAttribute("data-price")) || 0;
+            document.getElementById('productPrice').innerText = price.toLocaleString('vi-VN') + " VNĐ";
+        }
+
+        document.querySelectorAll('.size-radio').forEach(radio => {
+            radio.addEventListener('change', function () {
+                selectedSizeId = this.value;
+                selectedStock = parseInt(this.getAttribute("data-stock")) || 0;
+                const price = parseFloat(this.getAttribute("data-price")) || 0;
+                document.getElementById('quantityInput').value = 1;
+                document.getElementById('productPrice').innerText = price.toLocaleString('vi-VN') + " VNĐ";
+            });
+        });
+
+        // Xử lý chọn sao đánh giá
+        document.querySelectorAll('#ratingStars i').forEach(star => {
+            star.addEventListener('click', function () {
+                let rating = parseInt(this.getAttribute('data-value'));
+                document.getElementById('ratingValue').value = rating;
+
+                document.querySelectorAll('#ratingStars i').forEach(s => {
+                    if (parseInt(s.getAttribute('data-value')) <= rating) {
+                        s.classList.remove('far');
+                        s.classList.add('fas');
+                        s.classList.add('selected');
+                    } else {
+                        s.classList.remove('fas');
+                        s.classList.add('far');
+                        s.classList.remove('selected');
+                    }
+                });
+            });
+        });
+    });
+
+    // Xử lý tăng/giảm số lượng
+    function changeQuantity(amount) {
+        let quantityInput = document.getElementById('quantityInput');
+        let currentQuantity = parseInt(quantityInput.value) || 1;
+        let newQuantity = currentQuantity + amount;
+
+        if (newQuantity < 1) {
+            newQuantity = 1;
+        } else if (newQuantity > selectedStock) {
+            newQuantity = selectedStock;
+            alert("Số lượng vượt quá tồn kho!");
+        }
+
+        quantityInput.value = newQuantity;
+    }
+
+    // Xử lý thêm vào giỏ hàng
+        function addToCart() {
+        if (!selectedSizeId) {
+            alert("Vui lòng chọn kích thước trước khi thêm vào giỏ hàng!");
+            return;
+        }
+        let quantity = parseInt(document.getElementById('quantityInput').value);
+
+        if (isNaN(quantity) || quantity < 1) {
+            alert("Số lượng phải lớn hơn hoặc bằng 1!");
+            document.getElementById('quantityInput').value = 1;
+            return;
+        }
+
+        console.log("Sending data:", { productId, sizeId: selectedSizeId, quantity });
+
+        fetch('/Shop/AddToCart', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: `productId=${productId}&sizeId=${selectedSizeId}&quantity=${quantity}`
+        })
+            .then(response => {
+                if (!response.ok) {
+                    return response.text().then(text => { throw new Error(text); });
+                }
+                return response.json();
+            })
+            .then(data => {
+                if (data.success) {
+                    alert(data.message);
+                    window.location.reload();
+                } else {
+                    alert(data.message || "Không thể thêm vào giỏ hàng!");
+                }
+            })
+            .catch(error => {
+                console.error('Lỗi:', error);
+                alert(`Lỗi! Không thể thêm vào giỏ hàng: ${error.message}`);
+            });
+    }
+
+    // Xử lý thêm/xóa yêu thích
+    function toggleFavourite(productId) {
+        fetch('/Shop/ToggleFavourite', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ productId: productId })
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    let heartIcon = document.querySelector(`[onclick='toggleFavourite(${productId})'] i`);
+                    if (heartIcon.classList.contains('far')) {
+                        heartIcon.classList.remove('far');
+                        heartIcon.classList.add('fas', 'text-danger');
+                    } else {
+                        heartIcon.classList.remove('fas', 'text-danger');
+                        heartIcon.classList.add('far');
+                    }
+                    alert(data.count > 0 ? "Đã thêm vào danh sách yêu thích!" : "Đã xóa khỏi danh sách yêu thích!");
+                } else {
+                    alert("Không thể cập nhật danh sách yêu thích!");
+                }
+            })
+            .catch(error => {
+                console.error('Lỗi:', error);
+                alert("Lỗi! Không thể cập nhật danh sách yêu thích.");
+            });
+    }
+
+    // Xử lý gửi đánh giá
+    function submitReview() {
+        let rating = parseInt(document.getElementById('ratingValue').value);
+        let comment = document.getElementById('message').value.trim();
+
+        if (rating === 0 || !comment) {
+            alert("Vui lòng chọn số sao và nhập đánh giá!");
+            return;
+        }
+
+        fetch('/Shop/AddReview', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: `productId=${productId}&rating=${rating}&comment=${encodeURIComponent(comment)}`
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Phản hồi mạng không ổn');
+                }
+                return response.text(); // Controller trả về redirect, không phải JSON
+            })
+            .then(() => {
+                alert("Đánh giá của bạn đã được gửi!");
+                window.location.reload();
+            })
+            .catch(error => {
+                console.error('Lỗi:', error);
+                alert("Lỗi! Vui lòng đăng nhập để gửi đánh giá.");
+            });
+    }
+</script>
