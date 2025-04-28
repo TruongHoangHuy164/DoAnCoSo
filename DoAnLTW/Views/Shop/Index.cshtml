@@ -81,7 +81,6 @@
     }
 
     /* Product List Styling */
-    /* Cải thiện card-body */
     .card-body {
         padding: 20px; /* Đảm bảo có đủ khoảng cách */
         display: flex; /* Sử dụng Flexbox */
@@ -90,7 +89,6 @@
         height: 100%; /* Đảm bảo nội dung card-body chiếm đầy chiều cao */
     }
 
-        /* Căn chỉnh tiêu đề (Tên sản phẩm) */
         .card-body .card-title {
             font-size: 18px;
             font-weight: 600;
@@ -99,7 +97,6 @@
             text-align: center; /* Căn giữa tên sản phẩm */
         }
 
-        /* Căn chỉnh giá (và làm nổi bật giá) */
         .card-body .card-text .text-danger {
             font-size: 18px;
             color: #FFD700 !important; /* Màu vàng cho giá */
@@ -108,7 +105,6 @@
             margin-bottom: 15px; /* Thêm khoảng cách dưới giá */
         }
 
-        /* Cải thiện phần đánh giá sản phẩm */
         .card-body .card-text .rating {
             display: flex;
             justify-content: center; /* Căn giữa các sao */
@@ -116,7 +112,6 @@
             margin-bottom: 15px; /* Thêm khoảng cách dưới phần đánh giá */
         }
 
-        /* Căn chỉnh phần tình trạng hàng (Còn hàng / Hết hàng) */
         .card-body .stock-status {
             display: flex;
             justify-content: center; /* Căn giữa */
@@ -136,7 +131,6 @@
 
     .card {
         background: #FFFFFF; /* White card background */
-        
         transition: transform 0.2s ease, box-shadow 0.2s ease; /* Smooth hover transition */
         cursor: pointer; /* Indicate card is clickable */
     }
@@ -256,6 +250,31 @@
     .fa-star, .fa-heart {
         color: #FFD700 !important;
     }
+
+    /* Card View: 3 rows, 4 products per row */
+    #cardView {
+        display: flex;
+        flex-wrap: wrap; /* Cho phép xuống dòng */
+        width: 100%; /* Chiếm toàn bộ chiều rộng */
+        gap: 15px; /* Khoảng cách giữa các sản phẩm */
+    }
+
+    /* Đảm bảo 4 sản phẩm mỗi dòng */
+    .product-item {
+        flex: 0 0 calc(25% - 15px); /* 25% chiều rộng, trừ khoảng cách */
+        box-sizing: border-box; /* Bao gồm padding và border trong kích thước */
+        margin-bottom: 15px; /* Khoảng cách dưới mỗi sản phẩm */
+    }
+
+    /* Căn giữa phân trang */
+    nav[aria-label="Page navigation"] {
+        display: flex;
+        justify-content: center; /* Căn giữa ngang */
+        width: 100%; /* Đảm bảo chiếm toàn bộ chiều rộng */
+    }
+
+
+    }
 </style>
 
 <div class="container-fluid">
@@ -357,7 +376,7 @@
 
         <!-- Danh sách sản phẩm -->
         <div class="col-md-9">
-            <!-- Sắp xếp  và chuyển đổi giao diện -->
+            <!-- Sắp xếp và chuyển đổi giao diện -->
             <div class="d-flex justify-content-between mb-3 align-items-center">
                 <h4 class="mb-0">@Model.Count SẢN PHẨM</h4>
                 <div class="d-flex align-items-center gap-2">
@@ -365,22 +384,21 @@
                     <input type="hidden" id="sortOrder" value="@ViewBag.SortOrder" />
                     <!-- Sorting Button Group -->
                     <div class="btn-group" role="group" aria-label="Sort options">
-                        <button type="button" class="btn btn-outline-secondary btn-sm @(ViewBag.SortOrder == "best_selling" ? "active" : "")"
-                                onclick="setSortOrder('best_selling')" title="Sắp xếp theo bán chạy">
-                            <i class="fas fa-fire"></i> Bán chạy
-                        </button>
-                        <button type="button" class="btn btn-outline-secondary btn-sm @(ViewBag.SortOrder == "name" ? "active" : "")"
-                                onclick="setSortOrder('name')" title="Sắp xếp theo tên A-Z">
-                            <i class="fas fa-sort-alpha-down"></i> Tên A-Z
-                        </button>
                         <button type="button" class="btn btn-outline-secondary btn-sm @(ViewBag.SortOrder == "price_asc" ? "active" : "")"
                                 onclick="setSortOrder('price_asc')" title="Sắp xếp giá tăng dần">
                             <i class="fas fa-arrow-up"></i> Giá thấp
                         </button>
+
                         <button type="button" class="btn btn-outline-secondary btn-sm @(ViewBag.SortOrder == "price_desc" ? "active" : "")"
                                 onclick="setSortOrder('price_desc')" title="Sắp xếp giá giảm dần">
                             <i class="fas fa-arrow-down"></i> Giá cao
                         </button>
+
+                        <button type="button" class="btn btn-outline-secondary btn-sm @(ViewBag.SortOrder == "name" ? "active" : "")"
+                                onclick="setSortOrder('name')" title="Sắp xếp theo tên A-Z">
+                            <i class="fas fa-sort-alpha-down"></i> Tên A-Z
+                        </button>
+
                     </div>
                     <!-- View Toggle Buttons -->
                     <div class="btn-group ms-2" role="group" aria-label="View options">
@@ -397,13 +415,13 @@
             </div>
 
             <!-- Card View -->
-            <div id="cardView" class="row" style="display: block;">
+            <div id="cardView" class="row">
                 @foreach (var product in Model)
                 {
                     var avgRating = product.Reviews.Any() ? product.Reviews.Average(r => r.Rating) : 0;
                     var minPrice = product.ProductSizes.Any() ? product.ProductSizes.Min(ps => ps.Price) : 0;
 
-                    <div class="col-md-3 mb-4 product-item">
+                    <div class="product-item col-md-3 mb-4">
                         <div class="card h-100" onclick="goToDetails(@product.ProductId)">
                             <img src="@product.ImageUrl" class="card-img-top" alt="@product.Name" style="height: 200px; object-fit: cover;" />
                             <div class="card-body">

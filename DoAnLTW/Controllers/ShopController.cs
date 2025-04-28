@@ -770,19 +770,37 @@
                 {
                     query = query.Where(p => p.ProductSizes.Any(ps => ps.Price <= maxPrice.Value));
                 }
-                //// Sắp xếp
-                //switch (sortOrder)
-                //{
-                //    case "best_selling":
-                //        query = query.OrderByDescending(p => p.OrderDetails.Sum(od => od.Quantity)); // Sắp xếp theo số lượng bán
-                //        break;
-                //    default:
-                //        query = query.OrderBy(p => p.Name); // Mặc định sắp xếp theo tên
-                //        break;
-                //}
+        
 
-                // Lấy danh sách sản phẩm
-                var products = await query.ToListAsync();
+            // Sắp xếp
+            switch (sortOrder)
+            { 
+                //case "best_selling":
+                //    query = query.OrderByDescending(p => p.OrderDetails.Sum(od => od.Quantity)); // Sắp xếp theo số lượng bán
+                //    break;
+                case "price_asc":
+                    // Sắp xếp theo giá tăng dần (giá thấp nhất trước)
+                    query = query.OrderBy(p => p.ProductSizes.Min(ps => ps.Price));
+                    break;
+                case "price_desc":
+                    // Sắp xếp theo giá giảm dần (giá cao nhất trước)
+                    query = query.OrderByDescending(p => p.ProductSizes.Min(ps => ps.Price));
+                    break;
+                case "name":
+                    // Sắp xếp theo tên sản phẩm (A-Z)
+                    query = query.OrderBy(p => p.Name);
+                    break;
+                // case "best_selling":
+                //     query = query.OrderByDescending(p => p.OrderDetails.Sum(od => od.Quantity)); // Sắp xếp theo số lượng bán
+                //     break;
+                default:
+                    query = query.OrderBy(p => p.Name); // Mặc định sắp xếp theo tên
+                    break;
+            }
+
+
+            // Lấy danh sách sản phẩm
+            var products = await query.ToListAsync();
 
                 // Đếm số lượng sản phẩm còn hàng và hết hàng
                 ViewBag.InStockCount = products.Count(p => p.TotalStock > 0);

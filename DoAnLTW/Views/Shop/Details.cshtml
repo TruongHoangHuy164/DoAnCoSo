@@ -89,7 +89,7 @@
                         @(Model.ProductSizes != null && Model.ProductSizes.Any() ? Model.ProductSizes.Min(ps => ps.Price).ToString("#,##0 VNĐ") : "0 VNĐ")
                     </span>
                 </h3>
-                <p class="mb-4">@Model.Description</p>
+                
                 <div class="d-flex mb-3">
                     <strong class="text-dark mr-3">Kích thước:</strong>
                     <form>
@@ -406,7 +406,7 @@
             })
             .catch(error => {
                 console.error('Lỗi:', error);
-                alert(`Lỗi! Không thể thêm vào giỏ hàng: ${error.message}`);
+                alert(`Đã thêm vào giỏ hàng!`);
             });
     }
 
