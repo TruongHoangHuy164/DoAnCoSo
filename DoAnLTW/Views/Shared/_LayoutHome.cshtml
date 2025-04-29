@@ -170,10 +170,20 @@
                         <div class="navbar-nav w-100">
                             @{
                                 var brands = _context.Brands.ToList();
+                                var categories = _context.Categories.ToList();
                             }
                             <a asp-controller="Shop" asp-action="Index" class="nav-item nav-link">Tất cả sản phẩm</a>
                             <div class="nav-item dropdown dropright">
-                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Giày thể thao <i class="fa fa-angle-right float-right mt-1"></i></a>
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Danh Mục <i class="fa fa-angle-right float-right mt-1"></i></a>
+                                <div class="dropdown-menu position-absolute rounded-0 border-0 m-0">
+                                    @foreach (var category in categories)
+                                    {
+                                        <a asp-controller="Shop" asp-action="Index" asp-route-brandId="@category.CategoryId" class="dropdown-item">@category.Name</a>
+                                    }
+                                </div>
+                            </div>
+                            <div class="nav-item dropdown dropright">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Thương Hiệu <i class="fa fa-angle-right float-right mt-1"></i></a>
                                 <div class="dropdown-menu position-absolute rounded-0 border-0 m-0">
                                     @foreach (var brand in brands)
                                     {
@@ -181,11 +191,6 @@
                                     }
                                 </div>
                             </div>
-                            <a asp-controller="Shop" asp-action="Index" asp-route-categoryId="1" class="nav-item nav-link">Áo thun</a>
-                            <a asp-controller="Shop" asp-action="Index" asp-route-categoryId="2" class="nav-item nav-link">Quần thể thao</a>
-                            <a asp-controller="Shop" asp-action="Index" asp-route-categoryId="3" class="nav-item nav-link">Phụ kiện</a>
-                            <a asp-controller="Shop" asp-action="Index" asp-route-categoryId="4" class="nav-item nav-link">Balo</a>
-                        </div>
                     </nav>
                 </div>
 
@@ -202,15 +207,13 @@
                             <div class="navbar-nav mr-auto py-0">
                                 <a asp-controller="Home" asp-action="Index" class="nav-item nav-link">Trang chủ</a>
                                 <a asp-controller="Shop" asp-action="Index" class="nav-item nav-link">Sản phẩm</a>
-
-                                <a asp-controller="Shop" asp-action="Index" class="nav-item nav-link">Chi tiết sản phẩm</a>
-                                <div class="nav-item dropdown">
+                               @*  <div class="nav-item dropdown">
                                     <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Pages <i class="fa fa-angle-down mt-1"></i></a>
                                     <div class="dropdown-menu bg-primary rounded-0 border-0 m-0">
                                         <a asp-controller="Cart" asp-action="Index" class="dropdown-item">Giỏ hàng</a>
                                         <a asp-controller="Checkout" asp-action="Index" class="dropdown-item">Thanh toán</a>
                                     </div>
-                                </div>
+                                </div> *@
                                 <a asp-controller="Contact" asp-action="Index" class="nav-item nav-link">Liên hệ</a>
                                 <a asp-controller="Chat" asp-action="Index" class="nav-item nav-link">Chat</a>
                             </div>
