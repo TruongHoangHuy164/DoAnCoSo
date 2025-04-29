@@ -69,7 +69,6 @@
     </div>
 </div>
 <!-- Carousel End -->
-
 <!-- Tiêu chí Start -->
 <div class="container-fluid pt-5">
     <div class="row px-xl-5 pb-3">
@@ -114,7 +113,47 @@
         max-height: 100%;
         object-fit: contain; /* Giữ nguyên tỉ lệ ảnh, không bị méo */
     }
+
+    .product-carousel .product-item {
+        background: #FFFFFF;
+        margin: 0 10px;
+        padding: 15px;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        transition: transform 0.2s ease;
+    }
+
+        .product-carousel .product-item:hover {
+            transform: scale(1.05);
+        }
+
+    .product-carousel .product-img {
+        width: 100%;
+        height: auto;
+        aspect-ratio: 1 / 1;
+        overflow: hidden;
+    }
+
+        .product-carousel .product-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+    .product-carousel .text-center {
+        padding: 15px 0;
+    }
+
+    .product-carousel .product-action {
+        opacity: 0;
+        transition: opacity 0.3s ease;
+    }
+
+    .product-carousel .product-item:hover .product-action {
+        opacity: 1;
+    }
 </style>
+
 <div class="container-fluid py-5">
     <h2 class="section-title position-relative text-uppercase mx-xl-5 mb-4">
         <span class="bg-secondary pr-3">Danh Mục Sản Phẩm</span>
@@ -125,59 +164,44 @@
                 @foreach (var category in Model.Categories)
                 {
                     <div class="bg-light p-4">
-                        <img src="@category.ImageUrl" alt="@category.Name">
+                        <img src="@category.ImageUrl" alt="@category.Name" loading="lazy">
                     </div>
                 }
             </div>
         </div>
     </div>
 </div>
+
 <!-- Sản phẩm nổi bật Start -->
-<style>
-    .product-img {
-        width: 100%;
-        height: auto;
-        aspect-ratio: 1 / 1; /* Đảm bảo ảnh luôn vuông */
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        overflow: hidden;
-    }
-
-        .product-img img {
-            width: 100%;
-            height: 100%;
-            object-fit: contain; /* Đảm bảo ảnh không bị méo */
-        }
-</style>
-
 <div class="container-fluid pt-5 pb-3">
     <h2 class="section-title position-relative text-uppercase mx-xl-5 mb-4">
         <span class="bg-secondary pr-3">Sản phẩm nổi bật</span>
     </h2>
     <div class="row px-xl-5">
-        @foreach (var productWithMinPrice in Model.ProductsWithMinPrice)
-        {
-            <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
-                <div class="product-item bg-light mb-4">
-                    <div class="product-img position-relative overflow-hidden">
-                        <img class="img-fluid w-100" src="@productWithMinPrice.Product.ImageUrl" alt="@productWithMinPrice.Product.Name">
-                        <div class="product-action">
-                            <a class="btn btn-outline-dark btn-square" asp-controller="Cart" asp-action="Add" asp-route-productId="@productWithMinPrice.Product.ProductId"><i class="fa fa-shopping-cart"></i></a>
-                            <a class="btn btn-outline-dark btn-square" href="#"><i class="far fa-heart"></i></a>
-                            <a class="btn btn-outline-dark btn-square" href="#"><i class="fa fa-sync-alt"></i></a>
-                            <a asp-controller="Shop" asp-action="Detail" asp-route-id="@productWithMinPrice.Product.ProductId" class="btn btn-outline-dark btn-square"><i class="fa fa-search"></i></a>
+        <div class="col">
+            <div class="owl-carousel product-carousel">
+                @foreach (var productWithMinPrice in Model.ProductsWithMinPrice)
+                {
+                    <div class="product-item bg-light mb-4">
+                        <div class="product-img position-relative overflow-hidden">
+                            <img class="img-fluid w-100" src="@productWithMinPrice.Product.ImageUrl" alt="@productWithMinPrice.Product.Name">
+                            <div class="product-action">
+                                <a class="btn btn-outline-dark btn-square" asp-controller="Cart" asp-action="Add" asp-route-productId="@productWithMinPrice.Product.ProductId"><i class="fa fa-shopping-cart"></i></a>
+                                <a class="btn btn-outline-dark btn-square" href="#" onclick="toggleFavourite(@productWithMinPrice.Product.ProductId); return false;"><i class="far fa-heart"></i></a>
+                                <a class="btn btn-outline-dark btn-square" href="#"><i class="fa fa-sync-alt"></i></a>
+                                <a asp-controller="Shop" asp-action="Detail" asp-route-id="@productWithMinPrice.Product.ProductId" class="btn btn-outline-dark btn-square"><i class="fa fa-search"></i></a>
+                            </div>
+                        </div>
+                        <div class="text-center py-4">
+                            <a class="h6 text-decoration-none text-truncate" asp-controller="Shop" asp-action="Detail" asp-route-id="@productWithMinPrice.Product.ProductId">@productWithMinPrice.Product.Name</a>
+                            <div class="d-flex align-items-center justify-content-center mt-2">
+                                <h5>@productWithMinPrice.MinPrice.ToString("#,##0 VNĐ")</h5>
+                            </div>
                         </div>
                     </div>
-                    <div class="text-center py-4">
-                        <a class="h6 text-decoration-none text-truncate" asp-controller="Shop" asp-action="Detail" asp-route-id="@productWithMinPrice.Product.ProductId">@productWithMinPrice.Product.Name</a>
-                        <div class="d-flex align-items-center justify-content-center mt-2">
-                            <h5>@productWithMinPrice.MinPrice.ToString("#,##0 VNĐ")</h5> <!-- Hiển thị giá của size nhỏ nhất -->
-                        </div>
-                    </div>
-                </div>
+                }
             </div>
-        }
+        </div>
     </div>
 </div>
 <!-- Sản phẩm nổi bật End -->
@@ -210,54 +234,7 @@
     </div>
 </div>
 <!-- Giảm giá End -->
-
-@* <!-- Sản phẩm gần đây Start -->
-<div class="container-fluid pt-5 pb-3">
-    <h2 class="section-title position-relative text-uppercase mx-xl-5 mb-4">
-        <span class="bg-secondary pr-3">Sản phẩm gần đây</span>
-    </h2>
-    <div class="row px-xl-5">
-        @foreach (var product in Model.RecentProducts)
-        {
-            <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
-                <div class="product-item bg-light mb-4">
-                    <div class="product-img position-relative overflow-hidden">
-                        <img class="img-fluid w-100" src="@product.ImageUrl" alt="@product.Name">
-                        <div class="product-action">
-                            <a class="btn btn-outline-dark btn-square" asp-controller="Cart" asp-action="Add" asp-route-productId="@product.ProductId"><i class="fa fa-shopping-cart"></i></a>
-                            <a class="btn btn-outline-dark btn-square" href="#"><i class="far fa-heart"></i></a>
-                            <a class="btn btn-outline-dark btn-square" href="#"><i class="fa fa-sync-alt"></i></a>
-                            <a asp-controller="Shop" asp-action="Detail" asp-route-id="@product.ProductId" class="btn btn-outline-dark btn-square"><i class="fa fa-search"></i></a>
-                        </div>
-                    </div>
-                    <div class="text-center py-4">
-                        <a class="h6 text-decoration-none text-truncate" asp-controller="Shop" asp-action="Detail" asp-route-id="@product.ProductId">@product.Name</a>
-                        <div class="d-flex align-items-center justify-content-center mt-2">
-                            <h5>@productWithMinPrice.MinPrice.ToString("#,##0 VNĐ")</h5> <!-- Hiển thị giá của size nhỏ nhất -->
-                        </div>
-                    </div>
-                </div>
-            </div>
-        }
-    </div>
-</div> *@
-<!-- Sản phẩm gần đây End -->
-
 <!-- Vendor Start (for Brands) -->
-<style>
-    .vendor-carousel .bg-light {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        height: 120px; /* Adjust height as needed */
-    }
-
-    .vendor-carousel img {
-        max-width: 100%;
-        max-height: 100%;
-        object-fit: contain; /* Ensure images retain their aspect ratio */
-    }
-</style>
 <div class="container-fluid py-5">
     <h2 class="section-title position-relative text-uppercase mx-xl-5 mb-4">
         <span class="bg-secondary pr-3">Thương Hiệu Hợp tác</span>
@@ -278,27 +255,66 @@
 <!-- Vendor End -->
 <!-- Scripts Section for Owl Carousel -->
 @section Scripts {
-    <!-- Owl Carousel JS -->
+    <!-- Owl Carousel CSS (Ensure this is included if not already in layout) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css" />
 
+    <!-- Owl Carousel JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js" defer></script>
 
     <script>
         $(document).ready(function () {
-            // Initialize Owl Carousel for Brands
-                    $('.vendor-carousel').owlCarousel({
-            loop: true,
-            margin: 10,
-            nav: true,
-            autoplay: true,
-            autoplayTimeout: 0, // Faster transitions between slides
-            autoplayHoverPause: true,
-            responsive: {
-                0: { items: 1 },
-                600: { items: 3 },
-                1000: { items: 5 }
-            }
+            // Initialize Owl Carousel for Categories
+            $('.vendor-carousel').owlCarousel({
+                loop: true,
+                margin: 10,
+                nav: false, // Disable navigation buttons
+                autoplay: true,
+                autoplayTimeout: 3000,
+                autoplayHoverPause: true,
+                responsive: {
+                    0: { items: 1 },
+                    600: { items: 3 },
+                    1000: { items: 5 }
+                }
+            });
+
+            // Initialize Owl Carousel for Featured Products
+            $('.product-carousel').owlCarousel({
+                loop: true,
+                margin: 10,
+                nav: false, // Disable navigation buttons
+                autoplay: true,
+                autoplayTimeout: 4000,
+                autoplayHoverPause: true,
+                responsive: {
+                    0: { items: 1 },
+                    600: { items: 2 },
+                    1000: { items: 4 }
+                }
+            });
         });
 
+        function toggleFavourite(productId) {
+            $.ajax({
+                url: '@Url.Action("ToggleFavourite", "Shop")',
+                type: 'POST',
+                data: { productId: productId },
+                success: function (response) {
+                    if (response.success) {
+                        let btn = $(`a[onclick*='toggleFavourite(${productId})']`);
+                        let icon = btn.find('i');
+                        if (icon.hasClass('far')) {
+                            icon.removeClass('far fa-heart').addClass('fas fa-heart');
+                        } else {
+                            icon.removeClass('fas fa-heart').addClass('far fa-heart');
+                        }
+                    }
+                },
+                error: function () {
+                    alert('Có lỗi xảy ra khi cập nhật danh sách yêu thích.');
+                }
             });
+        }
     </script>
 }
