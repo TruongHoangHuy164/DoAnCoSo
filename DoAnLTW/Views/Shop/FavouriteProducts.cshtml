@@ -1,51 +1,227 @@
-﻿@* @model IEnumerable<DoAnLTW.Models.Product> *@
+﻿@model List<DoAnLTW.Models.Product>
 
-@* @{ *@
-@*     ViewData["Title"] = "Danh sách yêu thích"; *@
-@*     // Giả sử ViewBag.FavouriteProducts chứa danh sách ID sản phẩm yêu thích (được truyền từ controller) *@
-@*     var favouriteProductIds = ViewBag.FavouriteProducts as List<int> ?? new List<int>(); *@
-@* } *@
+@{
+    ViewData["Title"] = "Danh Sách Sản Phẩm Yêu Thích";
+}
 
-@* <h2>Danh sách sản phẩm yêu thích (@ViewBag.FavouriteCount)</h2> *@
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 
-@* @if (Model == null || !Model.Any()) *@
-@* { *@
-@*     <p>Bạn chưa có sản phẩm yêu thích nào.</p> *@
-@* } *@
-@* else *@
-@* { *@
-@*     <div class="row"> *@
-@*         @foreach (var product in Model) *@
-@*         { *@
-@*             bool isFavourite = favouriteProductIds.Contains(product.Id); // Kiểm tra sản phẩm có trong danh sách yêu thích không *@
-@*             <div class="col-md-3"> *@
-@*                 <div class="product-item bg-light mb-4"> *@
-@*                     <div class="product-img position-relative overflow-hidden" *@
-@*                          onmouseover="this.querySelector('.product-action').style.opacity = '1'; this.querySelector('.product-action').style.visibility = 'visible';" *@
-@*                          onmouseout="this.querySelector('.product-action').style.opacity = '0'; this.querySelector('.product-action').style.visibility = 'hidden';"> *@
+<style>
+    .container-fluid {
+        padding: 20px;
+    }
 
-@*                         <img class="img-fluid w-100" src="@product.ImageUrl" alt="@product.Name" /> *@
+    .card {
+        background: #FFFFFF;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+        cursor: pointer;
+        border-radius: 10px;
+        overflow: hidden;
+    }
 
-@*                         <div class="product-action" style="opacity: 0; visibility: hidden;"> *@
-@*                             <a class="btn btn-outline-dark btn-square" href="#"><i class="fa fa-shopping-cart"></i></a> *@
+        .card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
 
-                           
+    .card-img-top {
+        height: 200px;
+        object-fit: cover;
+    }
 
-@*                             <a class="btn btn-outline-dark btn-square" href="#"><i class="fa fa-sync-alt"></i></a> *@
-@*                             <a class="btn btn-outline-dark btn-square" asp-controller="Shop" asp-action="Detail" asp-route-id="@product.Id"> *@
-@*                                 <i class="fa fa-search"></i> *@
-@*                             </a> *@
-@*                         </div> *@
-@*                     </div> *@
+    .card-body {
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        height: 100%;
+    }
 
-@*                     <div class="text-center py-4"> *@
-@*                         <a class="h6 text-decoration-none text-truncate" href="#">@product.Name</a> *@
-@*                         <div class="d-flex align-items-center justify-content-center mt-2"> *@
-@*                             <h5>@product.Price.ToString("C")</h5> *@
-@*                         </div> *@
-@*                     </div> *@
-@*                 </div> *@
-@*             </div> *@
-@*         } *@
-@*     </div> *@
-@* } *@
+    .card-title {
+        font-size: 18px;
+        font-weight: 600;
+        color: #000000;
+        margin-bottom: 10px;
+        text-align: center;
+    }
+
+    .card-text .text-danger {
+        font-size: 18px;
+        color: #FFD700 !important;
+        font-weight: 700;
+        text-align: center;
+        margin-bottom: 15px;
+    }
+
+    .card-text .rating {
+        display: flex;
+        justify-content: center;
+        gap: 5px;
+        margin-bottom: 15px;
+    }
+
+    .stock-status {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 14px;
+        font-weight: 500;
+        color: #000000;
+    }
+
+        .stock-status .in-stock {
+            color: #FFD700;
+        }
+
+        .stock-status .out-stock {
+            color: #000000;
+        }
+
+    .card-footer {
+        display: flex;
+        justify-content: space-between;
+        background: #FFFFFF;
+        padding: 10px;
+    }
+
+        .card-footer .btn-primary {
+            background-color: #FFD700;
+            color: #000000;
+            border: none;
+            font-size: 14px;
+        }
+
+            .card-footer .btn-primary:hover {
+                background-color: #D4AF37;
+            }
+
+        .card-footer .btn-outline-danger {
+            border-color: #000000;
+            color: #000000;
+            font-size: 14px;
+        }
+
+            .card-footer .btn-outline-danger:hover {
+                background-color: #FFD700;
+                color: #000000;
+            }
+
+    .fa-star, .fa-heart {
+        color: #FFD700 !important;
+    }
+
+    #cardView {
+        display: flex;
+        flex-wrap: wrap;
+        width: 100%;
+        gap: 15px;
+    }
+
+    .product-item {
+        flex: 0 0 calc(25% - 15px);
+        box-sizing: border-box;
+        margin-bottom: 15px;
+    }
+
+    .empty-message {
+        text-align: center;
+        font-size: 18px;
+        color: #000000;
+        margin-top: 30px;
+    }
+
+    h2 {
+        color: #FFD700;
+        font-weight: 700;
+        margin-bottom: 20px;
+        text-align: center;
+    }
+
+
+    }
+</style>
+
+<div class="container-fluid">
+    <h2>DANH SÁCH SẢN PHẨM YÊU THÍCH</h2>
+
+    @if (!Model.Any())
+    {
+        <p class="empty-message">Bạn chưa có sản phẩm yêu thích nào. <a href="@Url.Action("Index", "Shop")">Quay lại cửa hàng</a> để thêm sản phẩm.</p>
+    }
+    else
+    {
+        <div id="cardView">
+            @foreach (var product in Model)
+            {
+                var avgRating = product.Reviews.Any() ? product.Reviews.Average(r => r.Rating) : 0;
+                var minPrice = product.ProductSizes.Any() ? product.ProductSizes.Min(ps => ps.Price) : 0;
+
+                <div class="product-item">
+                    <div class="card h-100" onclick="goToDetails(@product.ProductId)">
+                        <img src="@product.ImageUrl" class="card-img-top" alt="@product.Name" />
+                        <div class="card-body">
+                            <h6 class="card-title">@product.Name</h6>
+                            <p class="card-text">
+                                <span class="text-danger">@minPrice.ToString("N0")đ</span>
+                            </p>
+                            <p class="rating">
+                                @for (int i = 1; i <= 5; i++)
+                                {
+                                    if (i <= avgRating)
+                                    {
+                                        <i class="fas fa-star"></i>
+                                    }
+                                    else
+                                    {
+                                        <i class="far fa-star"></i>
+                                    }
+                                }
+                                <span>(@product.Reviews.Count)</span>
+                            </p>
+                            <p class="stock-status @(product.TotalStock > 0 ? "in-stock" : "out-stock")">
+                                @(product.TotalStock > 0 ? "Còn hàng" : "Hết hàng")
+                            </p>
+                        </div>
+                        <div class="card-footer">
+                            <a href="@Url.Action("Details", "Shop", new { id = product.ProductId })" class="btn btn-primary btn-sm" onclick="event.stopPropagation();">Xem chi tiết</a>
+                            <button class="btn btn-outline-danger btn-sm" onclick="event.stopPropagation(); toggleFavourite(@product.ProductId)">
+                                <i class="fas fa-heart"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+</div>
+
+@section Scripts {
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        function toggleFavourite(productId) {
+            $.ajax({
+                url: '@Url.Action("ToggleFavourite", "Shop")',
+                type: 'POST',
+                data: { productId: productId },
+                success: function (response) {
+                    if (response.success) {
+                        // Xóa sản phẩm khỏi danh sách yêu thích trên giao diện
+                        $(`.product-item:has(button[onclick*='toggleFavourite(${productId})'])`).remove();
+                        // Cập nhật giao diện nếu danh sách rỗng
+                        if ($('.product-item').length === 0) {
+                            $('#cardView').replaceWith('<p class="empty-message">Bạn chưa có sản phẩm yêu thích nào. <a href="@Url.Action("Index", "Shop")">Quay lại cửa hàng</a> để thêm sản phẩm.</p>');
+                        }
+                    }
+                },
+                error: function () {
+                    alert('Có lỗi xảy ra khi cập nhật danh sách yêu thích.');
+                }
+            });
+        }
+
+        function goToDetails(productId) {
+            window.location.href = '@Url.Action("Details", "Shop")' + '/' + productId;
+        }
+    </script>
+}
