@@ -189,11 +189,11 @@
                                 <a class="btn btn-outline-dark btn-square" asp-controller="Cart" asp-action="Add" asp-route-productId="@productWithMinPrice.Product.ProductId"><i class="fa fa-shopping-cart"></i></a>
                                 <a class="btn btn-outline-dark btn-square" href="#" onclick="toggleFavourite(@productWithMinPrice.Product.ProductId); return false;"><i class="far fa-heart"></i></a>
                                 <a class="btn btn-outline-dark btn-square" href="#"><i class="fa fa-sync-alt"></i></a>
-                                <a asp-controller="Shop" asp-action="Detail" asp-route-id="@productWithMinPrice.Product.ProductId" class="btn btn-outline-dark btn-square"><i class="fa fa-search"></i></a>
+                                <a asp-controller="Shop" asp-action="Details" asp-route-id="@productWithMinPrice.Product.ProductId" class="btn btn-outline-dark btn-square"><i class="fa fa-search"></i></a>
                             </div>
                         </div>
                         <div class="text-center py-4">
-                            <a class="h6 text-decoration-none text-truncate" asp-controller="Shop" asp-action="Detail" asp-route-id="@productWithMinPrice.Product.ProductId">@productWithMinPrice.Product.Name</a>
+                            <a class="h6 text-decoration-none text-truncate" asp-controller="Shop" asp-action="Details" asp-route-id="@productWithMinPrice.Product.ProductId">@productWithMinPrice.Product.Name</a>
                             <div class="d-flex align-items-center justify-content-center mt-2">
                                 <h5>@productWithMinPrice.MinPrice.ToString("#,##0 VNĐ")</h5>
                             </div>

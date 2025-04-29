@@ -8,21 +8,22 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 
 <style>
+    /* Giữ nguyên CSS hiện tại */
     .filter-sidebar {
-        background: #FFFFFF; /* White background */
+        background: #FFFFFF;
         border-radius: 10px;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         padding: 20px;
     }
 
         .filter-sidebar h4 {
-            color: #FFD700; /* Gold for main heading */
+            color: #FFD700;
             font-weight: 700;
             margin-bottom: 20px;
         }
 
         .filter-sidebar h5 {
-            color: #000000; /* Black for subheadings */
+            color: #000000;
             font-weight: 600;
             margin-bottom: 15px;
         }
@@ -34,29 +35,29 @@
 
         .filter-sidebar .form-check-input {
             cursor: pointer;
-            border: 2px solid #000000; /* Black border */
+            border: 2px solid #000000;
         }
 
             .filter-sidebar .form-check-input:checked {
-                background-color: #FFD700; /* Gold for checked state */
+                background-color: #FFD700;
                 border-color: #FFD700;
             }
 
         .filter-sidebar .form-check-label {
-            color: #000000; /* Black text */
+            color: #000000;
             cursor: pointer;
         }
 
         .filter-sidebar .form-check:hover {
-            background: #F0F0F0; /* Light gray for hover */
+            background: #F0F0F0;
             border-radius: 5px;
             padding-left: 5px;
         }
 
         .filter-sidebar .btn-primary {
-            background-color: #FFD700; /* Gold button */
+            background-color: #FFD700;
             border: none;
-            color: #000000; /* Black text */
+            color: #000000;
             width: 100%;
             padding: 10px;
             font-weight: 500;
@@ -64,7 +65,22 @@
         }
 
             .filter-sidebar .btn-primary:hover {
-                background-color: #D4AF37; /* Darker gold for hover */
+                background-color: #D4AF37;
+            }
+
+        .filter-sidebar .btn-reset {
+            background-color: #000000;
+            border: none;
+            color: #FFFFFF;
+            width: 100%;
+            padding: 10px;
+            font-weight: 500;
+            transition: background-color 0.3s ease;
+            margin-top: 10px;
+        }
+
+            .filter-sidebar .btn-reset:hover {
+                background-color: #333333;
             }
 
     .stock-status p {
@@ -73,48 +89,47 @@
     }
 
     .stock-status .in-stock {
-        color: #FFD700; /* Gold for in-stock */
+        color: #FFD700;
     }
 
     .stock-status .out-stock {
-        color: #000000; /* Black for out-of-stock */
+        color: #000000;
     }
 
-    /* Product List Styling */
     .card-body {
-        padding: 20px; /* Đảm bảo có đủ khoảng cách */
-        display: flex; /* Sử dụng Flexbox */
-        flex-direction: column; /* Sắp xếp các phần tử theo chiều dọc */
-        justify-content: space-between; /* Căn đều giữa các phần tử */
-        height: 100%; /* Đảm bảo nội dung card-body chiếm đầy chiều cao */
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        height: 100%;
     }
 
         .card-body .card-title {
             font-size: 18px;
             font-weight: 600;
-            color: #000000; /* Đảm bảo màu sắc tiêu đề rõ ràng */
-            margin-bottom: 10px; /* Thêm khoảng cách dưới tiêu đề */
-            text-align: center; /* Căn giữa tên sản phẩm */
+            color: #000000;
+            margin-bottom: 10px;
+            text-align: center;
         }
 
         .card-body .card-text .text-danger {
             font-size: 18px;
-            color: #FFD700 !important; /* Màu vàng cho giá */
-            font-weight: 700; /* Làm nổi bật giá */
-            text-align: center; /* Căn giữa giá */
-            margin-bottom: 15px; /* Thêm khoảng cách dưới giá */
+            color: #FFD700 !important;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 15px;
         }
 
         .card-body .card-text .rating {
             display: flex;
-            justify-content: center; /* Căn giữa các sao */
-            gap: 5px; /* Khoảng cách giữa các sao */
-            margin-bottom: 15px; /* Thêm khoảng cách dưới phần đánh giá */
+            justify-content: center;
+            gap: 5px;
+            margin-bottom: 15px;
         }
 
         .card-body .stock-status {
             display: flex;
-            justify-content: center; /* Căn giữa */
+            justify-content: center;
             align-items: center;
             font-size: 14px;
             font-weight: 500;
@@ -122,159 +137,205 @@
         }
 
             .card-body .stock-status .in-stock {
-                color: #FFD700; /* Màu vàng cho Còn hàng */
+                color: #FFD700;
             }
 
             .card-body .stock-status .out-stock {
-                color: #000000; /* Màu đen cho Hết hàng */
+                color: #000000;
             }
 
     .card {
-        background: #FFFFFF; /* White card background */
-        transition: transform 0.2s ease, box-shadow 0.2s ease; /* Smooth hover transition */
-        cursor: pointer; /* Indicate card is clickable */
+        background: #FFFFFF;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+        cursor: pointer;
     }
 
         .card:hover {
-            transform: scale(1.05); /* Slight scale-up on hover */
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Enhanced shadow */
+            transform: scale(1.05);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
         }
 
         .card .card-footer {
             display: flex;
-            background: #FFFFFF; /* Ensure footer matches card */
+            background: #FFFFFF;
         }
 
         .card .btn {
-            pointer-events: auto; /* Ensure buttons remain interactive */
+            pointer-events: auto;
         }
 
     .card-title {
         font-size: 23px;
-        color: #000000; /* Black title */
+        color: #000000;
     }
 
     .card-text .text-danger {
         font-size: 16px;
-        color: #FFD700 !important; /* Gold for price */
+        color: #FFD700 !important;
     }
 
     .card-footer .btn-primary {
-        background-color: #FFD700; /* Gold button */
-        color: #000000; /* Black text */
+        background-color: #FFD700;
+        color: #000000;
         border: none;
     }
 
         .card-footer .btn-primary:hover {
-            background-color: #D4AF37; /* Darker gold */
+            background-color: #D4AF37;
         }
 
     .card-footer .btn-outline-danger {
-        border-color: #000000; /* Black border */
-        color: #000000; /* Black icon */
+        border-color: #000000;
+        color: #000000;
     }
 
         .card-footer .btn-outline-danger:hover {
-            background-color: #FFD700; /* Gold background on hover */
+            background-color: #FFD700;
             color: #000000;
         }
 
-    /* Sorting and View Toggle Buttons */
     .btn-outline-secondary {
-        border-color: burlywood; /* Black border */
-        color: #000000; /* Black text/icon */
+        border-color: burlywood;
+        color: #000000;
     }
 
         .btn-outline-secondary:hover {
-            background-color: #FFD700; /* Gold on hover */
+            background-color: #FFD700;
             color: #000000;
         }
 
         .btn-outline-secondary.active {
-            background-color: #FFD700; /* Gold for active state */
+            background-color: #FFD700;
             color: #000000;
             border-color: #000000;
         }
 
     .btn-outline-primary {
-        border-color: #000000; /* Black border */
-        color: #000000; /* Black icon */
-    }
-
-        .btn-outline-primary:hover {
-            background-color: #FFD700; /* Gold on hover */
-            color: #000000;
-        }
-
-    /* Table View */
-    .table {
-        background: #FFFFFF; /* White table background */
-        color: #000000; /* Black text */
-    }
-
-        .table th {
-            background: #000000; /* Black header background */
-            color: #FFFFFF; /* White text */
-        }
-
-        .table td {
-            border-color: #000000; /* Black borders */
-        }
-
-    .table-hover tbody tr:hover {
-        background-color: #F0F0F0; /* Light gray on hover */
-    }
-
-    .table .text-danger {
-        color: #FFD700 !important; /* Gold for price */
-    }
-
-    /* Pagination */
-    .pagination .page-link {
-        color: #000000; /* Black text */
-        border-color: #000000; /* Black border */
-    }
-
-    .pagination .page-item.active .page-link {
-        background-color: #FFD700; /* Gold for active page */
         border-color: #000000;
-        color: #000000; /* Black text */
-    }
-
-    .pagination .page-link:hover {
-        background-color: #FFD700; /* Gold on hover */
         color: #000000;
     }
 
-    /* Ensure Font Awesome icons match gold theme */
+        .btn-outline-primary:hover {
+            background-color: #FFD700;
+            color: #000000;
+        }
+
+    .table {
+        background: #FFFFFF;
+        color: #000000;
+    }
+
+        .table th {
+            background: #000000;
+            color: #FFFFFF;
+        }
+
+        .table td {
+            border-color: #000000;
+        }
+
+    .table-hover tbody tr:hover {
+        background-color: #F0F0F0;
+    }
+
+    .table .text-danger {
+        color: #FFD700 !important;
+    }
+
+    .pagination .page-link {
+        color: #000000;
+        border-color: #000000;
+    }
+
+    .pagination .page-item.active .page-link {
+        background-color: #FFD700;
+        border-color: #000000;
+        color: #000000;
+    }
+
+    .pagination .page-link:hover {
+        background-color: #FFD700;
+        color: #000000;
+    }
+
     .fa-star, .fa-heart {
         color: #FFD700 !important;
     }
 
-    /* Card View: 3 rows, 4 products per row */
     #cardView {
         display: flex;
-        flex-wrap: wrap; /* Cho phép xuống dòng */
-        width: 100%; /* Chiếm toàn bộ chiều rộng */
-        gap: 15px; /* Khoảng cách giữa các sản phẩm */
+        flex-wrap: wrap;
+        width: 100%;
+        gap: 15px;
     }
 
-    /* Đảm bảo 4 sản phẩm mỗi dòng */
     .product-item {
-        flex: 0 0 calc(25% - 15px); /* 25% chiều rộng, trừ khoảng cách */
-        box-sizing: border-box; /* Bao gồm padding và border trong kích thước */
-        margin-bottom: 15px; /* Khoảng cách dưới mỗi sản phẩm */
+        flex: 0 0 calc(25% - 15px);
+        box-sizing: border-box;
+        margin-bottom: 15px;
     }
 
-    /* Căn giữa phân trang */
     nav[aria-label="Page navigation"] {
         display: flex;
-        justify-content: center; /* Căn giữa ngang */
-        width: 100%; /* Đảm bảo chiếm toàn bộ chiều rộng */
+        justify-content: center;
+        width: 100%;
     }
 
-
+    .search-container {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 15px;
     }
+
+        .search-container input {
+            flex: 1;
+            padding: 8px;
+            border: 2px solid #000000;
+            border-radius: 5px;
+            font-size: 16px;
+            outline: none;
+        }
+
+            .search-container input:focus {
+                border-color: #FFD700;
+            }
+
+        .search-container .btn-search {
+            background-color: #FFD700;
+            border: none;
+            color: #000000;
+            padding: 8px 12px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+            .search-container .btn-search:hover {
+                background-color: #D4AF37;
+            }
+
+        .search-container .btn-mic {
+            background-color: #000000;
+            border: none;
+            color: #FFFFFF;
+            padding: 8px 12px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+            .search-container .btn-mic:hover {
+                background-color: #333333;
+            }
+
+            .search-container .btn-mic.recording {
+                background-color: #FF0000;
+            }
+
+                .search-container .btn-mic.recording:hover {
+                    background-color: #CC0000;
+                }
 </style>
 
 <div class="container-fluid">
@@ -283,8 +344,11 @@
         <div class="col-md-3">
             <div class="filter-sidebar">
                 <h4>LỌC SẢN PHẨM</h4>
-
-                <!-- Danh mục -->
+                <div class="search-container mb-4">
+                    <input type="text" id="searchInput" placeholder="Tìm kiếm sản phẩm..." value="@ViewBag.SearchString" />
+                    <button class="btn btn-search" onclick="applyFilters()"><i class="fas fa-search"></i></button>
+                    <button class="btn btn-mic" id="micButton" title="Tìm kiếm bằng giọng nói"><i class="fas fa-microphone"></i></button>
+                </div>
                 <div class="mb-4">
                     <h5>DANH MỤC</h5>
                     @foreach (var category in ViewBag.Categories)
@@ -302,8 +366,6 @@
                         </div>
                     }
                 </div>
-
-                <!-- Thương hiệu -->
                 <div class="mb-4">
                     <h5>THƯƠNG HIỆU</h5>
                     @foreach (var brand in ViewBag.Brands)
@@ -321,8 +383,6 @@
                         </div>
                     }
                 </div>
-
-                <!-- Kích thước -->
                 <div class="mb-4">
                     <h5>KÍCH THƯỚC</h5>
                     @foreach (var size in ViewBag.Sizes)
@@ -340,8 +400,6 @@
                         </div>
                     }
                 </div>
-
-                <!-- Giá -->
                 <div class="mb-4">
                     <h5>GIÁ</h5>
                     @foreach (var priceRange in ViewBag.PriceRanges)
@@ -361,46 +419,34 @@
                         </div>
                     }
                 </div>
-
-                <!-- Tình trạng hàng -->
                 <div class="mb-4 stock-status">
                     <h5>TÌNH TRẠNG</h5>
                     <p class="in-stock"><i class="fas fa-check-circle me-1"></i> Còn Hàng: @ViewBag.InStockCount</p>
                     <p class="out-stock"><i class="fas fa-times-circle me-1"></i> Hết Hàng: @ViewBag.OutOfStockCount</p>
                 </div>
-
-                <!-- Nút áp dụng bộ lọc -->
                 <button class="btn btn-primary" onclick="applyFilters()">ÁP DỤNG BỘ LỌC</button>
+                <button class="btn btn-reset" onclick="resetFilters()">XÓA BỘ LỌC</button>
             </div>
         </div>
-
-        <!-- Danh sách sản phẩm -->
         <div class="col-md-9">
-            <!-- Sắp xếp và chuyển đổi giao diện -->
             <div class="d-flex justify-content-between mb-3 align-items-center">
                 <h4 class="mb-0">@Model.Count SẢN PHẨM</h4>
                 <div class="d-flex align-items-center gap-2">
-                    <!-- Hidden input for sort order -->
-                    <input type="hidden" id="sortOrder" value="@ViewBag.SortOrder" />
-                    <!-- Sorting Button Group -->
+                    <input type="hidden" id="sortOrder" value="@(ViewBag.SortOrder == "price_asc" || ViewBag.SortOrder == "price_desc" || ViewBag.SortOrder == "name" ? ViewBag.SortOrder : "name")" />
                     <div class="btn-group" role="group" aria-label="Sort options">
                         <button type="button" class="btn btn-outline-secondary btn-sm @(ViewBag.SortOrder == "price_asc" ? "active" : "")"
                                 onclick="setSortOrder('price_asc')" title="Sắp xếp giá tăng dần">
                             <i class="fas fa-arrow-up"></i> Giá thấp
                         </button>
-
                         <button type="button" class="btn btn-outline-secondary btn-sm @(ViewBag.SortOrder == "price_desc" ? "active" : "")"
                                 onclick="setSortOrder('price_desc')" title="Sắp xếp giá giảm dần">
                             <i class="fas fa-arrow-down"></i> Giá cao
                         </button>
-
                         <button type="button" class="btn btn-outline-secondary btn-sm @(ViewBag.SortOrder == "name" ? "active" : "")"
                                 onclick="setSortOrder('name')" title="Sắp xếp theo tên A-Z">
                             <i class="fas fa-sort-alpha-down"></i> Tên A-Z
                         </button>
-
                     </div>
-                    <!-- View Toggle Buttons -->
                     <div class="btn-group ms-2" role="group" aria-label="View options">
                         <button type="button" class="btn btn-outline-primary btn-sm"
                                 onclick="toggleView('card')" title="Chế độ thẻ">
@@ -413,14 +459,11 @@
                     </div>
                 </div>
             </div>
-
-            <!-- Card View -->
             <div id="cardView" class="row">
                 @foreach (var product in Model)
                 {
                     var avgRating = product.Reviews.Any() ? product.Reviews.Average(r => r.Rating) : 0;
                     var minPrice = product.ProductSizes.Any() ? product.ProductSizes.Min(ps => ps.Price) : 0;
-
                     <div class="product-item col-md-3 mb-4">
                         <div class="card h-100" onclick="goToDetails(@product.ProductId)">
                             <img src="@product.ImageUrl" class="card-img-top" alt="@product.Name" style="height: 200px; object-fit: cover;" />
@@ -461,13 +504,10 @@
                         </div>
                     </div>
                 }
-                <!-- Pagination for Card View -->
                 <nav aria-label="Page navigation" class="mt-3">
                     <ul class="pagination justify-content-center" id="cardPagination"></ul>
                 </nav>
             </div>
-
-            <!-- Table View -->
             <div id="tableView" style="display: none;">
                 <table id="productTable" class="table table-bordered table-hover">
                     <thead>
@@ -527,11 +567,11 @@
 </div>
 
 @section Scripts {
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
     <script>
         $(document).ready(function () {
-            // Initialize DataTable for table view
             $('#productTable').DataTable({
                 "pageLength": 12,
                 "language": {
@@ -551,7 +591,6 @@
                 "ordering": false
             });
 
-            // Card view pagination
             const itemsPerPage = 12;
             const $products = $('.product-item');
             const totalItems = $products.length;
@@ -583,6 +622,72 @@
                 renderPagination();
                 $('#cardPagination .page-item:first').addClass('active');
             }
+
+            function initializeSpeechRecognition() {
+                const micButton = document.getElementById('micButton');
+                const searchInput = document.getElementById('searchInput');
+                let recognition = null;
+
+                console.log('micButton:', micButton);
+                console.log('searchInput:', searchInput);
+
+                if ('SpeechRecognition' in window || 'webkitSpeechRecognition' in window) {
+                    recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+                    recognition.lang = 'vi-VN';
+                    recognition.interimResults = false;
+                    recognition.maxAlternatives = 1;
+                    console.log('SpeechRecognition initialized:', recognition);
+
+                    micButton.addEventListener('click', () => {
+                        console.log('Mic button clicked, recording:', micButton.classList.contains('recording'));
+                        if (micButton.classList.contains('recording')) {
+                            recognition.stop();
+                        } else {
+                            recognition.start();
+                            micButton.classList.add('recording');
+                            micButton.querySelector('i').classList.remove('fa-microphone');
+                            micButton.querySelector('i').classList.add('fa-stop');
+                        }
+                    });
+
+                    recognition.onresult = (event) => {
+                        console.log('Speech recognition result:', event.results);
+                        const transcript = event.results[0][0].transcript;
+                        console.log('Transcript:', transcript);
+                        searchInput.value = transcript;
+                        applyFilters();
+                    };
+
+                    recognition.onend = () => {
+                        console.log('Speech recognition ended');
+                        micButton.classList.remove('recording');
+                        micButton.querySelector('i').classList.remove('fa-stop');
+                        micButton.querySelector('i').classList.add('fa-microphone');
+                    };
+
+                    recognition.onerror = (event) => {
+                        console.error('Speech recognition error:', event.error);
+                        alert('Đã xảy ra lỗi khi nhận diện giọng nói: ' + event.error);
+                        micButton.classList.remove('recording');
+                        micButton.querySelector('i').classList.remove('fa-stop');
+                        micButton.querySelector('i').classList.add('fa-microphone');
+                    };
+                } else {
+                    console.log('SpeechRecognition not supported');
+                    micButton.disabled = true;
+                    micButton.title = 'Trình duyệt không hỗ trợ tìm kiếm bằng giọng nói';
+                    micButton.style.opacity = '0.5';
+                    micButton.style.cursor = 'not-allowed';
+                }
+            }
+
+            initializeSpeechRecognition();
+
+            $('#searchInput').on('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    applyFilters();
+                }
+            });
         });
 
         function setSortOrder(sortValue) {
@@ -601,6 +706,7 @@
         }
 
         function applyFilters() {
+            console.log('applyFilters called');
             var categoryId = $('input[name="categoryId"]:checked').val();
             var brandId = $('input[name="brandId"]:checked').val();
             var sizeId = $('input[name="sizeId"]:checked').val();
@@ -608,7 +714,9 @@
             var minPrice = priceRange ? priceRange.split('-')[0] : '';
             var maxPrice = priceRange ? priceRange.split('-')[1] : '';
             var sortOrder = $('#sortOrder').val();
-            var searchString = '@ViewBag.SearchString';
+            var searchString = $('#searchInput').val();
+
+            console.log('sortOrder:', sortOrder, 'searchString:', searchString);
 
             var url = '@Url.Action("Index", "Shop")' + '?';
             if (categoryId) url += 'categoryId=' + categoryId + '&';
@@ -617,8 +725,22 @@
             if (minPrice) url += 'minPrice=' + minPrice + '&';
             if (maxPrice) url += 'maxPrice=' + maxPrice + '&';
             url += 'sortOrder=' + sortOrder;
-            if (searchString) url += '&searchString=' + searchString;
+            if (searchString) url += '&searchString=' + encodeURIComponent(searchString);
+            if (searchString) {
+                searchString = searchString.replace(/\.+$/, '').trim();
+            }
+            console.log('Redirecting to:', url);
+            window.location.href = url;
+        }
 
+        function resetFilters() {
+            $('input[name="categoryId"]').prop('checked', false);
+            $('input[name="brandId"]').prop('checked', false);
+            $('input[name="sizeId"]').prop('checked', false);
+            $('.price-filter').prop('checked', false);
+            $('#sortOrder').val('name');
+            $('#searchInput').val('');
+            var url = '@Url.Action("Index", "Shop")';
             window.location.href = url;
         }
 
@@ -629,7 +751,6 @@
                 data: { productId: productId },
                 success: function (response) {
                     if (response.success) {
-                        // Toggle heart icon dynamically
                         let btn = $(`button[onclick*='toggleFavourite(${productId})']`);
                         let icon = btn.find('i');
                         if (icon.hasClass('far')) {

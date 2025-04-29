@@ -22,9 +22,9 @@
                 _userManager = userManager;
             }
 
-            // 1. Danh sách sản phẩm
-            public async Task<IActionResult> Index(string searchString, int? categoryId, int? brandId, int? sizeId, decimal? minPrice, decimal? maxPrice, string sortOrder = "best_selling")
-            {
+        // 1. Danh sách sản phẩm
+        public async Task<IActionResult> Index(string searchString, int? categoryId, int? brandId, int? sizeId, decimal? minPrice, decimal? maxPrice, string sortOrder = "name")
+        {
                 // Đếm số lượng sản phẩm trong giỏ hàng (nếu có)
                 SetCartCount();
 
@@ -37,18 +37,19 @@
                     .Include(p => p.Reviews)
                     .AsQueryable();
 
-                // Lọc theo từ khóa tìm kiếm
-                if (!string.IsNullOrEmpty(searchString))
-                {
-                    searchString = searchString.ToLower();
-                    query = query.Where(p => p.Name.ToLower().Contains(searchString) ||
-                                             p.Description.ToLower().Contains(searchString) ||
-                                             p.Brand.Name.ToLower().Contains(searchString) ||
-                                             p.Category.Name.ToLower().Contains(searchString));
-                }
+            // Lọc theo từ khóa tìm kiếm
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                // Loại bỏ dấu chấm cuối cùng và làm sạch chuỗi
+                searchString = searchString.Trim().TrimEnd('.').ToLower();
+                query = query.Where(p => p.Name.ToLower().Contains(searchString) ||
+                                         p.Description.ToLower().Contains(searchString) ||
+                                         p.Brand.Name.ToLower().Contains(searchString) ||
+                                         p.Category.Name.ToLower().Contains(searchString));
+            }
 
-                // Lọc theo danh mục
-                if (categoryId.HasValue)
+            // Lọc theo danh mục
+            if (categoryId.HasValue)
                 {
                     query = query.Where(p => p.CategoryId == categoryId.Value);
                 }

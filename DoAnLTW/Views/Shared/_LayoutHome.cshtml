@@ -178,7 +178,7 @@
                                 <div class="dropdown-menu position-absolute rounded-0 border-0 m-0">
                                     @foreach (var category in categories)
                                     {
-                                        <a asp-controller="Shop" asp-action="Index" asp-route-brandId="@category.CategoryId" class="dropdown-item">@category.Name</a>
+                                        <a asp-controller="Shop" asp-action="Index" asp-route-categoryId="@category.CategoryId" class="dropdown-item">@category.Name</a>
                                     }
                                 </div>
                             </div>
