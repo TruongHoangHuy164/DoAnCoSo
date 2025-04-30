@@ -28,7 +28,7 @@
   --light: #FFFFFF;
   --dark: #3D464D;
   --breakpoint-xs: 0;
-  --breakpoint-sm: 576px;
+  --breakpoint-sm: 576px
   --breakpoint-md: 768px;
   --breakpoint-lg: 992px;
   --breakpoint-xl: 1200px;
@@ -9697,7 +9697,7 @@ a.text-dark:hover, a.text-dark:focus {
     position: fixed;
     display: none;
     right: 20px;
-    bottom: 140px; /* Đặt cao hơn để tránh chồng lấn với Zalo và Chat */
+    bottom: 250px; /* Đặt cao hơn để tránh chồng lấn với Zalo và Chat */
     z-index: 1000; /* Tăng z-index để ngang bằng hoặc cao hơn Zalo/Chat */
     width: 50px;
     height: 50px;
@@ -9711,7 +9711,7 @@ a.text-dark:hover, a.text-dark:focus {
 /* Nút Zalo */
 .contact-zalo {
     position: fixed;
-    bottom: 20px; /* Góc dưới cùng */
+    bottom: 190px; /* Góc dưới cùng */
     right: 20px;
     z-index: 1000;
     width: 50px;
@@ -9724,112 +9724,6 @@ a.text-dark:hover, a.text-dark:focus {
     transition: transform 0.3s ease;
 }
 
-/* Nút Chat */
-.chat-employee {
-    position: fixed;
-    bottom: 80px; /* Phía trên nút Zalo */
-    right: 20px;
-    z-index: 1000;
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
-    transition: transform 0.3s ease;
-}
-
-    /* Hiệu ứng hover */
-    .contact-zalo:hover, .chat-employee:hover, .back-to-top:hover {
-        transform: scale(1.1);
-    }
-
-    /* Đảm bảo icon bên trong nút được căn giữa */
-    .contact-zalo img, .chat-employee i, .back-to-top i {
-        font-size: 20px;
-        color: white;
-    }
-/* Chat Button */
-.chat-employee {
-    position: fixed;
-    bottom: 80px;
-    right: 20px;
-    z-index: 1000;
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
-    transition: transform 0.3s ease;
-}
-
-    .chat-employee:hover {
-        transform: scale(1.1);
-    }
-
-/* Chat Box */
-.chat-box {
-    position: fixed;
-    bottom: 140px;
-    right: 20px;
-    width: 300px;
-    height: 400px;
-    background: white;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    display: none;
-    z-index: 1000;
-    flex-direction: column;
-}
-
-    .chat-box.active {
-        display: flex;
-    }
-
-.chat-box-header {
-    background: #ffc107;
-    color: white;
-    padding: 10px;
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-    .chat-box-header h5 {
-        margin: 0;
-        font-size: 16px;
-    }
-
-    .chat-box-header .close-chat {
-        cursor: pointer;
-        font-size: 20px;
-    }
-
-.chat-box-body {
-    flex: 1;
-    padding: 10px;
-    overflow-y: auto;
-    background: #f8f9fa;
-}
-
-.chat-box-footer {
-    padding: 10px;
-    border-top: 1px solid #ddd;
-}
-
-    .chat-box-footer input {
-        background: #28a745;
-        width: 100%;
-        padding: 8px;
-        border: 1px solid #ddd;
-        border-radius: 5px;
-        outline: none;
-    }
 @keyframes action {
   0% {
     transform: translateY(0);

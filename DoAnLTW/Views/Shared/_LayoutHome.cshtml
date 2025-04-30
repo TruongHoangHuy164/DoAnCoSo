@@ -244,73 +244,6 @@
         <img src="/img/zalo_icon.png" alt="Zalo" style="width: 20px;">
     </a>
 
-    <!-- Chat Button -->
-    <a href="javascript:void(0);" class="btn btn-primary chat-employee" onclick="toggleChatBox()">
-        <i class="fas fa-comments"></i>
-    </a>
-
-    <!-- Chat Box -->
-    <div class="chat-box active">
-        <div class="chat-box-header">
-            <h5>Chat with AI</h5>
-            <span class="close-chat">&times;</span>
-        </div>
-        <div class="chat-box-body">
-            <div class="drop-zone" id="dropZone">
-                <p>Kéo và thả sản phẩm vào đây để phân tích</p>
-            </div>
-            <div class="chat-messages" id="chatMessages"></div>
-        </div>
-        <div class="chat-box-footer">
-            <input type="text" id="userInput" placeholder="Gõ tin nhắn...">
-        </div>
-    </div>
-
-    <!-- Chat JavaScript -->
-    <script>
-        function toggleChatBox() {
-            const chatBox = document.getElementById('chatBox');
-            chatBox.classList.toggle('active');
-        }
-
-        function sendMessage() {
-            const input = document.getElementById('chatInput');
-            const message = input.value.trim();
-            if (message) {
-                const chatMessages = document.getElementById('chatMessages');
-                const messageElement = document.createElement('div');
-                messageElement.textContent = message;
-                messageElement.style.marginBottom = '10px';
-                messageElement.style.padding = '8px';
-                messageElement.style.background = '#007bff';
-                messageElement.style.color = 'white';
-                messageElement.style.borderRadius = '5px';
-                messageElement.style.textAlign = 'right';
-                chatMessages.appendChild(messageElement);
-                input.value = '';
-                chatMessages.scrollTop = chatMessages.scrollHeight;
-
-                // Gửi tin nhắn tới server (giả lập)
-                // Bạn có thể thay thế bằng AJAX để gửi tới controller Chat
-                $.ajax({
-                    url: '@Url.Action("SendMessage", "Chat")',
-                    method: 'POST',
-                    data: { message: message },
-                    success: function (response) {
-                        // Xử lý phản hồi từ server (nếu có)
-                        const replyElement = document.createElement('div');
-                        replyElement.textContent = response.reply || 'Đã nhận tin nhắn!';
-                        replyElement.style.marginBottom = '10px';
-                        replyElement.style.padding = '8px';
-                        replyElement.style.background = '#e9ecef';
-                        replyElement.style.borderRadius = '5px';
-                        chatMessages.appendChild(replyElement);
-                        chatMessages.scrollTop = chatMessages.scrollHeight;
-                    }
-                });
-            }
-        }
-    </script>
     <!-- JavaScript Libraries -->
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
@@ -321,7 +254,11 @@
 
     <script src="mail/jqBootstrapValidation.min.js"></script>
     <script src="mail/contact.js"></script>
-
+    <script src="https://app.preny.ai/embed-global.js"
+            data-button-style="width:200px;height:200px"
+            async
+            defer
+            data-preny-bot-id="6812515e3d3e225ee029d289" />
     <!-- Template Javascript -->
     <script src="~/js/main.js"></script>
     @RenderSection("Scripts", required: false)  <!-- Thêm dòng này vào đây -->
