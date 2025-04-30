@@ -17,7 +17,11 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 
-
+builder.Services.AddLogging(logging =>
+{
+    logging.ClearProviders();
+    logging.AddConsole();
+});
 //chat
 
 //builder.Services.AddScoped<IChatService, EFChatService>();
@@ -26,6 +30,8 @@ builder.Services.Configure<CookiePolicyOptions>(Options =>
     Options.CheckConsentNeeded = context => true;
     Options.MinimumSameSitePolicy = SameSiteMode.None;
 });
+// Đăng ký RazorViewToStringRenderer
+builder.Services.AddTransient<IRazorViewToStringRenderer, RazorViewToStringRenderer>();
 
 
 // kết nối momo

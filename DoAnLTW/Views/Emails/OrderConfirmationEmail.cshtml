@@ -1,0 +1,112 @@
+﻿@model DoAnLTW.Models.Order
+
+@{
+    ViewData["Title"] = "Xác nhận đơn hàng";
+    decimal shippingFee = ViewBag.ShippingFee ?? 10000; // Phí vận chuyển mặc định
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Xác nhận đơn hàng</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            background-color: #f8f9fa;
+            padding: 10px;
+            text-align: center;
+        }
+
+        .success {
+            color: #28a745;
+            font-weight: bold;
+        }
+
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+            .table th, .table td {
+                border: 1px solid #ddd;
+                padding: 8px;
+                text-align: left;
+            }
+
+            .table th {
+                background-color: #f2f2f2;
+            }
+
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h2>Xác nhận đơn hàng</h2>
+        </div>
+        <p class="success">Đơn hàng của bạn đã được đặt thành công! Chúng tôi sẽ liên hệ để xác nhận.</p>
+        <p><strong>Mã đơn hàng:</strong> @Model.Id</p>
+        <p><strong>Ngày đặt hàng:</strong> @Model.OrderDate.ToString("dd/MM/yyyy HH:mm")</p>
+        <p><strong>Họ tên:</strong> @Model.FirstName @Model.LastName</p>
+        <p><strong>Email:</strong> @Model.Email</p>
+        <p><strong>Số điện thoại:</strong> @Model.PhoneNumber</p>
+        <p><strong>Địa chỉ nhận hàng:</strong> @Model.Address</p>
+        <p><strong>Phương thức thanh toán:</strong> @Model.PaymentMethod</p>
+        <p><strong>Trạng thái thanh toán:</strong> @(Model.IsPaid ? "Đã thanh toán" : "Chưa thanh toán")</p>
+        <p><strong>Trạng thái đơn hàng:</strong> @Model.Status</p>
+
+        <h3>Chi tiết đơn hàng</h3>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Sản phẩm</th>
+                    <th>Size</th>
+                    <th>Giá</th>
+                    <th>Số lượng</th>
+                    <th>Tổng</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var detail in Model.OrderDetails)
+                {
+                    <tr>
+                        <td>@detail.ProductName</td>
+                        <td>@detail.Size</td>
+                        <td>@detail.Price.ToString("#,##0 VNĐ")</td>
+                        <td>@detail.Quantity</td>
+                        @((detail.Price * detail.Quantity).ToString("#,##0") + " VNĐ")
+
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+        <p><strong>Giá sản phẩm:</strong> @Model.OrderDetails.Sum(d => d.Price * d.Quantity).ToString("#,##0 VNĐ")</p>
+        <p><strong>Phí vận chuyển:</strong> @shippingFee.ToString("#,##0 VNĐ")</p>
+        <p><strong>Tổng cộng:</strong> @Model.TotalAmount.ToString("#,##0 VNĐ")</p>
+
+       
+    </div>
+</body>
+</html>

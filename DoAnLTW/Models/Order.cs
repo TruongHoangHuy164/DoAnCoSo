@@ -4,6 +4,19 @@ using System.ComponentModel.DataAnnotations;
 
 namespace DoAnLTW.Models
 {
+    // Định nghĩa enum cho trạng thái đơn hàng
+    public enum OrderStatus
+    {
+        [Display(Name = "Chờ xử lý")]
+        ChoXuLy, //0
+
+        [Display(Name = "Đang giao hàng")]
+        DangGiaoHang,//1
+
+        [Display(Name = "Đã giao hàng")]
+        DaGiaoHang//2
+    }
+
     public class Order
     {
         public int Id { get; set; }
@@ -38,7 +51,11 @@ namespace DoAnLTW.Models
         public string PaymentMethod { get; set; } // "COD", "Momo", "VNPay"
 
         [Required]
-        public bool IsPaid { get; set; } // Thêm thuộc tính để lưu trạng thái thanh toán
+        public bool IsPaid { get; set; } // Trạng thái thanh toán
+
+        // Thêm thuộc tính Status với giá trị mặc định là "Chờ xử lý"
+        [Required]
+        public OrderStatus Status { get; set; } = OrderStatus.ChoXuLy;
 
         public List<OrderDetail> OrderDetails { get; set; } = new List<OrderDetail>();
     }

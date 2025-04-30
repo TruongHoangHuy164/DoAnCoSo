@@ -9,6 +9,9 @@ using VNPAY.NET.Utilities;
 using VNPAY.NET;
 using DoAnLTW.Services.Momo;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity.UI.Services;
+using DoAnLTW.Services;
+using Microsoft.Extensions.Logging; // Thêm namespace cho ILogger
 
 namespace DoAnLTW.Controllers
 {
@@ -21,16 +24,54 @@ namespace DoAnLTW.Controllers
         private readonly IMomoService _momoService;
         private readonly ApplicationDbContext _context;
         private readonly IProductRepository _productRepository;
+        private readonly IEmailSender _emailSender;
+        private readonly IRazorViewToStringRenderer _razorRenderer;
+        private readonly ILogger<CheckoutController> _logger; // Thêm ILogger
 
-        public CheckoutController(IOrderRepository orderRepository, IMomoService momoService, ApplicationDbContext context, IProductRepository productRepository)
+        public CheckoutController(
+            IOrderRepository orderRepository,
+            IMomoService momoService,
+            ApplicationDbContext context,
+            IProductRepository productRepository,
+            IEmailSender emailSender,
+            IRazorViewToStringRenderer razorRenderer,
+            ILogger<CheckoutController> logger) // Thêm ILogger vào constructor
         {
             _vnpay = new Vnpay();
             _orderRepository = orderRepository;
             _momoService = momoService;
             _context = context;
             _productRepository = productRepository;
+            _emailSender = emailSender;
+            _razorRenderer = razorRenderer;
+            _logger = logger;
             _vnpay.Initialize("UNNRVRJ6", "RSG8ZUBQMVZCD5QSFTW4ZDIJBONYJ5SA",
                 "https://sandbox.vnpayment.vn/paymentv2/vpcpay.html", "https://localhost:5134/Checkout/VnPayReturn");
+        }
+
+        private async Task SendOrderConfirmationEmail(Order order)
+        {
+            try
+            {
+                _logger.LogInformation("Bắt đầu gửi email xác nhận cho đơn hàng #{OrderId} tới {Email}", order.Id, order.Email);
+
+                // Sử dụng đường dẫn mới: ~/Views/Checkout/OrderConfirmationEmail.cshtml
+                var viewPath = "Emails/OrderConfirmationEmail";
+                _logger.LogInformation("Đang render email từ view: {ViewPath}", viewPath);
+
+                var viewBag = new Dictionary<string, object> { { "ShippingFee", SHIPPING_FEE } };
+                var emailContent = await _razorRenderer.RenderViewToStringAsync(viewPath, order);
+
+                _logger.LogInformation("Render email thành công, nội dung: {Content}", emailContent.Substring(0, Math.Min(emailContent.Length, 100)));
+
+                await _emailSender.SendEmailAsync(order.Email, "Xác nhận đơn hàng #" + order.Id, emailContent);
+                _logger.LogInformation("Gửi email xác nhận thành công cho đơn hàng #{OrderId}", order.Id);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Lỗi khi gửi email xác nhận cho đơn hàng #{OrderId}: {Message}", order.Id, ex.Message);
+                TempData["EmailError"] = "Không thể gửi email xác nhận. Vui lòng kiểm tra email của bạn sau.";
+            }
         }
 
         [HttpGet]
@@ -44,7 +85,6 @@ namespace DoAnLTW.Controllers
 
             if (paymentResult.IsSuccess)
             {
-                // Giả sử orderId được lưu trong vnp_TxnRef hoặc một tham số khác trong phản hồi
                 string orderIdStr = vnpResponse["vnp_TxnRef"].ToString();
                 if (int.TryParse(orderIdStr, out int orderId))
                 {
@@ -53,6 +93,10 @@ namespace DoAnLTW.Controllers
                     {
                         order.IsPaid = true; // Cập nhật trạng thái thanh toán
                         await _orderRepository.UpdateAsync(order);
+
+                        // Gửi email xác nhận
+                        await SendOrderConfirmationEmail(order);
+
                         TempData["Success"] = "Thanh toán VNPay thành công";
                         return RedirectToAction("OrderSuccess", new { orderId });
                     }
@@ -74,12 +118,9 @@ namespace DoAnLTW.Controllers
             var momoResponse = _momoService.PaymentExecuteAsync(HttpContext.Request.Query);
             if (momoResponse != null && momoResponse.ResultCode == 0) // Kiểm tra thanh toán thành công
             {
-                // Cập nhật trạng thái thanh toán của đơn hàng
-                // MoMo OrderID có dạng <orderId>_<additionalData>, ví dụ: "39_638793445437982283"
                 string orderIdStr = momoResponse.OrderID;
                 if (!string.IsNullOrEmpty(orderIdStr))
                 {
-                    // Tách phần orderId từ OrderID bằng cách split theo dấu "_"
                     var orderIdParts = orderIdStr.Split('_');
                     if (orderIdParts.Length > 0 && int.TryParse(orderIdParts[0], out int orderId))
                     {
@@ -88,6 +129,10 @@ namespace DoAnLTW.Controllers
                         {
                             order.IsPaid = true; // Cập nhật trạng thái thanh toán
                             await _orderRepository.UpdateAsync(order);
+
+                            // Gửi email xác nhận
+                            await SendOrderConfirmationEmail(order);
+
                             TempData["Success"] = "Thanh toán MoMo thành công";
                             return RedirectToAction("OrderSuccess", new { orderId });
                         }
@@ -159,7 +204,6 @@ namespace DoAnLTW.Controllers
                 {
                     try
                     {
-                        // Đảm bảo OrderID được tạo với định dạng có thể tách được sau này
                         var momoResponse = await _momoService.CreatePaymentAsync(order);
                         if (momoResponse.ErrorCode == 0)
                         {
@@ -194,7 +238,7 @@ namespace DoAnLTW.Controllers
 
                         var request = new PaymentRequest
                         {
-                            PaymentId = order.Id, // Sử dụng order.Id làm PaymentId
+                            PaymentId = order.Id,
                             Money = ((double)(order.TotalAmount)),
                             Description = order.Address,
                             IpAddress = ipAddress,
@@ -217,6 +261,9 @@ namespace DoAnLTW.Controllers
                         return View("Index", viewModel);
                     }
                 }
+
+                // Gửi email xác nhận cho COD
+                await SendOrderConfirmationEmail(order);
 
                 // Xóa giỏ hàng sau khi đặt hàng thành công
                 HttpContext.Session.Remove(CART_KEY);

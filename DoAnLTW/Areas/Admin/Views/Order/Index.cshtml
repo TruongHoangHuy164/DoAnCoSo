@@ -77,14 +77,17 @@
                 color: white;
             }
 
-    /* Tùy chỉnh nút Xem chi tiết */
-    .btn-primary {
+    /* Tùy chỉnh nút Xem chi tiết và Cập nhật */
+    .btn-primary, .btn-success {
         padding: 8px 20px;
-        background-color: #007bff;
         border: none;
         border-radius: 5px;
         font-weight: bold;
         transition: all 0.3s ease;
+    }
+
+    .btn-primary {
+        background-color: #007bff;
     }
 
         .btn-primary:hover {
@@ -92,6 +95,24 @@
             transform: translateY(-2px);
             box-shadow: 0 4px 10px rgba(0, 123, 255, 0.3);
         }
+
+    .btn-success {
+        background-color: #28a745;
+    }
+
+        .btn-success:hover {
+            background-color: #218838;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(40, 167, 69, 0.3);
+        }
+
+    /* Tùy chỉnh dropdown */
+    .status-select {
+        padding: 8px;
+        border-radius: 5px;
+        border: 1px solid #007bff;
+        margin-right: 10px;
+    }
 
     /* Hiệu ứng animation */
     @@keyframes fadeIn {
@@ -147,7 +168,7 @@
                 <td>@order.value.OrderDate.ToString("dd/MM/yyyy HH:mm")</td>
                 <td>@order.value.TotalAmount.ToString("N0") VNĐ</td>
                 <td>@order.value.PaymentMethod</td>
-                <td>@(order.value.IsPaid ? "Đã thanh toán" : "Chưa thanh toán")</td>
+                <td>@order.value.Status</td>
                 <td>
                     <button class="btn btn-primary" onclick="toggleDetail('@orderId', this)">Xem chi tiết</button>
                 </td>
@@ -178,6 +199,30 @@
                                 }
                             </tbody>
                         </table>
+                        <div>
+                            <strong>Cập nhật trạng thái:</strong>
+                            <select class="status-select" id="status_@order.value.Id">
+                                @{
+                                    var statuses = new[] {
+                            new { Value = "ChoXuLy", Text = "Chờ xử lý", Selected = order.value.Status == DoAnLTW.Models.OrderStatus.ChoXuLy },
+                            new { Value = "DangGiaoHang", Text = "Đang giao hàng", Selected = order.value.Status == DoAnLTW.Models.OrderStatus.DangGiaoHang },
+                            new { Value = "DaGiaoHang", Text = "Đã giao hàng", Selected = order.value.Status == DoAnLTW.Models.OrderStatus.DaGiaoHang }
+                            };
+                                    foreach (var status in statuses)
+                                    {
+                                        if (status.Selected)
+                                        {
+                                            <option value="@status.Value" selected>@status.Text</option>
+                                        }
+                                        else
+                                        {
+                                            <option value="@status.Value">@status.Text</option>
+                                        }
+                                    }
+                                }
+                            </select>
+                            <button class="btn btn-success" onclick="updateStatus(@order.value.Id)">Lưu</button>
+                        </div>
                     </div>
                 </td>
             </tr>
@@ -196,6 +241,31 @@
                 row.style.display = "none";
                 btn.textContent = "Xem chi tiết";
             }
+        }
+
+        function updateStatus(orderId) {
+            const status = document.getElementById(`status_${orderId}`).value;
+            fetch('/Admin/Order/UpdateStatus', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'RequestVerificationToken': document.querySelector('input[name="__RequestVerificationToken"]').value
+                },
+                body: JSON.stringify({ id: orderId, status: status })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert('Cập nhật trạng thái thành công!');
+                    location.reload(); // Reload to reflect changes
+                } else {
+                    alert('Cập nhật trạng thái thất bại: ' + data.message);
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Đã xảy ra lỗi khi cập nhật trạng thái.');
+            });
         }
     </script>
 }

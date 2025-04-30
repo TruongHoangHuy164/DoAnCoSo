@@ -33,8 +33,9 @@ namespace DoAnLTW.Services
             using (var client = new SmtpClient())
             {
                 // Kết nối không bảo mật trước
-                await client.ConnectAsync(_emailSettings.SmtpServer, _emailSettings.Port, SecureSocketOptions.Auto);
-                
+                await client.ConnectAsync(_emailSettings.SmtpServer, _emailSettings.Port, SecureSocketOptions.StartTls);
+
+
                 // Đăng nhập
                 await client.AuthenticateAsync(_emailSettings.UserName, _emailSettings.Password);
                 
