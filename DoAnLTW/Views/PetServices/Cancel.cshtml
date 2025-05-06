@@ -1,0 +1,81 @@
+﻿@model DoAnLTW.Models.PetService
+
+@{
+    ViewData["Title"] = "Hủy Đặt Dịch Vụ";
+}
+
+<h1 class="text-center">@ViewData["Title"]</h1>
+
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger text-center">@TempData["ErrorMessage"]</div>
+}
+
+<div class="container mt-4">
+    <div class="card">
+        <div class="card-header">
+            <h5 class="mb-0">Thông Tin Đặt Dịch Vụ</h5>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <h6>Thú Cưng:</h6>
+                    <p class="font-weight-bold">@Model.Pet?.Name ?? "Không có thông tin"</p>
+                </div>
+                <div class="col-md-6">
+                    <h6>Dịch Vụ:</h6>
+                    <p class="font-weight-bold">@Model.Service?.Name ?? "Không có thông tin"</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <h6>Ngày Hẹn:</h6>
+                    <p class="font-weight-bold">@Model.AppointmentDate.ToShortDateString()</p>
+                </div>
+                <div class="col-md-6">
+                    <h6>Giờ Hẹn:</h6>
+                    <p class="font-weight-bold">@Model.AppointmentTime.ToShortTimeString()</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <h6>Địa Chỉ:</h6>
+                    <p class="font-weight-bold">@Model.Address</p>
+                </div>
+                <div class="col-md-6">
+                    <h6>Ghi Chú:</h6>
+                    <p class="font-weight-bold">@Model.Note ?? "Không có ghi chú"</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <h6>Trạng Thái:</h6>
+                    <p class="font-weight-bold">@Model.Status.ToString()</p>
+                </div>
+                <div class="col-md-6">
+                    <h6>Giá:</h6>
+                    <p class="font-weight-bold">@Model.Price.ToString("C")</p>
+                </div>
+            </div>
+        </div>
+        <div class="card-footer text-center">
+            <p>Bạn có chắc chắn muốn hủy đặt dịch vụ này không?</p>
+            <form asp-action="CancelConfirmed" method="post">
+                <input type="hidden" asp-for="Id" />
+                <button type="submit" class="btn btn-danger">Xác Nhận Hủy</button>
+                <a href="@Url.Action("MyBookings", "PetServices")" class="btn btn-secondary">Quay Lại</a>
+            </form>
+        </div>
+    </div>
+</div>
+
+<style>
+    .card {
+        border-radius: 10px; /* Bo tròn các góc của thẻ card */
+    }
+
+    .card-header {
+        background-color:  #dc3545; 
+        color: white; /* Màu chữ cho header */
+    }
+</style>

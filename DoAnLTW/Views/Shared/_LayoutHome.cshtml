@@ -214,7 +214,23 @@
                                 </div> *@
                                 <a asp-controller="Contact" asp-action="Index" class="nav-item nav-link">Liên hệ</a>
                                 <a asp-controller="Chat" asp-action="Index" class="nav-item nav-link">Chat</a>
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" href="#" id="petServicesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <i class="fas fa-paw"></i> Dịch vụ thú cưng
+                                    </a>
+                                    <div class="dropdown-menu" aria-labelledby="petServicesDropdown">
+                                        <a class="dropdown-item" asp-controller="UserPets" asp-action="Index">
+                                            <i class="fas fa-dog"></i> Thú cưng của tôi
+                                        </a>
+                                        <a class="dropdown-item" asp-controller="PetServices" asp-action="Index">
+                                            <i class="fas fa-concierge-bell"></i> Đặt dịch vụ
+                                        </a>
+                                        <a class="dropdown-item" asp-controller="PetServices" asp-action="MyBookings">
+                                            <i class="fas fa-calendar-check"></i> Lịch đặt của tôi
+                                        </a>
+                                    </div>
                             </div>
+                           
                             <div class="navbar-nav ml-auto py-0 d-none d-lg-block">
                                 <a asp-controller="Shop" asp-action="FavouriteProducts" class="btn px-0">
                                     <i class="fas fa-heart text-primary"></i>

@@ -1,0 +1,34 @@
+﻿@model IEnumerable<DoAnLTW.Models.Service>
+
+@{
+    ViewData["Title"] = "Dịch Vụ Thú Cưng";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger">@TempData["ErrorMessage"]</div>
+}
+
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success">@TempData["SuccessMessage"]</div>
+}
+
+<div class="row">
+    @foreach (var service in Model)
+    {
+        <div class="col-md-4 mb-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">@service.Name</h5>
+                    <p class="card-text">@service.Description</p>
+                    <p class="card-text"><strong>Giá:</strong> @service.Price.ToString("N0") VND</p>
+
+                    <a href="@Url.Action("Book", "PetServices", new { id = service.ServiceId })" class="btn btn-primary">Đặt Ngay</a>
+                </div>
+            </div>
+        </div>
+    }
+</div>

@@ -1,0 +1,40 @@
+﻿@model DoAnLTW.Models.PetService
+
+@{
+    ViewData["Title"] = "Xóa dịch vụ thú cưng";
+    Layout = "~/Areas/Admin/Views/Shared/layoutAdmin.cshtml"; // Chỉ định layout
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<div>
+    <h4>Xác nhận xóa dịch vụ</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">ID</dt>
+        <dd class="col-sm-10">@Model.Id</dd>
+
+        <dt class="col-sm-2">Thú cưng</dt>
+        <dd class="col-sm-10">@Model.Pet?.Name</dd>
+
+        <dt class="col-sm-2">Dịch vụ</dt>
+        <dd class="col-sm-10">@Model.Service?.Name</dd>
+
+        <dt class="col-sm-2">Ngày đặt</dt>
+        <dd class="col-sm-10">@Model.AppointmentDate.ToShortDateString()</dd>
+
+        <dt class="col-sm-2">Giờ đặt</dt>
+        <dd class="col-sm-10">@Model.AppointmentTime.ToShortTimeString()</dd>
+
+        <dt class="col-sm-2">Trạng thái</dt>
+        <dd class="col-sm-10">@Model.Status.ToString()</dd>
+    </dl>
+</div>
+
+<h4>Bạn có chắc chắn muốn xóa dịch vụ này không?</h4>
+
+<form asp-action="DeleteConfirmed" method="post">
+    <input type="hidden" asp-for="Id" />
+    <button type="submit" class="btn btn-danger">Xóa</button>
+    <a asp-action="Index" class="btn btn-secondary">Quay lại</a>
+</form>

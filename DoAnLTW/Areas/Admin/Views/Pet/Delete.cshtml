@@ -1,0 +1,26 @@
+﻿@model DoAnLTW.Models.Pet
+
+@{
+     Layout = "~/Areas/Admin/Views/Shared/layoutAdmin.cshtml";
+}
+
+<h1 class="text-center">Xác Nhận Xóa Thú Cưng</h1>
+
+<div class="text-center">
+    <h3>Bạn có chắc chắn muốn xóa thú cưng này không?</h3>
+    <div>
+        <h4>Thông tin thú cưng:</h4>
+        <p><strong>Tên:</strong> @Model.Name</p>
+        <p><strong>Loại:</strong> @Model.Type</p>
+        <p><strong>Giống:</strong> @Model.Breed</p>
+        <p><strong>Tuổi:</strong> @Model.Age</p>
+        <p><strong>Giới tính:</strong> @Model.Gender</p>
+        <p><strong>Mô tả:</strong> @Model.Description</p>
+    </div>
+
+    <form method="post" asp-action="Delete" asp-route-id="@Model.PetId">
+        @Html.AntiForgeryToken() <!-- Thêm token để bảo vệ khỏi CSRF -->
+        <button type="submit" class="btn btn-danger">Xóa Thú Cưng</button>
+        <a asp-action="Index" class="btn btn-secondary">Hủy</a>
+    </form>
+</div>

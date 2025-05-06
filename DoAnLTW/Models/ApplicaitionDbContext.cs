@@ -22,7 +22,10 @@ namespace DoAnLTW.Models
         public DbSet<Review> Reviews { get; set; }
         public DbSet<FavouriteProduct> FavouriteProducts { get; set; }
         public DbSet<WishProductList> WishProductLists { get; set; }
-
+        // Thêm các DbSet mới
+        public DbSet<Pet> Pets { get; set; }
+        public DbSet<Service> Services { get; set; }
+        public DbSet<PetService> PetServices { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             // Gọi phương thức OnModelCreating của lớp cha
@@ -116,6 +119,45 @@ namespace DoAnLTW.Models
             modelBuilder.Entity<ProductSize>()
                 .Property(ps => ps.Price)
                 .HasColumnType("decimal(18,2)");
+            // Cấu hình mối quan hệ giữa Pet và PetService
+            modelBuilder.Entity<PetService>()
+                .HasOne(ps => ps.Pet)
+                .WithMany(p => p.PetServices)
+                .HasForeignKey(ps => ps.PetId);
+
+            // Cấu hình mối quan hệ giữa Service và PetService
+            modelBuilder.Entity<PetService>()
+                .HasOne(ps => ps.Service)
+                .WithMany(s => s.PetServices)
+                .HasForeignKey(ps => ps.ServiceId);
+            
+            // Cấu hình các thuộc tính
+            modelBuilder.Entity<Pet>(entity =>
+            {
+                entity.HasKey(e => e.PetId);
+                entity.Property(e => e.UserId).IsRequired(); // Đảm bảo UserId là bắt buộc trong DB
+            });
+
+
+            modelBuilder.Entity<Service>()
+                .Property(s => s.Name)
+                .HasMaxLength(100)
+                .IsRequired();
+
+            modelBuilder.Entity<Service>()
+                .Property(s => s.Price)
+                .HasColumnType("decimal(18,2)");
+
+            modelBuilder.Entity<PetService>()
+                .Property(ps => ps.Price)
+                .HasColumnType("decimal(18,2)");
+
+            modelBuilder.Entity<Pet>(entity =>
+            {
+                entity.HasKey(e => e.PetId);
+                entity.Property(e => e.UserId).IsRequired(); // Đảm bảo UserId là bắt buộc trong DB
+            });
+
         }
     }
 }

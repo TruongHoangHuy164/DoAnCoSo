@@ -1,0 +1,88 @@
+﻿@model DoAnLTW.Models.PetService
+@{
+    ViewData["Title"] = "Chi tiết đặt dịch vụ";
+    Layout = "~/Areas/Admin/Views/Shared/layoutAdmin.cshtml";
+}
+
+<div class="page-header">
+    <h3 class="page-title">
+        <span class="page-title-icon bg-gradient-primary text-white me-2">
+            <i class="fa-solid fa-calendar-check"></i>
+        </span> Chi tiết đặt dịch vụ
+    </h3>
+    <nav aria-label="breadcrumb">
+        <ul class="breadcrumb">
+            <li class="breadcrumb-item">
+                <a asp-action="Index">Danh sách đặt dịch vụ</a>
+            </li>
+            <li class="breadcrumb-item active" aria-current="page">Chi tiết</li>
+        </ul>
+    </nav>
+</div>
+
+<div class="row">
+    <div class="col-md-6 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Thông tin đặt dịch vụ</h4>
+                <div class="form-group">
+                    <label>ID</label>
+                    <input type="text" class="form-control" readonly value="@Model.Id">
+                </div>
+                <div class="form-group">
+                    <label>Thú cưng</label>
+                    <input type="text" class="form-control" readonly value="@Model.Pet.Name">
+                </div>
+                <div class="form-group">
+                    <label>Dịch vụ</label>
+                    <input type="text" class="form-control" readonly value="@Model.Service.Name">
+                </div>
+                <div class="form-group">
+                    <label>Ngày hẹn</label>
+                    <input type="text" class="form-control" readonly value="@Model.AppointmentDate.ToString("dd/MM/yyyy")">
+                </div>
+                <div class="form-group">
+                    <label>Giờ hẹn</label>
+                    <input type="text" class="form-control" readonly value="@Model.AppointmentTime.ToString("HH:mm")">
+                </div>
+                <div class="form-group">
+                    <label>Trạng thái</label>
+                    <input type="text" class="form-control" readonly value="@Model.Status">
+                </div>
+                <div class="form-group">
+                    <label>Giá</label>
+                    <input type="text" class="form-control" readonly value="@Model.Price.ToString("N0") VNĐ">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Thông tin khác</h4>
+                <div class="form-group">
+                    <label>Địa chỉ</label>
+                    <textarea class="form-control" readonly rows="3">@Model.Address</textarea>
+                </div>
+                <div class="form-group">
+                    <label>Số điện thoại - Ghi chú</label>
+                    <textarea class="form-control" readonly rows="3">@(string.IsNullOrEmpty(Model.Note) ? "Không có ghi chú" : Model.Note)</textarea>
+                </div>
+                <div class="form-group">
+                    <label>Ngày đặt</label>
+                    <input type="text" class="form-control" readonly value="@Model.BookingDate.ToString("dd/MM/yyyy HH:mm")">
+                </div>
+                <div class="form-group">
+                    <label>Người đặt</label>
+                    <input type="text" class="form-control" readonly value="@Model.UserId">
+                </div>
+                <div class="mt-4">
+                    <a asp-action="UpdateOrderStatus" asp-route-id="@Model.Id" class="btn btn-gradient-warning me-2">
+                        <i class="mdi mdi-refresh"></i> Cập nhật trạng thái
+                    </a>
+                    <a asp-action="Index" class="btn btn-light">Quay lại</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

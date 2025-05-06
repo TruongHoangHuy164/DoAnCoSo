@@ -1,0 +1,42 @@
+﻿@model DoAnLTW.Models.PetService
+
+@{
+    ViewData["Title"] = "Cập nhật trạng thái đơn đặt dịch vụ";
+    Layout = "~/Areas/Admin/Views/Shared/layoutAdmin.cshtml";
+}
+
+<h2>Cập nhật trạng thái đơn đặt dịch vụ</h2>
+
+<div class="card">
+    <div class="card-header">
+        <h5>Thông tin đơn đặt dịch vụ</h5>
+    </div>
+    <div class="card-body">
+        <form asp-action="UpdateOrderStatus" method="post">
+            <input type="hidden" asp-for="Id" />
+
+            <div class="form-group">
+                <label asp-for="Service.Name" class="control-label"></label>
+                <input type="text" class="form-control" asp-for="Service.Name" readonly />
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Status" class="control-label"></label>
+                <select asp-for="Status" class="form-control">
+                    @foreach (PetServiceStatus status in Enum.GetValues(typeof(PetServiceStatus)))
+                    {
+                        <option value="@status">@status</option>
+                    }
+                </select>
+                <span asp-validation-for="Status" class="text-danger"></span>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Cập nhật</button>
+            <a asp-action="Index" class="btn btn-secondary">Quay lại</a>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

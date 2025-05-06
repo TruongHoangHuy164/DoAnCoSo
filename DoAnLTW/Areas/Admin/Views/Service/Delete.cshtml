@@ -1,0 +1,47 @@
+﻿@model DoAnLTW.Models.Service
+
+@{
+    ViewData["Title"] = "Xóa Dịch Vụ";
+    Layout = "~/Areas/Admin/Views/Shared/layoutAdmin.cshtml";
+}
+
+<div class="container py-5">
+    <div class="row">
+        <div class="col-md-8 offset-md-2">
+            <h2>Xóa Dịch Vụ</h2>
+            <hr />
+
+            <div class="alert alert-warning">
+                Bạn có chắc chắn muốn xóa dịch vụ này?
+            </div>
+
+            <form asp-action="Delete" method="post">
+                <input type="hidden" asp-for="ServiceId" />
+
+                <div class="form-group">
+                    <label asp-for="Name" class="control-label">Tên Dịch Vụ</label>
+                    <input asp-for="Name" class="form-control" readonly />
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Description" class="control-label">Mô Tả</label>
+                    <textarea asp-for="Description" class="form-control" rows="3" readonly></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Price" class="control-label">Giá</label>
+                    <input asp-for="Price" class="form-control" type="number" step="0.01" readonly />
+                </div>
+
+                <div class="form-group">
+                    <button type="submit" class="btn btn-danger">
+                        <i class="fa fa-trash"></i> Xóa Dịch Vụ
+                    </button>
+                    <a asp-action="Index" class="btn btn-secondary">
+                        <i class="fa fa-arrow-left"></i> Quay lại
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

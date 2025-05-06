@@ -9,9 +9,13 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 using DoAnLTW.Models.Momo;
 using DoAnLTW.Services.Momo;
 using Microsoft.Extensions.Options;
+using DoAnLTW.Repositories;
 
 
 var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddScoped<IPetServiceRepository, PetServiceRepository>();
+builder.Services.AddScoped<IPetRepository, PetRepository>();
+builder.Services.AddScoped<IServiceRepository, ServiceRepository>();
 
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));

@@ -18,6 +18,8 @@
     <link rel="shortcut icon" href="~/LayoutAdmin/assets/images/favicon.ico" />
 </head>
 <body>
+    
+
     <div class="container-scroller">
         <!-- partial:../../partials/_navbar.html -->
         <nav class="navbar default-layout-navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
@@ -209,6 +211,25 @@
                         </a>
                     </li>
                   
+                    <li class="nav-item">
+                        <a class="nav-link" asp-area="Admin" asp-controller="PetServices" asp-action="Index">
+                            <span class="menu-title">Quản Lý Đặt Lịch</span>
+                            <i class="fa-solid fa-calendar-check menu-icon"></i>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" asp-area="Admin" asp-controller="Service" asp-action="Index">
+                            <span class="menu-title">Quản Lý Dịch Vụ</span>
+                            <i class="fa-solid fa-concierge-bell menu-icon"></i>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" asp-area="Admin" asp-controller="Pet" asp-action="Index">
+                            <span class="menu-title">Quản Lý Thú Cưng</span>
+                            <i class="mdi mdi-paw menu-icon"></i>
+                        </a>
+                    </li>
+
                     @if (User.IsInRole("Admin"))
                     {
                         <li class="nav-item">
@@ -243,6 +264,18 @@
     </div>
     <!-- container-scroller -->
     <!-- plugins:js -->
+  
+    <script>
+        $(document).ready(function() {
+            $(".nav-item").click(function() {
+                // Loại bỏ lớp 'selected' khỏi tất cả các mục
+                $(".nav-item").removeClass("selected");
+
+                // Thêm lớp 'selected' vào mục mà người dùng vừa nhấn
+                $(this).addClass("selected");
+            });
+        })
+    </script>
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>

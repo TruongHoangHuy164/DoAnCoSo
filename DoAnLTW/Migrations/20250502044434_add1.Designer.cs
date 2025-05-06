@@ -4,6 +4,7 @@ using DoAnLTW.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DoAnLTW.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250502044434_add1")]
+    partial class add1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -177,96 +180,6 @@ namespace DoAnLTW.Migrations
                     b.ToTable("OrderDetails");
                 });
 
-            modelBuilder.Entity("DoAnLTW.Models.Pet", b =>
-                {
-                    b.Property<int>("PetId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("PetId"));
-
-                    b.Property<int>("Age")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Breed")
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.Property<string>("Description")
-                        .HasMaxLength(500)
-                        .HasColumnType("nvarchar(500)");
-
-                    b.Property<string>("Gender")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<string>("Type")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.Property<string>("UserId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("PetId");
-
-                    b.ToTable("Pets");
-                });
-
-            modelBuilder.Entity("DoAnLTW.Models.PetService", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Address")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("AppointmentDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("AppointmentTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("BookingDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Note")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("PetId")
-                        .HasColumnType("int");
-
-                    b.Property<decimal>("Price")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<int>("ServiceId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Status")
-                        .HasColumnType("int");
-
-                    b.Property<string>("UserId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("PetId");
-
-                    b.HasIndex("ServiceId");
-
-                    b.ToTable("PetServices");
-                });
-
             modelBuilder.Entity("DoAnLTW.Models.Product", b =>
                 {
                     b.Property<int>("ProductId")
@@ -371,34 +284,6 @@ namespace DoAnLTW.Migrations
                     b.HasIndex("ProductId");
 
                     b.ToTable("Reviews");
-                });
-
-            modelBuilder.Entity("DoAnLTW.Models.Service", b =>
-                {
-                    b.Property<int>("ServiceId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ServiceId"));
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Duration")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<decimal>("Price")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.HasKey("ServiceId");
-
-                    b.ToTable("Services");
                 });
 
             modelBuilder.Entity("DoAnLTW.Models.Size", b =>
@@ -669,25 +554,6 @@ namespace DoAnLTW.Migrations
                     b.Navigation("Product");
                 });
 
-            modelBuilder.Entity("DoAnLTW.Models.PetService", b =>
-                {
-                    b.HasOne("DoAnLTW.Models.Pet", "Pet")
-                        .WithMany("PetServices")
-                        .HasForeignKey("PetId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("DoAnLTW.Models.Service", "Service")
-                        .WithMany("PetServices")
-                        .HasForeignKey("ServiceId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Pet");
-
-                    b.Navigation("Service");
-                });
-
             modelBuilder.Entity("DoAnLTW.Models.Product", b =>
                 {
                     b.HasOne("DoAnLTW.Models.Brand", "Brand")
@@ -825,11 +691,6 @@ namespace DoAnLTW.Migrations
                     b.Navigation("OrderDetails");
                 });
 
-            modelBuilder.Entity("DoAnLTW.Models.Pet", b =>
-                {
-                    b.Navigation("PetServices");
-                });
-
             modelBuilder.Entity("DoAnLTW.Models.Product", b =>
                 {
                     b.Navigation("Images");
@@ -837,11 +698,6 @@ namespace DoAnLTW.Migrations
                     b.Navigation("ProductSizes");
 
                     b.Navigation("Reviews");
-                });
-
-            modelBuilder.Entity("DoAnLTW.Models.Service", b =>
-                {
-                    b.Navigation("PetServices");
                 });
 
             modelBuilder.Entity("DoAnLTW.Models.Size", b =>

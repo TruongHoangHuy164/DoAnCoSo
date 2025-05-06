@@ -1,0 +1,67 @@
+﻿@model IEnumerable<DoAnLTW.Models.Pet>
+@{
+    ViewData["Title"] = "Quản lý thú cưng";
+    Layout = "~/Areas/Admin/Views/Shared/layoutAdmin.cshtml";
+}
+
+<div class="page-header">
+    <h3 class="page-title">
+        <span class="page-title-icon bg-gradient-primary text-white me-2">
+            <i class="fa-solid fa-paw"></i>
+        </span> Quản lý thú cưng
+    </h3>
+    <nav aria-label="breadcrumb">
+        <ul class="breadcrumb">
+            <li class="breadcrumb-item active" aria-current="page">
+                <span></span>Danh sách thú cưng
+            </li>
+        </ul>
+    </nav>
+</div>
+
+<div class="row">
+    <div class="col-lg-12 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Danh sách thú cưng</h4>
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Tên</th>
+                                <th>Loại</th>
+                                <th>Giống</th>
+                                <th>Tuổi</th>
+                                <th>Giới tính</th>
+                               
+                                <th>Thao tác</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>@item.PetId</td>
+                                    <td>@item.Name</td>
+                                    <td>@item.Type</td>
+                                    <td>@item.Breed</td>
+                                    <td>@item.Age</td>
+                                    <td>@item.Gender</td>
+                                    
+                                    <td>
+                                        <div class="btn-group" role="group">
+                                            <a asp-action="Detail" asp-route-id="@item.PetId" class="btn btn-outline-info btn-sm">
+                                                <i class="mdi mdi-eye"></i> Chi tiết
+                                            </a>
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

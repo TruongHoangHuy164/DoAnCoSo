@@ -1,0 +1,42 @@
+﻿@model DoAnLTW.Models.Pet
+
+@{
+    ViewData["Title"] = "Xóa Thú Cưng";
+}
+
+<h2 class="text-center">@ViewData["Title"]</h2>
+
+<div class="d-flex justify-content-center">
+    <div class="w-50">
+        <div class="alert alert-danger">
+            Bạn có chắc chắn muốn xóa thú cưng <strong>@Model.Name</strong> không?
+        </div>
+
+        <h4>Thông tin thú cưng</h4>
+        <dl class="row">
+            <dt class="col-sm-3">Tên</dt>
+            <dd class="col-sm-9">@Model.Name</dd>
+
+            <dt class="col-sm-3">Loại</dt>
+            <dd class="col-sm-9">@Model.Type</dd>
+
+            <dt class="col-sm-3">Giống</dt>
+            <dd class="col-sm-9">@(Model.Breed ?? "Không có")</dd>
+
+            <dt class="col-sm-3">Tuổi</dt>
+            <dd class="col-sm-9">@Model.Age</dd>
+
+            <dt class="col-sm-3">Giới tính</dt>
+            <dd class="col-sm-9">@(Model.Gender ?? "Không có")</dd>
+
+            <dt class="col-sm-3">Mô tả</dt>
+            <dd class="col-sm-9">@(Model.Description ?? "Không có")</dd>
+        </dl>
+
+        <form asp-action="Delete" asp-controller="UserPets" method="post">
+            <input type="hidden" asp-for="PetId" />
+            <button type="submit" class="btn btn-danger">Xóa</button>
+            <a asp-action="Index" asp-controller="UserPets" class="btn btn-secondary">Hủy</a>
+        </form>
+    </div>
+</div>
