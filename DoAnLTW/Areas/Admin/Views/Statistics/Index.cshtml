@@ -7,6 +7,9 @@
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 <style>
+    .h2{
+        color:cornflowerblue;
+    }
     .stats-card {
         background: #fff;
         border-radius: 10px;
@@ -44,6 +47,14 @@
     }
 
     .filter-container {
+        margin-bottom: 20px;
+    }
+
+    .table-container {
+        background: #fff;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        padding: 20px;
         margin-bottom: 20px;
     }
 </style>
@@ -98,6 +109,37 @@
         </div>
     </div>
 
+    <!-- Chi tiết Tổng Doanh Thu -->
+    <div class="table-container">
+        <h5>Chi tiết Tổng Doanh Thu</h5>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Nguồn</th>
+                    <th>Doanh thu (VNĐ)</th>
+                    <th>Tỷ lệ (%)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Đơn hàng</td>
+                    <td>@Model.OrderRevenue.ToString("N0")</td>
+                    <td>@(Model.TotalRevenue > 0 ? (Model.OrderRevenue / Model.TotalRevenue * 100).ToString("F2") : "0")%</td>
+                </tr>
+                <tr>
+                    <td>Dịch vụ thú cưng</td>
+                    <td>@Model.PetServiceRevenue.ToString("N0")</td>
+                    <td>@(Model.TotalRevenue > 0 ? (Model.PetServiceRevenue / Model.TotalRevenue * 100).ToString("F2") : "0")%</td>
+                </tr>
+                <tr>
+                    <td><strong>Tổng</strong></td>
+                    <td><strong>@Model.TotalRevenue.ToString("N0")</strong></td>
+                    <td><strong>100%</strong></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
     <!-- Biểu đồ -->
     <div class="row">
         <!-- Biểu đồ tròn: Doanh thu theo danh mục -->
@@ -107,11 +149,25 @@
                 <canvas id="revenueByCategoryChart"></canvas>
             </div>
         </div>
+        <!-- Biểu đồ tròn: Doanh thu theo thương hiệu -->
+        <div class="col-md-6">
+            <div class="chart-container">
+                <h5>Doanh thu theo thương hiệu</h5>
+                <canvas id="revenueByBrandChart"></canvas>
+            </div>
+        </div>
         <!-- Biểu đồ tròn: Đơn hàng theo trạng thái -->
         <div class="col-md-6">
             <div class="chart-container">
                 <h5>Đơn hàng theo trạng thái</h5>
                 <canvas id="ordersByStatusChart"></canvas>
+            </div>
+        </div>
+        <!-- Biểu đồ tròn: Dịch vụ theo trạng thái -->
+        <div class="col-md-6">
+            <div class="chart-container">
+                <h5>Dịch vụ theo trạng thái</h5>
+                <canvas id="petServicesByStatusChart"></canvas>
             </div>
         </div>
         <!-- Biểu đồ cột: Doanh thu theo tháng -->
@@ -121,11 +177,97 @@
                 <canvas id="revenueByMonthChart"></canvas>
             </div>
         </div>
-        <!-- Biểu đồ cột: Sản phẩm theo thương hiệu -->
+        <!-- Biểu đồ cột: Doanh thu theo quý -->
         <div class="col-md-6">
             <div class="chart-container">
-                <h5>Sản phẩm theo thương hiệu</h5>
-                <canvas id="productsByBrandChart"></canvas>
+                <h5>Doanh thu theo quý</h5>
+                <canvas id="revenueByQuarterChart"></canvas>
+            </div>
+        </div>
+        <!-- Biểu đồ cột: Sản phẩm bán ra theo danh mục -->
+        <div class="col-md-6">
+            <div class="chart-container">
+                <h5>Sản phẩm bán ra theo danh mục</h5>
+                <canvas id="soldProductsByCategoryChart"></canvas>
+            </div>
+        </div>
+        <!-- Biểu đồ cột: Dịch vụ theo loại dịch vụ -->
+        <div class="col-md-6">
+            <div class="chart-container">
+                <h5>Dịch vụ theo loại dịch vụ</h5>
+                <canvas id="petServicesByServiceTypeChart"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <!-- Top sản phẩm và dịch vụ -->
+    <div class="row">
+        <!-- Top 5 sản phẩm bán chạy -->
+        <div class="col-md-6">
+            <div class="table-container">
+                <h5>Top 5 sản phẩm bán chạy</h5>
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Tên sản phẩm</th>
+                            <th>Số lượng bán</th>
+                            <th>Doanh thu (VNĐ)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model.TopSellingProducts.Any())
+                        {
+                            foreach (var product in Model.TopSellingProducts)
+                            {
+                                <tr>
+                                    <td>@product.ProductName</td>
+                                    <td>@product.QuantitySold</td>
+                                    <td>@product.Revenue.ToString("N0")</td>
+                                </tr>
+                            }
+                        }
+                        else
+                        {
+                            <tr>
+                                <td colspan="3">Không có dữ liệu</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <!-- Top 5 dịch vụ phổ biến -->
+        <div class="col-md-6">
+            <div class="table-container">
+                <h5>Top 5 dịch vụ phổ biến</h5>
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Tên dịch vụ</th>
+                            <th>Số lần đặt</th>
+                            <th>Doanh thu (VNĐ)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model.TopPopularServices.Any())
+                        {
+                            foreach (var service in Model.TopPopularServices)
+                            {
+                                <tr>
+                                    <td>@service.ServiceName</td>
+                                    <td>@service.BookingCount</td>
+                                    <td>@service.Revenue.ToString("N0")</td>
+                                </tr>
+                            }
+                        }
+                        else
+                        {
+                            <tr>
+                                <td colspan="3">Không có dữ liệu</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
@@ -166,6 +308,26 @@
             }
         });
 
+        // Biểu đồ tròn: Doanh thu theo thương hiệu
+        const revenueByBrandCtx = document.getElementById('revenueByBrandChart').getContext('2d');
+        new Chart(revenueByBrandCtx, {
+            type: 'pie',
+            data: {
+                labels: [@Html.Raw(string.Join(",", Model.RevenueByBrand.Keys.Select(k => $"'{k}'")))],
+                datasets: [{
+                    data: [@Html.Raw(string.Join(",", Model.RevenueByBrand.Values))],
+                    backgroundColor: getRandomColors(@Model.RevenueByBrand.Count)
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: { position: 'top' },
+                    title: { display: true, text: 'Doanh thu theo thương hiệu' }
+                }
+            }
+        });
+
         // Biểu đồ tròn: Đơn hàng theo trạng thái
         const ordersByStatusCtx = document.getElementById('ordersByStatusChart').getContext('2d');
         new Chart(ordersByStatusCtx, {
@@ -182,6 +344,26 @@
                 plugins: {
                     legend: { position: 'top' },
                     title: { display: true, text: 'Đơn hàng theo trạng thái' }
+                }
+            }
+        });
+
+        // Biểu đồ tròn: Dịch vụ theo trạng thái
+        const petServicesByStatusCtx = document.getElementById('petServicesByStatusChart').getContext('2d');
+        new Chart(petServicesByStatusCtx, {
+            type: 'pie',
+            data: {
+                labels: [@Html.Raw(string.Join(",", Model.PetServicesByStatus.Keys.Select(k => $"'{k}'")))],
+                datasets: [{
+                    data: [@Html.Raw(string.Join(",", Model.PetServicesByStatus.Values))],
+                    backgroundColor: getRandomColors(@Model.PetServicesByStatus.Count)
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: { position: 'top' },
+                    title: { display: true, text: 'Dịch vụ theo trạng thái' }
                 }
             }
         });
@@ -213,15 +395,42 @@
             }
         });
 
-        // Biểu đồ cột: Sản phẩm theo thương hiệu
-        const productsByBrandCtx = document.getElementById('productsByBrandChart').getContext('2d');
-        new Chart(productsByBrandCtx, {
+        // Biểu đồ cột: Doanh thu theo quý
+        const revenueByQuarterCtx = document.getElementById('revenueByQuarterChart').getContext('2d');
+        new Chart(revenueByQuarterCtx, {
             type: 'bar',
             data: {
-                labels: [@Html.Raw(string.Join(",", Model.ProductsByBrand.Keys.Select(k => $"'{k}'")))],
+                labels: [@Html.Raw(string.Join(",", Model.RevenueByQuarter.Keys.Select(k => $"'{k}'")))],
                 datasets: [{
-                    label: 'Số sản phẩm',
-                    data: [@Html.Raw(string.Join(",", Model.ProductsByBrand.Values))],
+                    label: 'Doanh thu (VNĐ)',
+                    data: [@Html.Raw(string.Join(",", Model.RevenueByQuarter.Values))],
+                    backgroundColor: 'rgba(0, 255, 127, 0.7)',
+                    borderColor: 'rgba(0, 255, 127, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    y: { beginAtZero: true, title: { display: true, text: 'Doanh thu (VNĐ)' } },
+                    x: { title: { display: true, text: 'Quý' } }
+                },
+                plugins: {
+                    legend: { display: false },
+                    title: { display: true, text: 'Doanh thu theo quý' }
+                }
+            }
+        });
+
+        // Biểu đồ cột: Sản phẩm bán ra theo danh mục
+        const soldProductsByCategoryCtx = document.getElementById('soldProductsByCategoryChart').getContext('2d');
+        new Chart(soldProductsByCategoryCtx, {
+            type: 'bar',
+            data: {
+                labels: [@Html.Raw(string.Join(",", Model.SoldProductsByCategory.Keys.Select(k => $"'{k}'")))],
+                datasets: [{
+                    label: 'Số lượng bán',
+                    data: [@Html.Raw(string.Join(",", Model.SoldProductsByCategory.Values))],
                     backgroundColor: 'rgba(0, 123, 255, 0.7)',
                     borderColor: 'rgba(0, 123, 255, 1)',
                     borderWidth: 1
@@ -230,12 +439,39 @@
             options: {
                 responsive: true,
                 scales: {
-                    y: { beginAtZero: true, title: { display: true, text: 'Số sản phẩm' } },
-                    x: { title: { display: true, text: 'Thương hiệu' } }
+                    y: { beginAtZero: true, title: { display: true, text: 'Số lượng bán' } },
+                    x: { title: { display: true, text: 'Danh mục' } }
                 },
                 plugins: {
                     legend: { display: false },
-                    title: { display: true, text: 'Sản phẩm theo thương hiệu' }
+                    title: { display: true, text: 'Sản phẩm bán ra theo danh mục' }
+                }
+            }
+        });
+
+        // Biểu đồ cột: Dịch vụ theo loại dịch vụ
+        const petServicesByServiceTypeCtx = document.getElementById('petServicesByServiceTypeChart').getContext('2d');
+        new Chart(petServicesByServiceTypeCtx, {
+            type: 'bar',
+            data: {
+                labels: [@Html.Raw(string.Join(",", Model.PetServicesByServiceType.Keys.Select(k => $"'{k}'")))],
+                datasets: [{
+                    label: 'Số lần đặt',
+                    data: [@Html.Raw(string.Join(",", Model.PetServicesByServiceType.Values))],
+                    backgroundColor: 'rgba(255, 99, 132, 0.7)',
+                    borderColor: 'rgba(255, 99, 132, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    y: { beginAtZero: true, title: { display: true, text: 'Số lần đặt' } },
+                    x: { title: { display: true, text: 'Loại dịch vụ' } }
+                },
+                plugins: {
+                    legend: { display: false },
+                    title: { display: true, text: 'Dịch vụ theo loại dịch vụ' }
                 }
             }
         });
