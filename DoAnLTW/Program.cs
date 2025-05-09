@@ -11,8 +11,8 @@ using DoAnLTW.Services.Momo;
 using Microsoft.Extensions.Options;
 using DoAnLTW.Repositories;
 
-
 var builder = WebApplication.CreateBuilder(args);
+
 builder.Services.AddScoped<IPetServiceRepository, PetServiceRepository>();
 builder.Services.AddScoped<IPetRepository, PetRepository>();
 builder.Services.AddScoped<IServiceRepository, ServiceRepository>();
@@ -20,51 +20,53 @@ builder.Services.AddScoped<IServiceRepository, ServiceRepository>();
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
+// Đăng ký Identity
+builder.Services.AddIdentity<IdentityUser, IdentityRole>()
+    .AddRoles<IdentityRole>()
+    .AddEntityFrameworkStores<ApplicationDbContext>()
+    .AddDefaultTokenProviders();
+
+// Cấu hình lại đường dẫn login cho Identity
+builder.Services.ConfigureApplicationCookie(options =>
+{
+    options.LoginPath = "/Identity/Account/Login";
+    options.AccessDeniedPath = "/Identity/Account/AccessDenied";
+    options.ReturnUrlParameter = "ReturnUrl";
+});
 
 builder.Services.AddLogging(logging =>
 {
     logging.ClearProviders();
     logging.AddConsole();
 });
-//chat
 
-//builder.Services.AddScoped<IChatService, EFChatService>();
 builder.Services.Configure<CookiePolicyOptions>(Options =>
 {
     Options.CheckConsentNeeded = context => true;
     Options.MinimumSameSitePolicy = SameSiteMode.None;
 });
-// Đăng ký RazorViewToStringRenderer
+
+// Razor view render
 builder.Services.AddTransient<IRazorViewToStringRenderer, RazorViewToStringRenderer>();
 
-
-// kết nối momo
+// Momo
 builder.Services.Configure<MomoOptionModel>(builder.Configuration.GetSection("MomoAPI"));
 builder.Services.AddScoped<IMomoService, MomoService>();
 
-
-builder.Services.AddIdentity<IdentityUser, IdentityRole>()
-    .AddRoles<IdentityRole>()
-    .AddEntityFrameworkStores<ApplicationDbContext>()
-    .AddDefaultTokenProviders();
-
-// Cấu hình thời gian hiệu lực của token đặt lại mật khẩu
+// Token password reset
 builder.Services.Configure<DataProtectionTokenProviderOptions>(options =>
 {
     options.TokenLifespan = TimeSpan.FromSeconds(30);
 });
 
-
-//đăng ký chat signalR
+// SignalR
 builder.Services.AddSignalR();
 
-// Đăng ký EmailSettings
+// Email
 builder.Services.Configure<EmailSettings>(builder.Configuration.GetSection("EmailSettings"));
-
-// Đăng ký IEmailSender
 builder.Services.AddTransient<IEmailSender, EmailSender>();
 
-/*// Cấu hình login Google account
+/* // Google login nếu dùng thì bỏ comment
 builder.Services.AddAuthentication(options =>
 {
     options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
@@ -76,13 +78,14 @@ builder.Services.AddAuthentication(options =>
     options.ClientId = builder.Configuration["GoogleKeys:ClientId"];
     options.ClientSecret = builder.Configuration["GoogleKeys:ClientSecret"];
     options.CallbackPath = "/signin-google";
-});*/
+});
+*/
 
-// Đăng ký Repository
+// Repository
 builder.Services.AddScoped<IProductRepository, EFProductRepository>();
 builder.Services.AddScoped<ICategoryRepository, EFCategoryRepository>();
 builder.Services.AddScoped<IBrandRepository, BrandRepository>();
-
+builder.Services.AddScoped<IOrderRepository, EFOrderRepository>();
 builder.Services.AddDistributedMemoryCache();
 builder.Services.AddSession(options =>
 {
@@ -93,27 +96,26 @@ builder.Services.AddSession(options =>
 
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();
-builder.Services.AddScoped<IOrderRepository, EFOrderRepository>();
-
-
-
-
 
 var app = builder.Build();
-app.UseStaticFiles();
 
+app.UseStaticFiles();
 app.UseSession();
+
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
     app.UseHsts();
 }
+
 app.UseCookiePolicy();
 app.UseHttpsRedirection();
 app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
+
 app.MapRazorPages();
+
 app.UseEndpoints(endpoints =>
 {
     endpoints.MapHub<ChatHub>("/chatHub");
@@ -126,5 +128,7 @@ app.MapControllerRoute(
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
+
 app.MapHub<ChatHub>("/chatHub");
+
 app.Run();

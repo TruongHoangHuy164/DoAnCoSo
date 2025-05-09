@@ -37,6 +37,12 @@ namespace DoAnLTW.Controllers
         // GET: PetServices
         public async Task<IActionResult> Index()
         {
+            if (!User.Identity.IsAuthenticated)
+            {
+                TempData["ErrorMessage"] = "Bạn cần đăng nhập để thực hiện thao tác này.";
+                return Redirect("/Identity/Account/Login?ReturnUrl=" + Url.Action("Index", "TênController"));
+            }
+
             try
             {
                 var services = await _serviceRepository.GetAllAsync();
@@ -49,7 +55,6 @@ namespace DoAnLTW.Controllers
                 return View(new List<Service>());
             }
         }
-
         // GET: PetServices/MyBookings
         public async Task<IActionResult> MyBookings()
         {

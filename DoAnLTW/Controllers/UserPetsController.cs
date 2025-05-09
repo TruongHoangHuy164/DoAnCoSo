@@ -21,16 +21,14 @@ namespace DoAnLTW.Controllers
         // GET: UserPets
         public async Task<IActionResult> Index()
         {
-            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            if (string.IsNullOrEmpty(userId))
+            if (!User.Identity.IsAuthenticated)
             {
-                // Xử lý khi không lấy được UserId
                 TempData["ErrorMessage"] = "Bạn cần đăng nhập để thực hiện thao tác này.";
-                return RedirectToAction("Login", "Account");
+                return Redirect("/Identity/Account/Login?ReturnUrl=" + Url.Action("Index", "UserPets"));
             }
 
-
-            var pets = await _petRepository.GetAllByUserIdAsync(userId); // Lấy danh sách thú cưng của người dùng
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var pets = await _petRepository.GetAllByUserIdAsync(userId);
             return View(pets);
         }
         // GET: UserPets/Detail/5
