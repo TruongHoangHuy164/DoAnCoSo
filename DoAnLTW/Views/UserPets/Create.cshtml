@@ -7,7 +7,7 @@
 <h2 class="text-center">@ViewData["Title"]</h2>
 
 <div class="d-flex justify-content-center">
-    <form asp-action="Create" method="post" class="w-50">
+    <form asp-action="Create" method="post" enctype="multipart/form-data" class="w-50">
         @if (!ViewData.ModelState.IsValid)
         {
             <div class="alert alert-danger">
@@ -20,33 +20,35 @@
                 </ul>
             </div>
         }
+
         <div class="form-group">
             <label for="Name">Tên Thú Cưng</label>
-            <input asp-for="Name" class="form-control" id="Name" name="Name" required />
+            <input asp-for="Name" class="form-control" id="Name" required />
             @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
         </div>
 
         <div class="form-group">
             <label for="Type">Loại</label>
-            <input asp-for="Type" class="form-control" id="Type" name="Type" required />
+            <input asp-for="Type" class="form-control" id="Type" required />
             @Html.ValidationMessageFor(model => model.Type, "", new { @class = "text-danger" })
         </div>
 
         <div class="form-group">
             <label for="Breed">Giống</label>
-            <input asp-for="Breed" class="form-control" id="Breed" name="Breed" />
+            <input asp-for="Breed" class="form-control" id="Breed" />
             @Html.ValidationMessageFor(model => model.Breed, "", new { @class = "text-danger" })
         </div>
 
         <div class="form-group">
             <label for="Age">Tuổi</label>
-            <input asp-for="Age" class="form-control" id="Age" name="Age" min="0" max="30" required />
+            <input asp-for="Age" class="form-control" id="Age" type="number" min="0" max="30" required />
             @Html.ValidationMessageFor(model => model.Age, "", new { @class = "text-danger" })
         </div>
 
         <div class="form-group">
             <label for="Gender">Giới Tính</label>
-            <select asp-for="Gender" class="form-control" id="Gender" name="Gender">
+            <select asp-for="Gender" class="form-control" id="Gender">
+                <option value="">Chọn giới tính</option>
                 <option value="Đực">Đực</option>
                 <option value="Cái">Cái</option>
             </select>
@@ -55,14 +57,25 @@
 
         <div class="form-group">
             <label for="Description">Mô Tả</label>
-            <textarea asp-for="Description" class="form-control" id="Description" name="Description" rows="3"></textarea>
+            <textarea asp-for="Description" class="form-control" id="Description" rows="3"></textarea>
             @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
         </div>
+
+        <div class="form-group">
+            <label for="images">Ảnh Thú Cưng</label>
+            <input type="file" name="images" multiple accept=".jpg,.jpeg,.png" class="form-control" id="images" />
+            <small class="form-text text-muted">Chọn nhiều ảnh (định dạng .jpg, .jpeg, .png).</small>
+        </div>
+
         <div class="form-group">
             <input type="hidden" asp-for="UserId" value="@User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value" />
         </div>
-        
 
         <button type="submit" class="btn btn-primary">Lưu</button>
+        <a asp-action="Index" class="btn btn-secondary">Hủy</a>
     </form>
 </div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

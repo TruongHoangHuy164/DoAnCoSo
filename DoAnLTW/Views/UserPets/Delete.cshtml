@@ -13,25 +13,49 @@
         </div>
 
         <h4>Thông tin thú cưng</h4>
-        <dl class="row">
-            <dt class="col-sm-3">Tên</dt>
-            <dd class="col-sm-9">@Model.Name</dd>
-
-            <dt class="col-sm-3">Loại</dt>
-            <dd class="col-sm-9">@Model.Type</dd>
-
-            <dt class="col-sm-3">Giống</dt>
-            <dd class="col-sm-9">@(Model.Breed ?? "Không có")</dd>
-
-            <dt class="col-sm-3">Tuổi</dt>
-            <dd class="col-sm-9">@Model.Age</dd>
-
-            <dt class="col-sm-3">Giới tính</dt>
-            <dd class="col-sm-9">@(Model.Gender ?? "Không có")</dd>
-
-            <dt class="col-sm-3">Mô tả</dt>
-            <dd class="col-sm-9">@(Model.Description ?? "Không có")</dd>
-        </dl>
+        <div class="card mb-3">
+            <div class="card-body">
+                @if (Model.Images != null && Model.Images.Any())
+                {
+                    <div id="petImagesCarousel" class="carousel slide" data-bs-ride="carousel">
+                        <div class="carousel-inner">
+                            @foreach (var image in Model.Images)
+                            {
+                                <div class="carousel-item @(image.IsMainImage ? "active" : "")">
+                                    <img src="@image.ImageUrl" class="d-block w-100" style="height: 200px; object-fit: cover;" alt="Pet Image">
+                                </div>
+                            }
+                        </div>
+                        <button class="carousel-control-prev" type="button" data-bs-target="#petImagesCarousel" data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Previous</span>
+                        </button>
+                        <button class="carousel-control-next" type="button" data-bs-target="#petImagesCarousel" data-bs-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Next</span>
+                        </button>
+                    </div>
+                }
+                else
+                {
+                    <img src="/images/default-pet.jpg" class="img-fluid" style="height: 200px; object-fit: cover;" alt="No Image" />
+                }
+                <dl class="row mt-3">
+                    <dt class="col-sm-3">Tên</dt>
+                    <dd class="col-sm-9">@Model.Name</dd>
+                    <dt class="col-sm-3">Loại</dt>
+                    <dd class="col-sm-9">@Model.Type</dd>
+                    <dt class="col-sm-3">Giống</dt>
+                    <dd class="col-sm-9">@(Model.Breed ?? "Không có")</dd>
+                    <dt class="col-sm-3">Tuổi</dt>
+                    <dd class="col-sm-9">@Model.Age</dd>
+                    <dt class="col-sm-3">Giới tính</dt>
+                    <dd class="col-sm-9">@(Model.Gender ?? "Không có")</dd>
+                    <dt class="col-sm-3">Mô tả</dt>
+                    <dd class="col-sm-9">@(Model.Description ?? "Không có")</dd>
+                </dl>
+            </div>
+        </div>
 
         <form asp-action="Delete" asp-controller="UserPets" method="post">
             <input type="hidden" asp-for="PetId" />
@@ -40,3 +64,7 @@
         </form>
     </div>
 </div>
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+}

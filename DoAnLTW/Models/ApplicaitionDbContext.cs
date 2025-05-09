@@ -26,6 +26,7 @@ namespace DoAnLTW.Models
         public DbSet<Pet> Pets { get; set; }
         public DbSet<Service> Services { get; set; }
         public DbSet<PetService> PetServices { get; set; }
+        public DbSet<PetImages> PetImages { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             // Gọi phương thức OnModelCreating của lớp cha
@@ -130,7 +131,16 @@ namespace DoAnLTW.Models
                 .HasOne(ps => ps.Service)
                 .WithMany(s => s.PetServices)
                 .HasForeignKey(ps => ps.ServiceId);
-            
+            // Cấu hình mối quan hệ giữa PetImages và Pet
+            modelBuilder.Entity<PetImages>()
+                .HasOne(pi => pi.Pet)
+                .WithMany(p => p.Images)
+                .HasForeignKey(pi => pi.PetId);
+
+            // Cấu hình thuộc tính
+            modelBuilder.Entity<PetImages>()
+                .Property(pi => pi.ImageUrl)
+                .IsRequired();
             // Cấu hình các thuộc tính
             modelBuilder.Entity<Pet>(entity =>
             {

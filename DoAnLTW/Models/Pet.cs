@@ -32,5 +32,6 @@ namespace DoAnLTW.Models
 
         // Navigation property
         public List<PetService> PetServices { get; set; } = new List<PetService>();
+        public List<PetImages> Images { get; set; } = new List<PetImages>();
     }
 }

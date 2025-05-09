@@ -19,44 +19,65 @@
         <div class="card-body">
             <div class="row">
                 <div class="col-md-6">
+                    @if (Model.Images != null && Model.Images.Any())
+                    {
+                        <div id="petImagesCarousel" class="carousel slide" data-bs-ride="carousel">
+                            <div class="carousel-inner">
+                                @foreach (var image in Model.Images)
+                                {
+                                    <div class="carousel-item @(image.IsMainImage ? "active" : "")">
+                                        <img src="@image.ImageUrl" class="d-block w-100" style="height: 300px; object-fit: cover;" alt="Pet Image">
+                                    </div>
+                                }
+                            </div>
+                            <button class="carousel-control-prev" type="button" data-bs-target="#petImagesCarousel" data-bs-slide="prev">
+                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Previous</span>
+                            </button>
+                            <button class="carousel-control-next" type="button" data-bs-target="#petImagesCarousel" data-bs-slide="next">
+                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Next</span>
+                            </button>
+                        </div>
+                    }
+                    else
+                    {
+                        <img src="/images/default-pet.jpg" class="img-fluid" style="height: 300px; object-fit: cover;" alt="No Image" />
+                    }
+                </div>
+                <div class="col-md-6">
                     <h6>Loại:</h6>
                     <p class="font-weight-bold">@Model.Type</p>
-                </div>
-                <div class="col-md-6">
                     <h6>Giống:</h6>
-                    <p class="font-weight-bold">@Model.Breed</p>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-6">
+                    <p class="font-weight-bold">@(Model.Breed ?? "Không có")</p>
                     <h6>Tuổi:</h6>
                     <p class="font-weight-bold">@Model.Age</p>
-                </div>
-                <div class="col-md-6">
                     <h6>Giới Tính:</h6>
-                    <p class="font-weight-bold">@Model.Gender</p>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-12">
+                    <p class="font-weight-bold">@(Model.Gender ?? "Không có")</p>
                     <h6>Mô Tả:</h6>
-                    <p class="font-weight-bold">@Model.Description </p>
+                    <p class="font-weight-bold">@(Model.Description ?? "Không có")</p>
                 </div>
             </div>
         </div>
         <div class="card-footer text-center">
-            <a href="@Url.Action("Index", "UserPets")" class="btn btn-secondary">Quay Lại</a>
+            <a asp-action="Edit" asp-route-id="@Model.PetId" class="btn btn-primary">Chỉnh sửa</a>
+            <a asp-action="Delete" asp-route-id="@Model.PetId" class="btn btn-danger">Xóa</a>
+            <a asp-action="Index" class="btn btn-secondary">Quay Lại</a>
         </div>
     </div>
 </div>
 
 <style>
     .card {
-        border-radius: 10px; /* Bo tròn các góc của thẻ card */
+        border-radius: 10px;
     }
 
     .card-header {
-        background-color: #ffc107; /* Màu vàng cho header */
-        color: white; /* Màu chữ cho header */
+        background-color: #ffc107;
+        color: white;
     }
 </style>
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+}

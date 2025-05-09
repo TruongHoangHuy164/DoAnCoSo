@@ -218,6 +218,31 @@ namespace DoAnLTW.Migrations
                     b.ToTable("Pets");
                 });
 
+            modelBuilder.Entity("DoAnLTW.Models.PetImages", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("ImageUrl")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsMainImage")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("PetId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PetId");
+
+                    b.ToTable("PetImages");
+                });
+
             modelBuilder.Entity("DoAnLTW.Models.PetService", b =>
                 {
                     b.Property<int>("Id")
@@ -669,6 +694,17 @@ namespace DoAnLTW.Migrations
                     b.Navigation("Product");
                 });
 
+            modelBuilder.Entity("DoAnLTW.Models.PetImages", b =>
+                {
+                    b.HasOne("DoAnLTW.Models.Pet", "Pet")
+                        .WithMany("Images")
+                        .HasForeignKey("PetId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Pet");
+                });
+
             modelBuilder.Entity("DoAnLTW.Models.PetService", b =>
                 {
                     b.HasOne("DoAnLTW.Models.Pet", "Pet")
@@ -827,6 +863,8 @@ namespace DoAnLTW.Migrations
 
             modelBuilder.Entity("DoAnLTW.Models.Pet", b =>
                 {
+                    b.Navigation("Images");
+
                     b.Navigation("PetServices");
                 });
 
