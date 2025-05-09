@@ -39,9 +39,38 @@
     <link href="~/css/style.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
+    <!-- CSS cho nút microphone -->
+    <style>
+        .search-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+            .search-container .btn-mic {
+                background-color: #000000;
+                border: none;
+                color: #FFFFFF;
+                padding: 8px 12px;
+                border-radius: 5px;
+                cursor: pointer;
+                transition: background-color 0.3s ease;
+            }
+
+                .search-container .btn-mic:hover {
+                    background-color: #333333;
+                }
+
+                .search-container .btn-mic.recording {
+                    background-color: #FF0000;
+                }
+
+                    .search-container .btn-mic.recording:hover {
+                        background-color: #CC0000;
+                    }
+    </style>
 </head>
 <body>
-
     <div>
         <!-- Topbar Start -->
         <div class="container-fluid">
@@ -97,7 +126,6 @@
                                     <a asp-controller="Account" asp-action="LoginByGoogle" class="dropdown-item">
                                         <i class="fab fa-google mr-2"></i>Đăng nhập bằng Google
                                     </a>
-
                                 }
                             </div>
                         </div>
@@ -111,7 +139,6 @@
                             <button type="button" class="btn btn-sm btn-light dropdown-toggle" data-toggle="dropdown">VN</button>
                             <div class="dropdown-menu dropdown-menu-right">
                                 <button class="dropdown-item" type="button">ENG</button>
-                               
                             </div>
                         </div>
                     </div>
@@ -135,12 +162,15 @@
                     </a>
                 </div>
                 <div class="col-lg-4 col-6 text-left">
-                    <form asp-controller="Shop" asp-action="Index" method="get">
+                    <form asp-controller="Shop" asp-action="Index" method="get" class="search-container">
                         <div class="input-group">
-                            <input type="text" class="form-control" name="searchTerm" placeholder="Tìm kiếm sản phẩm..." value="@Context.Request.Query["searchTerm"]">
+                            <input type="text" class="form-control" name="searchTerm" id="searchInput" placeholder="Tìm kiếm sản phẩm..." value="@Context.Request.Query["searchTerm"]">
                             <div class="input-group-append">
                                 <button class="btn btn-primary" type="submit">
                                     <i class="fa fa-search"></i>
+                                </button>
+                                <button type="button" class="btn btn-mic" id="micButton" title="Tìm kiếm bằng giọng nói">
+                                    <i class="fas fa-microphone"></i>
                                 </button>
                             </div>
                         </div>
@@ -153,8 +183,6 @@
             </div>
         </div>
         <!-- Topbar End -->
-
-
         <!-- Navbar Start -->
         <div class="container-fluid bg-dark mb-30">
             <div class="row px-xl-5">
@@ -188,9 +216,9 @@
                                     }
                                 </div>
                             </div>
+                        </div>
                     </nav>
                 </div>
-
                 <div class="col-lg-9">
                     <nav class="navbar navbar-expand-lg bg-dark navbar-dark py-3 py-lg-0 px-0">
                         <a href="" class="text-decoration-none d-block d-lg-none">
@@ -203,15 +231,7 @@
                         <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                             <div class="navbar-nav mr-auto py-0">
                                 <a asp-controller="Home" asp-action="Index" class="nav-item nav-link">Trang chủ</a>
-
                                 <a asp-controller="Shop" asp-action="Index" class="nav-item nav-link">Sản phẩm</a>
-                               @*  <div class="nav-item dropdown">
-                                    <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Pages <i class="fa fa-angle-down mt-1"></i></a>
-                                    <div class="dropdown-menu bg-primary rounded-0 border-0 m-0">
-                                        <a asp-controller="Cart" asp-action="Index" class="dropdown-item">Giỏ hàng</a>
-                                        <a asp-controller="Checkout" asp-action="Index" class="dropdown-item">Thanh toán</a>
-                                    </div>
-                                </div> *@
                                 <a asp-controller="Contact" asp-action="Index" class="nav-item nav-link">Liên hệ</a>
                                 <a asp-controller="Chat" asp-action="Index" class="nav-item nav-link">Chat</a>
                                 <li class="nav-item dropdown">
@@ -229,8 +249,8 @@
                                             <i class="fas fa-calendar-check"></i> Lịch đặt của tôi
                                         </a>
                                     </div>
+                                </li>
                             </div>
-                           
                             <div class="navbar-nav ml-auto py-0 d-none d-lg-block">
                                 <a asp-controller="Shop" asp-action="FavouriteProducts" class="btn px-0">
                                     <i class="fas fa-heart text-primary"></i>
@@ -252,7 +272,6 @@
         @await Html.PartialAsync("_Footer")
     </div>
     <!-- Back to Top -->
-
     <a href="#" class="btn btn-primary back-to-top"><i class="fa fa-angle-double-up"></i></a>
 
     <!-- Zalo Button -->
@@ -267,7 +286,6 @@
     <script src="~/lib/owlcarousel/owl.carousel.min.js"></script>
 
     <!-- Contact Javascript File -->
-
     <script src="mail/jqBootstrapValidation.min.js"></script>
     <script src="mail/contact.js"></script>
     <script src="https://app.preny.ai/embed-global.js"
@@ -277,6 +295,64 @@
             data-preny-bot-id="6812515e3d3e225ee029d289" />
     <!-- Template Javascript -->
     <script src="~/js/main.js"></script>
-    @RenderSection("Scripts", required: false)  <!-- Thêm dòng này vào đây -->
+
+    <!-- Voice Search Script -->
+    <script>
+        $(document).ready(function () {
+            function initializeSpeechRecognition() {
+                const micButton = document.getElementById('micButton');
+                const searchInput = document.getElementById('searchInput');
+                let recognition = null;
+
+                if ('SpeechRecognition' in window || 'webkitSpeechRecognition' in window) {
+                    recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+                    recognition.lang = 'vi-VN';
+                    recognition.interimResults = false;
+                    recognition.maxAlternatives = 1;
+
+                    micButton.addEventListener('click', () => {
+                        if (micButton.classList.contains('recording')) {
+                            recognition.stop();
+                        } else {
+                            recognition.start();
+                            micButton.classList.add('recording');
+                            micButton.querySelector('i').classList.remove('fa-microphone');
+                            micButton.querySelector('i').classList.add('fa-stop');
+                        }
+                    });
+
+                    recognition.onresult = (event) => {
+                        const transcript = event.results[0][0].transcript;
+                        searchInput.value = transcript;
+                        // Tự động submit form
+                        searchInput.closest('form').submit();
+                    };
+
+                    recognition.onend = () => {
+                        micButton.classList.remove('recording');
+                        micButton.querySelector('i').classList.remove('fa-stop');
+                        micButton.querySelector('i').classList.add('fa-microphone');
+                    };
+
+                    recognition.onerror = (event) => {
+                        console.error('Speech recognition error:', event.error);
+                        alert('Đã xảy ra lỗi khi nhận diện giọng nói: ' + event.error);
+                        micButton.classList.remove('recording');
+                        micButton.querySelector('i').classList.remove('fa-stop');
+                        micButton.querySelector('i').classList.add('fa-microphone');
+                    };
+                } else {
+                    micButton.disabled = true;
+                    micButton.title = 'Trình duyệt không hỗ trợ tìm kiếm bằng giọng nói';
+                    micButton.style.opacity = '0.5';
+                    micButton.style.cursor = 'not-allowed';
+                }
+            }
+
+            initializeSpeechRecognition();
+        });
+    </script>
+
+    @RenderSection("Scripts", required: false)
 </body>
 </html>

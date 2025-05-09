@@ -1,0 +1,243 @@
+﻿@model DoAnLTW.Areas.Admin.Models.StatisticsViewModel
+
+@{
+    ViewData["Title"] = "Thống kê doanh thu";
+    Layout = "~/Areas/Admin/Views/Shared/layoutAdmin.cshtml";
+}
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+<style>
+    .stats-card {
+        background: #fff;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+        text-align: center;
+        transition: transform 0.2s;
+    }
+
+        .stats-card:hover {
+            transform: scale(1.05);
+        }
+
+        .stats-card i {
+            font-size: 2rem;
+            color: #FFD700;
+        }
+
+        .stats-card h5 {
+            font-weight: 600;
+            margin: 10px 0;
+        }
+
+        .stats-card p {
+            font-size: 1.5rem;
+            color: #000;
+        }
+
+    .chart-container {
+        background: #fff;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+        margin-bottom: 20px;
+    }
+
+    .filter-container {
+        margin-bottom: 20px;
+    }
+</style>
+
+<div class="container-fluid">
+    <h2 class="mb-4">Thống kê doanh thu</h2>
+
+    <!-- Bộ lọc năm -->
+    <div class="filter-container">
+        <form asp-action="Index" method="get">
+            <div class="form-group">
+                <label for="year">Chọn năm:</label>
+                <select name="year" id="year" class="form-control d-inline-block w-auto" onchange="this.form.submit()">
+                    @foreach (var y in Model.AvailableYears)
+                    {
+                        <option value="@y" selected="@(y == Model.SelectedYear)">@y</option>
+                    }
+                </select>
+            </div>
+        </form>
+    </div>
+
+    <!-- Tổng quan -->
+    <div class="row mb-4">
+        <div class="col-md-3">
+            <div class="stats-card">
+                <i class="fas fa-dollar-sign"></i>
+                <h5>Tổng doanh thu</h5>
+                <p>@Model.TotalRevenue.ToString("N0") VNĐ</p>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="stats-card">
+                <i class="fas fa-shopping-cart"></i>
+                <h5>Tổng đơn hàng</h5>
+                <p>@Model.TotalOrders</p>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="stats-card">
+                <i class="fas fa-paw"></i>
+                <h5>Tổng dịch vụ thú cưng</h5>
+                <p>@Model.TotalPetServices</p>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="stats-card">
+                <i class="fas fa-box"></i>
+                <h5>Tổng sản phẩm</h5>
+                <p>@Model.TotalProducts</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Biểu đồ -->
+    <div class="row">
+        <!-- Biểu đồ tròn: Doanh thu theo danh mục -->
+        <div class="col-md-6">
+            <div class="chart-container">
+                <h5>Doanh thu theo danh mục</h5>
+                <canvas id="revenueByCategoryChart"></canvas>
+            </div>
+        </div>
+        <!-- Biểu đồ tròn: Đơn hàng theo trạng thái -->
+        <div class="col-md-6">
+            <div class="chart-container">
+                <h5>Đơn hàng theo trạng thái</h5>
+                <canvas id="ordersByStatusChart"></canvas>
+            </div>
+        </div>
+        <!-- Biểu đồ cột: Doanh thu theo tháng -->
+        <div class="col-md-6">
+            <div class="chart-container">
+                <h5>Doanh thu theo tháng</h5>
+                <canvas id="revenueByMonthChart"></canvas>
+            </div>
+        </div>
+        <!-- Biểu đồ cột: Sản phẩm theo thương hiệu -->
+        <div class="col-md-6">
+            <div class="chart-container">
+                <h5>Sản phẩm theo thương hiệu</h5>
+                <canvas id="productsByBrandChart"></canvas>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.3.0/dist/chart.umd.min.js"></script>
+    <script>
+        // Hàm tạo màu ngẫu nhiên cho biểu đồ
+        function getRandomColors(count) {
+            const colors = [];
+            for (let i = 0; i < count; i++) {
+                const r = Math.floor(Math.random() * 255);
+                const g = Math.floor(Math.random() * 255);
+                const b = Math.floor(Math.random() * 255);
+                colors.push(`rgba(${r}, ${g}, ${b}, 0.7)`);
+            }
+            return colors;
+        }
+
+        // Biểu đồ tròn: Doanh thu theo danh mục
+        const revenueByCategoryCtx = document.getElementById('revenueByCategoryChart').getContext('2d');
+        new Chart(revenueByCategoryCtx, {
+            type: 'pie',
+            data: {
+                labels: [@Html.Raw(string.Join(",", Model.RevenueByCategory.Keys.Select(k => $"'{k}'")))],
+                datasets: [{
+                    data: [@Html.Raw(string.Join(",", Model.RevenueByCategory.Values))],
+                    backgroundColor: getRandomColors(@Model.RevenueByCategory.Count)
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: { position: 'top' },
+                    title: { display: true, text: 'Doanh thu theo danh mục' }
+                }
+            }
+        });
+
+        // Biểu đồ tròn: Đơn hàng theo trạng thái
+        const ordersByStatusCtx = document.getElementById('ordersByStatusChart').getContext('2d');
+        new Chart(ordersByStatusCtx, {
+            type: 'pie',
+            data: {
+                labels: [@Html.Raw(string.Join(",", Model.OrdersByStatus.Keys.Select(k => $"'{k}'")))],
+                datasets: [{
+                    data: [@Html.Raw(string.Join(",", Model.OrdersByStatus.Values))],
+                    backgroundColor: getRandomColors(@Model.OrdersByStatus.Count)
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: { position: 'top' },
+                    title: { display: true, text: 'Đơn hàng theo trạng thái' }
+                }
+            }
+        });
+
+        // Biểu đồ cột: Doanh thu theo tháng
+        const revenueByMonthCtx = document.getElementById('revenueByMonthChart').getContext('2d');
+        new Chart(revenueByMonthCtx, {
+            type: 'bar',
+            data: {
+                labels: [@Html.Raw(string.Join(",", Model.RevenueByMonth.Keys.Select(k => $"'{k}'")))],
+                datasets: [{
+                    label: 'Doanh thu (VNĐ)',
+                    data: [@Html.Raw(string.Join(",", Model.RevenueByMonth.Values))],
+                    backgroundColor: 'rgba(255, 215, 0, 0.7)',
+                    borderColor: 'rgba(255, 215, 0, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    y: { beginAtZero: true, title: { display: true, text: 'Doanh thu (VNĐ)' } },
+                    x: { title: { display: true, text: 'Tháng' } }
+                },
+                plugins: {
+                    legend: { display: false },
+                    title: { display: true, text: 'Doanh thu theo tháng' }
+                }
+            }
+        });
+
+        // Biểu đồ cột: Sản phẩm theo thương hiệu
+        const productsByBrandCtx = document.getElementById('productsByBrandChart').getContext('2d');
+        new Chart(productsByBrandCtx, {
+            type: 'bar',
+            data: {
+                labels: [@Html.Raw(string.Join(",", Model.ProductsByBrand.Keys.Select(k => $"'{k}'")))],
+                datasets: [{
+                    label: 'Số sản phẩm',
+                    data: [@Html.Raw(string.Join(",", Model.ProductsByBrand.Values))],
+                    backgroundColor: 'rgba(0, 123, 255, 0.7)',
+                    borderColor: 'rgba(0, 123, 255, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    y: { beginAtZero: true, title: { display: true, text: 'Số sản phẩm' } },
+                    x: { title: { display: true, text: 'Thương hiệu' } }
+                },
+                plugins: {
+                    legend: { display: false },
+                    title: { display: true, text: 'Sản phẩm theo thương hiệu' }
+                }
+            }
+        });
+    </script>
+}
