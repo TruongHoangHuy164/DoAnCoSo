@@ -22,6 +22,7 @@ namespace DoAnLTW.Models
         public DbSet<Review> Reviews { get; set; }
         public DbSet<FavouriteProduct> FavouriteProducts { get; set; }
         public DbSet<WishProductList> WishProductLists { get; set; }
+        public DbSet<Message> Messages { get; set; }
         // Thêm các DbSet mới
         public DbSet<Pet> Pets { get; set; }
         public DbSet<Service> Services { get; set; }
@@ -148,6 +149,18 @@ namespace DoAnLTW.Models
                 entity.Property(e => e.UserId).IsRequired(); // Đảm bảo UserId là bắt buộc trong DB
             });
 
+            modelBuilder.Entity<Message>()
+                .Property(m => m.Content)
+                .HasMaxLength(1000)
+                .IsRequired();
+
+            modelBuilder.Entity<Message>()
+                .Property(m => m.SenderId)
+                .IsRequired();
+
+            modelBuilder.Entity<Message>()
+                .Property(m => m.ReceiverId)
+                .IsRequired();
 
             modelBuilder.Entity<Service>()
                 .Property(s => s.Name)

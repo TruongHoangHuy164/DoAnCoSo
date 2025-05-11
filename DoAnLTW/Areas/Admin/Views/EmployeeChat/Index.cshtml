@@ -1,0 +1,310 @@
+﻿@model dynamic
+@{
+    ViewData["Title"] = "Quản lý Yêu cầu Chat";
+    Layout = "~/Areas/Admin/Views/Shared/layoutAdmin.cshtml";
+}
+
+<div class="container-fluid mt-4">
+    <h2 class="text-center mb-4" style="color: #4fc3f7; font-weight: bold;">
+        <i class="fas fa-headset me-2"></i> Quản lý Yêu cầu Chat
+    </h2>
+    <div class="row">
+        <!-- Danh sách yêu cầu -->
+        <div class="col-md-4 col-lg-3">
+            <div class="request-container shadow-sm">
+                <h4 class="text-center mb-3">
+                    <i class="fas fa-users me-2"></i> Yêu cầu từ Khách hàng
+                </h4>
+                <ul id="customerRequests" class="list-group">
+                    @foreach (var request in ViewBag.CustomerRequests)
+                    {
+                        <li class="list-group-item request-item" onclick="selectCustomer('@request.CustomerId', '@request.CustomerName')">
+                            <div class="d-flex align-items-center">
+                                <i class="fas fa-user-circle me-2 text-primary"></i>
+                                <div>
+                                    <strong>@request.CustomerName</strong>
+                                    <p class="mb-1">@request.LastMessage</p>
+                                    <small class="text-muted">@request.Timestamp.ToString("dd/MM/yyyy HH:mm")</small>
+                                </div>
+                            </div>
+                        </li>
+                    }
+                </ul>
+            </div>
+        </div>
+        <!-- Khu vực chat -->
+        <div class="col-md-8 col-lg-9">
+            <div class="chat-container shadow-sm">
+                <h4 class="mb-3">
+                    <i class="fas fa-comment-dots me-2"></i> Cuộc trò chuyện
+                </h4>
+                <div id="messageList" class="chat-box"></div>
+                <div class="input-group chat-input">
+                    <input type="text" id="messageInput" class="form-control" placeholder="Nhập tin nhắn..." disabled />
+                    <button onclick="sendMessage()" class="btn btn-primary" disabled>
+                        <i class="fas fa-paper-plane"></i> Gửi
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/6.0.0/signalr.min.js"></script>
+<script>
+    let selectedCustomerId = null;
+    const connection = new signalR.HubConnectionBuilder()
+        .withUrl("/chatHub")
+        .withAutomaticReconnect([0, 2000, 10000, 30000])
+        .build();
+
+    // Vô hiệu hóa input và nút Gửi ban đầu
+    document.getElementById("messageInput").disabled = true;
+    document.getElementById("messageInput").nextElementSibling.disabled = true;
+
+    connection.on("UpdateOnlineCustomers", customers => {
+        console.log("Online customers:", customers);
+    });
+
+    connection.on("ReceiveMessage", (senderId, senderName, content, timestamp) => {
+        if (senderId === selectedCustomerId) {
+            const msg = `
+                <div class="message message-left">
+                    <div class="message-bubble">
+                        <strong>${senderName}</strong>
+                        <p>${content}</p>
+                        <small>${new Date(timestamp).toLocaleString()}</small>
+                    </div>
+                </div>`;
+            document.getElementById("messageList").innerHTML += msg;
+            document.getElementById("messageList").scrollTop = document.getElementById("messageList").scrollHeight;
+        } else {
+            const requestList = document.getElementById("customerRequests");
+            const existingRequest = Array.from(requestList.children).find(li => li.onclick.toString().includes(senderId));
+            if (!existingRequest) {
+                const li = document.createElement("li");
+                li.className = "list-group-item request-item";
+                li.innerHTML = `
+                    <div class="d-flex align-items-center">
+                        <i class="fas fa-user-circle me-2 text-primary"></i>
+                        <div>
+                            <strong>${senderName}</strong>
+                            <p class="mb-1">${content}</p>
+                            <small class="text-muted">${new Date(timestamp).toLocaleString()}</small>
+                        </div>
+                    </div>`;
+                li.onclick = () => selectCustomer(senderId, senderName);
+                requestList.appendChild(li);
+            }
+        }
+    });
+
+    connection.on("LoadConversation", messages => {
+        const messageList = document.getElementById("messageList");
+        messageList.innerHTML = "";
+        messages.forEach(m => {
+            const isCurrentUser = m.senderId !== selectedCustomerId;
+            const msg = `
+                <div class="message ${isCurrentUser ? 'message-right' : 'message-left'}">
+                    <div class="message-bubble">
+                        <strong>${m.senderName}</strong>
+                        <p>${m.content}</p>
+                        <small>${new Date(m.timestamp).toLocaleString()}</small>
+                    </div>
+                </div>`;
+            messageList.innerHTML += msg;
+        });
+        messageList.scrollTop = messageList.scrollHeight;
+    });
+
+    connection.start()
+        .then(() => {
+            console.log("SignalR Connected!");
+        })
+        .catch(err => {
+            console.error("SignalR Connection Error:", err);
+            alert("Không thể kết nối đến hệ thống chat. Vui lòng thử lại sau.");
+        });
+
+    connection.onclose(err => {
+        console.error("SignalR Disconnected:", err);
+        document.getElementById("messageInput").disabled = true;
+        document.getElementById("messageInput").nextElementSibling.disabled = true;
+        alert("Kết nối chat bị ngắt. Vui lòng làm mới trang.");
+    });
+
+    connection.onreconnecting(err => {
+        console.log("SignalR reconnecting:", err);
+        document.getElementById("messageInput").disabled = true;
+        document.getElementById("messageInput").nextElementSibling.disabled = true;
+    });
+
+    connection.onreconnected(connectionId => {
+        console.log("SignalR reconnected:", connectionId);
+        if (selectedCustomerId) {
+            document.getElementById("messageInput").disabled = false;
+            document.getElementById("messageInput").nextElementSibling.disabled = false;
+        }
+    });
+
+    function selectCustomer(customerId, customerName) {
+        selectedCustomerId = customerId;
+        document.getElementById("messageInput").disabled = false;
+        document.getElementById("messageInput").nextElementSibling.disabled = false;
+        document.getElementById("messageList").innerHTML = "";
+        connection.invoke("GetConversation", customerId).catch(err => console.error(err));
+        connection.invoke("MarkAsRead", customerId).catch(err => console.error(err));
+    }
+
+    function sendMessage() {
+        const message = document.getElementById("messageInput").value;
+        if (message.trim() === "" || !selectedCustomerId) {
+            return;
+        }
+        if (connection.state !== signalR.HubConnectionState.Connected) {
+            alert("Không thể gửi tin nhắn vì kết nối chưa được thiết lập.");
+            return;
+        }
+        connection.invoke("SendMessage", selectedCustomerId, message)
+            .catch(err => console.error("Error sending message:", err));
+        document.getElementById("messageInput").value = "";
+    }
+</script>
+
+<style>
+    .request-container {
+        background: #e0f7fa;
+        border-radius: 15px;
+        padding: 15px;
+        max-height: 600px;
+        overflow-y: auto;
+    }
+
+    .request-item {
+        border: none;
+        border-radius: 10px;
+        margin-bottom: 10px;
+        background: #ffffff;
+        transition: background 0.3s;
+        cursor: pointer;
+    }
+
+        .request-item:hover {
+            background: #f0f4f8;
+        }
+
+        .request-item strong {
+            color: #333;
+            font-size: 16px;
+        }
+
+        .request-item p {
+            font-size: 14px;
+            color: #555;
+            margin: 0;
+        }
+
+        .request-item small {
+            font-size: 12px;
+        }
+
+    .chat-container {
+        background: #f0f4f8;
+        border-radius: 15px;
+        padding: 20px;
+    }
+
+    .chat-box {
+        height: 500px;
+        overflow-y: auto;
+        background: #ffffff;
+        border-radius: 10px;
+        padding: 15px;
+        margin-bottom: 15px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .chat-input .form-control {
+        border-radius: 20px;
+        border: 1px solid #ced4da;
+        padding: 10px 15px;
+    }
+
+    .chat-input .btn-primary {
+        border-radius: 20px;
+        background: #4fc3f7;
+        border: none;
+        padding: 10px 20px;
+        transition: background 0.3s;
+    }
+
+        .chat-input .btn-primary:hover {
+            background: #29b6f6;
+        }
+
+    .message {
+        display: flex;
+        margin: 10px 0;
+    }
+
+    .message-left {
+        justify-content: flex-start;
+    }
+
+    .message-right {
+        justify-content: flex-end;
+    }
+
+    .message-bubble {
+        max-width: 70%;
+        padding: 10px 15px;
+        border-radius: 15px;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    }
+
+    .message-left .message-bubble {
+        background: #e0f7fa;
+        border-bottom-left-radius: 5px;
+    }
+
+    .message-right .message-bubble {
+        background: #ffcccb;
+        border-bottom-right-radius: 5px;
+    }
+
+    .message-bubble strong {
+        font-size: 14px;
+        color: #333;
+    }
+
+    .message-bubble p {
+        margin: 5px 0;
+        font-size: 16px;
+    }
+
+    .message-bubble small {
+        font-size: 12px;
+        color: #666;
+    }
+
+    /* Responsive */
+    @@media (max-width: 768px) {
+        .request-container, .chat-container {
+            margin-bottom: 15px;
+        }
+
+        .chat-box {
+            height: 400px;
+        }
+    }
+
+    @@media (max-width: 576px) {
+        .request-container, .chat-container {
+            padding: 10px;
+        }
+
+        .chat-box {
+            height: 300px;
+        }
+    }
+</style>

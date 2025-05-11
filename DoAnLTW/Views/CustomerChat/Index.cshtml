@@ -1,0 +1,292 @@
+﻿@* @model dynamic
+@{
+    ViewData["Title"] = "Chat với Nhân viên";
+    Layout = "~/Views/Shared/_LayoutHome.cshtml";
+}
+
+<h2>Chat với @ViewBag.EmployeeName</h2>
+
+@if (ViewBag.ErrorMessage != null)
+{
+    <div class="alert alert-warning">@ViewBag.ErrorMessage</div>
+}
+else
+{
+    <div class="chat-container">
+        <div id="messageList" class="chat-box"></div>
+        <div class="input-group">
+            <input type="text" id="messageInput" class="form-control" placeholder="Nhập tin nhắn..." />
+            <button onclick="sendMessage()" class="btn btn-primary">Gửi</button>
+        </div>
+    </div>
+}
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/6.0.0/signalr.min.js"></script>
+<script>
+    const connection = new signalR.HubConnectionBuilder()
+        .withUrl("/chatHub")
+        .build();
+
+    connection.on("ReceiveMessage", (senderId, senderName, content, timestamp) => {
+        const msg = `<p><strong>${senderName}</strong> (${new Date(timestamp).toLocaleString()}): ${content}</p>`;
+        document.getElementById("messageList").innerHTML += msg;
+        document.getElementById("messageList").scrollTop = document.getElementById("messageList").scrollHeight;
+    });
+
+    connection.on("LoadConversation", messages => {
+        const messageList = document.getElementById("messageList");
+        messageList.innerHTML = "";
+        messages.forEach(m => {
+            const msg = `<p><strong>${m.senderName}</strong> (${new Date(m.timestamp).toLocaleString()}): ${m.content}</p>`;
+            messageList.innerHTML += msg;
+        });
+        messageList.scrollTop = messageList.scrollHeight;
+    });
+
+    connection.start().then(() => {
+        // Tải lịch sử trò chuyện với nhân viên
+        connection.invoke("GetConversation", "@ViewBag.EmployeeId").catch(err => console.error(err));
+    }).catch(err => console.error(err));
+
+    function sendMessage() {
+        const message = document.getElementById("messageInput").value;
+        if (message.trim() !== "") {
+            connection.invoke("SendMessage", "@ViewBag.EmployeeId", message).catch(err => console.error(err));
+            document.getElementById("messageInput").value = "";
+        }
+    }
+</script>
+
+<style>
+    .chat-container {
+        max-width: 600px;
+        margin: 0 auto;
+    }
+
+    .chat-box {
+        height: 400px;
+        overflow-y: auto;
+        border: 1px solid #ccc;
+        padding: 10px;
+    }
+
+    .input-group {
+        margin-top: 10px;
+    }
+</style> *@
+
+            @model dynamic
+@{
+    ViewData["Title"] = "Chat với Nhân viên";
+    Layout = "~/Views/Shared/_LayoutHome.cshtml";
+}
+
+<div class="container mt-4">
+    <h2 class="text-center mb-4" style="color: #ff6f9c; font-weight: bold;">
+        <i class="fas fa-comments me-2"></i> Chat với @ViewBag.EmployeeName
+    </h2>
+
+    @if (ViewBag.ErrorMessage != null)
+    {
+        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+            <i class="fas fa-exclamation-circle me-2"></i> @ViewBag.ErrorMessage
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+    else
+    {
+        <div class="chat-container shadow-sm">
+            <div id="messageList" class="chat-box"></div>
+            <div class="input-group chat-input">
+                <input type="text" id="messageInput" class="form-control" placeholder="Nhập tin nhắn..." />
+                <button onclick="sendMessage()" class="btn btn-primary">
+                    <i class="fas fa-paper-plane"></i> Gửi
+                </button>
+            </div>
+        </div>
+    }
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/6.0.0/signalr.min.js"></script>
+<script>
+    let selectedCustomerId = null;
+    const connection = new signalR.HubConnectionBuilder()
+        .withUrl("/chatHub")
+        .withAutomaticReconnect([0, 2000, 10000, 30000])
+        .build();
+
+    // Vô hiệu hóa input và nút Gửi ban đầu
+    document.getElementById("messageInput").disabled = true;
+    document.getElementById("messageInput").nextElementSibling.disabled = true;
+
+    connection.on("ReceiveMessage", (senderId, senderName, content, timestamp) => {
+        const isCurrentUser = senderId === "@ViewBag.EmployeeId";
+        const msg = `
+            <div class="message ${isCurrentUser ? 'message-right' : 'message-left'}">
+                <div class="message-bubble">
+                    <strong>${senderName}</strong>
+                    <p>${content}</p>
+                    <small>${new Date(timestamp).toLocaleString()}</small>
+                </div>
+            </div>`;
+        document.getElementById("messageList").innerHTML += msg;
+        document.getElementById("messageList").scrollTop = document.getElementById("messageList").scrollHeight;
+    });
+
+    connection.on("LoadConversation", messages => {
+        const messageList = document.getElementById("messageList");
+        messageList.innerHTML = "";
+        messages.forEach(m => {
+            const isCurrentUser = m.senderId === "@ViewBag.EmployeeId";
+            const msg = `
+                <div class="message ${isCurrentUser ? 'message-right' : 'message-left'}">
+                    <div class="message-bubble">
+                        <strong>${m.senderName}</strong>
+                        <p>${m.content}</p>
+                        <small>${new Date(m.timestamp).toLocaleString()}</small>
+                    </div>
+                </div>`;
+            messageList.innerHTML += msg;
+        });
+        messageList.scrollTop = messageList.scrollHeight;
+    });
+
+    connection.start()
+        .then(() => {
+            console.log("SignalR Connected!");
+            connection.invoke("GetConversation", "@ViewBag.EmployeeId").catch(err => console.error(err));
+            document.getElementById("messageInput").disabled = false;
+            document.getElementById("messageInput").nextElementSibling.disabled = false;
+        })
+        .catch(err => {
+            console.error("SignalR Connection Error:", err);
+            alert("Không thể kết nối đến hệ thống chat. Vui lòng thử lại sau.");
+        });
+
+    connection.onclose(err => {
+        console.error("SignalR Disconnected:", err);
+        document.getElementById("messageInput").disabled = true;
+        document.getElementById("messageInput").nextElementSibling.disabled = true;
+        alert("Kết nối chat bị ngắt. Vui lòng làm mới trang.");
+    });
+
+    connection.onreconnecting(err => {
+        console.log("SignalR reconnecting:", err);
+        document.getElementById("messageInput").disabled = true;
+        document.getElementById("messageInput").nextElementSibling.disabled = true;
+    });
+
+    connection.onreconnected(connectionId => {
+        console.log("SignalR reconnected:", connectionId);
+        document.getElementById("messageInput").disabled = false;
+        document.getElementById("messageInput").nextElementSibling.disabled = false;
+    });
+
+    function sendMessage() {
+        const message = document.getElementById("messageInput").value;
+        if (message.trim() === "") {
+            return;
+        }
+        if (connection.state !== signalR.HubConnectionState.Connected) {
+            alert("Không thể gửi tin nhắn vì kết nối chưa được thiết lập.");
+            return;
+        }
+        connection.invoke("SendMessage", "@ViewBag.EmployeeId", message)
+            .catch(err => console.error("Error sending message:", err));
+        document.getElementById("messageInput").value = "";
+    }
+</script>
+
+<style>
+    .chat-container {
+        max-width: 700px;
+        margin: 0 auto;
+        background: #f0f4f8;
+        border-radius: 15px;
+        padding: 20px;
+    }
+
+    .chat-box {
+        height: 500px;
+        overflow-y: auto;
+        background: #ffffff;
+        border-radius: 10px;
+        padding: 15px;
+        margin-bottom: 15px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .chat-input .form-control {
+        border-radius: 20px;
+        border: 1px solid #ced4da;
+        padding: 10px 15px;
+    }
+
+    .chat-input .btn-primary {
+        border-radius: 20px;
+        background: #ff6f9c;
+        border: none;
+        padding: 10px 20px;
+        transition: background 0.3s;
+    }
+
+        .chat-input .btn-primary:hover {
+            background: #ff4d7d;
+        }
+
+    .message {
+        display: flex;
+        margin: 10px 0;
+    }
+
+    .message-left {
+        justify-content: flex-start;
+    }
+
+    .message-right {
+        justify-content: flex-end;
+    }
+
+    .message-bubble {
+        max-width: 70%;
+        padding: 10px 15px;
+        border-radius: 15px;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    }
+
+    .message-left .message-bubble {
+        background: #e0f7fa;
+        border-bottom-left-radius: 5px;
+    }
+
+    .message-right .message-bubble {
+        background: #ffcccb;
+        border-bottom-right-radius: 5px;
+    }
+
+    .message-bubble strong {
+        font-size: 14px;
+        color: #333;
+    }
+
+    .message-bubble p {
+        margin: 5px 0;
+        font-size: 16px;
+    }
+
+    .message-bubble small {
+        font-size: 12px;
+        color: #666;
+    }
+
+    /* Responsive */
+    @@media (max-width: 576px) {
+        .chat-container {
+            padding: 10px;
+        }
+
+        .chat-box {
+            height: 400px;
+        }
+    }
+</style>
