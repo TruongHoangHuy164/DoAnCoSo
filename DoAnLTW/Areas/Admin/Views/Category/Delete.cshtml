@@ -37,13 +37,13 @@
             @model DoAnLTW.Models.Category
 
 @{
-    ViewData["Title"] = "Xóa Thương Hiệu";
+    ViewData["Title"] = "Xóa Danh Mục";
     Layout = "~/Areas/Admin/Views/Shared/layoutAdmin.cshtml";
 }
 
 <h1>@ViewData["Title"]</h1>
 
-<p>Bạn có chắc chắn muốn xóa thương hiệu <strong>@Model.Name</strong>?</p>
+<p>Bạn có chắc chắn muốn xóa danh mục <strong>@Model.Name</strong>?</p>
 <img src="@Model.ImageUrl" alt="@Model.Name" style="width: 200px; margin-top: 10px;">
 
 <form asp-action="DeleteConfirmed" method="post">

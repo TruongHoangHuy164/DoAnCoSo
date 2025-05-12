@@ -1,0 +1,50 @@
+﻿@model DoAnLTW.Models.PromotionCode
+@{
+    ViewData["Title"] = "Tạo Mã Khuyến Mãi";
+    Layout = "~/Areas/Admin/Views/Shared/layoutAdmin.cshtml";
+}
+<h2>Tạo mã khuyến mãi</h2>
+
+<form asp-action="Create" method="post">
+    <div class="form-group">
+        <label asp-for="Code">Mã khuyến mãi</label>
+        <input asp-for="Code" class="form-control" />
+        <span asp-validation-for="Code" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="DiscountAmount">Số tiền giảm (VND)</label>
+        <input asp-for="DiscountAmount" class="form-control" type="number" step="1000" />
+        <span asp-validation-for="DiscountAmount" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="DiscountPercentage">Phần trăm giảm (%)</label>
+        <input asp-for="DiscountPercentage" class="form-control" type="number" step="1" />
+        <span asp-validation-for="DiscountPercentage" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="StartDate">Ngày bắt đầu</label>
+        <input asp-for="StartDate" class="form-control" type="date" />
+        <span asp-validation-for="StartDate" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="EndDate">Ngày kết thúc</label>
+        <input asp-for="EndDate" class="form-control" type="date" />
+        <span asp-validation-for="EndDate" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="MaxUsage">Số lần sử dụng tối đa (0 = không giới hạn)</label>
+        <input asp-for="MaxUsage" class="form-control" type="number" />
+        <span asp-validation-for="MaxUsage" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="IsActive">Kích hoạt</label>
+        <input asp-for="IsActive" type="checkbox" checked />
+        <span asp-validation-for="IsActive" class="text-danger"></span>
+    </div>
+    <button type="submit" class="btn btn-primary">Tạo</button>
+    <a asp-action="Index" class="btn btn-secondary">Quay lại</a>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

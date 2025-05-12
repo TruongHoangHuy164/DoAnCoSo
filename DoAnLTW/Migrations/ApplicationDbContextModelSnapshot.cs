@@ -65,6 +65,34 @@ namespace DoAnLTW.Migrations
                     b.ToTable("Categories");
                 });
 
+            modelBuilder.Entity("DoAnLTW.Models.CustomerPoint", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("EarnedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("OrderId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Points")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("OrderId");
+
+                    b.ToTable("CustomerPoints");
+                });
+
             modelBuilder.Entity("DoAnLTW.Models.FavouriteProduct", b =>
                 {
                     b.Property<int>("Id")
@@ -161,6 +189,12 @@ namespace DoAnLTW.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("PointsEarned")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("PromotionCodeId")
+                        .HasColumnType("int");
+
                     b.Property<int>("Status")
                         .HasColumnType("int");
 
@@ -168,6 +202,8 @@ namespace DoAnLTW.Migrations
                         .HasColumnType("decimal(18,2)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("PromotionCodeId");
 
                     b.ToTable("Orders");
                 });
@@ -397,6 +433,45 @@ namespace DoAnLTW.Migrations
                     b.HasIndex("ProductId");
 
                     b.ToTable("ProductImages");
+                });
+
+            modelBuilder.Entity("DoAnLTW.Models.PromotionCode", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Code")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.Property<decimal>("DiscountAmount")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("DiscountPercentage")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<DateTime?>("EndDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("MaxUsage")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("StartDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("UsageCount")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("PromotionCodes");
                 });
 
             modelBuilder.Entity("DoAnLTW.Models.Review", b =>
@@ -696,6 +771,17 @@ namespace DoAnLTW.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("DoAnLTW.Models.CustomerPoint", b =>
+                {
+                    b.HasOne("DoAnLTW.Models.Order", "Order")
+                        .WithMany("CustomerPoints")
+                        .HasForeignKey("OrderId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Order");
+                });
+
             modelBuilder.Entity("DoAnLTW.Models.FavouriteProduct", b =>
                 {
                     b.HasOne("DoAnLTW.Models.Product", "Product")
@@ -705,6 +791,16 @@ namespace DoAnLTW.Migrations
                         .IsRequired();
 
                     b.Navigation("Product");
+                });
+
+            modelBuilder.Entity("DoAnLTW.Models.Order", b =>
+                {
+                    b.HasOne("DoAnLTW.Models.PromotionCode", "PromotionCode")
+                        .WithMany()
+                        .HasForeignKey("PromotionCodeId")
+                        .OnDelete(DeleteBehavior.SetNull);
+
+                    b.Navigation("PromotionCode");
                 });
 
             modelBuilder.Entity("DoAnLTW.Models.OrderDetail", b =>
@@ -890,6 +986,8 @@ namespace DoAnLTW.Migrations
 
             modelBuilder.Entity("DoAnLTW.Models.Order", b =>
                 {
+                    b.Navigation("CustomerPoints");
+
                     b.Navigation("OrderDetails");
                 });
 

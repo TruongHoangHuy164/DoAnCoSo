@@ -1,4 +1,4 @@
-﻿@model DoAnLTW.Models.Order
+﻿@* @model DoAnLTW.Models.Order
 
 @{
     ViewData["Title"] = "Order Success";
@@ -70,6 +70,104 @@
                     <h6>Phí vận chuyển:</h6>
                     <h6>@ViewBag.ShippingFee.ToString("#,##0 VNĐ")</h6>
                 </div>
+                <div class="d-flex justify-content-between mt-3">
+                    <h6>Tổng cộng:</h6>
+                    <h6>@Model.TotalAmount.ToString("#,##0 VNĐ")</h6>
+                </div>
+
+                <a asp-controller="Home" asp-action="Index" class="btn btn-primary mt-3">Quay về trang chủ</a>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Order Success End --> *@
+
+                    @model DoAnLTW.Models.Order
+
+@{
+    ViewData["Title"] = "Order Success";
+    Layout = "~/Views/Shared/_LayoutHome.cshtml";
+}
+
+<!-- Breadcrumb Start -->
+<div class="container-fluid">
+    <div class="row px-xl-5">
+        <div class="col-12">
+            <nav class="breadcrumb bg-light mb-30">
+                <a class="breadcrumb-item text-dark" asp-controller="Home" asp-action="Index">Trang chủ</a>
+                <a class="breadcrumb-item text-dark" asp-controller="Shop" asp-action="Index">Sản phẩm</a>
+                <span class="breadcrumb-item active">Xác nhận đơn hàng</span>
+            </nav>
+        </div>
+    </div>
+</div>
+<!-- Breadcrumb End -->
+<!-- Order Success Start -->
+<div class="container-fluid">
+    <div class="row px-xl-5">
+        <div class="col-lg-12">
+            <h5 class="section-title position-relative text-uppercase mb-3"><span class="bg-secondary pr-3">Xác nhận đơn hàng</span></h5>
+            <div class="bg-light p-30 mb-5">
+                <div class="alert alert-success" role="alert">
+                    Đơn hàng của bạn đã được đặt thành công! Chúng tôi sẽ liên hệ để xác nhận.
+                </div>
+                <h6>Mã đơn hàng: @Model.Id</h6>
+                <p><strong>Ngày đặt hàng:</strong> @Model.OrderDate.ToString("dd/MM/yyyy HH:mm")</p>
+                <p><strong>Họ tên:</strong> @Model.FirstName @Model.LastName</p>
+                <p><strong>Email:</strong> @Model.Email</p>
+                <p><strong>Số điện thoại:</strong> @Model.PhoneNumber</p>
+                <p><strong>Địa chỉ nhận hàng:</strong> @Model.Address</p>
+                <p><strong>Phương thức thanh toán:</strong> @Model.PaymentMethod</p>
+                <p><strong>Trạng thái thanh toán:</strong> @(Model.IsPaid ? "Đã thanh toán" : "Chưa thanh toán")</p>
+                <p><strong>Trạng thái đơn hàng:</strong> @Model.Status</p>
+                @if (Model.PromotionCode != null)
+                {
+                    <p><strong>Mã khuyến mãi:</strong> @Model.PromotionCode.Code</p>
+                }
+                <p><strong>Điểm tích lũy:</strong> @Model.PointsEarned điểm</p>
+
+                <h6 class="mt-4">Chi tiết đơn hàng</h6>
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Sản phẩm</th>
+                            <th>Size</th>
+                            <th>Giá</th>
+                            <th>Số lượng</th>
+                            <th>Tổng</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var detail in Model.OrderDetails)
+                        {
+                            <tr>
+                                <td>@detail.ProductName</td>
+                                <td>@detail.Size</td>
+                                <td>@detail.Price.ToString("#,##0 VNĐ")</td>
+                                <td>@detail.Quantity</td>
+                                <td>@detail.TotalPrice.ToString("#,##0 VNĐ")</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+
+                <div class="d-flex justify-content-between mt-3">
+                    <h6>Giá sản phẩm:</h6>
+                    <h6>@Model.OrderDetails.Sum(d => d.TotalPrice).ToString("#,##0 VNĐ")</h6>
+                </div>
+                <div class="d-flex justify-content-between mt-3">
+                    <h6>Phí vận chuyển:</h6>
+                    <h6>@ViewBag.ShippingFee.ToString("#,##0 VNĐ")</h6>
+                </div>
+                @if (Model.PromotionCode != null)
+                {
+                    <div class="d-flex justify-content-between mt-3">
+                        <h6>Giảm giá (@Model.PromotionCode.Code):</h6>
+                        <h6>
+                            -@((Model.OrderDetails.Sum(d => d.TotalPrice) + ViewBag.ShippingFee - Model.TotalAmount).ToString("#,##0 VNĐ"))
+                        </h6>
+                    </div>
+                }
                 <div class="d-flex justify-content-between mt-3">
                     <h6>Tổng cộng:</h6>
                     <h6>@Model.TotalAmount.ToString("#,##0 VNĐ")</h6>

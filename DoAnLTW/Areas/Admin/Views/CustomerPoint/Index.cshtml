@@ -1,0 +1,60 @@
+﻿@model List<DoAnLTW.Models.CustomerPoint>
+@{
+    ViewData["Title"] = "Quản lý điểm khách hàng";
+    Layout = "~/Areas/Admin/Views/Shared/layoutAdmin.cshtml";
+}
+<h2>Quản lý điểm khách hàng</h2>
+
+@if (TempData["Success"] != null)
+{
+    <div class="alert alert-success">@TempData["Success"]</div>
+}
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>ID Khách hàng</th>
+            <th>Đơn hàng</th>
+            <th>Điểm</th>
+            <th>Ngày nhận</th>
+            <th>Thao tác</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var point in Model)
+        {
+            <tr>
+                <td>@point.UserId</td>
+                <td>#@point.OrderId</td>
+                <td>
+                    <input type="number" class="form-control point-value" data-id="@point.Id" value="@point.Points" min="0" />
+                </td>
+                <td>@point.EarnedDate.ToString("dd/MM/yyyy")</td>
+                <td>
+                    <button class="btn btn-sm btn-primary save-point" data-id="@point.Id">Lưu</button>
+                    <form asp-action="Delete" asp-route-id="@point.Id" method="post" style="display:inline;" onsubmit="return confirm('Bạn có chắc muốn xóa bản ghi này?');">
+                        <button type="submit" class="btn btn-sm btn-danger">Xóa</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $('.save-point').click(function () {
+                var id = $(this).data('id');
+                var points = $(`input[data-id="${id}"]`).val();
+                $.post('@Url.Action("Edit")', { id: id, points: points }, function (data) {
+                    if (data.success) {
+                        alert(data.message);
+                    } else {
+                        alert(data.message);
+                    }
+                });
+            });
+        });
+    </script>
+}

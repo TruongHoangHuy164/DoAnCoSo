@@ -1,0 +1,96 @@
+﻿@model List<DoAnLTW.Models.PromotionCode>
+@{
+    ViewData["Title"] = "Quản lý Khuyến Mãi";
+    Layout = "~/Areas/Admin/Views/Shared/layoutAdmin.cshtml";
+}
+<h2>Quản lý mã khuyến mãi</h2>
+
+<p>
+    <a asp-action="Create" class="btn btn-primary">Tạo mã mới</a>
+</p>
+
+@if (TempData["Success"] != null)
+{
+    <div class="alert alert-success">@TempData["Success"]</div>
+}
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Mã</th>
+            <th>Giảm giá</th>
+            <th>Trạng thái</th>
+            <th>Thời gian</th>
+            <th>Sử dụng</th>
+            <th>Thao tác</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var promo in Model)
+        {
+            <tr>
+                <td>@promo.Code</td>
+                <td>
+                    @if (promo.DiscountPercentage > 0)
+                    {
+                        <span>@promo.DiscountPercentage%</span>
+                    }
+                    else
+                    {
+                        <span>@promo.DiscountAmount.ToString("N0") VND</span>
+                    }
+                </td>
+                <td>
+                    <span class="badge @(promo.IsActive ? "badge-success" : "badge-danger")">
+                        @(promo.IsActive ? "Kích hoạt" : "Khóa")
+                    </span>
+                </td>
+                <td>
+                    @if (promo.StartDate.HasValue)
+                    {
+                        <span>@promo.StartDate.Value.ToString("dd/MM/yyyy")</span>
+                    }
+                    @if (promo.EndDate.HasValue)
+                    {
+                        <span> - @promo.EndDate.Value.ToString("dd/MM/yyyy")</span>
+                    }
+                </td>
+                <td>@promo.UsageCount / @(promo.MaxUsage == 0 ? "∞" : promo.MaxUsage.ToString())</td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@promo.Id" class="btn btn-sm btn-warning">Sửa</a>
+                    <form asp-action="Delete" asp-route-id="@promo.Id" method="post" style="display:inline;" onsubmit="return confirm('Bạn có chắc muốn xóa mã này?');">
+                        <button type="submit" class="btn btn-sm btn-danger">Xóa</button>
+                    </form>
+                    <button class="btn btn-sm @(promo.IsActive ? "btn-danger" : "btn-success") toggle-active" data-id="@promo.Id">
+                        @(promo.IsActive ? "Khóa" : "Kích hoạt")
+                    </button>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $('.toggle-active').click(function () {
+                var id = $(this).data('id');
+                $.post('@Url.Action("ToggleActive")', { id: id }, function (data) {
+                    if (data.success) {
+                        var btn = $(`button[data-id="${id}"]`);
+                        var badge = btn.closest('tr').find('.badge');
+                        if (data.isActive) {
+                            btn.removeClass('btn-danger').addClass('btn-success').text('Kích hoạt');
+                            badge.removeClass('badge-danger').addClass('badge-success').text('Kích hoạt');
+                        } else {
+                            btn.removeClass('btn-success').addClass('btn-danger').text('Khóa');
+                            badge.removeClass('badge-success').addClass('badge-danger').text('Khóa');
+                        }
+                    } else {
+                        alert(data.message);
+                    }
+                });
+            });
+        });
+    </script>
+}
