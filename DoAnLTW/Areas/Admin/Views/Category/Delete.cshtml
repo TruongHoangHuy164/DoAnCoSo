@@ -34,10 +34,11 @@
 </div>
  *@
 
-            @model DoAnLTW.Models.Brand
+            @model DoAnLTW.Models.Category
 
 @{
     ViewData["Title"] = "Xóa Thương Hiệu";
+    Layout = "~/Areas/Admin/Views/Shared/layoutAdmin.cshtml";
 }
 
 <h1>@ViewData["Title"]</h1>
@@ -46,7 +47,7 @@
 <img src="@Model.ImageUrl" alt="@Model.Name" style="width: 200px; margin-top: 10px;">
 
 <form asp-action="DeleteConfirmed" method="post">
-    <input type="hidden" name="id" value="@Model.BrandId" />
+    <input type="hidden" name="id" value="@Model.CategoryId" />
     <button type="submit" class="btn btn-danger">Xóa</button>
     <a href="@Url.Action("Index", "Brand")" class="btn btn-secondary">Hủy</a>
 </form>

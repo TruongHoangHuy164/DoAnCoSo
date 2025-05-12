@@ -28,14 +28,15 @@
             }
             else
             {
-                <span>Không có hình ảnh</span>
+                <span>Không có hình ảnh</span> 
             }
         </dd>
     </dl>
 
     <form asp-action="DeleteConfirmed" method="post">
-        <input type="hidden" asp-for="BrandId" />
+        <input type="hidden" name="id" value="@Model.BrandId" />
         <input type="submit" value="Xóa" class="btn btn-danger" />
         <a asp-action="Index" class="btn btn-secondary">Quay lại</a>
     </form>
+
 </div>

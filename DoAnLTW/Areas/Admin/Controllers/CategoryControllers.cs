@@ -110,6 +110,7 @@ namespace DoAnLTW.Areas.Admin.Controllers
             // Nếu có ảnh mới, xóa ảnh cũ và cập nhật ảnh mới
             if (ImageFile != null && ImageFile.Length > 0)
             {
+                // Xóa ảnh cũ nếu có
                 if (!string.IsNullOrEmpty(existingCategory.ImageUrl))
                 {
                     string oldFilePath = Path.Combine(_webHostEnvironment.WebRootPath, existingCategory.ImageUrl.TrimStart('/'));
@@ -119,9 +120,11 @@ namespace DoAnLTW.Areas.Admin.Controllers
                     }
                 }
 
+                // Lưu ảnh mới và cập nhật URL
                 existingCategory.ImageUrl = await SaveImage(ImageFile);
             }
 
+            // Cập nhật danh mục trong cơ sở dữ liệu
             await _categoryRepository.UpdateAsync(existingCategory);
             return RedirectToAction(nameof(Index));
         }
