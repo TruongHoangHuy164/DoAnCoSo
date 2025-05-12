@@ -3842,3 +3842,414 @@ FROM [Categories] AS [c]
 2025-05-13 00:15:38.603 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/_vs/browserLink - 200 null text/javascript; charset=UTF-8 20.5358ms
 2025-05-13 00:15:38.605 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/img/payments.png - 404 0 null 23.3414ms
 2025-05-13 00:15:38.616 +07:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET https://localhost:5134/img/payments.png, Response status code: 404
+2025-05-13 00:29:05.691 +07:00 [INF] User profile is available. Using 'C:\Users\admin\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2025-05-13 00:29:06.198 +07:00 [INF] Now listening on: https://localhost:5134
+2025-05-13 00:29:06.234 +07:00 [INF] Application started. Press Ctrl+C to shut down.
+2025-05-13 00:29:06.237 +07:00 [INF] Hosting environment: Development
+2025-05-13 00:29:06.239 +07:00 [INF] Content root path: H:\DoAnCoSo\DoAnLTW
+2025-05-13 00:29:06.845 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/ - null null
+2025-05-13 00:29:07.047 +07:00 [INF] Executing endpoint 'DoAnLTW.Controllers.HomeController.Index (DoAnLTW)'
+2025-05-13 00:29:07.065 +07:00 [INF] Route matched with {action = "Index", controller = "Home", area = "", page = ""}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Index() on controller DoAnLTW.Controllers.HomeController (DoAnLTW).
+2025-05-13 00:29:09.292 +07:00 [INF] Executed DbCommand (144ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [c].[CategoryId], [c].[ImageUrl], [c].[Name]
+FROM [Categories] AS [c]
+2025-05-13 00:29:09.396 +07:00 [INF] Executed DbCommand (26ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [b].[BrandId], [b].[ImageUrl], [b].[Name]
+FROM [Brands] AS [b]
+2025-05-13 00:29:09.591 +07:00 [WRN] Compiling a query which loads related collections for more than one collection navigation, either via 'Include' or through projection, but no 'QuerySplittingBehavior' has been configured. By default, Entity Framework will use 'QuerySplittingBehavior.SingleQuery', which can potentially result in slow query performance. See https://go.microsoft.com/fwlink/?linkid=2134277 for more information. To identify the query that's triggering this warning call 'ConfigureWarnings(w => w.Throw(RelationalEventId.MultipleCollectionIncludeWarning))'.
+2025-05-13 00:29:09.817 +07:00 [INF] Executed DbCommand (203ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [p].[ProductId], [p].[BrandId], [p].[CategoryId], [p].[Description], [p].[Name], [c].[CategoryId], [c].[ImageUrl], [c].[Name], [b].[BrandId], [b].[ImageUrl], [b].[Name], [s0].[ProductId], [s0].[SizeId], [s0].[Price], [s0].[Stock], [s0].[SizeId0], [s0].[size], [p1].[Product_ImagesId], [p1].[ImageUrl], [p1].[ProductId]
+FROM [Products] AS [p]
+INNER JOIN [Categories] AS [c] ON [p].[CategoryId] = [c].[CategoryId]
+INNER JOIN [Brands] AS [b] ON [p].[BrandId] = [b].[BrandId]
+LEFT JOIN (
+    SELECT [p0].[ProductId], [p0].[SizeId], [p0].[Price], [p0].[Stock], [s].[SizeId] AS [SizeId0], [s].[size]
+    FROM [ProductSizes] AS [p0]
+    INNER JOIN [Sizes] AS [s] ON [p0].[SizeId] = [s].[SizeId]
+) AS [s0] ON [p].[ProductId] = [s0].[ProductId]
+LEFT JOIN [ProductImages] AS [p1] ON [p].[ProductId] = [p1].[ProductId]
+ORDER BY [p].[ProductId], [c].[CategoryId], [b].[BrandId], [s0].[ProductId], [s0].[SizeId], [s0].[SizeId0]
+2025-05-13 00:29:09.933 +07:00 [INF] Executed DbCommand (47ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [p].[Id], [p].[Code], [p].[DiscountAmount], [p].[DiscountPercentage], [p].[EndDate], [p].[IsActive], [p].[MaxUsage], [p].[StartDate], [p].[UsageCount]
+FROM [PromotionCodes] AS [p]
+WHERE [p].[IsActive] = CAST(1 AS bit) AND ([p].[StartDate] IS NULL OR [p].[StartDate] <= GETDATE()) AND ([p].[EndDate] IS NULL OR [p].[EndDate] >= GETDATE()) AND ([p].[MaxUsage] = 0 OR [p].[UsageCount] < [p].[MaxUsage])
+2025-05-13 00:29:09.960 +07:00 [INF] Executing ViewResult, running view Index.
+2025-05-13 00:29:50.586 +07:00 [INF] User profile is available. Using 'C:\Users\admin\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2025-05-13 00:29:50.887 +07:00 [INF] Now listening on: https://localhost:5134
+2025-05-13 00:29:50.910 +07:00 [INF] Application started. Press Ctrl+C to shut down.
+2025-05-13 00:29:50.915 +07:00 [INF] Hosting environment: Development
+2025-05-13 00:29:50.918 +07:00 [INF] Content root path: H:\DoAnCoSo\DoAnLTW
+2025-05-13 00:29:51.424 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/ - null null
+2025-05-13 00:29:51.547 +07:00 [INF] Executing endpoint 'DoAnLTW.Controllers.HomeController.Index (DoAnLTW)'
+2025-05-13 00:29:51.561 +07:00 [INF] Route matched with {action = "Index", controller = "Home", area = "", page = ""}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Index() on controller DoAnLTW.Controllers.HomeController (DoAnLTW).
+2025-05-13 00:29:52.686 +07:00 [INF] Executed DbCommand (29ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [c].[CategoryId], [c].[ImageUrl], [c].[Name]
+FROM [Categories] AS [c]
+2025-05-13 00:29:52.743 +07:00 [INF] Executed DbCommand (3ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [b].[BrandId], [b].[ImageUrl], [b].[Name]
+FROM [Brands] AS [b]
+2025-05-13 00:29:52.863 +07:00 [WRN] Compiling a query which loads related collections for more than one collection navigation, either via 'Include' or through projection, but no 'QuerySplittingBehavior' has been configured. By default, Entity Framework will use 'QuerySplittingBehavior.SingleQuery', which can potentially result in slow query performance. See https://go.microsoft.com/fwlink/?linkid=2134277 for more information. To identify the query that's triggering this warning call 'ConfigureWarnings(w => w.Throw(RelationalEventId.MultipleCollectionIncludeWarning))'.
+2025-05-13 00:29:53.076 +07:00 [INF] Executed DbCommand (193ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [p].[ProductId], [p].[BrandId], [p].[CategoryId], [p].[Description], [p].[Name], [c].[CategoryId], [c].[ImageUrl], [c].[Name], [b].[BrandId], [b].[ImageUrl], [b].[Name], [s0].[ProductId], [s0].[SizeId], [s0].[Price], [s0].[Stock], [s0].[SizeId0], [s0].[size], [p1].[Product_ImagesId], [p1].[ImageUrl], [p1].[ProductId]
+FROM [Products] AS [p]
+INNER JOIN [Categories] AS [c] ON [p].[CategoryId] = [c].[CategoryId]
+INNER JOIN [Brands] AS [b] ON [p].[BrandId] = [b].[BrandId]
+LEFT JOIN (
+    SELECT [p0].[ProductId], [p0].[SizeId], [p0].[Price], [p0].[Stock], [s].[SizeId] AS [SizeId0], [s].[size]
+    FROM [ProductSizes] AS [p0]
+    INNER JOIN [Sizes] AS [s] ON [p0].[SizeId] = [s].[SizeId]
+) AS [s0] ON [p].[ProductId] = [s0].[ProductId]
+LEFT JOIN [ProductImages] AS [p1] ON [p].[ProductId] = [p1].[ProductId]
+ORDER BY [p].[ProductId], [c].[CategoryId], [b].[BrandId], [s0].[ProductId], [s0].[SizeId], [s0].[SizeId0]
+2025-05-13 00:29:53.219 +07:00 [INF] Executed DbCommand (56ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [p].[Id], [p].[Code], [p].[DiscountAmount], [p].[DiscountPercentage], [p].[EndDate], [p].[IsActive], [p].[MaxUsage], [p].[StartDate], [p].[UsageCount]
+FROM [PromotionCodes] AS [p]
+WHERE [p].[IsActive] = CAST(1 AS bit) AND ([p].[StartDate] IS NULL OR [p].[StartDate] <= GETDATE()) AND ([p].[EndDate] IS NULL OR [p].[EndDate] >= GETDATE()) AND ([p].[MaxUsage] = 0 OR [p].[UsageCount] < [p].[MaxUsage])
+2025-05-13 00:29:53.252 +07:00 [INF] Executing ViewResult, running view Index.
+2025-05-13 00:29:53.374 +07:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [b].[BrandId], [b].[ImageUrl], [b].[Name]
+FROM [Brands] AS [b]
+2025-05-13 00:29:53.384 +07:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [c].[CategoryId], [c].[ImageUrl], [c].[Name]
+FROM [Categories] AS [c]
+2025-05-13 00:29:53.463 +07:00 [INF] Executed ViewResult - view Index executed in 211.2285ms.
+2025-05-13 00:29:53.473 +07:00 [INF] Executed action DoAnLTW.Controllers.HomeController.Index (DoAnLTW) in 1908.6312ms
+2025-05-13 00:29:53.476 +07:00 [INF] Executed endpoint 'DoAnLTW.Controllers.HomeController.Index (DoAnLTW)'
+2025-05-13 00:29:53.476 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/img/payments.png - null null
+2025-05-13 00:29:53.476 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/_framework/aspnetcore-browser-refresh.js - null null
+2025-05-13 00:29:53.481 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/_vs/browserLink - null null
+2025-05-13 00:29:53.484 +07:00 [INF] HTTP GET / responded 200 in 1973.4354 ms
+2025-05-13 00:29:53.537 +07:00 [INF] HTTP GET /img/payments.png responded 404 in 53.6501 ms
+2025-05-13 00:29:53.546 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/img/payments.png - 404 0 null 70.1386ms
+2025-05-13 00:29:53.547 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/_framework/aspnetcore-browser-refresh.js - 200 16499 application/javascript; charset=utf-8 69.3407ms
+2025-05-13 00:29:53.553 +07:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET https://localhost:5134/img/payments.png, Response status code: 404
+2025-05-13 00:29:53.555 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/ - 200 null text/html; charset=utf-8 2135.7494ms
+2025-05-13 00:29:53.589 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/_vs/browserLink - 200 null text/javascript; charset=UTF-8 108.3447ms
+2025-05-13 00:29:54.528 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/img/favicon.ico - null null
+2025-05-13 00:29:54.537 +07:00 [INF] HTTP GET /img/favicon.ico responded 404 in 5.8262 ms
+2025-05-13 00:29:54.540 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/img/favicon.ico - 404 0 null 12.2878ms
+2025-05-13 00:29:54.544 +07:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET https://localhost:5134/img/favicon.ico, Response status code: 404
+2025-05-13 00:31:56.135 +07:00 [INF] User profile is available. Using 'C:\Users\admin\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2025-05-13 00:31:56.576 +07:00 [INF] Now listening on: https://localhost:5134
+2025-05-13 00:31:56.606 +07:00 [INF] Application started. Press Ctrl+C to shut down.
+2025-05-13 00:31:56.608 +07:00 [INF] Hosting environment: Development
+2025-05-13 00:31:56.608 +07:00 [INF] Content root path: H:\DoAnCoSo\DoAnLTW
+2025-05-13 00:31:57.152 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/ - null null
+2025-05-13 00:31:57.299 +07:00 [INF] Executing endpoint 'DoAnLTW.Controllers.HomeController.Index (DoAnLTW)'
+2025-05-13 00:31:57.312 +07:00 [INF] Route matched with {action = "Index", controller = "Home", area = "", page = ""}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Index() on controller DoAnLTW.Controllers.HomeController (DoAnLTW).
+2025-05-13 00:31:59.477 +07:00 [INF] Executed DbCommand (183ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [c].[CategoryId], [c].[ImageUrl], [c].[Name]
+FROM [Categories] AS [c]
+2025-05-13 00:31:59.564 +07:00 [INF] Executed DbCommand (30ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [b].[BrandId], [b].[ImageUrl], [b].[Name]
+FROM [Brands] AS [b]
+2025-05-13 00:31:59.742 +07:00 [WRN] Compiling a query which loads related collections for more than one collection navigation, either via 'Include' or through projection, but no 'QuerySplittingBehavior' has been configured. By default, Entity Framework will use 'QuerySplittingBehavior.SingleQuery', which can potentially result in slow query performance. See https://go.microsoft.com/fwlink/?linkid=2134277 for more information. To identify the query that's triggering this warning call 'ConfigureWarnings(w => w.Throw(RelationalEventId.MultipleCollectionIncludeWarning))'.
+2025-05-13 00:32:00.062 +07:00 [INF] Executed DbCommand (298ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [p].[ProductId], [p].[BrandId], [p].[CategoryId], [p].[Description], [p].[Name], [c].[CategoryId], [c].[ImageUrl], [c].[Name], [b].[BrandId], [b].[ImageUrl], [b].[Name], [s0].[ProductId], [s0].[SizeId], [s0].[Price], [s0].[Stock], [s0].[SizeId0], [s0].[size], [p1].[Product_ImagesId], [p1].[ImageUrl], [p1].[ProductId]
+FROM [Products] AS [p]
+INNER JOIN [Categories] AS [c] ON [p].[CategoryId] = [c].[CategoryId]
+INNER JOIN [Brands] AS [b] ON [p].[BrandId] = [b].[BrandId]
+LEFT JOIN (
+    SELECT [p0].[ProductId], [p0].[SizeId], [p0].[Price], [p0].[Stock], [s].[SizeId] AS [SizeId0], [s].[size]
+    FROM [ProductSizes] AS [p0]
+    INNER JOIN [Sizes] AS [s] ON [p0].[SizeId] = [s].[SizeId]
+) AS [s0] ON [p].[ProductId] = [s0].[ProductId]
+LEFT JOIN [ProductImages] AS [p1] ON [p].[ProductId] = [p1].[ProductId]
+ORDER BY [p].[ProductId], [c].[CategoryId], [b].[BrandId], [s0].[ProductId], [s0].[SizeId], [s0].[SizeId0]
+2025-05-13 00:32:00.203 +07:00 [INF] Executed DbCommand (68ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [p].[Id], [p].[Code], [p].[DiscountAmount], [p].[DiscountPercentage], [p].[EndDate], [p].[IsActive], [p].[MaxUsage], [p].[StartDate], [p].[UsageCount]
+FROM [PromotionCodes] AS [p]
+WHERE [p].[IsActive] = CAST(1 AS bit) AND ([p].[StartDate] IS NULL OR [p].[StartDate] <= GETDATE()) AND ([p].[EndDate] IS NULL OR [p].[EndDate] >= GETDATE()) AND ([p].[MaxUsage] = 0 OR [p].[UsageCount] < [p].[MaxUsage])
+2025-05-13 00:32:00.230 +07:00 [INF] Executing ViewResult, running view Index.
+2025-05-13 00:32:00.419 +07:00 [INF] Executed DbCommand (3ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [b].[BrandId], [b].[ImageUrl], [b].[Name]
+FROM [Brands] AS [b]
+2025-05-13 00:32:00.429 +07:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [c].[CategoryId], [c].[ImageUrl], [c].[Name]
+FROM [Categories] AS [c]
+2025-05-13 00:32:00.533 +07:00 [INF] Executed ViewResult - view Index executed in 306.3245ms.
+2025-05-13 00:32:00.539 +07:00 [INF] Executed action DoAnLTW.Controllers.HomeController.Index (DoAnLTW) in 3221.0133ms
+2025-05-13 00:32:00.542 +07:00 [INF] Executed endpoint 'DoAnLTW.Controllers.HomeController.Index (DoAnLTW)'
+2025-05-13 00:32:00.547 +07:00 [INF] HTTP GET / responded 200 in 3289.2685 ms
+2025-05-13 00:32:00.558 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/ - 200 null text/html; charset=utf-8 3412.5431ms
+2025-05-13 00:32:00.623 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/_framework/aspnetcore-browser-refresh.js - null null
+2025-05-13 00:32:00.623 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/img/payments.png - null null
+2025-05-13 00:32:00.623 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/_vs/browserLink - null null
+2025-05-13 00:32:00.642 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/_framework/aspnetcore-browser-refresh.js - 200 16499 application/javascript; charset=utf-8 18.7044ms
+2025-05-13 00:32:00.645 +07:00 [INF] HTTP GET /img/payments.png responded 404 in 15.0639 ms
+2025-05-13 00:32:00.682 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/img/payments.png - 404 0 null 59.5005ms
+2025-05-13 00:32:00.689 +07:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET https://localhost:5134/img/payments.png, Response status code: 404
+2025-05-13 00:32:00.716 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/_vs/browserLink - 200 null text/javascript; charset=UTF-8 92.7978ms
+2025-05-13 00:32:01.532 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/img/favicon.ico - null null
+2025-05-13 00:32:01.540 +07:00 [INF] HTTP GET /img/favicon.ico responded 404 in 4.0855 ms
+2025-05-13 00:32:01.543 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/img/favicon.ico - 404 0 null 10.9484ms
+2025-05-13 00:32:01.548 +07:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET https://localhost:5134/img/favicon.ico, Response status code: 404
+2025-05-13 00:32:30.662 +07:00 [INF] User profile is available. Using 'C:\Users\admin\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2025-05-13 00:32:30.989 +07:00 [INF] Now listening on: https://localhost:5134
+2025-05-13 00:32:31.018 +07:00 [INF] Application started. Press Ctrl+C to shut down.
+2025-05-13 00:32:31.020 +07:00 [INF] Hosting environment: Development
+2025-05-13 00:32:31.021 +07:00 [INF] Content root path: H:\DoAnCoSo\DoAnLTW
+2025-05-13 00:32:31.673 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/ - null null
+2025-05-13 00:32:31.808 +07:00 [INF] Executing endpoint 'DoAnLTW.Controllers.HomeController.Index (DoAnLTW)'
+2025-05-13 00:32:31.823 +07:00 [INF] Route matched with {action = "Index", controller = "Home", area = "", page = ""}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Index() on controller DoAnLTW.Controllers.HomeController (DoAnLTW).
+2025-05-13 00:32:32.901 +07:00 [INF] Executed DbCommand (24ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [c].[CategoryId], [c].[ImageUrl], [c].[Name]
+FROM [Categories] AS [c]
+2025-05-13 00:32:32.963 +07:00 [INF] Executed DbCommand (4ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [b].[BrandId], [b].[ImageUrl], [b].[Name]
+FROM [Brands] AS [b]
+2025-05-13 00:32:33.088 +07:00 [WRN] Compiling a query which loads related collections for more than one collection navigation, either via 'Include' or through projection, but no 'QuerySplittingBehavior' has been configured. By default, Entity Framework will use 'QuerySplittingBehavior.SingleQuery', which can potentially result in slow query performance. See https://go.microsoft.com/fwlink/?linkid=2134277 for more information. To identify the query that's triggering this warning call 'ConfigureWarnings(w => w.Throw(RelationalEventId.MultipleCollectionIncludeWarning))'.
+2025-05-13 00:32:33.128 +07:00 [INF] Executed DbCommand (20ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [p].[ProductId], [p].[BrandId], [p].[CategoryId], [p].[Description], [p].[Name], [c].[CategoryId], [c].[ImageUrl], [c].[Name], [b].[BrandId], [b].[ImageUrl], [b].[Name], [s0].[ProductId], [s0].[SizeId], [s0].[Price], [s0].[Stock], [s0].[SizeId0], [s0].[size], [p1].[Product_ImagesId], [p1].[ImageUrl], [p1].[ProductId]
+FROM [Products] AS [p]
+INNER JOIN [Categories] AS [c] ON [p].[CategoryId] = [c].[CategoryId]
+INNER JOIN [Brands] AS [b] ON [p].[BrandId] = [b].[BrandId]
+LEFT JOIN (
+    SELECT [p0].[ProductId], [p0].[SizeId], [p0].[Price], [p0].[Stock], [s].[SizeId] AS [SizeId0], [s].[size]
+    FROM [ProductSizes] AS [p0]
+    INNER JOIN [Sizes] AS [s] ON [p0].[SizeId] = [s].[SizeId]
+) AS [s0] ON [p].[ProductId] = [s0].[ProductId]
+LEFT JOIN [ProductImages] AS [p1] ON [p].[ProductId] = [p1].[ProductId]
+ORDER BY [p].[ProductId], [c].[CategoryId], [b].[BrandId], [s0].[ProductId], [s0].[SizeId], [s0].[SizeId0]
+2025-05-13 00:32:33.221 +07:00 [INF] Executed DbCommand (7ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [p].[Id], [p].[Code], [p].[DiscountAmount], [p].[DiscountPercentage], [p].[EndDate], [p].[IsActive], [p].[MaxUsage], [p].[StartDate], [p].[UsageCount]
+FROM [PromotionCodes] AS [p]
+WHERE [p].[IsActive] = CAST(1 AS bit) AND ([p].[StartDate] IS NULL OR [p].[StartDate] <= GETDATE()) AND ([p].[EndDate] IS NULL OR [p].[EndDate] >= GETDATE()) AND ([p].[MaxUsage] = 0 OR [p].[UsageCount] < [p].[MaxUsage])
+2025-05-13 00:32:33.245 +07:00 [INF] Executing ViewResult, running view Index.
+2025-05-13 00:32:33.376 +07:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [b].[BrandId], [b].[ImageUrl], [b].[Name]
+FROM [Brands] AS [b]
+2025-05-13 00:32:33.399 +07:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [c].[CategoryId], [c].[ImageUrl], [c].[Name]
+FROM [Categories] AS [c]
+2025-05-13 00:32:33.489 +07:00 [INF] Executed ViewResult - view Index executed in 243.7925ms.
+2025-05-13 00:32:33.496 +07:00 [INF] Executed action DoAnLTW.Controllers.HomeController.Index (DoAnLTW) in 1669.8127ms
+2025-05-13 00:32:33.498 +07:00 [INF] Executed endpoint 'DoAnLTW.Controllers.HomeController.Index (DoAnLTW)'
+2025-05-13 00:32:33.502 +07:00 [INF] HTTP GET / responded 200 in 1733.7631 ms
+2025-05-13 00:32:33.514 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/ - 200 null text/html; charset=utf-8 1848.9869ms
+2025-05-13 00:32:33.575 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/img/payments.png - null null
+2025-05-13 00:32:33.575 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/_framework/aspnetcore-browser-refresh.js - null null
+2025-05-13 00:32:33.577 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/_vs/browserLink - null null
+2025-05-13 00:32:33.651 +07:00 [INF] HTTP GET /img/payments.png responded 404 in 72.6667 ms
+2025-05-13 00:32:33.695 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/_framework/aspnetcore-browser-refresh.js - 200 16499 application/javascript; charset=utf-8 120.1103ms
+2025-05-13 00:32:33.695 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/img/payments.png - 404 0 null 120.1896ms
+2025-05-13 00:32:33.720 +07:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET https://localhost:5134/img/payments.png, Response status code: 404
+2025-05-13 00:32:33.735 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/_vs/browserLink - 200 null text/javascript; charset=UTF-8 157.9099ms
+2025-05-13 00:32:34.317 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/img/favicon.ico - null null
+2025-05-13 00:32:34.324 +07:00 [INF] HTTP GET /img/favicon.ico responded 404 in 3.5404 ms
+2025-05-13 00:32:34.326 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/img/favicon.ico - 404 0 null 9.2085ms
+2025-05-13 00:32:34.331 +07:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET https://localhost:5134/img/favicon.ico, Response status code: 404
+2025-05-13 00:33:47.734 +07:00 [INF] User profile is available. Using 'C:\Users\admin\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2025-05-13 00:33:48.041 +07:00 [INF] Now listening on: https://localhost:5134
+2025-05-13 00:33:48.065 +07:00 [INF] Application started. Press Ctrl+C to shut down.
+2025-05-13 00:33:48.067 +07:00 [INF] Hosting environment: Development
+2025-05-13 00:33:48.067 +07:00 [INF] Content root path: H:\DoAnCoSo\DoAnLTW
+2025-05-13 00:33:48.841 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/ - null null
+2025-05-13 00:33:48.980 +07:00 [INF] Executing endpoint 'DoAnLTW.Controllers.HomeController.Index (DoAnLTW)'
+2025-05-13 00:33:48.991 +07:00 [INF] Route matched with {action = "Index", controller = "Home", area = "", page = ""}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Index() on controller DoAnLTW.Controllers.HomeController (DoAnLTW).
+2025-05-13 00:33:50.151 +07:00 [INF] Executed DbCommand (30ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [c].[CategoryId], [c].[ImageUrl], [c].[Name]
+FROM [Categories] AS [c]
+2025-05-13 00:33:50.211 +07:00 [INF] Executed DbCommand (3ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [b].[BrandId], [b].[ImageUrl], [b].[Name]
+FROM [Brands] AS [b]
+2025-05-13 00:33:50.335 +07:00 [WRN] Compiling a query which loads related collections for more than one collection navigation, either via 'Include' or through projection, but no 'QuerySplittingBehavior' has been configured. By default, Entity Framework will use 'QuerySplittingBehavior.SingleQuery', which can potentially result in slow query performance. See https://go.microsoft.com/fwlink/?linkid=2134277 for more information. To identify the query that's triggering this warning call 'ConfigureWarnings(w => w.Throw(RelationalEventId.MultipleCollectionIncludeWarning))'.
+2025-05-13 00:33:50.561 +07:00 [INF] Executed DbCommand (199ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [p].[ProductId], [p].[BrandId], [p].[CategoryId], [p].[Description], [p].[Name], [c].[CategoryId], [c].[ImageUrl], [c].[Name], [b].[BrandId], [b].[ImageUrl], [b].[Name], [s0].[ProductId], [s0].[SizeId], [s0].[Price], [s0].[Stock], [s0].[SizeId0], [s0].[size], [p1].[Product_ImagesId], [p1].[ImageUrl], [p1].[ProductId]
+FROM [Products] AS [p]
+INNER JOIN [Categories] AS [c] ON [p].[CategoryId] = [c].[CategoryId]
+INNER JOIN [Brands] AS [b] ON [p].[BrandId] = [b].[BrandId]
+LEFT JOIN (
+    SELECT [p0].[ProductId], [p0].[SizeId], [p0].[Price], [p0].[Stock], [s].[SizeId] AS [SizeId0], [s].[size]
+    FROM [ProductSizes] AS [p0]
+    INNER JOIN [Sizes] AS [s] ON [p0].[SizeId] = [s].[SizeId]
+) AS [s0] ON [p].[ProductId] = [s0].[ProductId]
+LEFT JOIN [ProductImages] AS [p1] ON [p].[ProductId] = [p1].[ProductId]
+ORDER BY [p].[ProductId], [c].[CategoryId], [b].[BrandId], [s0].[ProductId], [s0].[SizeId], [s0].[SizeId0]
+2025-05-13 00:33:50.729 +07:00 [INF] Executed DbCommand (69ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [p].[Id], [p].[Code], [p].[DiscountAmount], [p].[DiscountPercentage], [p].[EndDate], [p].[IsActive], [p].[MaxUsage], [p].[StartDate], [p].[UsageCount]
+FROM [PromotionCodes] AS [p]
+WHERE [p].[IsActive] = CAST(1 AS bit) AND ([p].[StartDate] IS NULL OR [p].[StartDate] <= GETDATE()) AND ([p].[EndDate] IS NULL OR [p].[EndDate] >= GETDATE()) AND ([p].[MaxUsage] = 0 OR [p].[UsageCount] < [p].[MaxUsage])
+2025-05-13 00:33:50.764 +07:00 [INF] Executing ViewResult, running view Index.
+2025-05-13 00:33:50.890 +07:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [b].[BrandId], [b].[ImageUrl], [b].[Name]
+FROM [Brands] AS [b]
+2025-05-13 00:33:50.922 +07:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [c].[CategoryId], [c].[ImageUrl], [c].[Name]
+FROM [Categories] AS [c]
+2025-05-13 00:33:50.975 +07:00 [INF] Executed ViewResult - view Index executed in 212.5791ms.
+2025-05-13 00:33:50.983 +07:00 [INF] Executed action DoAnLTW.Controllers.HomeController.Index (DoAnLTW) in 1989.0072ms
+2025-05-13 00:33:50.990 +07:00 [INF] Executed endpoint 'DoAnLTW.Controllers.HomeController.Index (DoAnLTW)'
+2025-05-13 00:33:50.996 +07:00 [INF] HTTP GET / responded 200 in 2058.8587 ms
+2025-05-13 00:33:51.013 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/ - 200 null text/html; charset=utf-8 2178.2914ms
+2025-05-13 00:33:51.101 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/_framework/aspnetcore-browser-refresh.js - null null
+2025-05-13 00:33:51.109 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/_framework/aspnetcore-browser-refresh.js - 200 16499 application/javascript; charset=utf-8 8.5932ms
+2025-05-13 00:33:51.129 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/img/payments.png - null null
+2025-05-13 00:33:51.136 +07:00 [INF] HTTP GET /img/payments.png responded 404 in 3.2809 ms
+2025-05-13 00:33:51.139 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/img/payments.png - 404 0 null 10.4059ms
+2025-05-13 00:33:51.144 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/_vs/browserLink - null null
+2025-05-13 00:33:51.144 +07:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET https://localhost:5134/img/payments.png, Response status code: 404
+2025-05-13 00:33:51.169 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/_vs/browserLink - 200 null text/javascript; charset=UTF-8 25.017ms
+2025-05-13 00:33:53.207 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/img/favicon.ico - null null
+2025-05-13 00:33:53.214 +07:00 [INF] HTTP GET /img/favicon.ico responded 404 in 2.6203 ms
+2025-05-13 00:33:53.217 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/img/favicon.ico - 404 0 null 10.2335ms
+2025-05-13 00:33:53.221 +07:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET https://localhost:5134/img/favicon.ico, Response status code: 404
+2025-05-13 00:34:36.422 +07:00 [INF] User profile is available. Using 'C:\Users\admin\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2025-05-13 00:34:36.726 +07:00 [INF] Now listening on: https://localhost:5134
+2025-05-13 00:34:36.749 +07:00 [INF] Application started. Press Ctrl+C to shut down.
+2025-05-13 00:34:36.752 +07:00 [INF] Hosting environment: Development
+2025-05-13 00:34:36.754 +07:00 [INF] Content root path: H:\DoAnCoSo\DoAnLTW
+2025-05-13 00:34:37.441 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/ - null null
+2025-05-13 00:34:37.561 +07:00 [INF] Executing endpoint 'DoAnLTW.Controllers.HomeController.Index (DoAnLTW)'
+2025-05-13 00:34:37.571 +07:00 [INF] Route matched with {action = "Index", controller = "Home", area = "", page = ""}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Index() on controller DoAnLTW.Controllers.HomeController (DoAnLTW).
+2025-05-13 00:34:38.634 +07:00 [INF] Executed DbCommand (30ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [c].[CategoryId], [c].[ImageUrl], [c].[Name]
+FROM [Categories] AS [c]
+2025-05-13 00:34:38.697 +07:00 [INF] Executed DbCommand (5ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [b].[BrandId], [b].[ImageUrl], [b].[Name]
+FROM [Brands] AS [b]
+2025-05-13 00:34:38.823 +07:00 [WRN] Compiling a query which loads related collections for more than one collection navigation, either via 'Include' or through projection, but no 'QuerySplittingBehavior' has been configured. By default, Entity Framework will use 'QuerySplittingBehavior.SingleQuery', which can potentially result in slow query performance. See https://go.microsoft.com/fwlink/?linkid=2134277 for more information. To identify the query that's triggering this warning call 'ConfigureWarnings(w => w.Throw(RelationalEventId.MultipleCollectionIncludeWarning))'.
+2025-05-13 00:34:38.868 +07:00 [INF] Executed DbCommand (21ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [p].[ProductId], [p].[BrandId], [p].[CategoryId], [p].[Description], [p].[Name], [c].[CategoryId], [c].[ImageUrl], [c].[Name], [b].[BrandId], [b].[ImageUrl], [b].[Name], [s0].[ProductId], [s0].[SizeId], [s0].[Price], [s0].[Stock], [s0].[SizeId0], [s0].[size], [p1].[Product_ImagesId], [p1].[ImageUrl], [p1].[ProductId]
+FROM [Products] AS [p]
+INNER JOIN [Categories] AS [c] ON [p].[CategoryId] = [c].[CategoryId]
+INNER JOIN [Brands] AS [b] ON [p].[BrandId] = [b].[BrandId]
+LEFT JOIN (
+    SELECT [p0].[ProductId], [p0].[SizeId], [p0].[Price], [p0].[Stock], [s].[SizeId] AS [SizeId0], [s].[size]
+    FROM [ProductSizes] AS [p0]
+    INNER JOIN [Sizes] AS [s] ON [p0].[SizeId] = [s].[SizeId]
+) AS [s0] ON [p].[ProductId] = [s0].[ProductId]
+LEFT JOIN [ProductImages] AS [p1] ON [p].[ProductId] = [p1].[ProductId]
+ORDER BY [p].[ProductId], [c].[CategoryId], [b].[BrandId], [s0].[ProductId], [s0].[SizeId], [s0].[SizeId0]
+2025-05-13 00:34:38.960 +07:00 [INF] Executed DbCommand (6ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [p].[Id], [p].[Code], [p].[DiscountAmount], [p].[DiscountPercentage], [p].[EndDate], [p].[IsActive], [p].[MaxUsage], [p].[StartDate], [p].[UsageCount]
+FROM [PromotionCodes] AS [p]
+WHERE [p].[IsActive] = CAST(1 AS bit) AND ([p].[StartDate] IS NULL OR [p].[StartDate] <= GETDATE()) AND ([p].[EndDate] IS NULL OR [p].[EndDate] >= GETDATE()) AND ([p].[MaxUsage] = 0 OR [p].[UsageCount] < [p].[MaxUsage])
+2025-05-13 00:34:38.987 +07:00 [INF] Executing ViewResult, running view Index.
+2025-05-13 00:34:39.105 +07:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [b].[BrandId], [b].[ImageUrl], [b].[Name]
+FROM [Brands] AS [b]
+2025-05-13 00:34:39.117 +07:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [c].[CategoryId], [c].[ImageUrl], [c].[Name]
+FROM [Categories] AS [c]
+2025-05-13 00:34:39.165 +07:00 [INF] Executed ViewResult - view Index executed in 173.0004ms.
+2025-05-13 00:34:39.177 +07:00 [INF] Executed action DoAnLTW.Controllers.HomeController.Index (DoAnLTW) in 1603.2337ms
+2025-05-13 00:34:39.179 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/_framework/aspnetcore-browser-refresh.js - null null
+2025-05-13 00:34:39.179 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/img/payments.png - null null
+2025-05-13 00:34:39.179 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/_vs/browserLink - null null
+2025-05-13 00:34:39.180 +07:00 [INF] Executed endpoint 'DoAnLTW.Controllers.HomeController.Index (DoAnLTW)'
+2025-05-13 00:34:39.222 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/_framework/aspnetcore-browser-refresh.js - 200 16499 application/javascript; charset=utf-8 43.5134ms
+2025-05-13 00:34:39.231 +07:00 [INF] HTTP GET / responded 200 in 1706.2890 ms
+2025-05-13 00:34:39.231 +07:00 [INF] HTTP GET /img/payments.png responded 404 in 8.2684 ms
+2025-05-13 00:34:39.244 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/img/payments.png - 404 0 null 65.2264ms
+2025-05-13 00:34:39.252 +07:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET https://localhost:5134/img/payments.png, Response status code: 404
+2025-05-13 00:34:39.255 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/ - 200 null text/html; charset=utf-8 1820.6192ms
+2025-05-13 00:34:39.265 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/_vs/browserLink - 200 null text/javascript; charset=UTF-8 86.2109ms
+2025-05-13 00:34:39.844 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/img/favicon.ico - null null
+2025-05-13 00:34:39.854 +07:00 [INF] HTTP GET /img/favicon.ico responded 404 in 3.8855 ms
+2025-05-13 00:34:39.857 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/img/favicon.ico - 404 0 null 13.3082ms
+2025-05-13 00:34:39.862 +07:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET https://localhost:5134/img/favicon.ico, Response status code: 404
+2025-05-13 00:36:54.006 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/ - null null
+2025-05-13 00:36:54.025 +07:00 [INF] Executing endpoint 'DoAnLTW.Controllers.HomeController.Index (DoAnLTW)'
+2025-05-13 00:36:54.031 +07:00 [INF] Route matched with {action = "Index", controller = "Home", area = "", page = ""}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Index() on controller DoAnLTW.Controllers.HomeController (DoAnLTW).
+2025-05-13 00:36:54.069 +07:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [c].[CategoryId], [c].[ImageUrl], [c].[Name]
+FROM [Categories] AS [c]
+2025-05-13 00:36:54.074 +07:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [b].[BrandId], [b].[ImageUrl], [b].[Name]
+FROM [Brands] AS [b]
+2025-05-13 00:36:54.100 +07:00 [INF] Executed DbCommand (16ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [p].[ProductId], [p].[BrandId], [p].[CategoryId], [p].[Description], [p].[Name], [c].[CategoryId], [c].[ImageUrl], [c].[Name], [b].[BrandId], [b].[ImageUrl], [b].[Name], [s0].[ProductId], [s0].[SizeId], [s0].[Price], [s0].[Stock], [s0].[SizeId0], [s0].[size], [p1].[Product_ImagesId], [p1].[ImageUrl], [p1].[ProductId]
+FROM [Products] AS [p]
+INNER JOIN [Categories] AS [c] ON [p].[CategoryId] = [c].[CategoryId]
+INNER JOIN [Brands] AS [b] ON [p].[BrandId] = [b].[BrandId]
+LEFT JOIN (
+    SELECT [p0].[ProductId], [p0].[SizeId], [p0].[Price], [p0].[Stock], [s].[SizeId] AS [SizeId0], [s].[size]
+    FROM [ProductSizes] AS [p0]
+    INNER JOIN [Sizes] AS [s] ON [p0].[SizeId] = [s].[SizeId]
+) AS [s0] ON [p].[ProductId] = [s0].[ProductId]
+LEFT JOIN [ProductImages] AS [p1] ON [p].[ProductId] = [p1].[ProductId]
+ORDER BY [p].[ProductId], [c].[CategoryId], [b].[BrandId], [s0].[ProductId], [s0].[SizeId], [s0].[SizeId0]
+2025-05-13 00:36:54.123 +07:00 [INF] Executed DbCommand (4ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [p].[Id], [p].[Code], [p].[DiscountAmount], [p].[DiscountPercentage], [p].[EndDate], [p].[IsActive], [p].[MaxUsage], [p].[StartDate], [p].[UsageCount]
+FROM [PromotionCodes] AS [p]
+WHERE [p].[IsActive] = CAST(1 AS bit) AND ([p].[StartDate] IS NULL OR [p].[StartDate] <= GETDATE()) AND ([p].[EndDate] IS NULL OR [p].[EndDate] >= GETDATE()) AND ([p].[MaxUsage] = 0 OR [p].[UsageCount] < [p].[MaxUsage])
+2025-05-13 00:36:54.129 +07:00 [INF] Executing ViewResult, running view Index.
+2025-05-13 00:36:54.181 +07:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [b].[BrandId], [b].[ImageUrl], [b].[Name]
+FROM [Brands] AS [b]
+2025-05-13 00:36:54.185 +07:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [c].[CategoryId], [c].[ImageUrl], [c].[Name]
+FROM [Categories] AS [c]
+2025-05-13 00:36:54.250 +07:00 [INF] Executed ViewResult - view Index executed in 122.5943ms.
+2025-05-13 00:36:54.254 +07:00 [INF] Executed action DoAnLTW.Controllers.HomeController.Index (DoAnLTW) in 220.3536ms
+2025-05-13 00:36:54.256 +07:00 [INF] Executed endpoint 'DoAnLTW.Controllers.HomeController.Index (DoAnLTW)'
+2025-05-13 00:36:54.258 +07:00 [INF] HTTP GET / responded 200 in 233.0043 ms
+2025-05-13 00:36:54.260 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/ - 200 null text/html; charset=utf-8 254.13ms
+2025-05-13 00:36:54.272 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/img/payments.png - null null
+2025-05-13 00:36:54.276 +07:00 [INF] HTTP GET /img/payments.png responded 404 in 0.3987 ms
+2025-05-13 00:36:54.280 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/img/payments.png - 404 0 null 7.8845ms
+2025-05-13 00:36:54.286 +07:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET https://localhost:5134/img/payments.png, Response status code: 404
+2025-05-13 00:36:54.288 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/_vs/browserLink - null null
+2025-05-13 00:36:54.288 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/_framework/aspnetcore-browser-refresh.js - null null
+2025-05-13 00:36:54.298 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/_framework/aspnetcore-browser-refresh.js - 200 16499 application/javascript; charset=utf-8 9.853ms
+2025-05-13 00:36:54.302 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/_vs/browserLink - 200 null text/javascript; charset=UTF-8 13.898ms
+2025-05-13 00:36:54.303 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/img/payments.png - null null
+2025-05-13 00:36:54.311 +07:00 [INF] HTTP GET /img/payments.png responded 404 in 1.1232 ms
+2025-05-13 00:36:54.314 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/img/payments.png - 404 0 null 11.5539ms
+2025-05-13 00:36:54.318 +07:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET https://localhost:5134/img/payments.png, Response status code: 404
+2025-05-13 00:37:16.223 +07:00 [INF] User profile is available. Using 'C:\Users\admin\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2025-05-13 00:37:16.531 +07:00 [INF] Now listening on: https://localhost:5134
+2025-05-13 00:37:16.554 +07:00 [INF] Application started. Press Ctrl+C to shut down.
+2025-05-13 00:37:16.557 +07:00 [INF] Hosting environment: Development
+2025-05-13 00:37:16.559 +07:00 [INF] Content root path: H:\DoAnCoSo\DoAnLTW
+2025-05-13 00:37:17.145 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/ - null null
+2025-05-13 00:37:17.315 +07:00 [INF] Executing endpoint 'DoAnLTW.Controllers.HomeController.Index (DoAnLTW)'
+2025-05-13 00:37:17.325 +07:00 [INF] Route matched with {action = "Index", controller = "Home", area = "", page = ""}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Index() on controller DoAnLTW.Controllers.HomeController (DoAnLTW).
+2025-05-13 00:37:18.334 +07:00 [INF] Executed DbCommand (25ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [c].[CategoryId], [c].[ImageUrl], [c].[Name]
+FROM [Categories] AS [c]
+2025-05-13 00:37:18.393 +07:00 [INF] Executed DbCommand (3ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [b].[BrandId], [b].[ImageUrl], [b].[Name]
+FROM [Brands] AS [b]
+2025-05-13 00:37:18.515 +07:00 [WRN] Compiling a query which loads related collections for more than one collection navigation, either via 'Include' or through projection, but no 'QuerySplittingBehavior' has been configured. By default, Entity Framework will use 'QuerySplittingBehavior.SingleQuery', which can potentially result in slow query performance. See https://go.microsoft.com/fwlink/?linkid=2134277 for more information. To identify the query that's triggering this warning call 'ConfigureWarnings(w => w.Throw(RelationalEventId.MultipleCollectionIncludeWarning))'.
+2025-05-13 00:37:18.554 +07:00 [INF] Executed DbCommand (19ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [p].[ProductId], [p].[BrandId], [p].[CategoryId], [p].[Description], [p].[Name], [c].[CategoryId], [c].[ImageUrl], [c].[Name], [b].[BrandId], [b].[ImageUrl], [b].[Name], [s0].[ProductId], [s0].[SizeId], [s0].[Price], [s0].[Stock], [s0].[SizeId0], [s0].[size], [p1].[Product_ImagesId], [p1].[ImageUrl], [p1].[ProductId]
+FROM [Products] AS [p]
+INNER JOIN [Categories] AS [c] ON [p].[CategoryId] = [c].[CategoryId]
+INNER JOIN [Brands] AS [b] ON [p].[BrandId] = [b].[BrandId]
+LEFT JOIN (
+    SELECT [p0].[ProductId], [p0].[SizeId], [p0].[Price], [p0].[Stock], [s].[SizeId] AS [SizeId0], [s].[size]
+    FROM [ProductSizes] AS [p0]
+    INNER JOIN [Sizes] AS [s] ON [p0].[SizeId] = [s].[SizeId]
+) AS [s0] ON [p].[ProductId] = [s0].[ProductId]
+LEFT JOIN [ProductImages] AS [p1] ON [p].[ProductId] = [p1].[ProductId]
+ORDER BY [p].[ProductId], [c].[CategoryId], [b].[BrandId], [s0].[ProductId], [s0].[SizeId], [s0].[SizeId0]
+2025-05-13 00:37:18.642 +07:00 [INF] Executed DbCommand (5ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [p].[Id], [p].[Code], [p].[DiscountAmount], [p].[DiscountPercentage], [p].[EndDate], [p].[IsActive], [p].[MaxUsage], [p].[StartDate], [p].[UsageCount]
+FROM [PromotionCodes] AS [p]
+WHERE [p].[IsActive] = CAST(1 AS bit) AND ([p].[StartDate] IS NULL OR [p].[StartDate] <= GETDATE()) AND ([p].[EndDate] IS NULL OR [p].[EndDate] >= GETDATE()) AND ([p].[MaxUsage] = 0 OR [p].[UsageCount] < [p].[MaxUsage])
+2025-05-13 00:37:18.667 +07:00 [INF] Executing ViewResult, running view Index.
+2025-05-13 00:37:18.777 +07:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [b].[BrandId], [b].[ImageUrl], [b].[Name]
+FROM [Brands] AS [b]
+2025-05-13 00:37:18.784 +07:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [c].[CategoryId], [c].[ImageUrl], [c].[Name]
+FROM [Categories] AS [c]
+2025-05-13 00:37:18.853 +07:00 [INF] Executed ViewResult - view Index executed in 188.1957ms.
+2025-05-13 00:37:18.861 +07:00 [INF] Executed action DoAnLTW.Controllers.HomeController.Index (DoAnLTW) in 1532.3136ms
+2025-05-13 00:37:18.863 +07:00 [INF] Executed endpoint 'DoAnLTW.Controllers.HomeController.Index (DoAnLTW)'
+2025-05-13 00:37:18.869 +07:00 [INF] HTTP GET / responded 200 in 1593.5213 ms
+2025-05-13 00:37:18.878 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/ - 200 null text/html; charset=utf-8 1738.8196ms
+2025-05-13 00:37:18.920 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/img/payments.png - null null
+2025-05-13 00:37:18.920 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/_framework/aspnetcore-browser-refresh.js - null null
+2025-05-13 00:37:18.920 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/_vs/browserLink - null null
+2025-05-13 00:37:18.931 +07:00 [INF] HTTP GET /img/payments.png responded 404 in 6.7569 ms
+2025-05-13 00:37:18.938 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/_framework/aspnetcore-browser-refresh.js - 200 16499 application/javascript; charset=utf-8 18.1396ms
+2025-05-13 00:37:18.940 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/img/payments.png - 404 0 null 19.7066ms
+2025-05-13 00:37:18.956 +07:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET https://localhost:5134/img/payments.png, Response status code: 404
+2025-05-13 00:37:18.973 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/_vs/browserLink - 200 null text/javascript; charset=UTF-8 52.8087ms
+2025-05-13 00:37:19.722 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/img/favicon.ico - null null
+2025-05-13 00:37:19.729 +07:00 [INF] HTTP GET /img/favicon.ico responded 404 in 2.5900 ms
+2025-05-13 00:37:19.733 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/img/favicon.ico - 404 0 null 10.1696ms
+2025-05-13 00:37:19.737 +07:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET https://localhost:5134/img/favicon.ico, Response status code: 404

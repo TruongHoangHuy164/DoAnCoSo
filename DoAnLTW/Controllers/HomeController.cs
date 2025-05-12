@@ -63,6 +63,13 @@ namespace DoAnLTW.Controllers
                     .OrderByDescending(p => p.Product.ProductId)
                     .Take(4)
                     .ToList();
+                // Lấy danh sách mã khuyến mãi hợp lệ
+                var promotionCodes = await _context.PromotionCodes
+                    .Where(p => p.IsActive &&
+                                (p.StartDate == null || p.StartDate <= DateTime.Now) &&
+                                (p.EndDate == null || p.EndDate >= DateTime.Now) &&
+                                (p.MaxUsage == 0 || p.UsageCount < p.MaxUsage))
+                    .ToListAsync();
 
                 // Tạo ViewModel
                 var viewModel = new HomeViewModel
@@ -71,7 +78,8 @@ namespace DoAnLTW.Controllers
                     Brands = brandList,        // Assign List<Brand>
                     Products = productsWithMinPrice.Select(p => p.Product).ToList(), // Lấy tối đa 8 sản phẩm nổi bật
                     RecentProducts = recentProducts.Select(p => p.Product).ToList(), // 4 sản phẩm mới nhất
-                    ProductsWithMinPrice = productsWithMinPrice // Include products with their minimum prices
+                    ProductsWithMinPrice = productsWithMinPrice, // Include products with their minimum prices
+                     PromotionCodes = promotionCodes
                 };
 
                 return View(viewModel);
