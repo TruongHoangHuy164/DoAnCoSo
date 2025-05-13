@@ -1,81 +1,4 @@
-﻿@* @model dynamic
-@{
-    ViewData["Title"] = "Chat với Nhân viên";
-    Layout = "~/Views/Shared/_LayoutHome.cshtml";
-}
-
-<h2>Chat với @ViewBag.EmployeeName</h2>
-
-@if (ViewBag.ErrorMessage != null)
-{
-    <div class="alert alert-warning">@ViewBag.ErrorMessage</div>
-}
-else
-{
-    <div class="chat-container">
-        <div id="messageList" class="chat-box"></div>
-        <div class="input-group">
-            <input type="text" id="messageInput" class="form-control" placeholder="Nhập tin nhắn..." />
-            <button onclick="sendMessage()" class="btn btn-primary">Gửi</button>
-        </div>
-    </div>
-}
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/6.0.0/signalr.min.js"></script>
-<script>
-    const connection = new signalR.HubConnectionBuilder()
-        .withUrl("/chatHub")
-        .build();
-
-    connection.on("ReceiveMessage", (senderId, senderName, content, timestamp) => {
-        const msg = `<p><strong>${senderName}</strong> (${new Date(timestamp).toLocaleString()}): ${content}</p>`;
-        document.getElementById("messageList").innerHTML += msg;
-        document.getElementById("messageList").scrollTop = document.getElementById("messageList").scrollHeight;
-    });
-
-    connection.on("LoadConversation", messages => {
-        const messageList = document.getElementById("messageList");
-        messageList.innerHTML = "";
-        messages.forEach(m => {
-            const msg = `<p><strong>${m.senderName}</strong> (${new Date(m.timestamp).toLocaleString()}): ${m.content}</p>`;
-            messageList.innerHTML += msg;
-        });
-        messageList.scrollTop = messageList.scrollHeight;
-    });
-
-    connection.start().then(() => {
-        // Tải lịch sử trò chuyện với nhân viên
-        connection.invoke("GetConversation", "@ViewBag.EmployeeId").catch(err => console.error(err));
-    }).catch(err => console.error(err));
-
-    function sendMessage() {
-        const message = document.getElementById("messageInput").value;
-        if (message.trim() !== "") {
-            connection.invoke("SendMessage", "@ViewBag.EmployeeId", message).catch(err => console.error(err));
-            document.getElementById("messageInput").value = "";
-        }
-    }
-</script>
-
-<style>
-    .chat-container {
-        max-width: 600px;
-        margin: 0 auto;
-    }
-
-    .chat-box {
-        height: 400px;
-        overflow-y: auto;
-        border: 1px solid #ccc;
-        padding: 10px;
-    }
-
-    .input-group {
-        margin-top: 10px;
-    }
-</style> *@
-
-            @model dynamic
+﻿@model dynamic
 @{
     ViewData["Title"] = "Chat với Nhân viên";
     Layout = "~/Views/Shared/_LayoutHome.cshtml";
@@ -83,7 +6,7 @@ else
 
 <div class="container mt-4">
     <h2 class="text-center mb-4" style="color: #ff6f9c; font-weight: bold;">
-        <i class="fas fa-comments me-2"></i> Chat với @ViewBag.EmployeeName
+        <i class="fas fa-comments me-2"></i> Chăm sóc khách hàng
     </h2>
 
     @if (ViewBag.ErrorMessage != null)
@@ -122,7 +45,7 @@ else
     connection.on("ReceiveMessage", (senderId, senderName, content, timestamp) => {
         const isCurrentUser = senderId === "@ViewBag.EmployeeId";
         const msg = `
-            <div class="message ${isCurrentUser ? 'message-right' : 'message-left'}">
+            <div class="message ${isCurrentUser ? 'message-left' : 'message-right'}">
                 <div class="message-bubble">
                     <strong>${senderName}</strong>
                     <p>${content}</p>
@@ -139,7 +62,7 @@ else
         messages.forEach(m => {
             const isCurrentUser = m.senderId === "@ViewBag.EmployeeId";
             const msg = `
-                <div class="message ${isCurrentUser ? 'message-right' : 'message-left'}">
+                <div class="message ${isCurrentUser ? 'message-left' : 'message-right'}">
                     <div class="message-bubble">
                         <strong>${m.senderName}</strong>
                         <p>${m.content}</p>
@@ -196,7 +119,7 @@ else
         document.getElementById("messageInput").value = "";
     }
 </script>
-
+@* 
 <style>
     .chat-container {
         max-width: 700px;
@@ -289,4 +212,179 @@ else
             height: 400px;
         }
     }
-</style>
+</style> *@
+
+<style>
+    .chat-container {
+        max-width: 700px;
+        margin: 0 auto;
+        background: linear-gradient(135deg, #ffe6f0, #e6f3ff); /* Soft pink-to-blue gradient */
+        border-radius: 20px;
+        padding: 25px;
+        border: 2px solid #ffd1dc; /* Light pink border */
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .chat-box {
+        height: 500px;
+        overflow-y: auto;
+        background: #fff7f9; /* Very light pink */
+        border-radius: 15px;
+        padding: 20px;
+        margin-bottom: 20px;
+        border: 1px dashed #ffccd5; /* Dashed border for playfulness */
+        background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30"><path fill="%23ffd1dc" d="M10 20a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm10 0a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm-5-5a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/></svg>'); /* Paw print pattern */
+        background-repeat: repeat;
+        background-size: 30px;
+    }
+
+    .chat-input .form-control {
+        border-radius: 25px;
+        border: 2px solid #ffd1dc;
+        padding: 12px 20px;
+        font-family: 'Comic Sans MS', 'Chalkboard SE', sans-serif; /* Playful font */
+        background: #fff;
+        transition: border-color 0.3s;
+    }
+
+        .chat-input .form-control:focus {
+            border-color: #ff99ac;
+            box-shadow: 0 0 5px rgba(255, 153, 172, 0.5);
+        }
+
+    .chat-input .btn-primary {
+        border-radius: 25px;
+        background: #ff99ac; /* Bright pink */
+        border: none;
+        padding: 12px 25px;
+        font-family: 'Comic Sans MS', 'Chalkboard SE', sans-serif;
+        color: #fff;
+        transition: background 0.3s, transform 0.2s;
+        position: relative;
+        overflow: hidden;
+    }
+
+        .chat-input .btn-primary:hover {
+            background: #ff8099;
+            transform: scale(1.05); /* Slight bounce effect */
+        }
+
+        .chat-input .btn-primary::after {
+            content: '🐾'; /* Paw emoji */
+            position: absolute;
+            right: 10px;
+            font-size: 14px;
+            opacity: 0.7;
+        }
+
+    .message {
+        display: flex;
+        margin: 12px 0;
+        animation: slideIn 0.3s ease; /* Subtle slide-in animation */
+    }
+
+    .message-left {
+        justify-content: flex-start;
+    }
+
+    .message-right {
+        justify-content: flex-end;
+    }
+
+    .message-bubble {
+        max-width: 70%;
+        padding: 12px 18px;
+        border-radius: 18px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        position: relative;
+        font-family: 'Comic Sans MS', 'Chalkboard SE', sans-serif;
+    }
+
+    .message-left .message-bubble {
+        background: #d4f1ff; /* Light blue for left messages */
+        border-bottom-left-radius: 5px;
+    }
+
+    .message-right .message-bubble {
+        background: #ffe6e6; /* Light pink for right messages */
+        border-bottom-right-radius: 5px;
+    }
+
+    .message-bubble::before {
+        content: '🐶'; /* Dog emoji for left, cat for right */
+        position: absolute;
+        top: -15px;
+        left: 10px;
+        font-size: 16px;
+        opacity: 0.6;
+    }
+
+    .message-right .message-bubble::before {
+        content: '🐱';
+        left: auto;
+        right: 10px;
+    }
+
+    .message-bubble strong {
+        font-size: 14px;
+        color: #4a4a4a;
+        display: block;
+    }
+
+    .message-bubble p {
+        margin: 6px 0;
+        font-size: 16px;
+        color: #333;
+    }
+
+    .message-bubble small {
+        font-size: 12px;
+        color: #888;
+        display: block;
+        text-align: right;
+    }
+
+    /* Animation for messages */
+    @@keyframes slideIn {
+        from
+
+    {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    }
+
+    /* Responsive */
+    @@media (max-width: 576px) {
+        .chat-container
+
+    {
+        padding: 15px;
+        border-radius: 15px;
+    }
+
+    .chat-box {
+        height: 400px;
+        padding: 15px;
+    }
+
+    .chat-input .form-control {
+        padding: 10px 15px;
+    }
+
+    .chat-input .btn-primary {
+        padding: 10px 20px;
+    }
+
+    .message-bubble {
+        max-width: 80%;
+        padding: 10px 15px;
+    }
+
+    }</style>
