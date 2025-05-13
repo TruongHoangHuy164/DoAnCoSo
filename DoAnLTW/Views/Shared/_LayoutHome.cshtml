@@ -101,12 +101,13 @@
                                 {
                                     <h6 class="dropdown-header">Xin chào, @User.Identity.Name!</h6>
                                     <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item" href="#">
+                                    <a class="dropdown-item" form asp-area="Identity" asp-page="/Account/Manage">
                                         <i class="fas fa-user-circle mr-2"></i>Thông tin tài khoản
                                     </a>
-                                    <a class="dropdown-item" href="#">
+                                    <a class="dropdown-item" asp-controller="HistoryOrder" asp-action="OrderHistory">
                                         <i class="fas fa-shopping-bag mr-2"></i>Đơn hàng của tôi
                                     </a>
+
                                     <div class="dropdown-divider"></div>
                                     <form asp-controller="Account" asp-action="Logout" method="post">
                                         <button type="submit" class="dropdown-item text-danger">
@@ -230,7 +231,7 @@
                         </button>
                         <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                             <div class="navbar-nav mr-auto py-0">
-                                <a asp-controller="Home" asp-action="Index" class="nav-item nav-link">Trang chủ</a>
+                                <a href="https://localhost:5134/" class="nav-item nav-link">Trang chủ</a>
                                 <a asp-controller="Shop" asp-action="Index" class="nav-item nav-link">Sản phẩm</a>
                                 <a asp-controller="Contact" asp-action="Index" class="nav-item nav-link">Liên hệ</a>
                                 <a asp-controller="CustomerChat" asp-action="Index" class="nav-item nav-link">Hỗ trợ Khách Hàng</a>

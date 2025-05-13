@@ -5,8 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DoAnLTW.Areas.Admin.Controllers
 {
-
-    [Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Admin,Employee")]
     [Area("Admin")]
     [Route("Admin/[controller]/[action]")]
     public class PromotionCodeController : Controller

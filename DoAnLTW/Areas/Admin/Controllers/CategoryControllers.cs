@@ -1,5 +1,6 @@
 ﻿using DoAnLTW.Models;
 using DoAnLTW.Models.Repositories;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -11,6 +12,7 @@ using System.Threading.Tasks;
 namespace DoAnLTW.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize(Roles = "Admin,Employee")]
     public class CategoryController : Controller
     {
         private readonly ICategoryRepository _categoryRepository;

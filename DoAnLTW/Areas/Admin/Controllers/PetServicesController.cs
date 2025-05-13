@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 namespace DoAnLTW.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    [Authorize(Roles = "Admin,Staff")]
+    [Authorize(Roles = "Admin,Employee")]
     public class PetServicesController : Controller
     {
         private readonly IPetServiceRepository _petServiceRepository;

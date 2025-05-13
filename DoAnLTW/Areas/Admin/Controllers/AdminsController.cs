@@ -87,5 +87,6 @@ namespace DoAnLTW.Areas.Admin.Controllers
             public string UserId { get; set; }
             public string Role { get; set; }
         }
+      
     }
 }

@@ -206,7 +206,8 @@
                                     var statuses = new[] {
                             new { Value = "ChoXuLy", Text = "Chờ xử lý", Selected = order.value.Status == DoAnLTW.Models.OrderStatus.ChoXuLy },
                             new { Value = "DangGiaoHang", Text = "Đang giao hàng", Selected = order.value.Status == DoAnLTW.Models.OrderStatus.DangGiaoHang },
-                            new { Value = "DaGiaoHang", Text = "Đã giao hàng", Selected = order.value.Status == DoAnLTW.Models.OrderStatus.DaGiaoHang }
+                            new { Value = "DaGiaoHang", Text = "Đã giao hàng", Selected = order.value.Status == DoAnLTW.Models.OrderStatus.DaGiaoHang },
+                            new { Value = "DaHuy", Text = "Đã hủy", Selected = order.value.Status == DoAnLTW.Models.OrderStatus.DaHuy }
                             };
                                     foreach (var status in statuses)
                                     {

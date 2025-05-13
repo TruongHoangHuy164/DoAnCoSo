@@ -1,0 +1,81 @@
+﻿@page
+@model DoAnLTW.Areas.Identity.Pages.Account.AccessDeniedModel
+@{
+    ViewData["Title"] = "Truy Cập Bị Từ Chối";
+    Layout = null; // Tắt layout để tránh hiển thị footer và header không mong muốn
+}
+
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData["Title"]</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #ff6b6b, #ff8e53);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            color: #fff;
+            overflow: hidden; /* Ngăn cuộn nếu layout gây tràn */
+        }
+
+        .container {
+            text-align: center;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(10px);
+            max-width: 500px;
+            position: relative; /* Đảm bảo container không bị ảnh hưởng bởi layout */
+        }
+
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            color: #fff;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        p {
+            font-size: 1.2em;
+            margin-bottom: 30px;
+            color: #f0f0f0;
+        }
+
+        a {
+            text-decoration: none;
+            color: #fff;
+            background: #ff4757;
+            padding: 12px 25px;
+            border-radius: 25px;
+            font-weight: bold;
+            transition: background 0.3s ease;
+            display: inline-block; /* Đảm bảo nút hiển thị đúng */
+        }
+
+            a:hover {
+                background: #e04050;
+            }
+
+        .icon {
+            font-size: 3em;
+            margin-bottom: 20px;
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="icon">🔒</div>
+        <h1>Truy Cập Bị Từ Chối</h1>
+        <p>Xin lỗi, bạn không có quyền truy cập vào trang web này. Vui lòng quay lại hoặc liên hệ quản trị viên để biết thêm chi tiết.</p>
+        <a href="/">Quay Lại Trang Chủ</a>
+    </div>
+</body>
+</html>

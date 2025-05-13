@@ -7,21 +7,16 @@
     {
         var user = await UserManager.GetUserAsync(User);
         var roles = await UserManager.GetRolesAsync(user);
-
-        if (roles.Contains("Admin")) // Nếu là Admin
+        @if (roles.Contains("Admin") || roles.Contains("Employee")) // Nếu là Admin hoặc Employee
         {
             <li class="nav-item nav-profile dropdown">
                 <a class="nav-link dropdown-toggle" id="profileDropdown" href="#" data-bs-toggle="dropdown" aria-expanded="false">
-                    <div class="nav-profile-img">
-                        <img src="~/LayoutAdmin/assets/images/faces/face1.jpg" alt="image">
-                        <span class="availability-status online"></span>
-                    </div>
                     <div class="nav-profile-text">
                         <p class="mb-1 text-black">@user.UserName</p>
                     </div>
                 </a>
                 <div class="dropdown-menu navbar-dropdown" aria-labelledby="profileDropdown">
-                    <a class="dropdown-item" asp-area="" asp-controller="Account" asp-action="Manage">
+                    <a class="dropdown-item" form asp-area="Identity" asp-page="/Account/Manage">
                         <i class="mdi mdi-cached me-2 text-success"></i> Quản lý tài khoản
                     </a>
                     <div class="dropdown-divider"></div>
@@ -31,6 +26,7 @@
                         </button>
                     </form>
                 </div>
+
             </li>
         }
         else // Nếu không phải Admin -> Hiển thị đơn giản hơn
