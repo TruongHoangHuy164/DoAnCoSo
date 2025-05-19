@@ -1,0 +1,53 @@
+﻿@model IEnumerable<DoAnLTW.Models.HotelRoom>
+
+@{
+    ViewData["Title"] = "Quản Lý Phòng";
+    Layout = "~/Areas/Admin/Views/Shared/layoutAdmin.cshtml";
+}
+
+<h2>Quản Lý Phòng</h2>
+
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        @TempData["SuccessMessage"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        @TempData["ErrorMessage"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+
+<p>
+    <a asp-action="CreateHotelRoom" class="btn btn-primary">Tạo Phòng Mới</a>
+</p>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Tên Phòng</th>
+            <th>Loại Phòng</th>
+            <th>Trạng Thái</th>
+            <th>Hành Động</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@Html.DisplayFor(modelItem => item.RoomNumber)</td>
+                <td>@Html.DisplayFor(modelItem => item.RoomType.Name)</td>
+                <td>@Html.DisplayFor(modelItem => item.IsAvailable)</td>
+                <td>
+                    <a asp-action="EditHotelRoom" asp-route-id="@item.RoomId" class="btn btn-sm btn-warning">Sửa</a>
+                    <a asp-action="DeleteHotelRoom" asp-route-id="@item.RoomId" class="btn btn-sm btn-danger">Xóa</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -1,6 +1,4 @@
-﻿
-
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
     <!-- Required meta tags -->
@@ -54,7 +52,6 @@
             <!-- partial:../../partials/_sidebar.html -->
             <nav class="sidebar sidebar-offcanvas" id="sidebar">
                 <ul class="nav">
-                    
                     <li class="nav-item">
                         <a class="nav-link" asp-area="Admin" asp-controller="Statistics" asp-action="Index">
                             <span class="menu-title">Thống Kê</span>
@@ -66,6 +63,26 @@
                             <span class="menu-title">Quản Lý Mã Khuyến Mãi</span>
                             <i class="fa-solid fa-box promotion-icon"></i>
                         </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="collapse" href="#petHotelSubMenu" aria-expanded="false" aria-controls="petHotelSubMenu">
+                            <span class="menu-title">Quản Lý Khách Sạn Thú Cưng</span>
+                            <i class="fa-solid fa-hotel menu-icon"></i>
+                            <i class="mdi mdi-chevron-down ms-auto"></i>
+                        </a>
+                        <div class="collapse" id="petHotelSubMenu">
+                            <ul class="nav flex-column sub-menu">
+                                <li class="nav-item">
+                                    <a class="nav-link" asp-area="Admin" asp-controller="PetHotelManagement" asp-action="Bookings">Đặt Phòng</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" asp-area="Admin" asp-controller="PetHotelManagement" asp-action="RoomTypes">Loại Phòng</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" asp-area="Admin" asp-controller="PetHotelManagement" asp-action="HotelRooms">Phòng</a>
+                                </li>
+                            </ul>
+                        </div>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" asp-area="Admin" asp-controller="CustomerPoint" asp-action="Index">
@@ -86,7 +103,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" asp-area="Admin" asp-controller="Category" asp-action="Index">
+                        <a class="navのうち
                             <span class="menu-title">Quản Lý Danh Mục</span>
                             <i class="fa-solid fa-list menu-icon"></i>
                         </a>
@@ -130,10 +147,9 @@
                             </a>
                         </li>
                     }
-                  
                     <li class="nav-item">
-                        <a class="nav-link" asp-area="Admin" asp-controller="EmployeeChat" asp-action="Index">
-                            <span class="menu-title">Quản lý Chat</span>
+                        <a class="nav-link" asp-area="Admin" asp-controller="Employee    <span class="menu-title">
+                            Quản lý Chat</span>
                             <i class="fa-solid fa-comments menu-icon"></i>
                         </a>
                     </li>
@@ -147,6 +163,9 @@
                 <!-- content-wrapper ends -->
                 <!-- partial:../../partials/_footer.html -->
                 <footer class="footer">
+                    <div class="container-fluid clearfix">
+                        <span class="text-muted d-block text-center text-sm-left d-sm-inline-block">© 2025 Wikas. All rights reserved.</span>
+                    </div>
                 </footer>
                 <!-- partial -->
             </div>
@@ -165,7 +184,7 @@
                 // Thêm lớp 'selected' vào mục mà người dùng vừa nhấn
                 $(this).addClass("selected");
             });
-        })
+        });
     </script>
 
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>

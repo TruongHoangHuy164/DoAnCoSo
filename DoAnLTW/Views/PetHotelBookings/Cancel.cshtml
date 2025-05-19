@@ -1,0 +1,34 @@
+﻿@model DoAnLTW.Models.PetHotelBooking
+
+@{
+    ViewData["Title"] = "Hủy Đặt Phòng";
+    Layout = "~/Views/Shared/_LayoutHome.cshtml";
+}
+
+<h1>Hủy Đặt Phòng</h1>
+
+<h3>Bạn có chắc muốn hủy đặt phòng này?</h3>
+<div>
+    <h4>Thông tin đặt phòng</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">Thú cưng</dt>
+        <dd class="col-sm-10">@Model.Pet.Name</dd>
+        <dt class="col-sm-2">Phòng</dt>
+        <dd class="col-sm-10">@Model.Room.RoomNumber</dd>
+        <dt class="col-sm-2">Loại phòng</dt>
+        <dd class="col-sm-10">@Model.Room.RoomType.Name</dd>
+        <dt class="col-sm-2">Ngày bắt đầu</dt>
+        <dd class="col-sm-10">@Model.StartDate.ToShortDateString()</dd>
+        <dt class="col-sm-2">Ngày kết thúc</dt>
+        <dd class="col-sm-10">@Model.EndDate.ToShortDateString()</dd>
+        <dt class="col-sm-2">Tổng giá</dt>
+        <dd class="col-sm-10">@Model.TotalPrice.ToString("C")</dd>
+    </dl>
+
+    <form asp-action="CancelConfirmed">
+        <input type="hidden" asp-for="BookingId" />
+        <input type="submit" value="Xác nhận hủy" class="btn btn-danger" />
+        <a asp-action="MyBookings" class="btn btn-secondary">Quay lại</a>
+    </form>
+</div>

@@ -217,7 +217,9 @@ namespace DoAnLTW.Models
         public DbSet<PetImages> PetImages { get; set; }
         public DbSet<CustomerPoint> CustomerPoints { get; set; }
         public DbSet<PromotionCode> PromotionCodes { get; set; }
-
+        public DbSet<RoomType> RoomTypes { get; set; }
+        public DbSet<HotelRoom> HotelRooms { get; set; }
+        public DbSet<PetHotelBooking> PetHotelBookings { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             // Gọi phương thức OnModelCreating của lớp cha
@@ -303,7 +305,32 @@ namespace DoAnLTW.Models
                 .WithMany()
                 .HasForeignKey(o => o.PromotionCodeId)
                 .OnDelete(DeleteBehavior.SetNull);
+            // Cấu hình mối quan hệ giữa HotelRoom và RoomType
+            modelBuilder.Entity<HotelRoom>()
+                .HasOne(r => r.RoomType)
+                .WithMany(rt => rt.Rooms)
+                .HasForeignKey(r => r.RoomTypeId);
 
+            // Cấu hình mối quan hệ giữa PetHotelBooking và Pet
+            modelBuilder.Entity<PetHotelBooking>()
+                .HasOne(b => b.Pet)
+                .WithMany()
+                .HasForeignKey(b => b.PetId);
+
+            // Cấu hình mối quan hệ giữa PetHotelBooking và HotelRoom
+            modelBuilder.Entity<PetHotelBooking>()
+                .HasOne(b => b.Room)
+                .WithMany(r => r.Bookings)
+                .HasForeignKey(b => b.RoomId);
+
+            // Cấu hình thuộc tính
+            modelBuilder.Entity<PetHotelBooking>()
+                .Property(b => b.TotalPrice)
+                .HasColumnType("decimal(18,2)");
+
+            modelBuilder.Entity<RoomType>()
+                .Property(rt => rt.PricePerNight)
+                .HasColumnType("decimal(18,2)");
             // Cấu hình mối quan hệ giữa CustomerPoint và Order
             modelBuilder.Entity<CustomerPoint>()
                 .HasOne(cp => cp.Order)

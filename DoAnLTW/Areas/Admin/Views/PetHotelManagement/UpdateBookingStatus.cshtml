@@ -1,0 +1,34 @@
+﻿@model DoAnLTW.Models.PetHotelBooking
+
+@{
+    ViewData["Title"] = "Cập Nhật Trạng Thái Đặt Phòng";
+    Layout = "~/Areas/Admin/Views/Shared/layoutAdmin.cshtml";
+}
+
+<h2>Cập Nhật Trạng Thái Đặt Phòng</h2>
+
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        @TempData["ErrorMessage"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+
+<form asp-action="UpdateBookingStatus">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <input type="hidden" asp-for="BookingId" />
+    <div class="form-group mb-3">
+        <label asp-for="Status" class="control-label"></label>
+        <select asp-for="Status" class="form-control" asp-items="ViewBag.StatusList"></select>
+        <span asp-validation-for="Status" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Cập Nhật" class="btn btn-primary" />
+        <a asp-action="Bookings" class="btn btn-secondary">Quay Lại</a>
+    </div>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

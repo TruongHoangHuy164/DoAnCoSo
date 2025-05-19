@@ -115,6 +115,32 @@ namespace DoAnLTW.Migrations
                     b.ToTable("FavouriteProducts");
                 });
 
+            modelBuilder.Entity("DoAnLTW.Models.HotelRoom", b =>
+                {
+                    b.Property<int>("RoomId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("RoomId"));
+
+                    b.Property<bool>("IsAvailable")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("RoomNumber")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<int>("RoomTypeId")
+                        .HasColumnType("int");
+
+                    b.HasKey("RoomId");
+
+                    b.HasIndex("RoomTypeId");
+
+                    b.ToTable("HotelRooms");
+                });
+
             modelBuilder.Entity("DoAnLTW.Models.Message", b =>
                 {
                     b.Property<int>("Id")
@@ -284,6 +310,57 @@ namespace DoAnLTW.Migrations
                     b.HasKey("PetId");
 
                     b.ToTable("Pets");
+                });
+
+            modelBuilder.Entity("DoAnLTW.Models.PetHotelBooking", b =>
+                {
+                    b.Property<int>("BookingId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("BookingId"));
+
+                    b.Property<string>("Address")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<DateTime>("BookingDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("EndDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Note")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("PetId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("RoomId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("StartDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("TotalPrice")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("BookingId");
+
+                    b.HasIndex("PetId");
+
+                    b.HasIndex("RoomId");
+
+                    b.ToTable("PetHotelBookings");
                 });
 
             modelBuilder.Entity("DoAnLTW.Models.PetImages", b =>
@@ -503,6 +580,32 @@ namespace DoAnLTW.Migrations
                     b.HasIndex("ProductId");
 
                     b.ToTable("Reviews");
+                });
+
+            modelBuilder.Entity("DoAnLTW.Models.RoomType", b =>
+                {
+                    b.Property<int>("RoomTypeId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("RoomTypeId"));
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<decimal>("PricePerNight")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.HasKey("RoomTypeId");
+
+                    b.ToTable("RoomTypes");
                 });
 
             modelBuilder.Entity("DoAnLTW.Models.Service", b =>
@@ -793,6 +896,17 @@ namespace DoAnLTW.Migrations
                     b.Navigation("Product");
                 });
 
+            modelBuilder.Entity("DoAnLTW.Models.HotelRoom", b =>
+                {
+                    b.HasOne("DoAnLTW.Models.RoomType", "RoomType")
+                        .WithMany("Rooms")
+                        .HasForeignKey("RoomTypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("RoomType");
+                });
+
             modelBuilder.Entity("DoAnLTW.Models.Order", b =>
                 {
                     b.HasOne("DoAnLTW.Models.PromotionCode", "PromotionCode")
@@ -820,6 +934,25 @@ namespace DoAnLTW.Migrations
                     b.Navigation("Order");
 
                     b.Navigation("Product");
+                });
+
+            modelBuilder.Entity("DoAnLTW.Models.PetHotelBooking", b =>
+                {
+                    b.HasOne("DoAnLTW.Models.Pet", "Pet")
+                        .WithMany()
+                        .HasForeignKey("PetId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("DoAnLTW.Models.HotelRoom", "Room")
+                        .WithMany("Bookings")
+                        .HasForeignKey("RoomId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Pet");
+
+                    b.Navigation("Room");
                 });
 
             modelBuilder.Entity("DoAnLTW.Models.PetImages", b =>
@@ -984,6 +1117,11 @@ namespace DoAnLTW.Migrations
                     b.Navigation("Products");
                 });
 
+            modelBuilder.Entity("DoAnLTW.Models.HotelRoom", b =>
+                {
+                    b.Navigation("Bookings");
+                });
+
             modelBuilder.Entity("DoAnLTW.Models.Order", b =>
                 {
                     b.Navigation("CustomerPoints");
@@ -1005,6 +1143,11 @@ namespace DoAnLTW.Migrations
                     b.Navigation("ProductSizes");
 
                     b.Navigation("Reviews");
+                });
+
+            modelBuilder.Entity("DoAnLTW.Models.RoomType", b =>
+                {
+                    b.Navigation("Rooms");
                 });
 
             modelBuilder.Entity("DoAnLTW.Models.Service", b =>
