@@ -41,6 +41,7 @@
 
     <!-- CSS cho nút microphone -->
     <style>
+
         .search-container {
             display: flex;
             align-items: center;
@@ -233,8 +234,8 @@
                             <div class="navbar-nav mr-auto py-0">
                                 <a href="https://localhost:5134/" class="nav-item nav-link">Trang chủ</a>
                                 <a asp-controller="Shop" asp-action="Index" class="nav-item nav-link">Sản phẩm</a>
-                                <a asp-controller="Contact" asp-action="Index" class="nav-item nav-link">Liên hệ</a>
-                                <a asp-controller="CustomerChat" asp-action="Index" class="nav-item nav-link">Hỗ trợ Khách Hàng</a>
+                                @* <a asp-controller="Contact" asp-action="Index" class="nav-item nav-link">Liên hệ</a> *@
+                               
                                 <li class="nav-item dropdown">
                                     <a class="nav-link dropdown-toggle" href="#" id="petServicesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         <i class="fas fa-paw"></i> Dịch vụ thú cưng
@@ -252,6 +253,7 @@
                                        
                                     </div>
                                 </li>
+                                <a asp-controller="CustomerChat" asp-action="Index" class="nav-item nav-link">Hỗ trợ Khách Hàng</a>
                             </div>
                             <div class="navbar-nav ml-auto py-0 d-none d-lg-block">
                                 <a asp-controller="Shop" asp-action="FavouriteProducts" class="btn px-0">

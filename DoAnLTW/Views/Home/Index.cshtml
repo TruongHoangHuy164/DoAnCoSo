@@ -5,54 +5,66 @@
 
 <!-- Floating Button -->
 <style>
+    @@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+    body {
+        font-family: 'Poppins', sans-serif;
+    }
+
     .floating-promo-btn {
         position: fixed;
-        bottom: 20px;
-        left: 20px;
+        bottom: 30px;
+        left: 30px;
         z-index: 1000;
-        background-color: #f5f5dc;
-        color: #333;
-        padding: 10px 20px;
-        border-radius: 25px;
-        box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        background: linear-gradient(135deg, #00C9FF, #92FE9D);
+        color: white;
+        padding: 12px 24px;
+        border-radius: 30px;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
         text-decoration: none;
-        font-weight: bold;
-        transition: background-color 0.3s;
+        font-weight: 600;
+        font-size: 1rem;
+        transition: all 0.3s ease;
     }
 
         .floating-promo-btn:hover {
-            background-color: #0056b3;
-            color: white;
-            text-decoration: none;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
         }
 
     .promo-card {
-        background: #fff;
-        border-radius: 10px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        padding: 15px;
+        background: #ffffff;
+        border-radius: 16px;
+        box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+        padding: 20px;
         text-align: center;
-        margin: 10px;
+        margin: 15px;
+        transition: transform 0.3s ease;
     }
 
+        .promo-card:hover {
+            transform: scale(1.02);
+        }
+
     .promo-code {
-        font-size: 1.5rem;
-        font-weight: bold;
-        color: greenyellow;
-        margin-bottom: 10px;
+        font-size: 1.6rem;
+        font-weight: 600;
+        color: #4CAF50;
+        margin-bottom: 12px;
     }
 
     .promo-description {
         font-size: 1rem;
-        color: #555;
+        color: #444;
+        margin-bottom: 8px;
     }
 
     .promo-expiry {
         font-size: 0.9rem;
-        color: #888;
+        color: #999;
     }
-
 </style>
+
 
 <a href="#promo-section" class="floating-promo-btn">!Mã Khuyến Mãi!</a>
 
