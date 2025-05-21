@@ -185,11 +185,11 @@
                             Không thể xóa phòng này vì có @Model.Bookings.Count đặt phòng liên quan.
                         </div>
                     }
-                    <form asp-action="HotelRoomDelete" asp-controller="HotelRoom" asp-area="Admin">
+                    <form asp-action="HotelRoomDelete" asp-controller="PetHotelBooking" asp-area="Admin">
                         <input type="hidden" asp-for="RoomId" />
                         <div class="form-group text-center mt-3">
                             <button type="submit" class="btn btn-danger" @(Model.Bookings.Any() ? "disabled" : "")><i class="fas fa-trash"></i> Xóa</button>
-                            <a asp-action="HotelRoomIndex" asp-controller="HotelRoom" asp-area="Admin" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Quay Lại</a>
+                            <a asp-action="HotelRoomIndex" asp-controller="PetHotelBooking" asp-area="Admin" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Quay Lại</a>
                         </div>
                     </form>
                 </div>

@@ -183,7 +183,7 @@
     <div class="row">
         <div class="col-md-6 offset-md-3">
             <div class="form-container">
-                <form asp-action="HotelRoomCreate" asp-controller="HotelRoom" asp-area="Admin">
+                <form asp-action="HotelRoomCreate" asp-controller="PetHotelBooking" asp-area="Admin">
                     <div asp-validation-summary="ModelOnly" class="alert alert-danger" style="@(ViewData.ModelState.IsValid ? "display:none;" : "")"></div>
                     <div class="form-group">
                         <label asp-for="RoomNumber" class="control-label">Số Phòng</label>
@@ -204,7 +204,7 @@
                     </div>
                     <div class="form-group text-center">
                         <button type="submit" class="btn btn-primary"><i class="fas fa-plus"></i> Tạo</button>
-                        <a asp-action="HotelRoomIndex" asp-controller="HotelRoom" asp-area="Admin" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Quay Lại</a>
+                        <a asp-action="HotelRoomIndex" asp-controller="PetHotelBooking" asp-area="Admin" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Quay Lại</a>
                     </div>
                 </form>
             </div>

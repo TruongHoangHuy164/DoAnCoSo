@@ -208,7 +208,7 @@
 
     <div class="row mb-4">
         <div class="col-12 text-center">
-            <a asp-action="RoomTypeCreate" asp-controller="RoomType" asp-area="Admin" class="btn btn-primary"><i class="fas fa-plus"></i> Tạo Loại Phòng Mới</a>
+            <a asp-action="RoomTypeCreate" asp-controller="PetHotelBooking" asp-area="Admin" class="btn btn-primary"><i class="fas fa-plus"></i> Tạo Loại Phòng Mới</a>
         </div>
     </div>
 
@@ -234,8 +234,8 @@
                                         <td>@roomType.Description</td>
                                         <td>@roomType.PricePerNight.ToString("C")</td>
                                         <td>
-                                            <a asp-action="RoomTypeEdit" asp-controller="RoomType" asp-area="Admin" asp-route-id="@roomType.RoomTypeId" class="btn btn-warning btn-sm"><i class="fas fa-edit"></i> Sửa</a>
-                                            <a asp-action="RoomTypeDelete" asp-controller="RoomType" asp-area="Admin" asp-route-id="@roomType.RoomTypeId" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i> Xóa</a>
+                                            <a asp-action="RoomTypeEdit" asp-controller="PetHotelBooking" asp-area="Admin" asp-route-id="@roomType.RoomTypeId" class="btn btn-warning btn-sm"><i class="fas fa-edit"></i> Sửa</a>
+                                            <a asp-action="RoomTypeDelete" asp-controller="PetHotelBooking" asp-area="Admin" asp-route-id="@roomType.RoomTypeId" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i> Xóa</a>
                                         </td>
                                     </tr>
                                 }

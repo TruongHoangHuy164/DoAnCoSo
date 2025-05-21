@@ -198,7 +198,7 @@
     <div class="row">
         <div class="col-md-6 offset-md-3">
             <div class="form-container">
-                <form asp-action="RoomTypeEdit" asp-controller="RoomType" asp-area="Admin">
+                <form asp-action="RoomTypeEdit" asp-controller="PetHotelBooking" asp-area="Admin">
                     <input type="hidden" asp-for="RoomTypeId" />
                     <div asp-validation-summary="ModelOnly" class="alert alert-danger" style="@(ViewData.ModelState.IsValid ? "display:none;" : "")"></div>
                     <div class="form-group">
@@ -218,7 +218,7 @@
                     </div>
                     <div class="form-group text-center">
                         <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> Lưu</button>
-                        <a asp-action="RoomTypeIndex" asp-controller="RoomType" asp-area="Admin" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Quay Lại</a>
+                        <a asp-action="RoomTypeIndex" asp-controller="PetHotelBooking" asp-area="Admin" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Quay Lại</a>
                     </div>
                 </form>
             </div>

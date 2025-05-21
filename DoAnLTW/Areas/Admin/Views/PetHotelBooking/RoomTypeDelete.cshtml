@@ -185,11 +185,11 @@
                             Không thể xóa loại phòng này vì có @Model.Rooms.Count phòng đang sử dụng.
                         </div>
                     }
-                    <form asp-action="RoomTypeDelete" asp-controller="RoomType" asp-area="Admin">
+                    <form asp-action="RoomTypeDelete" asp-controller="PetHotelBooking" asp-area="Admin">
                         <input type="hidden" asp-for="RoomTypeId" />
                         <div class="form-group text-center mt-3">
                             <button type="submit" class="btn btn-danger" @(Model.Rooms.Any() ? "disabled" : "")><i class="fas fa-trash"></i> Xóa</button>
-                            <a asp-action="RoomTypeIndex" asp-controller="RoomType" asp-area="Admin" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Quay Lại</a>
+                            <a asp-action="RoomTypeIndex" asp-controller="PetHotelBooking" asp-area="Admin" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Quay Lại</a>
                         </div>
                     </form>
                 </div>
