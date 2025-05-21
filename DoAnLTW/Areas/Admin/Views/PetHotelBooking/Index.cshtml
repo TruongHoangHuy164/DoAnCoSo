@@ -1,68 +1,61 @@
 ﻿@model DoAnLTW.ViewModels.PetHotelBookingCalendarViewModel
-
 @{
-    ViewData["Title"] = "Lịch đặt phòng khách sạn thú cưng";
+    ViewData["Title"] = "Lịch Đặt Phòng Khách Sạn Thú Cưng";
     Layout = "~/Areas/Admin/Views/Shared/layoutAdmin.cshtml";
     var currentDate = ViewBag.SelectedDate ?? DateTime.Now;
     var firstDayOfMonth = new DateTime(currentDate.Year, currentDate.Month, 1);
     var daysInMonth = DateTime.DaysInMonth(currentDate.Year, currentDate.Month);
-    var firstDayOfWeek = (int)firstDayOfMonth.DayOfWeek;
-    var years = Enumerable.Range(DateTime.Now.Year - 5, 11).ToList(); // Range from 5 years past to 5 years future
+    var years = Enumerable.Range(DateTime.Now.Year - 5, 11).ToList();
     var months = Enumerable.Range(1, 12).Select(m => new { Value = m, Name = System.Globalization.CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(m) }).ToList();
 }
 
-<h2 class="mb-4 text-center">Lịch đặt phòng - @currentDate.ToString("MMMM yyyy")</h2>
-
-@if (TempData["Success"] != null)
-{
-    <div class="alert alert-success">@TempData["Success"]</div>
-}
-@if (TempData["SuccessMessage"] != null)
-{
-    <div class="alert alert-success">@TempData["SuccessMessage"]</div>
-}
-@if (TempData["ErrorMessage"] != null)
-{
-    <div class="alert alert-danger">@TempData["ErrorMessage"]</div>
-}
-
-<div class="mb-4 text-center">
-    <form asp-action="Index" method="get" class="form-inline d-inline-flex">
-        <div class="form-group mr-2">
-            <label for="month" class="mr-1">Tháng:</label>
-            <select name="month" id="month" class="form-control" onchange="this.form.submit()">
-                @foreach (var month in months)
-                {
-                    <option value="@month.Value" selected="@(month.Value == currentDate.Month)">@month.Name</option>
-                }
-            </select>
-        </div>
-        <div class="form-group mr-2">
-            <label for="year" class="mr-1">Năm:</label>
-            <select name="year" id="year" class="form-control" onchange="this.form.submit()">
-                @foreach (var year in years)
-                {
-                    <option value="@year" selected="@(year == currentDate.Year)">@year</option>
-                }
-            </select>
-        </div>
-    </form>
-   
-</div>
-
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 <style>
+    /* General page styling */
+    body {
+        background-color: #000000; /* Black background */
+        color: #FFFFFF; /* White text */
+        font-family: 'Arial', sans-serif;
+    }
+
+    h2 {
+        color: #FFD700; /* Gold heading */
+        border-bottom: 2px solid #FFD700;
+        padding-bottom: 10px;
+        margin-bottom: 20px;
+        text-align: center;
+        text-transform: uppercase;
+        animation: fadeInDown 0.5s ease-in-out;
+    }
+
+    /* Card styling */
+    .card {
+        background-color: #FFFFFF; /* White card background */
+        color: #000000; /* Black text */
+        border: 1px solid #FFD700; /* Gold border */
+        border-radius: 10px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        margin-bottom: 20px;
+    }
+
+    .card-body {
+        padding: 20px;
+    }
+
+    /* Calendar table styling */
     .calendar {
         width: 100%;
         border-collapse: collapse;
         table-layout: fixed;
-        background-color: #fff;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        background-color: #FFFFFF; /* White table background */
+        color: #000000; /* Black text */
         border-radius: 8px;
         overflow: hidden;
+        border: 1px solid #FFD700; /* Gold border */
     }
 
         .calendar th, .calendar td {
-            border: 1px solid #e0e0e0;
+            border: 1px solid #000000; /* Black borders */
             padding: 8px;
             text-align: center;
             vertical-align: middle;
@@ -72,55 +65,83 @@
         }
 
         .calendar th {
-            background-color: #4a90e2;
-            color: white;
+            background-color: #FFD700; /* Gold header background */
+            color: #000000; /* Black header text */
             font-weight: 600;
             text-transform: uppercase;
             font-size: 12px;
         }
 
     .booked {
-        background-color: #ff6b6b;
-        color: white;
+        background-color: #FFD700; /* Gold for booked cells */
+        color: #000000; /* Black text */
         cursor: pointer;
         position: relative;
         transition: transform 0.2s ease;
     }
 
         .booked:hover {
+            background-color: #E6C200; /* Darker gold on hover */
             transform: scale(1.05);
-            background-color: #ff4d4d;
         }
 
     .available {
-        background-color: #e6ffed;
-        color: #2e7d32;
+        background-color: #FFFFFF; /* White for available cells */
+        color: #000000; /* Black text */
     }
 
         .available:hover {
-            background-color: #ccffcc;
+            background-color: #F5F5F5; /* Light gray on hover */
         }
 
     .room-header {
         font-weight: 600;
-        background-color: #f5f5f5;
-        color: #333;
+        background-color: #F5F5F5; /* Light gray */
+        color: #000000; /* Black text */
         font-size: 15px;
-        border-right: 2px solid #e0e0e0;
+        border-right: 2px solid #FFD700; /* Gold border */
     }
 
     .day-header {
-        background-color: #5aa0ff;
-        color: white;
+        background-color: #FFD700; /* Gold background */
+        color: #000000; /* Black text */
         font-weight: 500;
     }
 
+    .total-days {
+        font-weight: 600;
+        background-color: #FFFFFF; /* White background */
+        color: #000000; /* Black text */
+        border-left: 2px solid #FFD700; /* Gold border */
+    }
+
+    .action-column {
+        font-size: 13px;
+        background-color: #F5F5F5; /* Light gray */
+        border-left: 2px solid #FFD700; /* Gold border */
+        text-align: left;
+        padding: 10px;
+    }
+
+        .action-column a {
+            color: #FFD700; /* Gold links */
+            text-decoration: none;
+            margin-right: 8px;
+        }
+
+            .action-column a:hover {
+                text-decoration: underline;
+                color: #E6C200; /* Darker gold */
+            }
+
+    /* Tooltip styling */
     .tooltip {
         position: absolute;
-        background-color: #1a1a1a;
-        color: white;
+        background-color: #000000; /* Black background */
+        color: #FFD700; /* Gold text */
         padding: 10px;
         border-radius: 6px;
+        border: 1px solid #FFD700; /* Gold border */
         z-index: 1000;
         max-width: 300px;
         font-size: 13px;
@@ -131,40 +152,105 @@
     }
 
         .tooltip a {
-            color: #4a90e2;
+            color: #FFD700; /* Gold links */
             text-decoration: none;
             margin-right: 10px;
         }
 
             .tooltip a:hover {
                 text-decoration: underline;
+                color: #E6C200; /* Darker gold */
             }
 
-    .total-days {
-        font-weight: 600;
-        background-color: #fff3cd;
-        color: #856404;
-        border-left: 2px solid #e0e0e0;
+    /* Form styling */
+    .form-inline .form-group {
+        margin-right: 15px;
     }
 
-    .action-column {
-        font-size: 13px;
-        background-color: #f8f9fa;
-        border-left: 2px solid #e0e0e0;
-        text-align: left;
-        padding: 10px;
+    .form-control {
+        background-color: #F5F5F5; /* Light gray background */
+        border: 1px solid #000000; /* Black border */
+        color: #000000; /* Black text */
+        border-radius: 5px;
+        padding: 6px;
     }
 
-        .action-column a {
-            color: #4a90e2;
-            text-decoration: none;
-            margin-right: 8px;
+        .form-control:focus {
+            border-color: #FFD700; /* Gold border on focus */
+            box-shadow: 0 0 5px rgba(255, 215, 0, 0.5);
+            background-color: #FFFFFF; /* White background on focus */
         }
 
-            .action-column a:hover {
-                text-decoration: underline;
-            }
+    /* Button styling */
+    .btn-primary {
+        background-color: #FFD700; /* Gold background */
+        border-color: #FFD700;
+        color: #000000; /* Black text */
+        font-weight: bold;
+        padding: 8px 16px;
+        border-radius: 5px;
+        transition: all 0.3s ease;
+    }
 
+        .btn-primary:hover {
+            background-color: #E6C200; /* Darker gold */
+            border-color: #E6C200;
+            box-shadow: 0 4px 10px rgba(255, 215, 0, 0.3);
+        }
+
+    /* Alert styling */
+    .alert-success {
+        background-color: #FFD700; /* Gold background */
+        color: #000000; /* Black text */
+        border-color: #FFD700;
+        border-radius: 8px;
+        padding: 15px;
+        margin-bottom: 20px;
+        animation: fadeIn 0.5s ease-in-out;
+    }
+
+    .alert-danger {
+        background-color: #000000; /* Black background */
+        color: #FFD700; /* Gold text */
+        border: 1px solid #FFD700; /* Gold border */
+        border-radius: 8px;
+        padding: 15px;
+        margin-bottom: 20px;
+        animation: fadeIn 0.5s ease-in-out;
+    }
+
+    /* Animations */
+    @@keyframes fadeInDown {
+        from
+
+    {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    }
+
+    @@keyframes fadeIn {
+        from
+
+    {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    }
+
+    /* Responsive adjustments */
     @@media (max-width: 768px) {
         .calendar th, .calendar td
 
@@ -188,101 +274,166 @@
         padding: 5px;
     }
 
+    .form-control {
+        font-size: 0.9rem;
+        padding: 4px;
+    }
+
+    .btn-primary {
+        padding: 6px 12px;
+        font-size: 0.9rem;
+    }
+
+    h2 {
+        font-size: 1.5rem;
+    }
+
+    .alert-success, .alert-danger {
+        font-size: 0.9rem;
+        padding: 10px;
+    }
+
     }
 </style>
 
-<table class="calendar">
-    <thead>
-        <tr>
-            <th>Phòng</th>
-            @for (int day = 1; day <= daysInMonth; day++)
-            {
-                var date = new DateTime(currentDate.Year, currentDate.Month, day);
-                <th class="day-header">@day <br>(@date.ToString("ddd"))</th>
-            }
-            <th class="total-days">Tổng ngày đặt</th>
-            <th class="action-column">Hành động</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var room in Model.Rooms)
-        {
-            <tr>
-                <td class="room-header">
-                    @room.RoomNumber (@(room.RoomType?.Name ?? "Không rõ loại"))
-                </td>
-                @for (int day = 1; day <= daysInMonth; day++)
-                {
-                    var currentDay = new DateTime(currentDate.Year, currentDate.Month, day);
-                    var bookingsForDay = Model.Bookings
-                    .Where(b => b.RoomId == room.RoomId
-                    && b.StartDate.Date <= currentDay
-                    && b.EndDate.Date >= currentDay
-                    && b.Status != DoAnLTW.Models.PetHotelBookingStatus.DaHuy)
-                    .ToList();
-                    var bookingInfo = string.Join("; ", bookingsForDay.Select(b =>
-                    $"ID: {b.BookingId}, Thú cưng: {b.Pet?.Name ?? "Không rõ"}, Từ: {b.StartDate:dd/MM}, Đến: {b.EndDate:dd/MM}, " +
-                    $"<a href='javascript:void(0)' onclick=\"window.location.href='" +
-                    Url.Action("Details", "PetHotelBooking", new { area = "Admin", id = b.BookingId }) + "'\">Chi tiết</a> | " +
-                    $"<a href='javascript:void(0)' onclick=\"window.location.href='" +
-                    Url.Action("UpdateBookingStatus", "PetHotelBooking", new { area = "Admin", id = b.BookingId }) + "'\">Cập nhật trạng thái</a> | " +
-                    $"<a href='javascript:void(0)' onclick=\"window.location.href='" +
-                    Url.Action("Edit", "PetHotelBooking", new { area = "Admin", id = b.BookingId }) + "'\">Sửa</a> | " +
-                    $"<a href='javascript:void(0)' onclick=\"if(confirm('Bạn có chắc muốn xóa đặt phòng này?')) " +
-                    $"window.location.href='" + Url.Action("Delete", "PetHotelBooking", new { area = "Admin", id = b.BookingId }) + "'\">Xóa</a>"));
-                    <td class="@(bookingsForDay.Any() ? "booked" : "available")"
-                        data-bookings="@bookingInfo">
-                        @if (bookingsForDay.Any())
-                        {
-                            <span>@bookingsForDay.Count đặt phòng</span>
-                        }
-                    </td>
-                }
-                @{
-                    var bookedDays = Model.Bookings
-                    .Where(b => b.RoomId == room.RoomId
-                    && b.StartDate.Year == currentDate.Year
-                    && b.StartDate.Month == currentDate.Month
-                    && b.Status != DoAnLTW.Models.PetHotelBookingStatus.DaHuy)
-                    .SelectMany(b => Enumerable.Range(0, (b.EndDate.Date - b.StartDate.Date).Days + 1)
-                    .Select(d => b.StartDate.Date.AddDays(d)))
-                    .Distinct()
-                    .Count();
-                    var roomBookings = Model.Bookings
-                    .Where(b => b.RoomId == room.RoomId
-                    && b.StartDate.Year == currentDate.Year
-                    && b.StartDate.Month == currentDate.Month
-                    && b.Status != DoAnLTW.Models.PetHotelBookingStatus.DaHuy)
-                    .ToList();
-                }
-                <td class="total-days">@bookedDays ngày</td>
-                <td class="action-column">
-                    @if (roomBookings.Any())
-                    {
-                        foreach (var booking in roomBookings)
-                        {
-                            <div>
-                                ID: @booking.BookingId (@booking.Pet?.Name ?? "Không rõ")
-                                <br />
-                                <a asp-area="Admin" asp-controller="PetHotelBooking" asp-action="Details" asp-route-id="@booking.BookingId">Chi tiết</a> |
-                                <a asp-area="Admin" asp-controller="PetHotelBooking" asp-action="UpdateBookingStatus" asp-route-id="@booking.BookingId">Cập nhật trạng thái</a> |
-                                <a asp-area="Admin" asp-controller="PetHotelBooking" asp-action="Edit" asp-route-id="@booking.BookingId">Sửa</a> |
-                                <a asp-area="Admin" asp-controller="PetHotelBooking" asp-action="Delete" asp-route-id="@booking.BookingId"
-                                   onclick="return confirm('Bạn có chắc muốn xóa đặt phòng này?');">Xóa</a>
-                            </div>
-                        }
-                    }
-                    else
-                    {
-                        <span>Không có đặt phòng</span>
-                    }
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+<div class="container-fluid">
+    <h2>Lịch Đặt Phòng - @currentDate.ToString("MMMM yyyy")</h2>
 
-<div id="tooltip" class="tooltip"></div>
+    @if (TempData["Success"] != null)
+    {
+        <div class="alert alert-success" role="alert">@TempData["Success"]</div>
+    }
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <div class="alert alert-success" role="alert">@TempData["SuccessMessage"]</div>
+    }
+    @if (TempData["ErrorMessage"] != null)
+    {
+        <div class="alert alert-danger" role="alert">@TempData["ErrorMessage"]</div>
+    }
+
+    <div class="row mb-4">
+        <div class="col-md-6 offset-md-3 text-center">
+            <form asp-action="Index" method="get" class="form-inline d-flex justify-content-center">
+                <div class="form-group mr-2">
+                    <label for="month" class="mr-1">Tháng:</label>
+                    <select name="month" id="month" class="form-control" onchange="this.form.submit()">
+                        @foreach (var month in months)
+                        {
+                            <option value="@month.Value" selected="@(month.Value == currentDate.Month)">@month.Name</option>
+                        }
+                    </select>
+                </div>
+                <div class="form-group mr-2">
+                    <label for="year" class="mr-1">Năm:</label>
+                    <select name="year" id="year" class="form-control" onchange="this.form.submit()">
+                        @foreach (var year in years)
+                        {
+                            <option value="@year" selected="@(year == currentDate.Year)">@year</option>
+                        }
+                    </select>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-12 grid-margin stretch-card">
+            <div class="card">
+                <div class="card-body">
+                    <table class="calendar">
+                        <thead>
+                            <tr>
+                                <th>Phòng</th>
+                                @for (int day = 1; day <= daysInMonth; day++)
+                                {
+                                    var date = new DateTime(currentDate.Year, currentDate.Month, day);
+                                    <th class="day-header">@day <br>(@date.ToString("ddd"))</th>
+                                }
+                                <th class="total-days">Tổng Ngày Đặt</th>
+                                <th class="action-column">Hành Động</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var room in Model.Rooms)
+                            {
+                                <tr>
+                                    <td class="room-header">
+                                        @room.RoomNumber (@(room.RoomType?.Name ?? "Không rõ loại"))
+                                    </td>
+                                    @for (int day = 1; day <= daysInMonth; day++)
+                                    {
+                                        var currentDay = new DateTime(currentDate.Year, currentDate.Month, day);
+                                        var bookingsForDay = Model.Bookings
+                                        .Where(b => b.RoomId == room.RoomId
+                                        && b.StartDate.Date <= currentDay
+                                        && b.EndDate.Date >= currentDay
+                                        && b.Status != DoAnLTW.Models.PetHotelBookingStatus.DaHuy)
+                                        .ToList();
+                                        var bookingInfo = string.Join("; ", bookingsForDay.Select(b =>
+                                        $"ID: {b.BookingId}, Thú cưng: {b.Pet?.Name ?? "Không rõ"}, Từ: {b.StartDate:dd/MM}, Đến: {b.EndDate:dd/MM}, " +
+                                        $"<a href='{Url.Action("Details", "PetHotelBooking", new { area = "Admin", id = b.BookingId })}'>Chi tiết</a> | " +
+                                        $"<a href='{Url.Action("UpdateBookingStatus", "PetHotelBooking", new { area = "Admin", id = b.BookingId })}'>Cập nhật trạng thái</a> | " +
+                                        $"<a href='{Url.Action("Edit", "PetHotelBooking", new { area = "Admin", id = b.BookingId })}'>Sửa</a> | " +
+                                        $"<a href='{Url.Action("Delete", "PetHotelBooking", new { area = "Admin", id = b.BookingId })}' onclick=\"return confirm('Bạn có chắc muốn xóa đặt phòng này?');\">Xóa</a>"));
+                                        <td class="@(bookingsForDay.Any() ? "booked" : "available")"
+                                            data-bookings="@bookingInfo">
+                                            @if (bookingsForDay.Any())
+                                            {
+                                                <span>@bookingsForDay.Count đặt phòng</span>
+                                            }
+                                        </td>
+                                    }
+                                    @{
+                                        var bookedDays = Model.Bookings
+                                        .Where(b => b.RoomId == room.RoomId
+                                        && b.StartDate.Year == currentDate.Year
+                                        && b.StartDate.Month == currentDate.Month
+                                        && b.Status != DoAnLTW.Models.PetHotelBookingStatus.DaHuy)
+                                        .SelectMany(b => Enumerable.Range(0, (b.EndDate.Date - b.StartDate.Date).Days + 1)
+                                        .Select(d => b.StartDate.Date.AddDays(d)))
+                                        .Distinct()
+                                        .Count();
+                                        var roomBookings = Model.Bookings
+                                        .Where(b => b.RoomId == room.RoomId
+                                        && b.StartDate.Year == currentDate.Year
+                                        && b.StartDate.Month == currentDate.Month
+                                        && b.Status != DoAnLTW.Models.PetHotelBookingStatus.DaHuy)
+                                        .ToList();
+                                    }
+                                    <td class="total-days">@bookedDays ngày</td>
+                                    <td class="action-column">
+                                        @if (roomBookings.Any())
+                                        {
+                                            foreach (var booking in roomBookings)
+                                            {
+                                                <div>
+                                                    ID: @booking.BookingId (@(booking.Pet?.Name ?? "Không rõ"))
+                                                    <br />
+                                                    <a asp-area="Admin" asp-controller="PetHotelBooking" asp-action="Details" asp-route-id="@booking.BookingId">Chi tiết</a> |
+                                                    <a asp-area="Admin" asp-controller="PetHotelBooking" asp-action="UpdateBookingStatus" asp-route-id="@booking.BookingId">Cập nhật trạng thái</a> |
+                                                    <a asp-area="Admin" asp-controller="PetHotelBooking" asp-action="Edit" asp-route-id="@booking.BookingId">Sửa</a> |
+                                                    <a asp-area="Admin" asp-controller="PetHotelBooking" asp-action="Delete" asp-route-id="@booking.BookingId"
+                                                       onclick="return confirm('Bạn có chắc muốn xóa đặt phòng này?');">Xóa</a>
+                                                </div>
+                                            }
+                                        }
+                                        else
+                                        {
+                                            <span>Không có đặt phòng</span>
+                                        }
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="tooltip" class="tooltip"></div>
+</div>
 
 @section Scripts {
     <script>
