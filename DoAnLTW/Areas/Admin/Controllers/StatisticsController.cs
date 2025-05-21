@@ -344,14 +344,14 @@ namespace DoAnLTW.Areas.Admin.Controllers
         private readonly IServiceRepository _serviceRepository;
         private readonly ILogger _logger;
         public StatisticsController(
-    ApplicationDbContext context,
-    IOrderRepository orderRepository,
-    IPetServiceRepository petServiceRepository,
-    IProductRepository productRepository,
-    ICategoryRepository categoryRepository,
-    IBrandRepository brandRepository,
-    IServiceRepository serviceRepository,
-    ILogger<StatisticsController> logger)
+     ApplicationDbContext context,
+     IOrderRepository orderRepository,
+     IPetServiceRepository petServiceRepository,
+     IProductRepository productRepository,
+     ICategoryRepository categoryRepository,
+     IBrandRepository brandRepository,
+     IServiceRepository serviceRepository,
+     ILogger<StatisticsController> logger)
         {
             _context = context;
             _orderRepository = orderRepository;
@@ -364,16 +364,18 @@ namespace DoAnLTW.Areas.Admin.Controllers
         }
 
         // GET: Admin/Statistics
-        public async Task<IActionResult> Index(int? year)
+        public async Task<IActionResult> Index(int? year, int? month)
         {
             try
             {
-                _logger.LogInformation("Starting statistics retrieval for year {Year}", year ?? DateTime.Now.Year);
+                _logger.LogInformation("Starting statistics retrieval for year {Year}, month {Month}", year ?? DateTime.Now.Year, month ?? 0);
 
                 var model = new StatisticsViewModel();
 
-                // Lấy năm hiện tại nếu không có bộ lọc
-                year ??= DateTime.Now.Year;
+                // Lấy năm và tháng hiện tại nếu không có bộ lọc
+                var currentDate = DateTime.Now;
+                year ??= currentDate.Year;
+                month ??= month.HasValue ? month : null; // Keep null if not provided
 
                 // Lấy danh sách các năm có dữ liệu
                 var orderYears = await _context.Orders
@@ -393,34 +395,38 @@ namespace DoAnLTW.Areas.Admin.Controllers
                     .ToListAsync();
                 model.AvailableYears = orderYears.Union(petServiceYears).Union(petHotelBookingYears).OrderByDescending(y => y).ToList();
                 model.SelectedYear = year;
+                model.SelectedMonth = month;
 
-                // Tổng quan
+                // Tổng quan (luôn tính tổng số lượng tất cả thời gian)
                 model.TotalOrders = await _context.Orders.AsNoTracking().CountAsync();
                 model.TotalPetServices = await _context.PetServices.AsNoTracking().CountAsync();
                 model.TotalPetHotelBookings = await _context.PetHotelBookings.AsNoTracking().CountAsync();
                 model.TotalProducts = await _context.Products.AsNoTracking().CountAsync();
 
+                // Điều kiện lọc theo năm và tháng
+                var ordersQuery = _context.Orders.AsNoTracking().Where(o => o.OrderDate.Year == year);
+                var petServicesQuery = _context.PetServices.AsNoTracking().Where(ps => ps.BookingDate.Year == year);
+                var petHotelBookingsQuery = _context.PetHotelBookings.AsNoTracking().Where(phb => phb.BookingDate.Year == year && phb.Status != PetHotelBookingStatus.DaHuy);
+                var orderDetailsQuery = _context.OrderDetails.AsNoTracking().Where(od => od.Order.OrderDate.Year == year);
+
+                if (month.HasValue)
+                {
+                    ordersQuery = ordersQuery.Where(o => o.OrderDate.Month == month);
+                    petServicesQuery = petServicesQuery.Where(ps => ps.BookingDate.Month == month);
+                    petHotelBookingsQuery = petHotelBookingsQuery.Where(phb => phb.BookingDate.Month == month);
+                    orderDetailsQuery = orderDetailsQuery.Where(od => od.Order.OrderDate.Month == month);
+                }
+
                 // Tổng doanh thu
-                model.OrderRevenue = await _context.Orders
-                    .AsNoTracking()
-                    .Where(o => o.OrderDate.Year == year)
-                    .SumAsync(o => (decimal?)o.TotalAmount) ?? 0;
-                model.PetServiceRevenue = await _context.PetServices
-                    .AsNoTracking()
-                    .Where(ps => ps.BookingDate.Year == year)
-                    .SumAsync(ps => (decimal?)ps.Price) ?? 0;
-                model.PetHotelBookingRevenue = await _context.PetHotelBookings
-                    .AsNoTracking()
-                    .Where(phb => phb.BookingDate.Year == year && phb.Status != PetHotelBookingStatus.DaHuy)
-                    .SumAsync(phb => (decimal?)phb.TotalPrice) ?? 0;
+                model.OrderRevenue = await ordersQuery.SumAsync(o => (decimal?)o.TotalAmount) ?? 0;
+                model.PetServiceRevenue = await petServicesQuery.SumAsync(ps => (decimal?)ps.Price) ?? 0;
+                model.PetHotelBookingRevenue = await petHotelBookingsQuery.SumAsync(phb => (decimal?)phb.TotalPrice) ?? 0;
                 model.TotalRevenue = model.OrderRevenue + model.PetServiceRevenue + model.PetHotelBookingRevenue;
 
                 // Doanh thu theo danh mục
-                var revenueByCategory = await _context.OrderDetails
-                    .AsNoTracking()
+                var revenueByCategory = await orderDetailsQuery
                     .Include(od => od.Product)
                     .ThenInclude(p => p.Category)
-                    .Where(od => od.Order.OrderDate.Year == year)
                     .GroupBy(od => od.Product.Category.Name)
                     .Select(g => new
                     {
@@ -434,11 +440,9 @@ namespace DoAnLTW.Areas.Admin.Controllers
                     : new Dictionary<string, decimal> { { "Không có dữ liệu", 0 } };
 
                 // Doanh thu theo thương hiệu
-                var revenueByBrand = await _context.OrderDetails
-                    .AsNoTracking()
+                var revenueByBrand = await orderDetailsQuery
                     .Include(od => od.Product)
                     .ThenInclude(p => p.Brand)
-                    .Where(od => od.Order.OrderDate.Year == year)
                     .GroupBy(od => od.Product.Brand.Name)
                     .Select(g => new
                     {
@@ -452,11 +456,9 @@ namespace DoAnLTW.Areas.Admin.Controllers
                     : new Dictionary<string, decimal> { { "Không có dữ liệu", 0 } };
 
                 // Doanh thu theo loại phòng
-                var revenueByRoomType = await _context.PetHotelBookings
-                    .AsNoTracking()
+                var revenueByRoomType = await petHotelBookingsQuery
                     .Include(phb => phb.Room)
                     .ThenInclude(r => r.RoomType)
-                    .Where(phb => phb.BookingDate.Year == year && phb.Status != PetHotelBookingStatus.DaHuy)
                     .GroupBy(phb => phb.Room.RoomType.Name)
                     .Select(g => new
                     {
@@ -470,9 +472,7 @@ namespace DoAnLTW.Areas.Admin.Controllers
                     : new Dictionary<string, decimal> { { "Không có dữ liệu", 0 } };
 
                 // Số đơn hàng theo trạng thái
-                var ordersByStatus = await _context.Orders
-                    .AsNoTracking()
-                    .Where(o => o.OrderDate.Year == year)
+                var ordersByStatus = await ordersQuery
                     .GroupBy(o => o.Status)
                     .Select(g => new
                     {
@@ -486,9 +486,7 @@ namespace DoAnLTW.Areas.Admin.Controllers
                     : new Dictionary<string, int> { { "Không có dữ liệu", 0 } };
 
                 // Số dịch vụ thú cưng theo trạng thái
-                var petServicesByStatus = await _context.PetServices
-                    .AsNoTracking()
-                    .Where(ps => ps.BookingDate.Year == year)
+                var petServicesByStatus = await petServicesQuery
                     .GroupBy(ps => ps.Status)
                     .Select(g => new
                     {
@@ -502,9 +500,12 @@ namespace DoAnLTW.Areas.Admin.Controllers
                     : new Dictionary<string, int> { { "Không có dữ liệu", 0 } };
 
                 // Số đặt phòng khách sạn thú cưng theo trạng thái
-                var petHotelBookingsByStatus = await _context.PetHotelBookings
-                    .AsNoTracking()
-                    .Where(phb => phb.BookingDate.Year == year)
+                var petHotelBookingsByStatusQuery = _context.PetHotelBookings.AsNoTracking().Where(phb => phb.BookingDate.Year == year);
+                if (month.HasValue)
+                {
+                    petHotelBookingsByStatusQuery = petHotelBookingsByStatusQuery.Where(phb => phb.BookingDate.Month == month);
+                }
+                var petHotelBookingsByStatus = await petHotelBookingsByStatusQuery
                     .GroupBy(phb => phb.Status)
                     .Select(g => new
                     {
@@ -534,11 +535,9 @@ namespace DoAnLTW.Areas.Admin.Controllers
                     : new Dictionary<string, int> { { "Không có dữ liệu", 0 } };
 
                 // Số lượng sản phẩm bán ra theo danh mục
-                var soldProductsByCategory = await _context.OrderDetails
-                    .AsNoTracking()
+                var soldProductsByCategory = await orderDetailsQuery
                     .Include(od => od.Product)
                     .ThenInclude(p => p.Category)
-                    .Where(od => od.Order.OrderDate.Year == year)
                     .GroupBy(od => od.Product.Category.Name)
                     .Select(g => new
                     {
@@ -552,10 +551,8 @@ namespace DoAnLTW.Areas.Admin.Controllers
                     : new Dictionary<string, int> { { "Không có dữ liệu", 0 } };
 
                 // Số lượng dịch vụ thú cưng theo loại dịch vụ
-                var petServicesByServiceType = await _context.PetServices
-                    .AsNoTracking()
+                var petServicesByServiceType = await petServicesQuery
                     .Include(ps => ps.Service)
-                    .Where(ps => ps.BookingDate.Year == year)
                     .GroupBy(ps => ps.Service.Name)
                     .Select(g => new
                     {
@@ -568,7 +565,7 @@ namespace DoAnLTW.Areas.Admin.Controllers
                     ? petServicesByServiceType
                     : new Dictionary<string, int> { { "Không có dữ liệu", 0 } };
 
-                // Doanh thu theo tháng
+                // Doanh thu theo tháng (chỉ hiển thị tháng được chọn hoặc tất cả tháng nếu không chọn tháng)
                 var orderRevenueByMonth = await _context.Orders
                     .AsNoTracking()
                     .Where(o => o.OrderDate.Year == year)
@@ -590,55 +587,72 @@ namespace DoAnLTW.Areas.Admin.Controllers
                     .Select(g => new { Month = g.Key, Revenue = g.Sum(phb => phb.TotalPrice) })
                     .ToDictionaryAsync(k => k.Month, v => v.Revenue);
 
-                model.RevenueByMonth = Enumerable.Range(1, 12)
-                    .ToDictionary(
-                        month => $"Tháng {month}",
-                        month =>
-                        {
-                            var orderRev = orderRevenueByMonth.ContainsKey(month) ? orderRevenueByMonth[month] : 0;
-                            var petRev = petServiceRevenueByMonth.ContainsKey(month) ? petServiceRevenueByMonth[month] : 0;
-                            var hotelRev = petHotelBookingRevenueByMonth.ContainsKey(month) ? petHotelBookingRevenueByMonth[month] : 0;
-                            return orderRev + petRev + hotelRev;
-                        });
+                if (month.HasValue)
+                {
+                    model.RevenueByMonth = new Dictionary<string, decimal>
+                {
+                    { $"Tháng {month}", (orderRevenueByMonth.ContainsKey(month.Value) ? orderRevenueByMonth[month.Value] : 0) +
+                                        (petServiceRevenueByMonth.ContainsKey(month.Value) ? petServiceRevenueByMonth[month.Value] : 0) +
+                                        (petHotelBookingRevenueByMonth.ContainsKey(month.Value) ? petHotelBookingRevenueByMonth[month.Value] : 0) }
+                };
+                }
+                else
+                {
+                    model.RevenueByMonth = Enumerable.Range(1, 12)
+                        .ToDictionary(
+                            m => $"Tháng {m}",
+                            m =>
+                            {
+                                var orderRev = orderRevenueByMonth.ContainsKey(m) ? orderRevenueByMonth[m] : 0;
+                                var petRev = petServiceRevenueByMonth.ContainsKey(m) ? petServiceRevenueByMonth[m] : 0;
+                                var hotelRev = petHotelBookingRevenueByMonth.ContainsKey(m) ? petHotelBookingRevenueByMonth[m] : 0;
+                                return orderRev + petRev + hotelRev;
+                            });
+                }
 
-                // Doanh thu theo quý
-                var orderRevenueByQuarter = await _context.Orders
-                    .AsNoTracking()
-                    .Where(o => o.OrderDate.Year == year)
-                    .GroupBy(o => (o.OrderDate.Month - 1) / 3 + 1)
-                    .Select(g => new { Quarter = g.Key, Revenue = g.Sum(o => o.TotalAmount) })
-                    .ToDictionaryAsync(k => k.Quarter, v => v.Revenue);
+                // Doanh thu theo quý (chỉ hiển thị nếu không chọn tháng)
+                if (!month.HasValue)
+                {
+                    var orderRevenueByQuarter = await _context.Orders
+                        .AsNoTracking()
+                        .Where(o => o.OrderDate.Year == year)
+                        .GroupBy(o => (o.OrderDate.Month - 1) / 3 + 1)
+                        .Select(g => new { Quarter = g.Key, Revenue = g.Sum(o => o.TotalAmount) })
+                        .ToDictionaryAsync(k => k.Quarter, v => v.Revenue);
 
-                var petServiceRevenueByQuarter = await _context.PetServices
-                    .AsNoTracking()
-                    .Where(ps => ps.BookingDate.Year == year)
-                    .GroupBy(ps => (ps.BookingDate.Month - 1) / 3 + 1)
-                    .Select(g => new { Quarter = g.Key, Revenue = g.Sum(ps => ps.Price) })
-                    .ToDictionaryAsync(k => k.Quarter, v => v.Revenue);
+                    var petServiceRevenueByQuarter = await _context.PetServices
+                        .AsNoTracking()
+                        .Where(ps => ps.BookingDate.Year == year)
+                        .GroupBy(ps => (ps.BookingDate.Month - 1) / 3 + 1)
+                        .Select(g => new { Quarter = g.Key, Revenue = g.Sum(ps => ps.Price) })
+                        .ToDictionaryAsync(k => k.Quarter, v => v.Revenue);
 
-                var petHotelBookingRevenueByQuarter = await _context.PetHotelBookings
-                    .AsNoTracking()
-                    .Where(phb => phb.BookingDate.Year == year && phb.Status != PetHotelBookingStatus.DaHuy)
-                    .GroupBy(phb => (phb.BookingDate.Month - 1) / 3 + 1)
-                    .Select(g => new { Quarter = g.Key, Revenue = g.Sum(phb => phb.TotalPrice) })
-                    .ToDictionaryAsync(k => k.Quarter, v => v.Revenue);
+                    var petHotelBookingRevenueByQuarter = await _context.PetHotelBookings
+                        .AsNoTracking()
+                        .Where(phb => phb.BookingDate.Year == year && phb.Status != PetHotelBookingStatus.DaHuy)
+                        .GroupBy(phb => (phb.BookingDate.Month - 1) / 3 + 1)
+                        .Select(g => new { Quarter = g.Key, Revenue = g.Sum(phb => phb.TotalPrice) })
+                        .ToDictionaryAsync(k => k.Quarter, v => v.Revenue);
 
-                model.RevenueByQuarter = Enumerable.Range(1, 4)
-                    .ToDictionary(
-                        quarter => $"Quý {quarter}",
-                        quarter =>
-                        {
-                            var orderRev = orderRevenueByQuarter.ContainsKey(quarter) ? orderRevenueByQuarter[quarter] : 0;
-                            var petRev = petServiceRevenueByQuarter.ContainsKey(quarter) ? petServiceRevenueByQuarter[quarter] : 0;
-                            var hotelRev = petHotelBookingRevenueByQuarter.ContainsKey(quarter) ? petHotelBookingRevenueByQuarter[quarter] : 0;
-                            return orderRev + petRev + hotelRev;
-                        });
+                    model.RevenueByQuarter = Enumerable.Range(1, 4)
+                        .ToDictionary(
+                            quarter => $"Quý {quarter}",
+                            quarter =>
+                            {
+                                var orderRev = orderRevenueByQuarter.ContainsKey(quarter) ? orderRevenueByQuarter[quarter] : 0;
+                                var petRev = petServiceRevenueByQuarter.ContainsKey(quarter) ? petServiceRevenueByQuarter[quarter] : 0;
+                                var hotelRev = petHotelBookingRevenueByQuarter.ContainsKey(quarter) ? petHotelBookingRevenueByQuarter[quarter] : 0;
+                                return orderRev + petRev + hotelRev;
+                            });
+                }
+                else
+                {
+                    model.RevenueByQuarter = new Dictionary<string, decimal>();
+                }
 
                 // Top 5 sản phẩm bán chạy nhất
-                model.TopSellingProducts = await _context.OrderDetails
-                    .AsNoTracking()
+                model.TopSellingProducts = await orderDetailsQuery
                     .Include(od => od.Product)
-                    .Where(od => od.Order.OrderDate.Year == year)
                     .GroupBy(od => new { od.ProductId, od.Product.Name })
                     .Select(g => new ProductSalesModel
                     {
@@ -652,10 +666,8 @@ namespace DoAnLTW.Areas.Admin.Controllers
                     .ToListAsync();
 
                 // Top 5 dịch vụ phổ biến nhất
-                model.TopPopularServices = await _context.PetServices
-                    .AsNoTracking()
+                model.TopPopularServices = await petServicesQuery
                     .Include(ps => ps.Service)
-                    .Where(ps => ps.BookingDate.Year == year)
                     .GroupBy(ps => new { ps.ServiceId, ps.Service.Name })
                     .Select(g => new ServicePopularityModel
                     {
@@ -669,11 +681,9 @@ namespace DoAnLTW.Areas.Admin.Controllers
                     .ToListAsync();
 
                 // Top 5 loại phòng phổ biến nhất
-                model.TopPopularRoomTypes = await _context.PetHotelBookings
-                    .AsNoTracking()
+                model.TopPopularRoomTypes = await petHotelBookingsQuery
                     .Include(phb => phb.Room)
                     .ThenInclude(r => r.RoomType)
-                    .Where(phb => phb.BookingDate.Year == year && phb.Status != PetHotelBookingStatus.DaHuy)
                     .GroupBy(phb => new { phb.Room.RoomType.RoomTypeId, phb.Room.RoomType.Name })
                     .Select(g => new RoomTypePopularityModel
                     {
@@ -686,17 +696,18 @@ namespace DoAnLTW.Areas.Admin.Controllers
                     .Take(5)
                     .ToListAsync();
 
-                _logger.LogInformation("Statistics retrieval completed successfully for year {Year}", year);
+                _logger.LogInformation("Statistics retrieval completed successfully for year {Year}, month {Month}", year, month ?? 0);
                 return View(model);
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Error retrieving statistics for year {Year}", year);
+                _logger.LogError(ex, "Error retrieving statistics for year {Year}, month {Month}", year, month ?? 0);
                 TempData["ErrorMessage"] = "Đã xảy ra lỗi khi tải dữ liệu thống kê. Vui lòng thử lại sau.";
                 return View(new StatisticsViewModel
                 {
                     AvailableYears = new List<int> { DateTime.Now.Year },
                     SelectedYear = year,
+                    SelectedMonth = month,
                     RevenueByCategory = new Dictionary<string, decimal> { { "Không có dữ liệu", 0 } },
                     RevenueByBrand = new Dictionary<string, decimal> { { "Không có dữ liệu", 0 } },
                     RevenueByRoomType = new Dictionary<string, decimal> { { "Không có dữ liệu", 0 } },
@@ -706,8 +717,8 @@ namespace DoAnLTW.Areas.Admin.Controllers
                     ProductsByBrand = new Dictionary<string, int> { { "Không có dữ liệu", 0 } },
                     SoldProductsByCategory = new Dictionary<string, int> { { "Không có dữ liệu", 0 } },
                     PetServicesByServiceType = new Dictionary<string, int> { { "Không có dữ liệu", 0 } },
-                    RevenueByMonth = Enumerable.Range(1, 12).ToDictionary(m => $"Tháng {m}", m => (decimal)0),
-                    RevenueByQuarter = Enumerable.Range(1, 4).ToDictionary(q => $"Quý {q}", q => (decimal)0),
+                    RevenueByMonth = month.HasValue ? new Dictionary<string, decimal> { { $"Tháng {month}", 0 } } : Enumerable.Range(1, 12).ToDictionary(m => $"Tháng {m}", m => (decimal)0),
+                    RevenueByQuarter = month.HasValue ? new Dictionary<string, decimal>() : Enumerable.Range(1, 4).ToDictionary(q => $"Quý {q}", q => (decimal)0),
                     TopSellingProducts = new List<ProductSalesModel>(),
                     TopPopularServices = new List<ServicePopularityModel>(),
                     TopPopularRoomTypes = new List<RoomTypePopularityModel>()

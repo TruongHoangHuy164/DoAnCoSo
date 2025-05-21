@@ -85,6 +85,7 @@ namespace DoAnLTW.Areas.Admin.Models
 
         // Bộ lọc
         public int? SelectedYear { get; set; }
+        public int? SelectedMonth { get; set; }
         public List<int> AvailableYears { get; set; }
     }
 

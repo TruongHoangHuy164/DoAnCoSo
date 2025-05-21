@@ -1,28 +1,49 @@
 ﻿@model IEnumerable<DoAnLTW.Models.Order>
-
 @{
     ViewData["Title"] = "Danh Sách Đơn hàng";
     Layout = "~/Areas/Admin/Views/Shared/layoutAdmin.cshtml";
 }
 
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 <style>
-    /* Tùy chỉnh bảng chính */
+    /* General page styling */
+    body {
+        background-color: #000000; /* Black background */
+        color: #FFFFFF; /* White text */
+        font-family: 'Arial', sans-serif;
+    }
+
+    h2 {
+        color: #FFD700; /* Gold heading */
+        border-bottom: 2px solid #FFD700;
+        padding-bottom: 10px;
+        margin-bottom: 30px;
+        text-align: center;
+        font-weight: bold;
+        text-transform: uppercase;
+        animation: fadeInDown 0.5s ease-in-out;
+    }
+
+    /* Table styling */
     .table {
+        background-color: #FFFFFF; /* White table background */
+        color: #000000; /* Black text */
+        border: 1px solid #FFD700; /* Gold border */
         border-collapse: separate;
         border-spacing: 0 10px;
-        background-color: #fff;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
         border-radius: 10px;
         overflow: hidden;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     }
 
         .table thead th {
-            background-color: #007bff;
-            color: white;
+            background-color: #FFD700; /* Gold header background */
+            color: #000000; /* Black header text */
             text-transform: uppercase;
             font-weight: bold;
             padding: 15px;
             border: none;
+            text-align: center;
         }
 
         .table tbody tr {
@@ -30,7 +51,7 @@
         }
 
             .table tbody tr:hover {
-                background-color: #f1f8ff;
+                background-color: #FFD70033; /* Light gold hover effect */
                 transform: scale(1.02);
                 box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
             }
@@ -38,209 +59,265 @@
         .table td {
             padding: 15px;
             vertical-align: middle;
+            border: 1px solid #000000; /* Black borders */
         }
 
-    /* Tùy chỉnh tiêu đề */
-    h2 {
-        color: #007bff;
-        font-weight: bold;
-        text-transform: uppercase;
-        margin-bottom: 30px;
-        text-align: center;
-        animation: fadeInDown 0.5s ease-in-out;
-    }
+        .table tbody tr:nth-child(even) {
+            background-color: #F5F5F5; /* Light gray for alternating rows */
+        }
 
-    /* Tùy chỉnh chi tiết đơn hàng */
+    /* Order detail section */
     .order-detail {
-        background-color: #fdfdfd;
-        border: 2px solid #007bff;
+        background-color: #FDFDFD; /* Slightly off-white background */
+        border: 2px solid #FFD700; /* Gold border */
         border-radius: 8px;
         padding: 15px;
         margin-top: 10px;
-        box-shadow: 0 4px 8px rgba(0, 123, 255, 0.2);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         animation: fadeIn 0.3s ease-in-out;
     }
 
         .order-detail strong {
-            color: #007bff;
+            color: #000000; /* Black text for emphasis */
             font-size: 1.1em;
         }
 
-        /* Tùy chỉnh bảng chi tiết */
         .order-detail .table {
             margin-top: 10px;
             box-shadow: none;
+            border: 1px solid #000000; /* Black border for nested table */
         }
 
             .order-detail .table thead th {
-                background-color: #17a2b8;
-                color: white;
+                background-color: #E6C200; /* Darker gold for nested table header */
+                color: #000000;
             }
 
-    /* Tùy chỉnh nút Xem chi tiết và Cập nhật */
-    .btn-primary, .btn-success {
-        padding: 8px 20px;
-        border: none;
-        border-radius: 5px;
+    /* Button styling */
+    .btn-primary {
+        background-color: #FFD700; /* Gold background */
+        border-color: #FFD700;
+        color: #000000; /* Black text */
         font-weight: bold;
+        padding: 8px 20px;
+        border-radius: 5px;
         transition: all 0.3s ease;
     }
 
-    .btn-primary {
-        background-color: #007bff;
-    }
-
         .btn-primary:hover {
-            background-color: #0056b3;
+            background-color: #E6C200; /* Darker gold on hover */
+            border-color: #E6C200;
+            color: #000000;
             transform: translateY(-2px);
-            box-shadow: 0 4px 10px rgba(0, 123, 255, 0.3);
+            box-shadow: 0 4px 10px rgba(255, 215, 0, 0.3);
         }
 
     .btn-success {
-        background-color: #28a745;
+        background-color: #000000; /* Black background */
+        border-color: #FFD700; /* Gold border */
+        color: #FFD700; /* Gold text */
+        font-weight: bold;
+        padding: 8px 20px;
+        border-radius: 5px;
+        transition: all 0.3s ease;
     }
 
         .btn-success:hover {
-            background-color: #218838;
+            background-color: #333333; /* Darker black on hover */
+            border-color: #FFD700;
+            color: #FFD700;
             transform: translateY(-2px);
-            box-shadow: 0 4px 10px rgba(40, 167, 69, 0.3);
+            box-shadow: 0 4px 10px rgba(255, 215, 0, 0.3);
         }
 
-    /* Tùy chỉnh dropdown */
+    /* Dropdown styling */
     .status-select {
         padding: 8px;
         border-radius: 5px;
-        border: 1px solid #007bff;
+        border: 1px solid #000000; /* Black border */
+        background-color: #F5F5F5; /* Light gray background */
+        color: #000000; /* Black text */
         margin-right: 10px;
+        font-size: 0.9rem;
     }
 
-    /* Hiệu ứng animation */
-    @@keyframes fadeIn {
-        from {
-            opacity: 0;
-            transform: translateY(-10px);
+        .status-select:focus {
+            border-color: #FFD700; /* Gold border on focus */
+            box-shadow: 0 0 5px rgba(255, 215, 0, 0.5);
+            outline: none;
         }
 
-        to {
-            opacity: 1;
-            transform: translateY(0);
-        }
+    /* Animations */
+    @@keyframes fadeIn {
+        from
+
+    {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
     }
 
     @@keyframes fadeInDown {
-        from {
-            opacity: 0;
-            transform: translateY(-20px);
-        }
+        from
 
-        to {
-            opacity: 1;
-            transform: translateY(0);
-        }
+    {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    }
+
+    /* Responsive adjustments */
+    @@media (max-width: 768px) {
+        .table th, .table td
+
+    {
+        padding: 10px;
+        font-size: 0.9rem;
+    }
+
+    .btn-primary, .btn-success {
+        padding: 6px 15px;
+        font-size: 0.9rem;
+    }
+
+    .status-select {
+        font-size: 0.85rem;
+        padding: 6px;
+    }
+
+    .order-detail {
+        padding: 10px;
+    }
+
+    .table-responsive {
+        font-size: 0.85rem;
+    }
+
     }
 </style>
 
-<h2>Danh sách đơn hàng</h2>
+<div class="container-fluid">
+    <h2>Danh Sách Đơn hàng</h2>
 
-<table class="table table-bordered">
-    <thead>
-        <tr>
-            <th>Họ tên</th>
-            <th>Email</th>
-            <th>SĐT</th>
-            <th>Địa chỉ</th>
-            <th>Ngày đặt</th>
-            <th>Tổng tiền</th>
-            <th>Thanh toán</th>
-            <th>Trạng thái</th>
-            <th>Hành động</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var order in Model.Select((value, index) => new { value, index }))
-        {
-            var orderId = "orderDetail_" + order.index;
-            <tr>
-                <td>@order.value.FirstName @order.value.LastName</td>
-                <td>@order.value.Email</td>
-                <td>@order.value.PhoneNumber</td>
-                <td>@order.value.Address</td>
-                <td>@order.value.OrderDate.ToString("dd/MM/yyyy HH:mm")</td>
-                <td>@order.value.TotalAmount.ToString("N0") VNĐ</td>
-                <td>@order.value.PaymentMethod</td>
-                <td>@order.value.Status</td>
-                <td>
-                    <button class="btn btn-primary" onclick="toggleDetail('@orderId', this)">Xem chi tiết</button>
-                </td>
-            </tr>
+    <div class="table-responsive">
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Họ tên</th>
+                    <th>Email</th>
+                    <th>SĐT</th>
+                    <th>Địa chỉ</th>
+                    <th>Ngày đặt</th>
+                    <th>Tổng tiền</th>
+                    <th>Thanh toán</th>
+                    <th>Trạng thái</th>
+                    <th>Hành động</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var order in Model.Select((value, index) => new { value, index }))
+                {
+                    var orderId = "orderDetail_" + order.index;
+                    <tr>
+                        <td>@order.value.FirstName @order.value.LastName</td>
+                        <td>@order.value.Email</td>
+                        <td>@order.value.PhoneNumber</td>
+                        <td>@order.value.Address</td>
+                        <td>@order.value.OrderDate.ToString("dd/MM/yyyy HH:mm")</td>
+                        <td>@order.value.TotalAmount.ToString("N0") VNĐ</td>
+                        <td>@order.value.PaymentMethod</td>
+                        <td>@order.value.Status</td>
+                        <td>
+                            <button class="btn btn-primary" onclick="toggleDetail('@orderId', this)">
+                                <i class="fas fa-eye"></i> Xem chi tiết
+                            </button>
+                        </td>
+                    </tr>
 
-            <tr id="@orderId" style="display:none;">
-                <td colspan="9">
-                    <div class="order-detail">
-                        <strong>Chi tiết đơn hàng:</strong>
-                        <table class="table table-striped">
-                            <thead>
-                                <tr>
-                                    <th>Tên sản phẩm</th>
-                                    <th>Size</th>
-                                    <th>Số lượng</th>
-                                    <th>Giá</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach (var detail in order.value.OrderDetails)
-                                {
-                                    <tr>
-                                        <td>@detail.ProductName</td>
-                                        <td>@detail.Size</td>
-                                        <td>@detail.Quantity</td>
-                                        <td>@detail.Price.ToString("N0") VNĐ</td>
-                                    </tr>
-                                }
-                            </tbody>
-                        </table>
-                        <div>
-                            <strong>Cập nhật trạng thái:</strong>
-                            <select class="status-select" id="status_@order.value.Id">
-                                @{
-                                    var statuses = new[] {
-                            new { Value = "ChoXuLy", Text = "Chờ xử lý", Selected = order.value.Status == DoAnLTW.Models.OrderStatus.ChoXuLy },
-                            new { Value = "DangGiaoHang", Text = "Đang giao hàng", Selected = order.value.Status == DoAnLTW.Models.OrderStatus.DangGiaoHang },
-                            new { Value = "DaGiaoHang", Text = "Đã giao hàng", Selected = order.value.Status == DoAnLTW.Models.OrderStatus.DaGiaoHang },
-                            new { Value = "DaHuy", Text = "Đã hủy", Selected = order.value.Status == DoAnLTW.Models.OrderStatus.DaHuy }
-                            };
-                                    foreach (var status in statuses)
-                                    {
-                                        if (status.Selected)
+                    <tr id="@orderId" style="display:none;">
+                        <td colspan="9">
+                            <div class="order-detail">
+                                <strong>Chi tiết đơn hàng:</strong>
+                                <table class="table table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>Tên sản phẩm</th>
+                                            <th>Size</th>
+                                            <th>Số lượng</th>
+                                            <th>Giá</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var detail in order.value.OrderDetails)
                                         {
-                                            <option value="@status.Value" selected>@status.Text</option>
+                                            <tr>
+                                                <td>@detail.ProductName</td>
+                                                <td>@detail.Size</td>
+                                                <td>@detail.Quantity</td>
+                                                <td>@detail.Price.ToString("N0") VNĐ</td>
+                                            </tr>
                                         }
-                                        else
-                                        {
-                                            <option value="@status.Value">@status.Text</option>
+                                    </tbody>
+                                </table>
+                                <div>
+                                    <strong>Cập nhật trạng thái:</strong>
+                                    <select class="status-select" id="status_@order.value.Id">
+                                        @{
+                                            var statuses = new[] {
+                                    new { Value = "ChoXuLy", Text = "Chờ xử lý", Selected = order.value.Status == DoAnLTW.Models.OrderStatus.ChoXuLy },
+                                    new { Value = "DangGiaoHang", Text = "Đang giao hàng", Selected = order.value.Status == DoAnLTW.Models.OrderStatus.DangGiaoHang },
+                                    new { Value = "DaGiaoHang", Text = "Đã giao hàng", Selected = order.value.Status == DoAnLTW.Models.OrderStatus.DaGiaoHang },
+                                    new { Value = "DaHuy", Text = "Đã hủy", Selected = order.value.Status == DoAnLTW.Models.OrderStatus.DaHuy }
+                                    };
+                                            foreach (var status in statuses)
+                                            {
+                                                if (status.Selected)
+                                                {
+                                                    <option value="@status.Value" selected>@status.Text</option>
+                                                }
+                                                else
+                                                {
+                                                    <option value="@status.Value">@status.Text</option>
+                                                }
+                                            }
                                         }
-                                    }
-                                }
-                            </select>
-                            <button class="btn btn-success" onclick="updateStatus(@order.value.Id)">Lưu</button>
-                        </div>
-                    </div>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+                                    </select>
+                                    <button class="btn btn-success" onclick="updateStatus(@order.value.Id)">
+                                        <i class="fas fa-save"></i> Lưu
+                                    </button>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
 
 @section Scripts {
     <script>
         function toggleDetail(id, btn) {
             const row = document.getElementById(id);
+            const icon = btn.querySelector('i');
             if (row.style.display === "none") {
                 row.style.display = "";
-                btn.textContent = "Ẩn chi tiết";
+                btn.innerHTML = '<i class="fas fa-eye-slash"></i> Ẩn chi tiết';
             } else {
                 row.style.display = "none";
-                btn.textContent = "Xem chi tiết";
+                btn.innerHTML = '<i class="fas fa-eye"></i> Xem chi tiết';
             }
         }
 
@@ -254,19 +331,19 @@
                 },
                 body: JSON.stringify({ id: orderId, status: status })
             })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    alert('Cập nhật trạng thái thành công!');
-                    location.reload(); // Reload to reflect changes
-                } else {
-                    alert('Cập nhật trạng thái thất bại: ' + data.message);
-                }
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                alert('Đã xảy ra lỗi khi cập nhật trạng thái.');
-            });
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        alert('Cập nhật trạng thái thành công!');
+                        location.reload(); // Reload to reflect changes
+                    } else {
+                        alert('Cập nhật trạng thái thất bại: ' + data.message);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('Đã xảy ra lỗi khi cập nhật trạng thái.');
+                });
         }
     </script>
 }

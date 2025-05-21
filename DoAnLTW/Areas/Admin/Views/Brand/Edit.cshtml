@@ -1,43 +1,201 @@
 ﻿@model DoAnLTW.Models.Brand
-
 @{
     ViewData["Title"] = "Sửa thương hiệu";
     Layout = "~/Areas/Admin/Views/Shared/layoutAdmin.cshtml";
 }
 
-<h1>Sửa thương hiệu</h1>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+<style>
+    /* General page styling */
+    body {
+        background-color: #000000; /* Black background */
+        color: #FFFFFF; /* White text */
+        font-family: 'Arial', sans-serif;
+    }
 
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit" enctype="multipart/form-data">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="BrandId" />
-            <div class="form-group">
-                <label asp-for="Name" class="control-label"></label>
-                <input asp-for="Name" class="form-control" />
-                <span asp-validation-for="Name" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ImageUrl" class="control-label">Hình ảnh hiện tại</label>
-                @if (!string.IsNullOrEmpty(Model.ImageUrl))
-                {
-                    <div>
-                        <img src="@Model.ImageUrl" alt="@Model.Name" style="width:100px; height:auto;" />
+    h1 {
+        color: #FFD700; /* Gold heading */
+        border-bottom: 2px solid #FFD700;
+        padding-bottom: 10px;
+        margin-bottom: 20px;
+        text-align: center;
+        text-transform: uppercase;
+        animation: fadeInDown 0.5s ease-in-out;
+    }
+
+    hr {
+        border-color: #FFD700; /* Gold divider */
+        margin: 20px 0;
+    }
+
+    /* Form styling */
+    .form-container {
+        background-color: #FFFFFF; /* White form background */
+        color: #000000; /* Black text */
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        border: 1px solid #FFD700; /* Gold border */
+    }
+
+    .form-group {
+        margin-bottom: 15px;
+    }
+
+        .form-group label {
+            color: #000000; /* Black label text */
+            font-weight: 500;
+            margin-bottom: 5px;
+        }
+
+    .form-control {
+        background-color: #F5F5F5; /* Light gray input background */
+        border: 1px solid #000000; /* Black border */
+        color: #000000; /* Black text */
+        border-radius: 5px;
+        padding: 8px;
+    }
+
+        .form-control:focus {
+            border-color: #FFD700; /* Gold border on focus */
+            box-shadow: 0 0 5px rgba(255, 215, 0, 0.5);
+            background-color: #FFFFFF; /* White background on focus */
+        }
+
+    /* Image styling */
+    img {
+        border-radius: 5px;
+        border: 1px solid #000000; /* Black border */
+        margin-bottom: 10px;
+    }
+
+    /* Button styling */
+    .btn-primary {
+        background-color: #FFD700; /* Gold background */
+        border-color: #FFD700;
+        color: #000000; /* Black text */
+        font-weight: bold;
+        padding: 8px 16px;
+        border-radius: 5px;
+        transition: all 0.3s ease;
+    }
+
+        .btn-primary:hover {
+            background-color: #E6C200; /* Darker gold on hover */
+            border-color: #E6C200;
+            color: #000000;
+            box-shadow: 0 4px 10px rgba(255, 215, 0, 0.3);
+        }
+
+    .btn-secondary {
+        background-color: #000000; /* Black background */
+        border-color: #FFD700; /* Gold border */
+        color: #FFD700; /* Gold text */
+        padding: 8px 16px;
+        border-radius: 5px;
+        transition: all 0.3s ease;
+    }
+
+        .btn-secondary:hover {
+            background-color: #333333; /* Darker black on hover */
+            border-color: #FFD700;
+            color: #FFD700;
+            box-shadow: 0 4px 10px rgba(255, 215, 0, 0.3);
+        }
+
+    /* Validation error styling */
+    .text-danger {
+        color: #FFD700 !important; /* Gold error text */
+        font-size: 0.85rem;
+    }
+
+    .field-validation-error {
+        display: block;
+        margin-top: 5px;
+    }
+
+    /* Animations */
+    @@keyframes fadeInDown {
+        from
+
+    {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    }
+
+    /* Responsive adjustments */
+    @@media (max-width: 768px) {
+        .form-container
+
+    {
+        padding: 15px;
+    }
+
+    .form-group label {
+        font-size: 0.9rem;
+    }
+
+    .form-control {
+        font-size: 0.9rem;
+        padding: 6px;
+    }
+
+    .btn-primary, .btn-secondary {
+        padding: 6px 12px;
+        font-size: 0.9rem;
+    }
+
+    img {
+        width: 80px;
+    }
+
+    }
+</style>
+
+<div class="container-fluid">
+    <h1>Sửa thương hiệu</h1>
+
+    <hr />
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-container">
+                <form asp-action="Edit" enctype="multipart/form-data">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <input type="hidden" asp-for="BrandId" />
+                    <div class="form-group">
+                        <label asp-for="Name" class="control-label">Tên thương hiệu</label>
+                        <input asp-for="Name" class="form-control" placeholder="Nhập tên thương hiệu" />
+                        <span asp-validation-for="Name" class="text-danger"></span>
                     </div>
-                }
-                else
-                {
-                    <div>Không có hình ảnh</div>
-                }
-                <label class="control-label">Chọn hình ảnh mới (nếu muốn thay đổi)</label>
-                <input type="file" name="ImageFile" class="form-control" accept="image/*" />
+                    <div class="form-group">
+                        <label asp-for="ImageUrl" class="control-label">Hình ảnh hiện tại</label>
+                        @if (!string.IsNullOrEmpty(Model.ImageUrl))
+                        {
+                            <div>
+                                <img src="@Model.ImageUrl" alt="@Model.Name" style="width:100px; height:auto;" />
+                            </div>
+                        }
+                        else
+                        {
+                            <div>Không có hình ảnh</div>
+                        }
+                        <label class="control-label">Chọn hình ảnh mới (nếu muốn thay đổi)</label>
+                        <input type="file" name="ImageFile" class="form-control" accept="image/*" />
+                    </div>
+                    <div class="form-group mt-3 text-center">
+                        <input type="submit" value="Lưu" class="btn btn-primary" /><i class="fas fa-save"></i>
+                        <a asp-action="Index" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Quay lại</a>
+                    </div>
+                </form>
             </div>
-            <div class="form-group mt-3">
-                <input type="submit" value="Lưu" class="btn btn-primary" />
-                <a asp-action="Index" class="btn btn-secondary">Quay lại</a>
-            </div>
-        </form>
+        </div>
     </div>
 </div>
 
