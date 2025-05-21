@@ -7,9 +7,10 @@
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 <style>
-    .h2{
-        color:cornflowerblue;
+    .h2 {
+        color: cornflowerblue;
     }
+
     .stats-card {
         background: #fff;
         border-radius: 10px;
@@ -102,9 +103,9 @@
         </div>
         <div class="col-md-3">
             <div class="stats-card">
-                <i class="fas fa-box"></i>
-                <h5>Tổng sản phẩm</h5>
-                <p>@Model.TotalProducts</p>
+                <i class="fas fa-hotel"></i>
+                <h5>Tổng đặt phòng khách sạn</h5>
+                <p>@Model.TotalPetHotelBookings</p>
             </div>
         </div>
     </div>
@@ -132,6 +133,11 @@
                     <td>@(Model.TotalRevenue > 0 ? (Model.PetServiceRevenue / Model.TotalRevenue * 100).ToString("F2") : "0")%</td>
                 </tr>
                 <tr>
+                    <td>Đặt phòng khách sạn thú cưng</td>
+                    <td>@Model.PetHotelBookingRevenue.ToString("N0")</td>
+                    <td>@(Model.TotalRevenue > 0 ? (Model.PetHotelBookingRevenue / Model.TotalRevenue * 100).ToString("F2") : "0")%</td>
+                </tr>
+                <tr>
                     <td><strong>Tổng</strong></td>
                     <td><strong>@Model.TotalRevenue.ToString("N0")</strong></td>
                     <td><strong>100%</strong></td>
@@ -156,6 +162,13 @@
                 <canvas id="revenueByBrandChart"></canvas>
             </div>
         </div>
+        <!-- Biểu đồ tròn: Doanh thu theo loại phòng -->
+        <div class="col-md-6">
+            <div class="chart-container">
+                <h5>Doanh thu theo loại phòng</h5>
+                <canvas id="revenueByRoomTypeChart"></canvas>
+            </div>
+        </div>
         <!-- Biểu đồ tròn: Đơn hàng theo trạng thái -->
         <div class="col-md-6">
             <div class="chart-container">
@@ -168,6 +181,13 @@
             <div class="chart-container">
                 <h5>Dịch vụ theo trạng thái</h5>
                 <canvas id="petServicesByStatusChart"></canvas>
+            </div>
+        </div>
+        <!-- Biểu đồ tròn: Đặt phòng theo trạng thái -->
+        <div class="col-md-6">
+            <div class="chart-container">
+                <h5>Đặt phòng theo trạng thái</h5>
+                <canvas id="petHotelBookingsByStatusChart"></canvas>
             </div>
         </div>
         <!-- Biểu đồ cột: Doanh thu theo tháng -->
@@ -200,10 +220,10 @@
         </div>
     </div>
 
-    <!-- Top sản phẩm và dịch vụ -->
+    <!-- Top sản phẩm, dịch vụ và loại phòng -->
     <div class="row">
         <!-- Top 5 sản phẩm bán chạy -->
-        <div class="col-md-6">
+        <div class="col-md-4">
             <div class="table-container">
                 <h5>Top 5 sản phẩm bán chạy</h5>
                 <table class="table table-bordered">
@@ -237,7 +257,7 @@
             </div>
         </div>
         <!-- Top 5 dịch vụ phổ biến -->
-        <div class="col-md-6">
+        <div class="col-md-4">
             <div class="table-container">
                 <h5>Top 5 dịch vụ phổ biến</h5>
                 <table class="table table-bordered">
@@ -257,6 +277,40 @@
                                     <td>@service.ServiceName</td>
                                     <td>@service.BookingCount</td>
                                     <td>@service.Revenue.ToString("N0")</td>
+                                </tr>
+                            }
+                        }
+                        else
+                        {
+                            <tr>
+                                <td colspan="3">Không có dữ liệu</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <!-- Top 5 loại phòng phổ biến -->
+        <div class="col-md-4">
+            <div class="table-container">
+                <h5>Top 5 loại phòng phổ biến</h5>
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Tên loại phòng</th>
+                            <th>Số lần đặt</th>
+                            <th>Doanh thu (VNĐ)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model.TopPopularRoomTypes.Any())
+                        {
+                            foreach (var roomType in Model.TopPopularRoomTypes)
+                            {
+                                <tr>
+                                    <td>@roomType.RoomTypeName</td>
+                                    <td>@roomType.BookingCount</td>
+                                    <td>@roomType.Revenue.ToString("N0")</td>
                                 </tr>
                             }
                         }
@@ -328,6 +382,26 @@
             }
         });
 
+        // Biểu đồ tròn: Doanh thu theo loại phòng
+        const revenueByRoomTypeCtx = document.getElementById('revenueByRoomTypeChart').getContext('2d');
+        new Chart(revenueByRoomTypeCtx, {
+            type: 'pie',
+            data: {
+                labels: [@Html.Raw(string.Join(",", Model.RevenueByRoomType.Keys.Select(k => $"'{k}'")))],
+                datasets: [{
+                    data: [@Html.Raw(string.Join(",", Model.RevenueByRoomType.Values))],
+                    backgroundColor: getRandomColors(@Model.RevenueByRoomType.Count)
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: { position: 'top' },
+                    title: { display: true, text: 'Doanh thu theo loại phòng' }
+                }
+            }
+        });
+
         // Biểu đồ tròn: Đơn hàng theo trạng thái
         const ordersByStatusCtx = document.getElementById('ordersByStatusChart').getContext('2d');
         new Chart(ordersByStatusCtx, {
@@ -364,6 +438,26 @@
                 plugins: {
                     legend: { position: 'top' },
                     title: { display: true, text: 'Dịch vụ theo trạng thái' }
+                }
+            }
+        });
+
+        // Biểu đồ tròn: Đặt phòng theo trạng thái
+        const petHotelBookingsByStatusCtx = document.getElementById('petHotelBookingsByStatusChart').getContext('2d');
+        new Chart(petHotelBookingsByStatusCtx, {
+            type: 'pie',
+            data: {
+                labels: [@Html.Raw(string.Join(",", Model.PetHotelBookingsByStatus.Keys.Select(k => $"'{k}'")))],
+                datasets: [{
+                    data: [@Html.Raw(string.Join(",", Model.PetHotelBookingsByStatus.Values))],
+                    backgroundColor: getRandomColors(@Model.PetHotelBookingsByStatus.Count)
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: { position: 'top' },
+                    title: { display: true, text: 'Đặt phòng theo trạng thái' }
                 }
             }
         });

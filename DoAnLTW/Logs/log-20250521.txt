@@ -4817,3 +4817,1157 @@ WHERE [a].[UserId] = @__userId_0
 2025-05-21 11:59:22.498 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/_vs/browserLink - null null
 2025-05-21 11:59:22.502 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/_framework/aspnetcore-browser-refresh.js - 200 16499 application/javascript; charset=utf-8 4.8597ms
 2025-05-21 11:59:22.521 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/_vs/browserLink - 200 null text/javascript; charset=UTF-8 22.9749ms
+2025-05-21 12:03:41.511 +07:00 [INF] User profile is available. Using 'C:\Users\admin\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2025-05-21 12:03:41.842 +07:00 [INF] Now listening on: https://localhost:5134
+2025-05-21 12:03:41.870 +07:00 [INF] Application started. Press Ctrl+C to shut down.
+2025-05-21 12:03:41.873 +07:00 [INF] Hosting environment: Development
+2025-05-21 12:03:41.875 +07:00 [INF] Content root path: H:\DoAnCoSo\DoAnLTW
+2025-05-21 12:03:42.169 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/ - null null
+2025-05-21 12:03:42.324 +07:00 [INF] Executing endpoint 'DoAnLTW.Controllers.HomeController.Index (DoAnLTW)'
+2025-05-21 12:03:42.336 +07:00 [INF] Route matched with {action = "Index", controller = "Home", area = "", page = ""}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Index() on controller DoAnLTW.Controllers.HomeController (DoAnLTW).
+2025-05-21 12:03:43.293 +07:00 [INF] Executed DbCommand (23ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [c].[CategoryId], [c].[ImageUrl], [c].[Name]
+FROM [Categories] AS [c]
+2025-05-21 12:03:43.352 +07:00 [INF] Executed DbCommand (7ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [b].[BrandId], [b].[ImageUrl], [b].[Name]
+FROM [Brands] AS [b]
+2025-05-21 12:03:43.469 +07:00 [WRN] Compiling a query which loads related collections for more than one collection navigation, either via 'Include' or through projection, but no 'QuerySplittingBehavior' has been configured. By default, Entity Framework will use 'QuerySplittingBehavior.SingleQuery', which can potentially result in slow query performance. See https://go.microsoft.com/fwlink/?linkid=2134277 for more information. To identify the query that's triggering this warning call 'ConfigureWarnings(w => w.Throw(RelationalEventId.MultipleCollectionIncludeWarning))'.
+2025-05-21 12:03:43.512 +07:00 [INF] Executed DbCommand (17ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [p].[ProductId], [p].[BrandId], [p].[CategoryId], [p].[Description], [p].[Name], [c].[CategoryId], [c].[ImageUrl], [c].[Name], [b].[BrandId], [b].[ImageUrl], [b].[Name], [s0].[ProductId], [s0].[SizeId], [s0].[Price], [s0].[Stock], [s0].[SizeId0], [s0].[size], [p1].[Product_ImagesId], [p1].[ImageUrl], [p1].[ProductId]
+FROM [Products] AS [p]
+INNER JOIN [Categories] AS [c] ON [p].[CategoryId] = [c].[CategoryId]
+INNER JOIN [Brands] AS [b] ON [p].[BrandId] = [b].[BrandId]
+LEFT JOIN (
+    SELECT [p0].[ProductId], [p0].[SizeId], [p0].[Price], [p0].[Stock], [s].[SizeId] AS [SizeId0], [s].[size]
+    FROM [ProductSizes] AS [p0]
+    INNER JOIN [Sizes] AS [s] ON [p0].[SizeId] = [s].[SizeId]
+) AS [s0] ON [p].[ProductId] = [s0].[ProductId]
+LEFT JOIN [ProductImages] AS [p1] ON [p].[ProductId] = [p1].[ProductId]
+ORDER BY [p].[ProductId], [c].[CategoryId], [b].[BrandId], [s0].[ProductId], [s0].[SizeId], [s0].[SizeId0]
+2025-05-21 12:03:43.601 +07:00 [INF] Executed DbCommand (4ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [p].[Id], [p].[Code], [p].[DiscountAmount], [p].[DiscountPercentage], [p].[EndDate], [p].[IsActive], [p].[MaxUsage], [p].[StartDate], [p].[UsageCount]
+FROM [PromotionCodes] AS [p]
+WHERE [p].[IsActive] = CAST(1 AS bit) AND ([p].[StartDate] IS NULL OR [p].[StartDate] <= GETDATE()) AND ([p].[EndDate] IS NULL OR [p].[EndDate] >= GETDATE()) AND ([p].[MaxUsage] = 0 OR [p].[UsageCount] < [p].[MaxUsage])
+2025-05-21 12:03:43.633 +07:00 [INF] Executing ViewResult, running view Index.
+2025-05-21 12:03:43.762 +07:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [b].[BrandId], [b].[ImageUrl], [b].[Name]
+FROM [Brands] AS [b]
+2025-05-21 12:03:43.771 +07:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [c].[CategoryId], [c].[ImageUrl], [c].[Name]
+FROM [Categories] AS [c]
+2025-05-21 12:03:43.825 +07:00 [INF] Executed ViewResult - view Index executed in 191.7012ms.
+2025-05-21 12:03:43.834 +07:00 [INF] Executed action DoAnLTW.Controllers.HomeController.Index (DoAnLTW) in 1494.6116ms
+2025-05-21 12:03:43.839 +07:00 [INF] Executed endpoint 'DoAnLTW.Controllers.HomeController.Index (DoAnLTW)'
+2025-05-21 12:03:43.845 +07:00 [INF] HTTP GET / responded 200 in 1571.8507 ms
+2025-05-21 12:03:43.852 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/img/payments.png - null null
+2025-05-21 12:03:43.853 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/_vs/browserLink - null null
+2025-05-21 12:03:43.852 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/_framework/aspnetcore-browser-refresh.js - null null
+2025-05-21 12:03:43.917 +07:00 [INF] HTTP GET /img/payments.png responded 404 in 32.5882 ms
+2025-05-21 12:03:43.919 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/ - 200 null text/html; charset=utf-8 1755.9616ms
+2025-05-21 12:03:43.926 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/img/payments.png - 404 0 null 70.0926ms
+2025-05-21 12:03:43.986 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/_framework/aspnetcore-browser-refresh.js - 200 16499 application/javascript; charset=utf-8 134.7525ms
+2025-05-21 12:03:43.994 +07:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET https://localhost:5134/img/payments.png, Response status code: 404
+2025-05-21 12:03:44.014 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/_vs/browserLink - 200 null text/javascript; charset=UTF-8 160.3478ms
+2025-05-21 12:03:44.419 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/img/favicon.ico - null null
+2025-05-21 12:03:44.426 +07:00 [INF] HTTP GET /img/favicon.ico responded 404 in 3.5288 ms
+2025-05-21 12:03:44.428 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/img/favicon.ico - 404 0 null 8.7691ms
+2025-05-21 12:03:44.433 +07:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET https://localhost:5134/img/favicon.ico, Response status code: 404
+2025-05-21 16:24:04.160 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/Identity/Account/Login - null null
+2025-05-21 16:24:04.220 +07:00 [INF] Executing endpoint '/Account/Login'
+2025-05-21 16:24:04.267 +07:00 [INF] Route matched with {page = "/Account/Login", area = "Identity", action = "", controller = ""}. Executing page /Account/Login
+2025-05-21 16:24:04.298 +07:00 [INF] Executing handler method DoAnLTW.Areas.Identity.Pages.Account.LoginModel.OnGetAsync - ModelState is "Valid"
+2025-05-21 16:24:04.309 +07:00 [INF] AuthenticationScheme: Identity.External signed out.
+2025-05-21 16:24:04.317 +07:00 [INF] Executed handler method OnGetAsync, returned result .
+2025-05-21 16:24:04.321 +07:00 [INF] Executing an implicit handler method - ModelState is "Valid"
+2025-05-21 16:24:04.323 +07:00 [INF] Executed an implicit handler method, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2025-05-21 16:24:04.399 +07:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [b].[BrandId], [b].[ImageUrl], [b].[Name]
+FROM [Brands] AS [b]
+2025-05-21 16:24:04.411 +07:00 [INF] Executed DbCommand (3ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [c].[CategoryId], [c].[ImageUrl], [c].[Name]
+FROM [Categories] AS [c]
+2025-05-21 16:24:04.434 +07:00 [INF] Executed page /Account/Login in 164.0537ms
+2025-05-21 16:24:04.438 +07:00 [INF] Executed endpoint '/Account/Login'
+2025-05-21 16:24:04.441 +07:00 [INF] HTTP GET /Identity/Account/Login responded 200 in 223.4604 ms
+2025-05-21 16:24:04.443 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/Identity/Account/Login - 200 null text/html; charset=utf-8 309.0393ms
+2025-05-21 16:24:04.480 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/_framework/aspnetcore-browser-refresh.js - null null
+2025-05-21 16:24:04.482 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/Identity/Account/img/payments.png - null null
+2025-05-21 16:24:04.584 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/lib/jquery-validation/dist/jquery.validate.min.js - null null
+2025-05-21 16:24:04.482 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/Identity/Account/mail/jqBootstrapValidation.min.js - null null
+2025-05-21 16:24:04.482 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/img/icon_google.ico - null null
+2025-05-21 16:24:04.483 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/Identity/Account/mail/contact.js - null null
+2025-05-21 16:24:04.615 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/_framework/aspnetcore-browser-refresh.js - 200 16499 application/javascript; charset=utf-8 134.2574ms
+2025-05-21 16:24:04.551 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/lib/jquery-validation-unobtrusive/dist/jquery.validate.unobtrusive.min.js - null null
+2025-05-21 16:24:04.615 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/_vs/browserLink - null null
+2025-05-21 16:24:04.652 +07:00 [INF] HTTP GET /Identity/Account/img/payments.png responded 404 in 1.7594 ms
+2025-05-21 16:24:04.658 +07:00 [INF] HTTP GET /lib/jquery-validation/dist/jquery.validate.min.js responded 404 in 0.2971 ms
+2025-05-21 16:24:04.663 +07:00 [INF] HTTP GET /Identity/Account/mail/jqBootstrapValidation.min.js responded 404 in 0.3001 ms
+2025-05-21 16:24:04.666 +07:00 [INF] HTTP GET /img/icon_google.ico responded 404 in 0.1988 ms
+2025-05-21 16:24:04.669 +07:00 [INF] HTTP GET /Identity/Account/mail/contact.js responded 404 in 0.4815 ms
+2025-05-21 16:24:04.674 +07:00 [INF] HTTP GET /lib/jquery-validation-unobtrusive/dist/jquery.validate.unobtrusive.min.js responded 404 in 0.1688 ms
+2025-05-21 16:24:04.680 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/Identity/Account/img/payments.png - 404 0 null 198.7941ms
+2025-05-21 16:24:04.682 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/lib/jquery-validation/dist/jquery.validate.min.js - 404 0 null 129.9602ms
+2025-05-21 16:24:04.683 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/Identity/Account/mail/jqBootstrapValidation.min.js - 404 0 null 201.3705ms
+2025-05-21 16:24:04.685 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/img/icon_google.ico - 404 0 null 203.903ms
+2025-05-21 16:24:04.687 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/Identity/Account/mail/contact.js - 404 0 null 204.276ms
+2025-05-21 16:24:04.688 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/lib/jquery-validation-unobtrusive/dist/jquery.validate.unobtrusive.min.js - 404 0 null 137.3609ms
+2025-05-21 16:24:04.689 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/_vs/browserLink - 200 null text/javascript; charset=UTF-8 74.4528ms
+2025-05-21 16:24:04.691 +07:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET https://localhost:5134/Identity/Account/img/payments.png, Response status code: 404
+2025-05-21 16:24:04.693 +07:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET https://localhost:5134/lib/jquery-validation/dist/jquery.validate.min.js, Response status code: 404
+2025-05-21 16:24:04.697 +07:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET https://localhost:5134/Identity/Account/mail/jqBootstrapValidation.min.js, Response status code: 404
+2025-05-21 16:24:04.699 +07:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET https://localhost:5134/img/icon_google.ico, Response status code: 404
+2025-05-21 16:24:04.702 +07:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET https://localhost:5134/Identity/Account/mail/contact.js, Response status code: 404
+2025-05-21 16:24:04.706 +07:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET https://localhost:5134/lib/jquery-validation-unobtrusive/dist/jquery.validate.unobtrusive.min.js, Response status code: 404
+2025-05-21 16:24:05.182 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/Identity/Account/img/favicon.ico - null null
+2025-05-21 16:24:05.187 +07:00 [INF] HTTP GET /Identity/Account/img/favicon.ico responded 404 in 0.3236 ms
+2025-05-21 16:24:05.189 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/Identity/Account/img/favicon.ico - 404 0 null 7.4905ms
+2025-05-21 16:24:05.194 +07:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET https://localhost:5134/Identity/Account/img/favicon.ico, Response status code: 404
+2025-05-21 16:24:05.691 +07:00 [INF] Request starting HTTP/2 POST https://localhost:5134/Identity/Account/Login - application/x-www-form-urlencoded 266
+2025-05-21 16:24:05.700 +07:00 [INF] CORS policy execution successful.
+2025-05-21 16:24:05.704 +07:00 [INF] Executing endpoint '/Account/Login'
+2025-05-21 16:24:05.705 +07:00 [INF] Route matched with {page = "/Account/Login", area = "Identity", action = "", controller = ""}. Executing page /Account/Login
+2025-05-21 16:24:05.738 +07:00 [INF] Executing handler method DoAnLTW.Areas.Identity.Pages.Account.LoginModel.OnPostAsync - ModelState is "Valid"
+2025-05-21 16:24:06.037 +07:00 [INF] Executed DbCommand (209ms) [Parameters=[@__normalizedUserName_0='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[SecurityStamp], [a].[TwoFactorEnabled], [a].[UserName]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[NormalizedUserName] = @__normalizedUserName_0
+2025-05-21 16:24:06.178 +07:00 [INF] Executed DbCommand (4ms) [Parameters=[@__user_Id_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a].[Id], [a].[ClaimType], [a].[ClaimValue], [a].[UserId]
+FROM [AspNetUserClaims] AS [a]
+WHERE [a].[UserId] = @__user_Id_0
+2025-05-21 16:24:06.200 +07:00 [INF] Executed DbCommand (3ms) [Parameters=[@__userId_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a0].[Name]
+FROM [AspNetUserRoles] AS [a]
+INNER JOIN [AspNetRoles] AS [a0] ON [a].[RoleId] = [a0].[Id]
+WHERE [a].[UserId] = @__userId_0
+2025-05-21 16:24:06.215 +07:00 [INF] Executed DbCommand (2ms) [Parameters=[@__normalizedName_0='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[ConcurrencyStamp], [a].[Name], [a].[NormalizedName]
+FROM [AspNetRoles] AS [a]
+WHERE [a].[NormalizedName] = @__normalizedName_0
+2025-05-21 16:24:06.234 +07:00 [INF] Executed DbCommand (3ms) [Parameters=[@__role_Id_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a].[ClaimType], [a].[ClaimValue]
+FROM [AspNetRoleClaims] AS [a]
+WHERE [a].[RoleId] = @__role_Id_0
+2025-05-21 16:24:06.245 +07:00 [INF] AuthenticationScheme: Identity.Application signed in.
+2025-05-21 16:24:06.257 +07:00 [INF] Executed DbCommand (3ms) [Parameters=[@__normalizedEmail_0='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(2) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[SecurityStamp], [a].[TwoFactorEnabled], [a].[UserName]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[NormalizedEmail] = @__normalizedEmail_0
+2025-05-21 16:24:06.268 +07:00 [INF] Executed DbCommand (1ms) [Parameters=[@__userId_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a0].[Name]
+FROM [AspNetUserRoles] AS [a]
+INNER JOIN [AspNetRoles] AS [a0] ON [a].[RoleId] = [a0].[Id]
+WHERE [a].[UserId] = @__userId_0
+2025-05-21 16:24:06.274 +07:00 [INF] Executed handler method OnPostAsync, returned result Microsoft.AspNetCore.Mvc.LocalRedirectResult.
+2025-05-21 16:24:06.278 +07:00 [INF] Executing LocalRedirectResult, redirecting to /.
+2025-05-21 16:24:06.281 +07:00 [INF] Executed page /Account/Login in 574.0787ms
+2025-05-21 16:24:06.283 +07:00 [INF] Executed endpoint '/Account/Login'
+2025-05-21 16:24:06.284 +07:00 [INF] HTTP POST /Identity/Account/Login responded 302 in 585.3317 ms
+2025-05-21 16:24:06.287 +07:00 [INF] Request finished HTTP/2 POST https://localhost:5134/Identity/Account/Login - 302 0 null 596.4558ms
+2025-05-21 16:24:06.291 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/ - null null
+2025-05-21 16:24:06.301 +07:00 [INF] Executing endpoint 'DoAnLTW.Controllers.HomeController.Index (DoAnLTW)'
+2025-05-21 16:24:06.302 +07:00 [INF] Route matched with {action = "Index", controller = "Home", area = "", page = ""}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Index() on controller DoAnLTW.Controllers.HomeController (DoAnLTW).
+2025-05-21 16:24:06.307 +07:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [c].[CategoryId], [c].[ImageUrl], [c].[Name]
+FROM [Categories] AS [c]
+2025-05-21 16:24:06.311 +07:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [b].[BrandId], [b].[ImageUrl], [b].[Name]
+FROM [Brands] AS [b]
+2025-05-21 16:24:06.330 +07:00 [INF] Executed DbCommand (16ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [p].[ProductId], [p].[BrandId], [p].[CategoryId], [p].[Description], [p].[Name], [c].[CategoryId], [c].[ImageUrl], [c].[Name], [b].[BrandId], [b].[ImageUrl], [b].[Name], [s0].[ProductId], [s0].[SizeId], [s0].[Price], [s0].[Stock], [s0].[SizeId0], [s0].[size], [p1].[Product_ImagesId], [p1].[ImageUrl], [p1].[ProductId]
+FROM [Products] AS [p]
+INNER JOIN [Categories] AS [c] ON [p].[CategoryId] = [c].[CategoryId]
+INNER JOIN [Brands] AS [b] ON [p].[BrandId] = [b].[BrandId]
+LEFT JOIN (
+    SELECT [p0].[ProductId], [p0].[SizeId], [p0].[Price], [p0].[Stock], [s].[SizeId] AS [SizeId0], [s].[size]
+    FROM [ProductSizes] AS [p0]
+    INNER JOIN [Sizes] AS [s] ON [p0].[SizeId] = [s].[SizeId]
+) AS [s0] ON [p].[ProductId] = [s0].[ProductId]
+LEFT JOIN [ProductImages] AS [p1] ON [p].[ProductId] = [p1].[ProductId]
+ORDER BY [p].[ProductId], [c].[CategoryId], [b].[BrandId], [s0].[ProductId], [s0].[SizeId], [s0].[SizeId0]
+2025-05-21 16:24:06.354 +07:00 [INF] Executed DbCommand (5ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [p].[Id], [p].[Code], [p].[DiscountAmount], [p].[DiscountPercentage], [p].[EndDate], [p].[IsActive], [p].[MaxUsage], [p].[StartDate], [p].[UsageCount]
+FROM [PromotionCodes] AS [p]
+WHERE [p].[IsActive] = CAST(1 AS bit) AND ([p].[StartDate] IS NULL OR [p].[StartDate] <= GETDATE()) AND ([p].[EndDate] IS NULL OR [p].[EndDate] >= GETDATE()) AND ([p].[MaxUsage] = 0 OR [p].[UsageCount] < [p].[MaxUsage])
+2025-05-21 16:24:06.361 +07:00 [INF] Executing ViewResult, running view Index.
+2025-05-21 16:24:06.414 +07:00 [INF] Executed DbCommand (3ms) [Parameters=[@__p_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[SecurityStamp], [a].[TwoFactorEnabled], [a].[UserName]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[Id] = @__p_0
+2025-05-21 16:24:06.421 +07:00 [INF] Executed DbCommand (1ms) [Parameters=[@__userId_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a0].[Name]
+FROM [AspNetUserRoles] AS [a]
+INNER JOIN [AspNetRoles] AS [a0] ON [a].[RoleId] = [a0].[Id]
+WHERE [a].[UserId] = @__userId_0
+2025-05-21 16:24:06.444 +07:00 [INF] Executed ViewResult - view Index executed in 83.5783ms.
+2025-05-21 16:24:06.447 +07:00 [INF] Executed action DoAnLTW.Controllers.HomeController.Index (DoAnLTW) in 142.7422ms
+2025-05-21 16:24:06.450 +07:00 [INF] Executed endpoint 'DoAnLTW.Controllers.HomeController.Index (DoAnLTW)'
+2025-05-21 16:24:06.451 +07:00 [INF] HTTP GET / responded 200 in 155.7823 ms
+2025-05-21 16:24:06.454 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/ - 200 null text/html; charset=utf-8 163.1705ms
+2025-05-21 16:24:06.479 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/_framework/aspnetcore-browser-refresh.js - null null
+2025-05-21 16:24:06.481 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/_vs/browserLink - null null
+2025-05-21 16:24:06.482 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/_framework/aspnetcore-browser-refresh.js - 200 16499 application/javascript; charset=utf-8 3.067ms
+2025-05-21 16:24:06.490 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/_vs/browserLink - 200 null text/javascript; charset=UTF-8 9.2207ms
+2025-05-21 16:24:08.131 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/Admin/PromotionCode/Index - null null
+2025-05-21 16:24:08.147 +07:00 [INF] Executing endpoint 'DoAnLTW.Areas.Admin.Controllers.PromotionCodeController.Index (DoAnLTW)'
+2025-05-21 16:24:08.152 +07:00 [INF] Route matched with {area = "Admin", action = "Index", controller = "PromotionCode", page = ""}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Index() on controller DoAnLTW.Areas.Admin.Controllers.PromotionCodeController (DoAnLTW).
+2025-05-21 16:24:08.181 +07:00 [INF] Executed DbCommand (4ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [p].[Id], [p].[Code], [p].[DiscountAmount], [p].[DiscountPercentage], [p].[EndDate], [p].[IsActive], [p].[MaxUsage], [p].[StartDate], [p].[UsageCount]
+FROM [PromotionCodes] AS [p]
+ORDER BY CASE
+    WHEN [p].[IsActive] = CAST(1 AS bit) THEN 0
+    ELSE 1
+END, [p].[StartDate]
+2025-05-21 16:24:08.189 +07:00 [INF] Executing ViewResult, running view Index.
+2025-05-21 16:24:08.220 +07:00 [INF] Executed DbCommand (1ms) [Parameters=[@__p_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[SecurityStamp], [a].[TwoFactorEnabled], [a].[UserName]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[Id] = @__p_0
+2025-05-21 16:24:08.228 +07:00 [INF] Executed DbCommand (1ms) [Parameters=[@__userId_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a0].[Name]
+FROM [AspNetUserRoles] AS [a]
+INNER JOIN [AspNetRoles] AS [a0] ON [a].[RoleId] = [a0].[Id]
+WHERE [a].[UserId] = @__userId_0
+2025-05-21 16:24:08.239 +07:00 [INF] Executed ViewResult - view Index executed in 50.4498ms.
+2025-05-21 16:24:08.243 +07:00 [INF] Executed action DoAnLTW.Areas.Admin.Controllers.PromotionCodeController.Index (DoAnLTW) in 88.8755ms
+2025-05-21 16:24:08.244 +07:00 [INF] Executed endpoint 'DoAnLTW.Areas.Admin.Controllers.PromotionCodeController.Index (DoAnLTW)'
+2025-05-21 16:24:08.246 +07:00 [INF] HTTP GET /Admin/PromotionCode/Index responded 200 in 107.1408 ms
+2025-05-21 16:24:08.249 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/Admin/PromotionCode/Index - 200 null text/html; charset=utf-8 118.154ms
+2025-05-21 16:24:08.263 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/_vs/browserLink - null null
+2025-05-21 16:24:08.264 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/_framework/aspnetcore-browser-refresh.js - null null
+2025-05-21 16:24:08.273 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/_framework/aspnetcore-browser-refresh.js - 200 16499 application/javascript; charset=utf-8 9.9478ms
+2025-05-21 16:24:08.276 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/_vs/browserLink - 200 null text/javascript; charset=UTF-8 12.1697ms
+2025-05-21 16:24:10.833 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/Admin/PetHotelBooking - null null
+2025-05-21 16:24:10.847 +07:00 [INF] Executing endpoint 'DoAnLTW.Areas.Admin.Controllers.PetHotelBookingController.Index (DoAnLTW)'
+2025-05-21 16:24:10.851 +07:00 [INF] Route matched with {area = "Admin", action = "Index", controller = "PetHotelBooking", page = ""}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Index(System.Nullable`1[System.Int32], System.Nullable`1[System.Int32]) on controller DoAnLTW.Areas.Admin.Controllers.PetHotelBookingController (DoAnLTW).
+2025-05-21 16:24:10.869 +07:00 [INF] Executed DbCommand (3ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [h].[RoomId], [h].[IsAvailable], [h].[RoomNumber], [h].[RoomTypeId], [r].[RoomTypeId], [r].[Description], [r].[Name], [r].[PricePerNight]
+FROM [HotelRooms] AS [h]
+INNER JOIN [RoomTypes] AS [r] ON [h].[RoomTypeId] = [r].[RoomTypeId]
+2025-05-21 16:24:10.923 +07:00 [INF] Executed DbCommand (9ms) [Parameters=[@__endOfMonth_0='?' (DbType = DateTime2), @__startOfMonth_1='?' (DbType = DateTime2)], CommandType='"Text"', CommandTimeout='30']
+SELECT [p].[BookingId], [p].[Address], [p].[BookingDate], [p].[EndDate], [p].[Note], [p].[PetId], [p].[RoomId], [p].[StartDate], [p].[Status], [p].[TotalPrice], [p].[UserId], [p0].[PetId], [p0].[Age], [p0].[Breed], [p0].[Description], [p0].[Gender], [p0].[Name], [p0].[Type], [p0].[UserId], [h].[RoomId], [h].[IsAvailable], [h].[RoomNumber], [h].[RoomTypeId], [r].[RoomTypeId], [r].[Description], [r].[Name], [r].[PricePerNight]
+FROM [PetHotelBookings] AS [p]
+INNER JOIN [Pets] AS [p0] ON [p].[PetId] = [p0].[PetId]
+INNER JOIN [HotelRooms] AS [h] ON [p].[RoomId] = [h].[RoomId]
+INNER JOIN [RoomTypes] AS [r] ON [h].[RoomTypeId] = [r].[RoomTypeId]
+WHERE [p].[StartDate] <= @__endOfMonth_0 AND [p].[EndDate] >= @__startOfMonth_1
+2025-05-21 16:24:10.970 +07:00 [INF] Executing ViewResult, running view Index.
+2025-05-21 16:24:11.045 +07:00 [INF] Executed DbCommand (1ms) [Parameters=[@__p_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[SecurityStamp], [a].[TwoFactorEnabled], [a].[UserName]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[Id] = @__p_0
+2025-05-21 16:24:11.053 +07:00 [INF] Executed DbCommand (1ms) [Parameters=[@__userId_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a0].[Name]
+FROM [AspNetUserRoles] AS [a]
+INNER JOIN [AspNetRoles] AS [a0] ON [a].[RoleId] = [a0].[Id]
+WHERE [a].[UserId] = @__userId_0
+2025-05-21 16:24:11.066 +07:00 [INF] Executed ViewResult - view Index executed in 96.8287ms.
+2025-05-21 16:24:11.068 +07:00 [INF] Executed action DoAnLTW.Areas.Admin.Controllers.PetHotelBookingController.Index (DoAnLTW) in 214.73ms
+2025-05-21 16:24:11.070 +07:00 [INF] Executed endpoint 'DoAnLTW.Areas.Admin.Controllers.PetHotelBookingController.Index (DoAnLTW)'
+2025-05-21 16:24:11.073 +07:00 [INF] HTTP GET /Admin/PetHotelBooking responded 200 in 229.8053 ms
+2025-05-21 16:24:11.075 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/Admin/PetHotelBooking - 200 null text/html; charset=utf-8 241.8361ms
+2025-05-21 16:24:11.093 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/_vs/browserLink - null null
+2025-05-21 16:24:11.093 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/_framework/aspnetcore-browser-refresh.js - null null
+2025-05-21 16:24:11.100 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/_framework/aspnetcore-browser-refresh.js - 200 16499 application/javascript; charset=utf-8 6.2228ms
+2025-05-21 16:24:11.102 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/_vs/browserLink - 200 null text/javascript; charset=UTF-8 8.548ms
+2025-05-21 16:24:12.794 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/Admin/PetHotelBooking - null null
+2025-05-21 16:24:12.804 +07:00 [INF] Executing endpoint 'DoAnLTW.Areas.Admin.Controllers.PetHotelBookingController.Index (DoAnLTW)'
+2025-05-21 16:24:12.807 +07:00 [INF] Route matched with {area = "Admin", action = "Index", controller = "PetHotelBooking", page = ""}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Index(System.Nullable`1[System.Int32], System.Nullable`1[System.Int32]) on controller DoAnLTW.Areas.Admin.Controllers.PetHotelBookingController (DoAnLTW).
+2025-05-21 16:24:12.810 +07:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [h].[RoomId], [h].[IsAvailable], [h].[RoomNumber], [h].[RoomTypeId], [r].[RoomTypeId], [r].[Description], [r].[Name], [r].[PricePerNight]
+FROM [HotelRooms] AS [h]
+INNER JOIN [RoomTypes] AS [r] ON [h].[RoomTypeId] = [r].[RoomTypeId]
+2025-05-21 16:24:12.813 +07:00 [INF] Executed DbCommand (0ms) [Parameters=[@__endOfMonth_0='?' (DbType = DateTime2), @__startOfMonth_1='?' (DbType = DateTime2)], CommandType='"Text"', CommandTimeout='30']
+SELECT [p].[BookingId], [p].[Address], [p].[BookingDate], [p].[EndDate], [p].[Note], [p].[PetId], [p].[RoomId], [p].[StartDate], [p].[Status], [p].[TotalPrice], [p].[UserId], [p0].[PetId], [p0].[Age], [p0].[Breed], [p0].[Description], [p0].[Gender], [p0].[Name], [p0].[Type], [p0].[UserId], [h].[RoomId], [h].[IsAvailable], [h].[RoomNumber], [h].[RoomTypeId], [r].[RoomTypeId], [r].[Description], [r].[Name], [r].[PricePerNight]
+FROM [PetHotelBookings] AS [p]
+INNER JOIN [Pets] AS [p0] ON [p].[PetId] = [p0].[PetId]
+INNER JOIN [HotelRooms] AS [h] ON [p].[RoomId] = [h].[RoomId]
+INNER JOIN [RoomTypes] AS [r] ON [h].[RoomTypeId] = [r].[RoomTypeId]
+WHERE [p].[StartDate] <= @__endOfMonth_0 AND [p].[EndDate] >= @__startOfMonth_1
+2025-05-21 16:24:12.815 +07:00 [INF] Executing ViewResult, running view Index.
+2025-05-21 16:24:12.818 +07:00 [INF] Executed DbCommand (1ms) [Parameters=[@__p_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[SecurityStamp], [a].[TwoFactorEnabled], [a].[UserName]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[Id] = @__p_0
+2025-05-21 16:24:12.822 +07:00 [INF] Executed DbCommand (0ms) [Parameters=[@__userId_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a0].[Name]
+FROM [AspNetUserRoles] AS [a]
+INNER JOIN [AspNetRoles] AS [a0] ON [a].[RoleId] = [a0].[Id]
+WHERE [a].[UserId] = @__userId_0
+2025-05-21 16:24:12.825 +07:00 [INF] Executed ViewResult - view Index executed in 9.9551ms.
+2025-05-21 16:24:12.827 +07:00 [INF] Executed action DoAnLTW.Areas.Admin.Controllers.PetHotelBookingController.Index (DoAnLTW) in 18.0797ms
+2025-05-21 16:24:12.828 +07:00 [INF] Executed endpoint 'DoAnLTW.Areas.Admin.Controllers.PetHotelBookingController.Index (DoAnLTW)'
+2025-05-21 16:24:12.829 +07:00 [INF] HTTP GET /Admin/PetHotelBooking responded 200 in 27.0185 ms
+2025-05-21 16:24:12.830 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/Admin/PetHotelBooking - 200 null text/html; charset=utf-8 36.8421ms
+2025-05-21 16:24:12.846 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/_vs/browserLink - null null
+2025-05-21 16:24:12.846 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/_framework/aspnetcore-browser-refresh.js - null null
+2025-05-21 16:24:12.852 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/_framework/aspnetcore-browser-refresh.js - 200 16499 application/javascript; charset=utf-8 6.3846ms
+2025-05-21 16:24:12.854 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/_vs/browserLink - 200 null text/javascript; charset=UTF-8 8.1267ms
+2025-05-21 16:24:18.841 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/Admin/PetHotelBooking/RoomTypeIndex - null null
+2025-05-21 16:24:18.851 +07:00 [INF] Executing endpoint 'DoAnLTW.Areas.Admin.Controllers.PetHotelBookingController.RoomTypeIndex (DoAnLTW)'
+2025-05-21 16:24:18.855 +07:00 [INF] Route matched with {area = "Admin", action = "RoomTypeIndex", controller = "PetHotelBooking", page = ""}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] RoomTypeIndex() on controller DoAnLTW.Areas.Admin.Controllers.PetHotelBookingController (DoAnLTW).
+2025-05-21 16:24:18.866 +07:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [r].[RoomTypeId], [r].[Description], [r].[Name], [r].[PricePerNight]
+FROM [RoomTypes] AS [r]
+2025-05-21 16:24:18.872 +07:00 [INF] Executing ViewResult, running view RoomTypeIndex.
+2025-05-21 16:24:18.880 +07:00 [INF] Executed DbCommand (1ms) [Parameters=[@__p_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[SecurityStamp], [a].[TwoFactorEnabled], [a].[UserName]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[Id] = @__p_0
+2025-05-21 16:24:18.885 +07:00 [INF] Executed DbCommand (1ms) [Parameters=[@__userId_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a0].[Name]
+FROM [AspNetUserRoles] AS [a]
+INNER JOIN [AspNetRoles] AS [a0] ON [a].[RoleId] = [a0].[Id]
+WHERE [a].[UserId] = @__userId_0
+2025-05-21 16:24:18.889 +07:00 [INF] Executed ViewResult - view RoomTypeIndex executed in 17.7704ms.
+2025-05-21 16:24:18.891 +07:00 [INF] Executed action DoAnLTW.Areas.Admin.Controllers.PetHotelBookingController.RoomTypeIndex (DoAnLTW) in 33.433ms
+2025-05-21 16:24:18.892 +07:00 [INF] Executed endpoint 'DoAnLTW.Areas.Admin.Controllers.PetHotelBookingController.RoomTypeIndex (DoAnLTW)'
+2025-05-21 16:24:18.893 +07:00 [INF] HTTP GET /Admin/PetHotelBooking/RoomTypeIndex responded 200 in 43.3518 ms
+2025-05-21 16:24:18.895 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/Admin/PetHotelBooking/RoomTypeIndex - 200 null text/html; charset=utf-8 53.5522ms
+2025-05-21 16:24:18.923 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/_vs/browserLink - null null
+2025-05-21 16:24:18.923 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/_framework/aspnetcore-browser-refresh.js - null null
+2025-05-21 16:24:18.927 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/_framework/aspnetcore-browser-refresh.js - 200 16499 application/javascript; charset=utf-8 4.3992ms
+2025-05-21 16:24:18.929 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/_vs/browserLink - 200 null text/javascript; charset=UTF-8 6.1972ms
+2025-05-21 16:24:20.085 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/Admin/PetHotelBooking - null null
+2025-05-21 16:24:20.096 +07:00 [INF] Executing endpoint 'DoAnLTW.Areas.Admin.Controllers.PetHotelBookingController.Index (DoAnLTW)'
+2025-05-21 16:24:20.099 +07:00 [INF] Route matched with {area = "Admin", action = "Index", controller = "PetHotelBooking", page = ""}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Index(System.Nullable`1[System.Int32], System.Nullable`1[System.Int32]) on controller DoAnLTW.Areas.Admin.Controllers.PetHotelBookingController (DoAnLTW).
+2025-05-21 16:24:20.103 +07:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [h].[RoomId], [h].[IsAvailable], [h].[RoomNumber], [h].[RoomTypeId], [r].[RoomTypeId], [r].[Description], [r].[Name], [r].[PricePerNight]
+FROM [HotelRooms] AS [h]
+INNER JOIN [RoomTypes] AS [r] ON [h].[RoomTypeId] = [r].[RoomTypeId]
+2025-05-21 16:24:20.106 +07:00 [INF] Executed DbCommand (1ms) [Parameters=[@__endOfMonth_0='?' (DbType = DateTime2), @__startOfMonth_1='?' (DbType = DateTime2)], CommandType='"Text"', CommandTimeout='30']
+SELECT [p].[BookingId], [p].[Address], [p].[BookingDate], [p].[EndDate], [p].[Note], [p].[PetId], [p].[RoomId], [p].[StartDate], [p].[Status], [p].[TotalPrice], [p].[UserId], [p0].[PetId], [p0].[Age], [p0].[Breed], [p0].[Description], [p0].[Gender], [p0].[Name], [p0].[Type], [p0].[UserId], [h].[RoomId], [h].[IsAvailable], [h].[RoomNumber], [h].[RoomTypeId], [r].[RoomTypeId], [r].[Description], [r].[Name], [r].[PricePerNight]
+FROM [PetHotelBookings] AS [p]
+INNER JOIN [Pets] AS [p0] ON [p].[PetId] = [p0].[PetId]
+INNER JOIN [HotelRooms] AS [h] ON [p].[RoomId] = [h].[RoomId]
+INNER JOIN [RoomTypes] AS [r] ON [h].[RoomTypeId] = [r].[RoomTypeId]
+WHERE [p].[StartDate] <= @__endOfMonth_0 AND [p].[EndDate] >= @__startOfMonth_1
+2025-05-21 16:24:20.108 +07:00 [INF] Executing ViewResult, running view Index.
+2025-05-21 16:24:20.111 +07:00 [INF] Executed DbCommand (1ms) [Parameters=[@__p_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[SecurityStamp], [a].[TwoFactorEnabled], [a].[UserName]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[Id] = @__p_0
+2025-05-21 16:24:20.115 +07:00 [INF] Executed DbCommand (1ms) [Parameters=[@__userId_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a0].[Name]
+FROM [AspNetUserRoles] AS [a]
+INNER JOIN [AspNetRoles] AS [a0] ON [a].[RoleId] = [a0].[Id]
+WHERE [a].[UserId] = @__userId_0
+2025-05-21 16:24:20.118 +07:00 [INF] Executed ViewResult - view Index executed in 10.1917ms.
+2025-05-21 16:24:20.119 +07:00 [INF] Executed action DoAnLTW.Areas.Admin.Controllers.PetHotelBookingController.Index (DoAnLTW) in 17.8225ms
+2025-05-21 16:24:20.121 +07:00 [INF] Executed endpoint 'DoAnLTW.Areas.Admin.Controllers.PetHotelBookingController.Index (DoAnLTW)'
+2025-05-21 16:24:20.122 +07:00 [INF] HTTP GET /Admin/PetHotelBooking responded 200 in 26.1988 ms
+2025-05-21 16:24:20.123 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/Admin/PetHotelBooking - 200 null text/html; charset=utf-8 38.202ms
+2025-05-21 16:24:20.140 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/_vs/browserLink - null null
+2025-05-21 16:24:20.140 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/_framework/aspnetcore-browser-refresh.js - null null
+2025-05-21 16:24:20.146 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/_framework/aspnetcore-browser-refresh.js - 200 16499 application/javascript; charset=utf-8 5.7247ms
+2025-05-21 16:24:20.147 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/_vs/browserLink - 200 null text/javascript; charset=UTF-8 7.8897ms
+2025-05-21 16:24:20.397 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/Admin/PetHotelBooking - null null
+2025-05-21 16:24:20.405 +07:00 [INF] Executing endpoint 'DoAnLTW.Areas.Admin.Controllers.PetHotelBookingController.Index (DoAnLTW)'
+2025-05-21 16:24:20.407 +07:00 [INF] Route matched with {area = "Admin", action = "Index", controller = "PetHotelBooking", page = ""}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Index(System.Nullable`1[System.Int32], System.Nullable`1[System.Int32]) on controller DoAnLTW.Areas.Admin.Controllers.PetHotelBookingController (DoAnLTW).
+2025-05-21 16:24:20.414 +07:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [h].[RoomId], [h].[IsAvailable], [h].[RoomNumber], [h].[RoomTypeId], [r].[RoomTypeId], [r].[Description], [r].[Name], [r].[PricePerNight]
+FROM [HotelRooms] AS [h]
+INNER JOIN [RoomTypes] AS [r] ON [h].[RoomTypeId] = [r].[RoomTypeId]
+2025-05-21 16:24:20.421 +07:00 [INF] Executed DbCommand (1ms) [Parameters=[@__endOfMonth_0='?' (DbType = DateTime2), @__startOfMonth_1='?' (DbType = DateTime2)], CommandType='"Text"', CommandTimeout='30']
+SELECT [p].[BookingId], [p].[Address], [p].[BookingDate], [p].[EndDate], [p].[Note], [p].[PetId], [p].[RoomId], [p].[StartDate], [p].[Status], [p].[TotalPrice], [p].[UserId], [p0].[PetId], [p0].[Age], [p0].[Breed], [p0].[Description], [p0].[Gender], [p0].[Name], [p0].[Type], [p0].[UserId], [h].[RoomId], [h].[IsAvailable], [h].[RoomNumber], [h].[RoomTypeId], [r].[RoomTypeId], [r].[Description], [r].[Name], [r].[PricePerNight]
+FROM [PetHotelBookings] AS [p]
+INNER JOIN [Pets] AS [p0] ON [p].[PetId] = [p0].[PetId]
+INNER JOIN [HotelRooms] AS [h] ON [p].[RoomId] = [h].[RoomId]
+INNER JOIN [RoomTypes] AS [r] ON [h].[RoomTypeId] = [r].[RoomTypeId]
+WHERE [p].[StartDate] <= @__endOfMonth_0 AND [p].[EndDate] >= @__startOfMonth_1
+2025-05-21 16:24:20.426 +07:00 [INF] Executing ViewResult, running view Index.
+2025-05-21 16:24:20.431 +07:00 [INF] Executed DbCommand (1ms) [Parameters=[@__p_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[SecurityStamp], [a].[TwoFactorEnabled], [a].[UserName]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[Id] = @__p_0
+2025-05-21 16:24:20.439 +07:00 [INF] Executed DbCommand (1ms) [Parameters=[@__userId_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a0].[Name]
+FROM [AspNetUserRoles] AS [a]
+INNER JOIN [AspNetRoles] AS [a0] ON [a].[RoleId] = [a0].[Id]
+WHERE [a].[UserId] = @__userId_0
+2025-05-21 16:24:20.444 +07:00 [INF] Executed ViewResult - view Index executed in 18.1664ms.
+2025-05-21 16:24:20.446 +07:00 [INF] Executed action DoAnLTW.Areas.Admin.Controllers.PetHotelBookingController.Index (DoAnLTW) in 34.8413ms
+2025-05-21 16:24:20.449 +07:00 [INF] Executed endpoint 'DoAnLTW.Areas.Admin.Controllers.PetHotelBookingController.Index (DoAnLTW)'
+2025-05-21 16:24:20.451 +07:00 [INF] HTTP GET /Admin/PetHotelBooking responded 200 in 47.3443 ms
+2025-05-21 16:24:20.454 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/Admin/PetHotelBooking - 200 null text/html; charset=utf-8 56.2597ms
+2025-05-21 16:24:20.473 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/_vs/browserLink - null null
+2025-05-21 16:24:20.474 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/_framework/aspnetcore-browser-refresh.js - null null
+2025-05-21 16:24:20.486 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/_framework/aspnetcore-browser-refresh.js - 200 16499 application/javascript; charset=utf-8 12.3411ms
+2025-05-21 16:24:20.487 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/_vs/browserLink - 200 null text/javascript; charset=UTF-8 13.6468ms
+2025-05-21 16:24:22.231 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/Admin/PetHotelBooking?month=3&year=2025 - null null
+2025-05-21 16:24:22.235 +07:00 [INF] Executing endpoint 'DoAnLTW.Areas.Admin.Controllers.PetHotelBookingController.Index (DoAnLTW)'
+2025-05-21 16:24:22.237 +07:00 [INF] Route matched with {area = "Admin", action = "Index", controller = "PetHotelBooking", page = ""}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Index(System.Nullable`1[System.Int32], System.Nullable`1[System.Int32]) on controller DoAnLTW.Areas.Admin.Controllers.PetHotelBookingController (DoAnLTW).
+2025-05-21 16:24:22.248 +07:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [h].[RoomId], [h].[IsAvailable], [h].[RoomNumber], [h].[RoomTypeId], [r].[RoomTypeId], [r].[Description], [r].[Name], [r].[PricePerNight]
+FROM [HotelRooms] AS [h]
+INNER JOIN [RoomTypes] AS [r] ON [h].[RoomTypeId] = [r].[RoomTypeId]
+2025-05-21 16:24:22.253 +07:00 [INF] Executed DbCommand (0ms) [Parameters=[@__endOfMonth_0='?' (DbType = DateTime2), @__startOfMonth_1='?' (DbType = DateTime2)], CommandType='"Text"', CommandTimeout='30']
+SELECT [p].[BookingId], [p].[Address], [p].[BookingDate], [p].[EndDate], [p].[Note], [p].[PetId], [p].[RoomId], [p].[StartDate], [p].[Status], [p].[TotalPrice], [p].[UserId], [p0].[PetId], [p0].[Age], [p0].[Breed], [p0].[Description], [p0].[Gender], [p0].[Name], [p0].[Type], [p0].[UserId], [h].[RoomId], [h].[IsAvailable], [h].[RoomNumber], [h].[RoomTypeId], [r].[RoomTypeId], [r].[Description], [r].[Name], [r].[PricePerNight]
+FROM [PetHotelBookings] AS [p]
+INNER JOIN [Pets] AS [p0] ON [p].[PetId] = [p0].[PetId]
+INNER JOIN [HotelRooms] AS [h] ON [p].[RoomId] = [h].[RoomId]
+INNER JOIN [RoomTypes] AS [r] ON [h].[RoomTypeId] = [r].[RoomTypeId]
+WHERE [p].[StartDate] <= @__endOfMonth_0 AND [p].[EndDate] >= @__startOfMonth_1
+2025-05-21 16:24:22.258 +07:00 [INF] Executing ViewResult, running view Index.
+2025-05-21 16:24:22.264 +07:00 [INF] Executed DbCommand (1ms) [Parameters=[@__p_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[SecurityStamp], [a].[TwoFactorEnabled], [a].[UserName]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[Id] = @__p_0
+2025-05-21 16:24:22.273 +07:00 [INF] Executed DbCommand (1ms) [Parameters=[@__userId_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a0].[Name]
+FROM [AspNetUserRoles] AS [a]
+INNER JOIN [AspNetRoles] AS [a0] ON [a].[RoleId] = [a0].[Id]
+WHERE [a].[UserId] = @__userId_0
+2025-05-21 16:24:22.280 +07:00 [INF] Executed ViewResult - view Index executed in 21.961ms.
+2025-05-21 16:24:22.282 +07:00 [INF] Executed action DoAnLTW.Areas.Admin.Controllers.PetHotelBookingController.Index (DoAnLTW) in 42.5585ms
+2025-05-21 16:24:22.284 +07:00 [INF] Executed endpoint 'DoAnLTW.Areas.Admin.Controllers.PetHotelBookingController.Index (DoAnLTW)'
+2025-05-21 16:24:22.285 +07:00 [INF] HTTP GET /Admin/PetHotelBooking responded 200 in 50.8574 ms
+2025-05-21 16:24:22.287 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/Admin/PetHotelBooking?month=3&year=2025 - 200 null text/html; charset=utf-8 56.2602ms
+2025-05-21 16:24:22.302 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/_vs/browserLink - null null
+2025-05-21 16:24:22.302 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/_framework/aspnetcore-browser-refresh.js - null null
+2025-05-21 16:24:22.306 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/_framework/aspnetcore-browser-refresh.js - 200 16499 application/javascript; charset=utf-8 3.9491ms
+2025-05-21 16:24:22.307 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/_vs/browserLink - 200 null text/javascript; charset=UTF-8 5.5237ms
+2025-05-21 16:24:24.407 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/Admin/PetHotelBooking?month=3&year=2022 - null null
+2025-05-21 16:24:24.412 +07:00 [INF] Executing endpoint 'DoAnLTW.Areas.Admin.Controllers.PetHotelBookingController.Index (DoAnLTW)'
+2025-05-21 16:24:24.413 +07:00 [INF] Route matched with {area = "Admin", action = "Index", controller = "PetHotelBooking", page = ""}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Index(System.Nullable`1[System.Int32], System.Nullable`1[System.Int32]) on controller DoAnLTW.Areas.Admin.Controllers.PetHotelBookingController (DoAnLTW).
+2025-05-21 16:24:24.417 +07:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [h].[RoomId], [h].[IsAvailable], [h].[RoomNumber], [h].[RoomTypeId], [r].[RoomTypeId], [r].[Description], [r].[Name], [r].[PricePerNight]
+FROM [HotelRooms] AS [h]
+INNER JOIN [RoomTypes] AS [r] ON [h].[RoomTypeId] = [r].[RoomTypeId]
+2025-05-21 16:24:24.420 +07:00 [INF] Executed DbCommand (0ms) [Parameters=[@__endOfMonth_0='?' (DbType = DateTime2), @__startOfMonth_1='?' (DbType = DateTime2)], CommandType='"Text"', CommandTimeout='30']
+SELECT [p].[BookingId], [p].[Address], [p].[BookingDate], [p].[EndDate], [p].[Note], [p].[PetId], [p].[RoomId], [p].[StartDate], [p].[Status], [p].[TotalPrice], [p].[UserId], [p0].[PetId], [p0].[Age], [p0].[Breed], [p0].[Description], [p0].[Gender], [p0].[Name], [p0].[Type], [p0].[UserId], [h].[RoomId], [h].[IsAvailable], [h].[RoomNumber], [h].[RoomTypeId], [r].[RoomTypeId], [r].[Description], [r].[Name], [r].[PricePerNight]
+FROM [PetHotelBookings] AS [p]
+INNER JOIN [Pets] AS [p0] ON [p].[PetId] = [p0].[PetId]
+INNER JOIN [HotelRooms] AS [h] ON [p].[RoomId] = [h].[RoomId]
+INNER JOIN [RoomTypes] AS [r] ON [h].[RoomTypeId] = [r].[RoomTypeId]
+WHERE [p].[StartDate] <= @__endOfMonth_0 AND [p].[EndDate] >= @__startOfMonth_1
+2025-05-21 16:24:24.423 +07:00 [INF] Executing ViewResult, running view Index.
+2025-05-21 16:24:24.426 +07:00 [INF] Executed DbCommand (1ms) [Parameters=[@__p_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[SecurityStamp], [a].[TwoFactorEnabled], [a].[UserName]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[Id] = @__p_0
+2025-05-21 16:24:24.429 +07:00 [INF] Executed DbCommand (1ms) [Parameters=[@__userId_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a0].[Name]
+FROM [AspNetUserRoles] AS [a]
+INNER JOIN [AspNetRoles] AS [a0] ON [a].[RoleId] = [a0].[Id]
+WHERE [a].[UserId] = @__userId_0
+2025-05-21 16:24:24.432 +07:00 [INF] Executed ViewResult - view Index executed in 9.0326ms.
+2025-05-21 16:24:24.433 +07:00 [INF] Executed action DoAnLTW.Areas.Admin.Controllers.PetHotelBookingController.Index (DoAnLTW) in 18.492ms
+2025-05-21 16:24:24.435 +07:00 [INF] Executed endpoint 'DoAnLTW.Areas.Admin.Controllers.PetHotelBookingController.Index (DoAnLTW)'
+2025-05-21 16:24:24.436 +07:00 [INF] HTTP GET /Admin/PetHotelBooking responded 200 in 25.3648 ms
+2025-05-21 16:24:24.438 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/Admin/PetHotelBooking?month=3&year=2022 - 200 null text/html; charset=utf-8 30.5422ms
+2025-05-21 16:24:24.453 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/_vs/browserLink - null null
+2025-05-21 16:24:24.453 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/_framework/aspnetcore-browser-refresh.js - null null
+2025-05-21 16:24:24.457 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/_framework/aspnetcore-browser-refresh.js - 200 16499 application/javascript; charset=utf-8 4.2694ms
+2025-05-21 16:24:24.459 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/_vs/browserLink - 200 null text/javascript; charset=UTF-8 5.389ms
+2025-05-21 16:24:27.116 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/Admin/PetHotelBooking?month=3&year=2020 - null null
+2025-05-21 16:24:27.124 +07:00 [INF] Executing endpoint 'DoAnLTW.Areas.Admin.Controllers.PetHotelBookingController.Index (DoAnLTW)'
+2025-05-21 16:24:27.125 +07:00 [INF] Route matched with {area = "Admin", action = "Index", controller = "PetHotelBooking", page = ""}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Index(System.Nullable`1[System.Int32], System.Nullable`1[System.Int32]) on controller DoAnLTW.Areas.Admin.Controllers.PetHotelBookingController (DoAnLTW).
+2025-05-21 16:24:27.129 +07:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [h].[RoomId], [h].[IsAvailable], [h].[RoomNumber], [h].[RoomTypeId], [r].[RoomTypeId], [r].[Description], [r].[Name], [r].[PricePerNight]
+FROM [HotelRooms] AS [h]
+INNER JOIN [RoomTypes] AS [r] ON [h].[RoomTypeId] = [r].[RoomTypeId]
+2025-05-21 16:24:27.134 +07:00 [INF] Executed DbCommand (0ms) [Parameters=[@__endOfMonth_0='?' (DbType = DateTime2), @__startOfMonth_1='?' (DbType = DateTime2)], CommandType='"Text"', CommandTimeout='30']
+SELECT [p].[BookingId], [p].[Address], [p].[BookingDate], [p].[EndDate], [p].[Note], [p].[PetId], [p].[RoomId], [p].[StartDate], [p].[Status], [p].[TotalPrice], [p].[UserId], [p0].[PetId], [p0].[Age], [p0].[Breed], [p0].[Description], [p0].[Gender], [p0].[Name], [p0].[Type], [p0].[UserId], [h].[RoomId], [h].[IsAvailable], [h].[RoomNumber], [h].[RoomTypeId], [r].[RoomTypeId], [r].[Description], [r].[Name], [r].[PricePerNight]
+FROM [PetHotelBookings] AS [p]
+INNER JOIN [Pets] AS [p0] ON [p].[PetId] = [p0].[PetId]
+INNER JOIN [HotelRooms] AS [h] ON [p].[RoomId] = [h].[RoomId]
+INNER JOIN [RoomTypes] AS [r] ON [h].[RoomTypeId] = [r].[RoomTypeId]
+WHERE [p].[StartDate] <= @__endOfMonth_0 AND [p].[EndDate] >= @__startOfMonth_1
+2025-05-21 16:24:27.136 +07:00 [INF] Executing ViewResult, running view Index.
+2025-05-21 16:24:27.139 +07:00 [INF] Executed DbCommand (0ms) [Parameters=[@__p_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[SecurityStamp], [a].[TwoFactorEnabled], [a].[UserName]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[Id] = @__p_0
+2025-05-21 16:24:27.143 +07:00 [INF] Executed DbCommand (0ms) [Parameters=[@__userId_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a0].[Name]
+FROM [AspNetUserRoles] AS [a]
+INNER JOIN [AspNetRoles] AS [a0] ON [a].[RoleId] = [a0].[Id]
+WHERE [a].[UserId] = @__userId_0
+2025-05-21 16:24:27.147 +07:00 [INF] Executed ViewResult - view Index executed in 10.9097ms.
+2025-05-21 16:24:27.148 +07:00 [INF] Executed action DoAnLTW.Areas.Admin.Controllers.PetHotelBookingController.Index (DoAnLTW) in 21.0876ms
+2025-05-21 16:24:27.150 +07:00 [INF] Executed endpoint 'DoAnLTW.Areas.Admin.Controllers.PetHotelBookingController.Index (DoAnLTW)'
+2025-05-21 16:24:27.151 +07:00 [INF] HTTP GET /Admin/PetHotelBooking responded 200 in 28.1215 ms
+2025-05-21 16:24:27.153 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/Admin/PetHotelBooking?month=3&year=2020 - 200 null text/html; charset=utf-8 37.0901ms
+2025-05-21 16:24:27.168 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/_vs/browserLink - null null
+2025-05-21 16:24:27.169 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/_framework/aspnetcore-browser-refresh.js - null null
+2025-05-21 16:24:27.173 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/_framework/aspnetcore-browser-refresh.js - 200 16499 application/javascript; charset=utf-8 4.4799ms
+2025-05-21 16:24:27.174 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/_vs/browserLink - 200 null text/javascript; charset=UTF-8 5.7056ms
+2025-05-21 16:24:28.240 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/Admin/PetHotelBooking?month=1&year=2020 - null null
+2025-05-21 16:24:28.245 +07:00 [INF] Executing endpoint 'DoAnLTW.Areas.Admin.Controllers.PetHotelBookingController.Index (DoAnLTW)'
+2025-05-21 16:24:28.246 +07:00 [INF] Route matched with {area = "Admin", action = "Index", controller = "PetHotelBooking", page = ""}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Index(System.Nullable`1[System.Int32], System.Nullable`1[System.Int32]) on controller DoAnLTW.Areas.Admin.Controllers.PetHotelBookingController (DoAnLTW).
+2025-05-21 16:24:28.250 +07:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [h].[RoomId], [h].[IsAvailable], [h].[RoomNumber], [h].[RoomTypeId], [r].[RoomTypeId], [r].[Description], [r].[Name], [r].[PricePerNight]
+FROM [HotelRooms] AS [h]
+INNER JOIN [RoomTypes] AS [r] ON [h].[RoomTypeId] = [r].[RoomTypeId]
+2025-05-21 16:24:28.253 +07:00 [INF] Executed DbCommand (1ms) [Parameters=[@__endOfMonth_0='?' (DbType = DateTime2), @__startOfMonth_1='?' (DbType = DateTime2)], CommandType='"Text"', CommandTimeout='30']
+SELECT [p].[BookingId], [p].[Address], [p].[BookingDate], [p].[EndDate], [p].[Note], [p].[PetId], [p].[RoomId], [p].[StartDate], [p].[Status], [p].[TotalPrice], [p].[UserId], [p0].[PetId], [p0].[Age], [p0].[Breed], [p0].[Description], [p0].[Gender], [p0].[Name], [p0].[Type], [p0].[UserId], [h].[RoomId], [h].[IsAvailable], [h].[RoomNumber], [h].[RoomTypeId], [r].[RoomTypeId], [r].[Description], [r].[Name], [r].[PricePerNight]
+FROM [PetHotelBookings] AS [p]
+INNER JOIN [Pets] AS [p0] ON [p].[PetId] = [p0].[PetId]
+INNER JOIN [HotelRooms] AS [h] ON [p].[RoomId] = [h].[RoomId]
+INNER JOIN [RoomTypes] AS [r] ON [h].[RoomTypeId] = [r].[RoomTypeId]
+WHERE [p].[StartDate] <= @__endOfMonth_0 AND [p].[EndDate] >= @__startOfMonth_1
+2025-05-21 16:24:28.256 +07:00 [INF] Executing ViewResult, running view Index.
+2025-05-21 16:24:28.259 +07:00 [INF] Executed DbCommand (1ms) [Parameters=[@__p_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[SecurityStamp], [a].[TwoFactorEnabled], [a].[UserName]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[Id] = @__p_0
+2025-05-21 16:24:28.262 +07:00 [INF] Executed DbCommand (0ms) [Parameters=[@__userId_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a0].[Name]
+FROM [AspNetUserRoles] AS [a]
+INNER JOIN [AspNetRoles] AS [a0] ON [a].[RoleId] = [a0].[Id]
+WHERE [a].[UserId] = @__userId_0
+2025-05-21 16:24:28.265 +07:00 [INF] Executed ViewResult - view Index executed in 8.9962ms.
+2025-05-21 16:24:28.266 +07:00 [INF] Executed action DoAnLTW.Areas.Admin.Controllers.PetHotelBookingController.Index (DoAnLTW) in 17.9485ms
+2025-05-21 16:24:28.268 +07:00 [INF] Executed endpoint 'DoAnLTW.Areas.Admin.Controllers.PetHotelBookingController.Index (DoAnLTW)'
+2025-05-21 16:24:28.269 +07:00 [INF] HTTP GET /Admin/PetHotelBooking responded 200 in 24.4686 ms
+2025-05-21 16:24:28.270 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/Admin/PetHotelBooking?month=1&year=2020 - 200 null text/html; charset=utf-8 30.5737ms
+2025-05-21 16:24:28.284 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/_vs/browserLink - null null
+2025-05-21 16:24:28.285 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/_framework/aspnetcore-browser-refresh.js - null null
+2025-05-21 16:24:28.294 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/_framework/aspnetcore-browser-refresh.js - 200 16499 application/javascript; charset=utf-8 8.7625ms
+2025-05-21 16:24:28.295 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/_vs/browserLink - 200 null text/javascript; charset=UTF-8 10.4632ms
+2025-05-21 16:24:31.056 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/Admin/PetHotelBooking?month=5&year=2020 - null null
+2025-05-21 16:24:31.062 +07:00 [INF] Executing endpoint 'DoAnLTW.Areas.Admin.Controllers.PetHotelBookingController.Index (DoAnLTW)'
+2025-05-21 16:24:31.063 +07:00 [INF] Route matched with {area = "Admin", action = "Index", controller = "PetHotelBooking", page = ""}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Index(System.Nullable`1[System.Int32], System.Nullable`1[System.Int32]) on controller DoAnLTW.Areas.Admin.Controllers.PetHotelBookingController (DoAnLTW).
+2025-05-21 16:24:31.067 +07:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [h].[RoomId], [h].[IsAvailable], [h].[RoomNumber], [h].[RoomTypeId], [r].[RoomTypeId], [r].[Description], [r].[Name], [r].[PricePerNight]
+FROM [HotelRooms] AS [h]
+INNER JOIN [RoomTypes] AS [r] ON [h].[RoomTypeId] = [r].[RoomTypeId]
+2025-05-21 16:24:31.072 +07:00 [INF] Executed DbCommand (0ms) [Parameters=[@__endOfMonth_0='?' (DbType = DateTime2), @__startOfMonth_1='?' (DbType = DateTime2)], CommandType='"Text"', CommandTimeout='30']
+SELECT [p].[BookingId], [p].[Address], [p].[BookingDate], [p].[EndDate], [p].[Note], [p].[PetId], [p].[RoomId], [p].[StartDate], [p].[Status], [p].[TotalPrice], [p].[UserId], [p0].[PetId], [p0].[Age], [p0].[Breed], [p0].[Description], [p0].[Gender], [p0].[Name], [p0].[Type], [p0].[UserId], [h].[RoomId], [h].[IsAvailable], [h].[RoomNumber], [h].[RoomTypeId], [r].[RoomTypeId], [r].[Description], [r].[Name], [r].[PricePerNight]
+FROM [PetHotelBookings] AS [p]
+INNER JOIN [Pets] AS [p0] ON [p].[PetId] = [p0].[PetId]
+INNER JOIN [HotelRooms] AS [h] ON [p].[RoomId] = [h].[RoomId]
+INNER JOIN [RoomTypes] AS [r] ON [h].[RoomTypeId] = [r].[RoomTypeId]
+WHERE [p].[StartDate] <= @__endOfMonth_0 AND [p].[EndDate] >= @__startOfMonth_1
+2025-05-21 16:24:31.074 +07:00 [INF] Executing ViewResult, running view Index.
+2025-05-21 16:24:31.077 +07:00 [INF] Executed DbCommand (1ms) [Parameters=[@__p_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[SecurityStamp], [a].[TwoFactorEnabled], [a].[UserName]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[Id] = @__p_0
+2025-05-21 16:24:31.080 +07:00 [INF] Executed DbCommand (1ms) [Parameters=[@__userId_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a0].[Name]
+FROM [AspNetUserRoles] AS [a]
+INNER JOIN [AspNetRoles] AS [a0] ON [a].[RoleId] = [a0].[Id]
+WHERE [a].[UserId] = @__userId_0
+2025-05-21 16:24:31.083 +07:00 [INF] Executed ViewResult - view Index executed in 9.6449ms.
+2025-05-21 16:24:31.085 +07:00 [INF] Executed action DoAnLTW.Areas.Admin.Controllers.PetHotelBookingController.Index (DoAnLTW) in 19.2105ms
+2025-05-21 16:24:31.086 +07:00 [INF] Executed endpoint 'DoAnLTW.Areas.Admin.Controllers.PetHotelBookingController.Index (DoAnLTW)'
+2025-05-21 16:24:31.087 +07:00 [INF] HTTP GET /Admin/PetHotelBooking responded 200 in 26.1299 ms
+2025-05-21 16:24:31.090 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/Admin/PetHotelBooking?month=5&year=2020 - 200 null text/html; charset=utf-8 33.9198ms
+2025-05-21 16:24:31.109 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/_framework/aspnetcore-browser-refresh.js - null null
+2025-05-21 16:24:31.109 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/_vs/browserLink - null null
+2025-05-21 16:24:31.113 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/_framework/aspnetcore-browser-refresh.js - 200 16499 application/javascript; charset=utf-8 4.7899ms
+2025-05-21 16:24:31.118 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/_vs/browserLink - 200 null text/javascript; charset=UTF-8 9.019ms
+2025-05-21 16:24:33.152 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/Admin/PetHotelBooking?month=5&year=2025 - null null
+2025-05-21 16:24:33.157 +07:00 [INF] Executing endpoint 'DoAnLTW.Areas.Admin.Controllers.PetHotelBookingController.Index (DoAnLTW)'
+2025-05-21 16:24:33.158 +07:00 [INF] Route matched with {area = "Admin", action = "Index", controller = "PetHotelBooking", page = ""}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Index(System.Nullable`1[System.Int32], System.Nullable`1[System.Int32]) on controller DoAnLTW.Areas.Admin.Controllers.PetHotelBookingController (DoAnLTW).
+2025-05-21 16:24:33.161 +07:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [h].[RoomId], [h].[IsAvailable], [h].[RoomNumber], [h].[RoomTypeId], [r].[RoomTypeId], [r].[Description], [r].[Name], [r].[PricePerNight]
+FROM [HotelRooms] AS [h]
+INNER JOIN [RoomTypes] AS [r] ON [h].[RoomTypeId] = [r].[RoomTypeId]
+2025-05-21 16:24:33.165 +07:00 [INF] Executed DbCommand (0ms) [Parameters=[@__endOfMonth_0='?' (DbType = DateTime2), @__startOfMonth_1='?' (DbType = DateTime2)], CommandType='"Text"', CommandTimeout='30']
+SELECT [p].[BookingId], [p].[Address], [p].[BookingDate], [p].[EndDate], [p].[Note], [p].[PetId], [p].[RoomId], [p].[StartDate], [p].[Status], [p].[TotalPrice], [p].[UserId], [p0].[PetId], [p0].[Age], [p0].[Breed], [p0].[Description], [p0].[Gender], [p0].[Name], [p0].[Type], [p0].[UserId], [h].[RoomId], [h].[IsAvailable], [h].[RoomNumber], [h].[RoomTypeId], [r].[RoomTypeId], [r].[Description], [r].[Name], [r].[PricePerNight]
+FROM [PetHotelBookings] AS [p]
+INNER JOIN [Pets] AS [p0] ON [p].[PetId] = [p0].[PetId]
+INNER JOIN [HotelRooms] AS [h] ON [p].[RoomId] = [h].[RoomId]
+INNER JOIN [RoomTypes] AS [r] ON [h].[RoomTypeId] = [r].[RoomTypeId]
+WHERE [p].[StartDate] <= @__endOfMonth_0 AND [p].[EndDate] >= @__startOfMonth_1
+2025-05-21 16:24:33.168 +07:00 [INF] Executing ViewResult, running view Index.
+2025-05-21 16:24:33.171 +07:00 [INF] Executed DbCommand (1ms) [Parameters=[@__p_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[SecurityStamp], [a].[TwoFactorEnabled], [a].[UserName]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[Id] = @__p_0
+2025-05-21 16:24:33.175 +07:00 [INF] Executed DbCommand (0ms) [Parameters=[@__userId_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a0].[Name]
+FROM [AspNetUserRoles] AS [a]
+INNER JOIN [AspNetRoles] AS [a0] ON [a].[RoleId] = [a0].[Id]
+WHERE [a].[UserId] = @__userId_0
+2025-05-21 16:24:33.178 +07:00 [INF] Executed ViewResult - view Index executed in 10.4074ms.
+2025-05-21 16:24:33.180 +07:00 [INF] Executed action DoAnLTW.Areas.Admin.Controllers.PetHotelBookingController.Index (DoAnLTW) in 20.5103ms
+2025-05-21 16:24:33.181 +07:00 [INF] Executed endpoint 'DoAnLTW.Areas.Admin.Controllers.PetHotelBookingController.Index (DoAnLTW)'
+2025-05-21 16:24:33.182 +07:00 [INF] HTTP GET /Admin/PetHotelBooking responded 200 in 25.4837 ms
+2025-05-21 16:24:33.184 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/Admin/PetHotelBooking?month=5&year=2025 - 200 null text/html; charset=utf-8 31.937ms
+2025-05-21 16:24:33.206 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/_vs/browserLink - null null
+2025-05-21 16:24:33.207 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/_framework/aspnetcore-browser-refresh.js - null null
+2025-05-21 16:24:33.212 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/_framework/aspnetcore-browser-refresh.js - 200 16499 application/javascript; charset=utf-8 5.0111ms
+2025-05-21 16:24:33.212 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/_vs/browserLink - 200 null text/javascript; charset=UTF-8 6.4483ms
+2025-05-21 16:24:40.904 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/Admin/Statistics - null null
+2025-05-21 16:24:40.913 +07:00 [INF] Executing endpoint 'DoAnLTW.Areas.Admin.Controllers.StatisticsController.Index (DoAnLTW)'
+2025-05-21 16:24:40.917 +07:00 [INF] Route matched with {area = "Admin", action = "Index", controller = "Statistics", page = ""}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Index(System.Nullable`1[System.Int32]) on controller DoAnLTW.Areas.Admin.Controllers.StatisticsController (DoAnLTW).
+2025-05-21 16:24:40.936 +07:00 [INF] Starting statistics retrieval for year 2025
+2025-05-21 16:24:40.966 +07:00 [INF] Executed DbCommand (6ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT DISTINCT DATEPART(year, [o].[OrderDate])
+FROM [Orders] AS [o]
+2025-05-21 16:24:40.987 +07:00 [INF] Executed DbCommand (6ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT DISTINCT DATEPART(year, [p].[BookingDate])
+FROM [PetServices] AS [p]
+2025-05-21 16:24:41.012 +07:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [Orders] AS [o]
+2025-05-21 16:24:41.028 +07:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [PetServices] AS [p]
+2025-05-21 16:24:41.038 +07:00 [INF] Executed DbCommand (3ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [Products] AS [p]
+2025-05-21 16:24:41.059 +07:00 [INF] Executed DbCommand (2ms) [Parameters=[@__year_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT COALESCE(SUM([o].[TotalAmount]), 0.0)
+FROM [Orders] AS [o]
+WHERE DATEPART(year, [o].[OrderDate]) = @__year_0
+2025-05-21 16:24:41.076 +07:00 [INF] Executed DbCommand (3ms) [Parameters=[@__year_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT COALESCE(SUM([p].[Price]), 0.0)
+FROM [PetServices] AS [p]
+WHERE DATEPART(year, [p].[BookingDate]) = @__year_0
+2025-05-21 16:24:41.123 +07:00 [INF] Executed DbCommand (7ms) [Parameters=[@__year_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [c].[Name] AS [Category], COALESCE(SUM(CAST([o].[Quantity] AS decimal(18,2)) * [o].[Price]), 0.0) AS [Revenue]
+FROM [OrderDetails] AS [o]
+INNER JOIN [Orders] AS [o0] ON [o].[OrderId] = [o0].[Id]
+INNER JOIN [Products] AS [p] ON [o].[ProductId] = [p].[ProductId]
+INNER JOIN [Categories] AS [c] ON [p].[CategoryId] = [c].[CategoryId]
+WHERE DATEPART(year, [o0].[OrderDate]) = @__year_0
+GROUP BY [c].[Name]
+2025-05-21 16:24:41.147 +07:00 [INF] Executed DbCommand (9ms) [Parameters=[@__year_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [b].[Name] AS [Brand], COALESCE(SUM(CAST([o].[Quantity] AS decimal(18,2)) * [o].[Price]), 0.0) AS [Revenue]
+FROM [OrderDetails] AS [o]
+INNER JOIN [Orders] AS [o0] ON [o].[OrderId] = [o0].[Id]
+INNER JOIN [Products] AS [p] ON [o].[ProductId] = [p].[ProductId]
+INNER JOIN [Brands] AS [b] ON [p].[BrandId] = [b].[BrandId]
+WHERE DATEPART(year, [o0].[OrderDate]) = @__year_0
+GROUP BY [b].[Name]
+2025-05-21 16:24:41.171 +07:00 [INF] Executed DbCommand (5ms) [Parameters=[@__year_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE [o].[Status]
+    WHEN 0 THEN N'ChoXuLy'
+    WHEN 1 THEN N'DangGiaoHang'
+    WHEN 2 THEN N'DaGiaoHang'
+    WHEN 3 THEN N'DaHuy'
+    ELSE CAST([o].[Status] AS nvarchar(max))
+END AS [Status], COUNT(*) AS [Count]
+FROM [Orders] AS [o]
+WHERE DATEPART(year, [o].[OrderDate]) = @__year_0
+GROUP BY [o].[Status]
+2025-05-21 16:24:41.187 +07:00 [INF] Executed DbCommand (5ms) [Parameters=[@__year_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE [p].[Status]
+    WHEN 0 THEN N'ChoXacNhan'
+    WHEN 1 THEN N'DaXacNhan'
+    WHEN 2 THEN N'DangThucHien'
+    WHEN 3 THEN N'HoanThanh'
+    WHEN 4 THEN N'DaHuy'
+    ELSE CAST([p].[Status] AS nvarchar(max))
+END AS [Status], COUNT(*) AS [Count]
+FROM [PetServices] AS [p]
+WHERE DATEPART(year, [p].[BookingDate]) = @__year_0
+GROUP BY [p].[Status]
+2025-05-21 16:24:41.210 +07:00 [INF] Executed DbCommand (6ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [b].[Name] AS [Brand], COUNT(*) AS [Count]
+FROM [Products] AS [p]
+INNER JOIN [Brands] AS [b] ON [p].[BrandId] = [b].[BrandId]
+GROUP BY [b].[Name]
+2025-05-21 16:24:41.232 +07:00 [INF] Executed DbCommand (9ms) [Parameters=[@__year_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [c].[Name] AS [Category], COALESCE(SUM([o].[Quantity]), 0) AS [Quantity]
+FROM [OrderDetails] AS [o]
+INNER JOIN [Orders] AS [o0] ON [o].[OrderId] = [o0].[Id]
+INNER JOIN [Products] AS [p] ON [o].[ProductId] = [p].[ProductId]
+INNER JOIN [Categories] AS [c] ON [p].[CategoryId] = [c].[CategoryId]
+WHERE DATEPART(year, [o0].[OrderDate]) = @__year_0
+GROUP BY [c].[Name]
+2025-05-21 16:24:41.245 +07:00 [INF] Executed DbCommand (6ms) [Parameters=[@__year_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [s].[Name] AS [ServiceName], COUNT(*) AS [Count]
+FROM [PetServices] AS [p]
+INNER JOIN [Services] AS [s] ON [p].[ServiceId] = [s].[ServiceId]
+WHERE DATEPART(year, [p].[BookingDate]) = @__year_0
+GROUP BY [s].[Name]
+2025-05-21 16:24:41.265 +07:00 [INF] Executed DbCommand (4ms) [Parameters=[@__year_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [o0].[Key] AS [Month], COALESCE(SUM([o0].[TotalAmount]), 0.0) AS [Revenue]
+FROM (
+    SELECT [o].[TotalAmount], DATEPART(month, [o].[OrderDate]) AS [Key]
+    FROM [Orders] AS [o]
+    WHERE DATEPART(year, [o].[OrderDate]) = @__year_0
+) AS [o0]
+GROUP BY [o0].[Key]
+2025-05-21 16:24:41.289 +07:00 [INF] Executed DbCommand (4ms) [Parameters=[@__year_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [p0].[Key] AS [Month], COALESCE(SUM([p0].[Price]), 0.0) AS [Revenue]
+FROM (
+    SELECT [p].[Price], DATEPART(month, [p].[BookingDate]) AS [Key]
+    FROM [PetServices] AS [p]
+    WHERE DATEPART(year, [p].[BookingDate]) = @__year_0
+) AS [p0]
+GROUP BY [p0].[Key]
+2025-05-21 16:24:41.310 +07:00 [INF] Executed DbCommand (5ms) [Parameters=[@__year_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [o0].[Key] AS [Quarter], COALESCE(SUM([o0].[TotalAmount]), 0.0) AS [Revenue]
+FROM (
+    SELECT [o].[TotalAmount], (DATEPART(month, [o].[OrderDate]) - 1) / 3 + 1 AS [Key]
+    FROM [Orders] AS [o]
+    WHERE DATEPART(year, [o].[OrderDate]) = @__year_0
+) AS [o0]
+GROUP BY [o0].[Key]
+2025-05-21 16:24:41.326 +07:00 [INF] Executed DbCommand (4ms) [Parameters=[@__year_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [p0].[Key] AS [Quarter], COALESCE(SUM([p0].[Price]), 0.0) AS [Revenue]
+FROM (
+    SELECT [p].[Price], (DATEPART(month, [p].[BookingDate]) - 1) / 3 + 1 AS [Key]
+    FROM [PetServices] AS [p]
+    WHERE DATEPART(year, [p].[BookingDate]) = @__year_0
+) AS [p0]
+GROUP BY [p0].[Key]
+2025-05-21 16:24:41.351 +07:00 [INF] Executed DbCommand (9ms) [Parameters=[@__p_1='?' (DbType = Int32), @__year_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(@__p_1) [o].[ProductId], [p].[Name] AS [ProductName], COALESCE(SUM([o].[Quantity]), 0) AS [QuantitySold], COALESCE(SUM(CAST([o].[Quantity] AS decimal(18,2)) * [o].[Price]), 0.0) AS [Revenue]
+FROM [OrderDetails] AS [o]
+INNER JOIN [Orders] AS [o0] ON [o].[OrderId] = [o0].[Id]
+INNER JOIN [Products] AS [p] ON [o].[ProductId] = [p].[ProductId]
+WHERE DATEPART(year, [o0].[OrderDate]) = @__year_0
+GROUP BY [o].[ProductId], [p].[Name]
+ORDER BY COALESCE(SUM([o].[Quantity]), 0) DESC
+2025-05-21 16:24:41.382 +07:00 [INF] Executed DbCommand (9ms) [Parameters=[@__p_1='?' (DbType = Int32), @__year_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(@__p_1) [p].[ServiceId], [s].[Name] AS [ServiceName], COUNT(*) AS [BookingCount], COALESCE(SUM([p].[Price]), 0.0) AS [Revenue]
+FROM [PetServices] AS [p]
+INNER JOIN [Services] AS [s] ON [p].[ServiceId] = [s].[ServiceId]
+WHERE DATEPART(year, [p].[BookingDate]) = @__year_0
+GROUP BY [p].[ServiceId], [s].[Name]
+ORDER BY COUNT(*) DESC
+2025-05-21 16:24:41.393 +07:00 [INF] Statistics retrieval completed successfully for year 2025
+2025-05-21 16:24:41.397 +07:00 [INF] Executing ViewResult, running view Index.
+2025-05-21 16:24:41.412 +07:00 [INF] Executed DbCommand (1ms) [Parameters=[@__p_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[SecurityStamp], [a].[TwoFactorEnabled], [a].[UserName]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[Id] = @__p_0
+2025-05-21 16:24:41.426 +07:00 [INF] Executed DbCommand (1ms) [Parameters=[@__userId_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a0].[Name]
+FROM [AspNetUserRoles] AS [a]
+INNER JOIN [AspNetRoles] AS [a0] ON [a].[RoleId] = [a0].[Id]
+WHERE [a].[UserId] = @__userId_0
+2025-05-21 16:24:41.443 +07:00 [INF] Executed ViewResult - view Index executed in 47.2998ms.
+2025-05-21 16:24:41.445 +07:00 [INF] Executed action DoAnLTW.Areas.Admin.Controllers.StatisticsController.Index (DoAnLTW) in 526.2287ms
+2025-05-21 16:24:41.446 +07:00 [INF] Executed endpoint 'DoAnLTW.Areas.Admin.Controllers.StatisticsController.Index (DoAnLTW)'
+2025-05-21 16:24:41.448 +07:00 [INF] HTTP GET /Admin/Statistics responded 200 in 535.3842 ms
+2025-05-21 16:24:41.450 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/Admin/Statistics - 200 null text/html; charset=utf-8 545.2813ms
+2025-05-21 16:24:41.470 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/_framework/aspnetcore-browser-refresh.js - null null
+2025-05-21 16:24:41.470 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/_vs/browserLink - null null
+2025-05-21 16:24:41.476 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/_framework/aspnetcore-browser-refresh.js - 200 16499 application/javascript; charset=utf-8 6.2767ms
+2025-05-21 16:24:41.485 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/_vs/browserLink - 200 null text/javascript; charset=UTF-8 14.9728ms
+2025-05-21 16:32:24.302 +07:00 [INF] User profile is available. Using 'C:\Users\admin\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2025-05-21 16:32:25.015 +07:00 [INF] Now listening on: https://localhost:5134
+2025-05-21 16:32:25.042 +07:00 [INF] Application started. Press Ctrl+C to shut down.
+2025-05-21 16:32:25.043 +07:00 [INF] Hosting environment: Development
+2025-05-21 16:32:25.044 +07:00 [INF] Content root path: H:\DoAnCoSo\DoAnLTW
+2025-05-21 16:32:25.700 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/ - null null
+2025-05-21 16:32:25.857 +07:00 [INF] Executing endpoint 'DoAnLTW.Controllers.HomeController.Index (DoAnLTW)'
+2025-05-21 16:32:25.867 +07:00 [INF] Route matched with {action = "Index", controller = "Home", area = "", page = ""}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Index() on controller DoAnLTW.Controllers.HomeController (DoAnLTW).
+2025-05-21 16:32:28.035 +07:00 [INF] Executed DbCommand (33ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [c].[CategoryId], [c].[ImageUrl], [c].[Name]
+FROM [Categories] AS [c]
+2025-05-21 16:32:28.096 +07:00 [INF] Executed DbCommand (3ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [b].[BrandId], [b].[ImageUrl], [b].[Name]
+FROM [Brands] AS [b]
+2025-05-21 16:32:28.200 +07:00 [WRN] Compiling a query which loads related collections for more than one collection navigation, either via 'Include' or through projection, but no 'QuerySplittingBehavior' has been configured. By default, Entity Framework will use 'QuerySplittingBehavior.SingleQuery', which can potentially result in slow query performance. See https://go.microsoft.com/fwlink/?linkid=2134277 for more information. To identify the query that's triggering this warning call 'ConfigureWarnings(w => w.Throw(RelationalEventId.MultipleCollectionIncludeWarning))'.
+2025-05-21 16:32:28.241 +07:00 [INF] Executed DbCommand (17ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [p].[ProductId], [p].[BrandId], [p].[CategoryId], [p].[Description], [p].[Name], [c].[CategoryId], [c].[ImageUrl], [c].[Name], [b].[BrandId], [b].[ImageUrl], [b].[Name], [s0].[ProductId], [s0].[SizeId], [s0].[Price], [s0].[Stock], [s0].[SizeId0], [s0].[size], [p1].[Product_ImagesId], [p1].[ImageUrl], [p1].[ProductId]
+FROM [Products] AS [p]
+INNER JOIN [Categories] AS [c] ON [p].[CategoryId] = [c].[CategoryId]
+INNER JOIN [Brands] AS [b] ON [p].[BrandId] = [b].[BrandId]
+LEFT JOIN (
+    SELECT [p0].[ProductId], [p0].[SizeId], [p0].[Price], [p0].[Stock], [s].[SizeId] AS [SizeId0], [s].[size]
+    FROM [ProductSizes] AS [p0]
+    INNER JOIN [Sizes] AS [s] ON [p0].[SizeId] = [s].[SizeId]
+) AS [s0] ON [p].[ProductId] = [s0].[ProductId]
+LEFT JOIN [ProductImages] AS [p1] ON [p].[ProductId] = [p1].[ProductId]
+ORDER BY [p].[ProductId], [c].[CategoryId], [b].[BrandId], [s0].[ProductId], [s0].[SizeId], [s0].[SizeId0]
+2025-05-21 16:32:28.328 +07:00 [INF] Executed DbCommand (4ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [p].[Id], [p].[Code], [p].[DiscountAmount], [p].[DiscountPercentage], [p].[EndDate], [p].[IsActive], [p].[MaxUsage], [p].[StartDate], [p].[UsageCount]
+FROM [PromotionCodes] AS [p]
+WHERE [p].[IsActive] = CAST(1 AS bit) AND ([p].[StartDate] IS NULL OR [p].[StartDate] <= GETDATE()) AND ([p].[EndDate] IS NULL OR [p].[EndDate] >= GETDATE()) AND ([p].[MaxUsage] = 0 OR [p].[UsageCount] < [p].[MaxUsage])
+2025-05-21 16:32:28.355 +07:00 [INF] Executing ViewResult, running view Index.
+2025-05-21 16:32:28.494 +07:00 [INF] Executed DbCommand (3ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [b].[BrandId], [b].[ImageUrl], [b].[Name]
+FROM [Brands] AS [b]
+2025-05-21 16:32:28.511 +07:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [c].[CategoryId], [c].[ImageUrl], [c].[Name]
+FROM [Categories] AS [c]
+2025-05-21 16:32:28.617 +07:00 [INF] Executed ViewResult - view Index executed in 261.6172ms.
+2025-05-21 16:32:28.623 +07:00 [INF] Executed action DoAnLTW.Controllers.HomeController.Index (DoAnLTW) in 2752.6348ms
+2025-05-21 16:32:28.625 +07:00 [INF] Executed endpoint 'DoAnLTW.Controllers.HomeController.Index (DoAnLTW)'
+2025-05-21 16:32:28.628 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/_vs/browserLink - null null
+2025-05-21 16:32:28.628 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/_framework/aspnetcore-browser-refresh.js - null null
+2025-05-21 16:32:28.628 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/img/payments.png - null null
+2025-05-21 16:32:28.632 +07:00 [INF] HTTP GET / responded 200 in 2815.6879 ms
+2025-05-21 16:32:28.747 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/_framework/aspnetcore-browser-refresh.js - 200 16499 application/javascript; charset=utf-8 54.6583ms
+2025-05-21 16:32:28.750 +07:00 [INF] HTTP GET /img/payments.png responded 404 in 110.6061 ms
+2025-05-21 16:32:28.756 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/ - 200 null text/html; charset=utf-8 3063.7021ms
+2025-05-21 16:32:28.758 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/img/payments.png - 404 0 null 129.6082ms
+2025-05-21 16:32:28.769 +07:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET https://localhost:5134/img/payments.png, Response status code: 404
+2025-05-21 16:32:28.774 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/_vs/browserLink - 200 null text/javascript; charset=UTF-8 145.7581ms
+2025-05-21 16:32:29.320 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/img/favicon.ico - null null
+2025-05-21 16:32:29.328 +07:00 [INF] HTTP GET /img/favicon.ico responded 404 in 4.4286 ms
+2025-05-21 16:32:29.331 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/img/favicon.ico - 404 0 null 11.0521ms
+2025-05-21 16:32:29.335 +07:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET https://localhost:5134/img/favicon.ico, Response status code: 404
+2025-05-21 16:32:33.824 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/Identity/Account/Login - null null
+2025-05-21 16:32:33.833 +07:00 [INF] Executing endpoint '/Account/Login'
+2025-05-21 16:32:33.862 +07:00 [INF] Route matched with {page = "/Account/Login", area = "Identity", action = "", controller = ""}. Executing page /Account/Login
+2025-05-21 16:32:33.881 +07:00 [INF] Executing handler method DoAnLTW.Areas.Identity.Pages.Account.LoginModel.OnGetAsync - ModelState is "Valid"
+2025-05-21 16:32:33.895 +07:00 [INF] AuthenticationScheme: Identity.External signed out.
+2025-05-21 16:32:33.899 +07:00 [INF] Executed handler method OnGetAsync, returned result .
+2025-05-21 16:32:33.903 +07:00 [INF] Executing an implicit handler method - ModelState is "Valid"
+2025-05-21 16:32:33.907 +07:00 [INF] Executed an implicit handler method, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2025-05-21 16:32:33.954 +07:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [b].[BrandId], [b].[ImageUrl], [b].[Name]
+FROM [Brands] AS [b]
+2025-05-21 16:32:33.967 +07:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [c].[CategoryId], [c].[ImageUrl], [c].[Name]
+FROM [Categories] AS [c]
+2025-05-21 16:32:33.986 +07:00 [INF] Executed page /Account/Login in 122.2648ms
+2025-05-21 16:32:33.991 +07:00 [INF] Executed endpoint '/Account/Login'
+2025-05-21 16:32:33.994 +07:00 [INF] HTTP GET /Identity/Account/Login responded 200 in 161.8428 ms
+2025-05-21 16:32:33.996 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/Identity/Account/Login - 200 null text/html; charset=utf-8 171.9088ms
+2025-05-21 16:32:34.033 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/img/icon_google.ico - null null
+2025-05-21 16:32:34.035 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/Identity/Account/mail/jqBootstrapValidation.min.js - null null
+2025-05-21 16:32:34.035 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/Identity/Account/img/payments.png - null null
+2025-05-21 16:32:34.035 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/Identity/Account/mail/contact.js - null null
+2025-05-21 16:32:34.035 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/lib/jquery-validation/dist/jquery.validate.min.js - null null
+2025-05-21 16:32:34.036 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/_vs/browserLink - null null
+2025-05-21 16:32:34.034 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/_framework/aspnetcore-browser-refresh.js - null null
+2025-05-21 16:32:34.047 +07:00 [INF] HTTP GET /Identity/Account/mail/jqBootstrapValidation.min.js responded 404 in 1.6491 ms
+2025-05-21 16:32:34.048 +07:00 [INF] HTTP GET /Identity/Account/img/payments.png responded 404 in 0.2700 ms
+2025-05-21 16:32:34.105 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/Identity/Account/mail/jqBootstrapValidation.min.js - 404 0 null 70.532ms
+2025-05-21 16:32:34.051 +07:00 [INF] HTTP GET /Identity/Account/mail/contact.js responded 404 in 0.1454 ms
+2025-05-21 16:32:34.043 +07:00 [INF] HTTP GET /img/icon_google.ico responded 404 in 6.6049 ms
+2025-05-21 16:32:34.053 +07:00 [INF] HTTP GET /lib/jquery-validation/dist/jquery.validate.min.js responded 404 in 0.1999 ms
+2025-05-21 16:32:34.063 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/_framework/aspnetcore-browser-refresh.js - 200 16499 application/javascript; charset=utf-8 28.4535ms
+2025-05-21 16:32:34.035 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/lib/jquery-validation-unobtrusive/dist/jquery.validate.unobtrusive.min.js - null null
+2025-05-21 16:32:34.116 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/Identity/Account/img/payments.png - 404 0 null 81.293ms
+2025-05-21 16:32:34.121 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/_vs/browserLink - 200 null text/javascript; charset=UTF-8 85.2365ms
+2025-05-21 16:32:34.121 +07:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET https://localhost:5134/Identity/Account/mail/jqBootstrapValidation.min.js, Response status code: 404
+2025-05-21 16:32:34.125 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/Identity/Account/mail/contact.js - 404 0 null 90.5686ms
+2025-05-21 16:32:34.130 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/img/icon_google.ico - 404 0 null 96.915ms
+2025-05-21 16:32:34.132 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/lib/jquery-validation/dist/jquery.validate.min.js - 404 0 null 96.8928ms
+2025-05-21 16:32:34.140 +07:00 [INF] HTTP GET /lib/jquery-validation-unobtrusive/dist/jquery.validate.unobtrusive.min.js responded 404 in 0.2774 ms
+2025-05-21 16:32:34.145 +07:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET https://localhost:5134/Identity/Account/img/payments.png, Response status code: 404
+2025-05-21 16:32:34.157 +07:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET https://localhost:5134/Identity/Account/mail/contact.js, Response status code: 404
+2025-05-21 16:32:34.163 +07:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET https://localhost:5134/img/icon_google.ico, Response status code: 404
+2025-05-21 16:32:34.166 +07:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET https://localhost:5134/lib/jquery-validation/dist/jquery.validate.min.js, Response status code: 404
+2025-05-21 16:32:34.168 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/lib/jquery-validation-unobtrusive/dist/jquery.validate.unobtrusive.min.js - 404 0 null 132.508ms
+2025-05-21 16:32:34.179 +07:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET https://localhost:5134/lib/jquery-validation-unobtrusive/dist/jquery.validate.unobtrusive.min.js, Response status code: 404
+2025-05-21 16:32:34.374 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/Identity/Account/img/favicon.ico - null null
+2025-05-21 16:32:34.378 +07:00 [INF] HTTP GET /Identity/Account/img/favicon.ico responded 404 in 0.3137 ms
+2025-05-21 16:32:34.380 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/Identity/Account/img/favicon.ico - 404 0 null 6.394ms
+2025-05-21 16:32:34.384 +07:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET https://localhost:5134/Identity/Account/img/favicon.ico, Response status code: 404
+2025-05-21 16:32:37.247 +07:00 [INF] Request starting HTTP/2 POST https://localhost:5134/Identity/Account/Login - application/x-www-form-urlencoded 266
+2025-05-21 16:32:37.254 +07:00 [INF] CORS policy execution successful.
+2025-05-21 16:32:37.257 +07:00 [INF] Executing endpoint '/Account/Login'
+2025-05-21 16:32:37.262 +07:00 [INF] Route matched with {page = "/Account/Login", area = "Identity", action = "", controller = ""}. Executing page /Account/Login
+2025-05-21 16:32:37.305 +07:00 [INF] Executing handler method DoAnLTW.Areas.Identity.Pages.Account.LoginModel.OnPostAsync - ModelState is "Valid"
+2025-05-21 16:32:37.408 +07:00 [INF] Executed DbCommand (30ms) [Parameters=[@__normalizedUserName_0='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[SecurityStamp], [a].[TwoFactorEnabled], [a].[UserName]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[NormalizedUserName] = @__normalizedUserName_0
+2025-05-21 16:32:37.520 +07:00 [INF] Executed DbCommand (4ms) [Parameters=[@__user_Id_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a].[Id], [a].[ClaimType], [a].[ClaimValue], [a].[UserId]
+FROM [AspNetUserClaims] AS [a]
+WHERE [a].[UserId] = @__user_Id_0
+2025-05-21 16:32:37.544 +07:00 [INF] Executed DbCommand (5ms) [Parameters=[@__userId_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a0].[Name]
+FROM [AspNetUserRoles] AS [a]
+INNER JOIN [AspNetRoles] AS [a0] ON [a].[RoleId] = [a0].[Id]
+WHERE [a].[UserId] = @__userId_0
+2025-05-21 16:32:37.569 +07:00 [INF] Executed DbCommand (4ms) [Parameters=[@__normalizedName_0='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[ConcurrencyStamp], [a].[Name], [a].[NormalizedName]
+FROM [AspNetRoles] AS [a]
+WHERE [a].[NormalizedName] = @__normalizedName_0
+2025-05-21 16:32:37.590 +07:00 [INF] Executed DbCommand (3ms) [Parameters=[@__role_Id_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a].[ClaimType], [a].[ClaimValue]
+FROM [AspNetRoleClaims] AS [a]
+WHERE [a].[RoleId] = @__role_Id_0
+2025-05-21 16:32:37.603 +07:00 [INF] AuthenticationScheme: Identity.Application signed in.
+2025-05-21 16:32:37.618 +07:00 [INF] Executed DbCommand (4ms) [Parameters=[@__normalizedEmail_0='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(2) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[SecurityStamp], [a].[TwoFactorEnabled], [a].[UserName]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[NormalizedEmail] = @__normalizedEmail_0
+2025-05-21 16:32:37.632 +07:00 [INF] Executed DbCommand (1ms) [Parameters=[@__userId_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a0].[Name]
+FROM [AspNetUserRoles] AS [a]
+INNER JOIN [AspNetRoles] AS [a0] ON [a].[RoleId] = [a0].[Id]
+WHERE [a].[UserId] = @__userId_0
+2025-05-21 16:32:37.646 +07:00 [INF] Executed handler method OnPostAsync, returned result Microsoft.AspNetCore.Mvc.LocalRedirectResult.
+2025-05-21 16:32:37.654 +07:00 [INF] Executing LocalRedirectResult, redirecting to /.
+2025-05-21 16:32:37.659 +07:00 [INF] Executed page /Account/Login in 393.4086ms
+2025-05-21 16:32:37.668 +07:00 [INF] Executed endpoint '/Account/Login'
+2025-05-21 16:32:37.672 +07:00 [INF] HTTP POST /Identity/Account/Login responded 302 in 419.7892 ms
+2025-05-21 16:32:37.682 +07:00 [INF] Request finished HTTP/2 POST https://localhost:5134/Identity/Account/Login - 302 0 null 434.7641ms
+2025-05-21 16:32:37.688 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/ - null null
+2025-05-21 16:32:37.699 +07:00 [INF] Executing endpoint 'DoAnLTW.Controllers.HomeController.Index (DoAnLTW)'
+2025-05-21 16:32:37.703 +07:00 [INF] Route matched with {action = "Index", controller = "Home", area = "", page = ""}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Index() on controller DoAnLTW.Controllers.HomeController (DoAnLTW).
+2025-05-21 16:32:37.711 +07:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [c].[CategoryId], [c].[ImageUrl], [c].[Name]
+FROM [Categories] AS [c]
+2025-05-21 16:32:37.718 +07:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [b].[BrandId], [b].[ImageUrl], [b].[Name]
+FROM [Brands] AS [b]
+2025-05-21 16:32:37.740 +07:00 [INF] Executed DbCommand (17ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [p].[ProductId], [p].[BrandId], [p].[CategoryId], [p].[Description], [p].[Name], [c].[CategoryId], [c].[ImageUrl], [c].[Name], [b].[BrandId], [b].[ImageUrl], [b].[Name], [s0].[ProductId], [s0].[SizeId], [s0].[Price], [s0].[Stock], [s0].[SizeId0], [s0].[size], [p1].[Product_ImagesId], [p1].[ImageUrl], [p1].[ProductId]
+FROM [Products] AS [p]
+INNER JOIN [Categories] AS [c] ON [p].[CategoryId] = [c].[CategoryId]
+INNER JOIN [Brands] AS [b] ON [p].[BrandId] = [b].[BrandId]
+LEFT JOIN (
+    SELECT [p0].[ProductId], [p0].[SizeId], [p0].[Price], [p0].[Stock], [s].[SizeId] AS [SizeId0], [s].[size]
+    FROM [ProductSizes] AS [p0]
+    INNER JOIN [Sizes] AS [s] ON [p0].[SizeId] = [s].[SizeId]
+) AS [s0] ON [p].[ProductId] = [s0].[ProductId]
+LEFT JOIN [ProductImages] AS [p1] ON [p].[ProductId] = [p1].[ProductId]
+ORDER BY [p].[ProductId], [c].[CategoryId], [b].[BrandId], [s0].[ProductId], [s0].[SizeId], [s0].[SizeId0]
+2025-05-21 16:32:37.768 +07:00 [INF] Executed DbCommand (5ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [p].[Id], [p].[Code], [p].[DiscountAmount], [p].[DiscountPercentage], [p].[EndDate], [p].[IsActive], [p].[MaxUsage], [p].[StartDate], [p].[UsageCount]
+FROM [PromotionCodes] AS [p]
+WHERE [p].[IsActive] = CAST(1 AS bit) AND ([p].[StartDate] IS NULL OR [p].[StartDate] <= GETDATE()) AND ([p].[EndDate] IS NULL OR [p].[EndDate] >= GETDATE()) AND ([p].[MaxUsage] = 0 OR [p].[UsageCount] < [p].[MaxUsage])
+2025-05-21 16:32:37.774 +07:00 [INF] Executing ViewResult, running view Index.
+2025-05-21 16:32:37.812 +07:00 [INF] Executed DbCommand (2ms) [Parameters=[@__p_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[SecurityStamp], [a].[TwoFactorEnabled], [a].[UserName]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[Id] = @__p_0
+2025-05-21 16:32:37.820 +07:00 [INF] Executed DbCommand (1ms) [Parameters=[@__userId_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a0].[Name]
+FROM [AspNetUserRoles] AS [a]
+INNER JOIN [AspNetRoles] AS [a0] ON [a].[RoleId] = [a0].[Id]
+WHERE [a].[UserId] = @__userId_0
+2025-05-21 16:32:37.833 +07:00 [INF] Executed ViewResult - view Index executed in 58.5495ms.
+2025-05-21 16:32:37.834 +07:00 [INF] Executed action DoAnLTW.Controllers.HomeController.Index (DoAnLTW) in 126.5655ms
+2025-05-21 16:32:37.835 +07:00 [INF] Executed endpoint 'DoAnLTW.Controllers.HomeController.Index (DoAnLTW)'
+2025-05-21 16:32:37.836 +07:00 [INF] HTTP GET / responded 200 in 141.4571 ms
+2025-05-21 16:32:37.839 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/ - 200 null text/html; charset=utf-8 151.7243ms
+2025-05-21 16:32:37.865 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/_framework/aspnetcore-browser-refresh.js - null null
+2025-05-21 16:32:37.867 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/_vs/browserLink - null null
+2025-05-21 16:32:37.869 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/_framework/aspnetcore-browser-refresh.js - 200 16499 application/javascript; charset=utf-8 4.211ms
+2025-05-21 16:32:37.878 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/_vs/browserLink - 200 null text/javascript; charset=UTF-8 11.4258ms
+2025-05-21 16:32:40.706 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/Admin/PetHotelBooking - null null
+2025-05-21 16:32:40.719 +07:00 [INF] Executing endpoint 'DoAnLTW.Areas.Admin.Controllers.PetHotelBookingController.Index (DoAnLTW)'
+2025-05-21 16:32:40.724 +07:00 [INF] Route matched with {area = "Admin", action = "Index", controller = "PetHotelBooking", page = ""}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Index(System.Nullable`1[System.Int32], System.Nullable`1[System.Int32]) on controller DoAnLTW.Areas.Admin.Controllers.PetHotelBookingController (DoAnLTW).
+2025-05-21 16:32:40.743 +07:00 [INF] Executed DbCommand (3ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [h].[RoomId], [h].[IsAvailable], [h].[RoomNumber], [h].[RoomTypeId], [r].[RoomTypeId], [r].[Description], [r].[Name], [r].[PricePerNight]
+FROM [HotelRooms] AS [h]
+INNER JOIN [RoomTypes] AS [r] ON [h].[RoomTypeId] = [r].[RoomTypeId]
+2025-05-21 16:32:40.785 +07:00 [INF] Executed DbCommand (8ms) [Parameters=[@__endOfMonth_0='?' (DbType = DateTime2), @__startOfMonth_1='?' (DbType = DateTime2)], CommandType='"Text"', CommandTimeout='30']
+SELECT [p].[BookingId], [p].[Address], [p].[BookingDate], [p].[EndDate], [p].[Note], [p].[PetId], [p].[RoomId], [p].[StartDate], [p].[Status], [p].[TotalPrice], [p].[UserId], [p0].[PetId], [p0].[Age], [p0].[Breed], [p0].[Description], [p0].[Gender], [p0].[Name], [p0].[Type], [p0].[UserId], [h].[RoomId], [h].[IsAvailable], [h].[RoomNumber], [h].[RoomTypeId], [r].[RoomTypeId], [r].[Description], [r].[Name], [r].[PricePerNight]
+FROM [PetHotelBookings] AS [p]
+INNER JOIN [Pets] AS [p0] ON [p].[PetId] = [p0].[PetId]
+INNER JOIN [HotelRooms] AS [h] ON [p].[RoomId] = [h].[RoomId]
+INNER JOIN [RoomTypes] AS [r] ON [h].[RoomTypeId] = [r].[RoomTypeId]
+WHERE [p].[StartDate] <= @__endOfMonth_0 AND [p].[EndDate] >= @__startOfMonth_1
+2025-05-21 16:32:40.823 +07:00 [INF] Executing ViewResult, running view Index.
+2025-05-21 16:32:40.901 +07:00 [INF] Executed DbCommand (4ms) [Parameters=[@__p_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[SecurityStamp], [a].[TwoFactorEnabled], [a].[UserName]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[Id] = @__p_0
+2025-05-21 16:32:40.914 +07:00 [INF] Executed DbCommand (4ms) [Parameters=[@__userId_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a0].[Name]
+FROM [AspNetUserRoles] AS [a]
+INNER JOIN [AspNetRoles] AS [a0] ON [a].[RoleId] = [a0].[Id]
+WHERE [a].[UserId] = @__userId_0
+2025-05-21 16:32:40.924 +07:00 [INF] Executed ViewResult - view Index executed in 102.1625ms.
+2025-05-21 16:32:40.927 +07:00 [INF] Executed action DoAnLTW.Areas.Admin.Controllers.PetHotelBookingController.Index (DoAnLTW) in 199.8308ms
+2025-05-21 16:32:40.928 +07:00 [INF] Executed endpoint 'DoAnLTW.Areas.Admin.Controllers.PetHotelBookingController.Index (DoAnLTW)'
+2025-05-21 16:32:40.929 +07:00 [INF] HTTP GET /Admin/PetHotelBooking responded 200 in 217.1837 ms
+2025-05-21 16:32:40.931 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/Admin/PetHotelBooking - 200 null text/html; charset=utf-8 224.3173ms
+2025-05-21 16:32:40.949 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/_vs/browserLink - null null
+2025-05-21 16:32:40.950 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/_framework/aspnetcore-browser-refresh.js - null null
+2025-05-21 16:32:40.957 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/_framework/aspnetcore-browser-refresh.js - 200 16499 application/javascript; charset=utf-8 6.8126ms
+2025-05-21 16:32:40.958 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/_vs/browserLink - 200 null text/javascript; charset=UTF-8 8.8439ms
+2025-05-21 16:32:41.973 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/Admin/Statistics - null null
+2025-05-21 16:32:41.983 +07:00 [INF] Executing endpoint 'DoAnLTW.Areas.Admin.Controllers.StatisticsController.Index (DoAnLTW)'
+2025-05-21 16:32:41.987 +07:00 [INF] Route matched with {area = "Admin", action = "Index", controller = "Statistics", page = ""}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Index(System.Nullable`1[System.Int32]) on controller DoAnLTW.Areas.Admin.Controllers.StatisticsController (DoAnLTW).
+2025-05-21 16:32:42.006 +07:00 [INF] Starting statistics retrieval for year 2025
+2025-05-21 16:32:42.024 +07:00 [INF] Executed DbCommand (4ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT DISTINCT DATEPART(year, [o].[OrderDate])
+FROM [Orders] AS [o]
+2025-05-21 16:32:42.037 +07:00 [INF] Executed DbCommand (5ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT DISTINCT DATEPART(year, [p].[BookingDate])
+FROM [PetServices] AS [p]
+2025-05-21 16:32:42.052 +07:00 [INF] Executed DbCommand (9ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT DISTINCT DATEPART(year, [p].[BookingDate])
+FROM [PetHotelBookings] AS [p]
+2025-05-21 16:32:42.071 +07:00 [INF] Executed DbCommand (3ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [Orders] AS [o]
+2025-05-21 16:32:42.080 +07:00 [INF] Executed DbCommand (3ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [PetServices] AS [p]
+2025-05-21 16:32:42.088 +07:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [PetHotelBookings] AS [p]
+2025-05-21 16:32:42.096 +07:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [Products] AS [p]
+2025-05-21 16:32:42.111 +07:00 [INF] Executed DbCommand (2ms) [Parameters=[@__year_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT COALESCE(SUM([o].[TotalAmount]), 0.0)
+FROM [Orders] AS [o]
+WHERE DATEPART(year, [o].[OrderDate]) = @__year_0
+2025-05-21 16:32:42.123 +07:00 [INF] Executed DbCommand (3ms) [Parameters=[@__year_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT COALESCE(SUM([p].[Price]), 0.0)
+FROM [PetServices] AS [p]
+WHERE DATEPART(year, [p].[BookingDate]) = @__year_0
+2025-05-21 16:32:42.141 +07:00 [INF] Executed DbCommand (7ms) [Parameters=[@__year_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT COALESCE(SUM([p].[TotalPrice]), 0.0)
+FROM [PetHotelBookings] AS [p]
+WHERE DATEPART(year, [p].[BookingDate]) = @__year_0 AND [p].[Status] <> 2
+2025-05-21 16:32:42.197 +07:00 [INF] Executed DbCommand (13ms) [Parameters=[@__year_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [c].[Name] AS [Category], COALESCE(SUM(CAST([o].[Quantity] AS decimal(18,2)) * [o].[Price]), 0.0) AS [Revenue]
+FROM [OrderDetails] AS [o]
+INNER JOIN [Orders] AS [o0] ON [o].[OrderId] = [o0].[Id]
+INNER JOIN [Products] AS [p] ON [o].[ProductId] = [p].[ProductId]
+INNER JOIN [Categories] AS [c] ON [p].[CategoryId] = [c].[CategoryId]
+WHERE DATEPART(year, [o0].[OrderDate]) = @__year_0
+GROUP BY [c].[Name]
+2025-05-21 16:32:42.227 +07:00 [INF] Executed DbCommand (10ms) [Parameters=[@__year_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [b].[Name] AS [Brand], COALESCE(SUM(CAST([o].[Quantity] AS decimal(18,2)) * [o].[Price]), 0.0) AS [Revenue]
+FROM [OrderDetails] AS [o]
+INNER JOIN [Orders] AS [o0] ON [o].[OrderId] = [o0].[Id]
+INNER JOIN [Products] AS [p] ON [o].[ProductId] = [p].[ProductId]
+INNER JOIN [Brands] AS [b] ON [p].[BrandId] = [b].[BrandId]
+WHERE DATEPART(year, [o0].[OrderDate]) = @__year_0
+GROUP BY [b].[Name]
+2025-05-21 16:32:42.257 +07:00 [INF] Executed DbCommand (15ms) [Parameters=[@__year_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [r].[Name] AS [RoomType], COALESCE(SUM([p].[TotalPrice]), 0.0) AS [Revenue]
+FROM [PetHotelBookings] AS [p]
+INNER JOIN [HotelRooms] AS [h] ON [p].[RoomId] = [h].[RoomId]
+INNER JOIN [RoomTypes] AS [r] ON [h].[RoomTypeId] = [r].[RoomTypeId]
+WHERE DATEPART(year, [p].[BookingDate]) = @__year_0 AND [p].[Status] <> 2
+GROUP BY [r].[Name]
+2025-05-21 16:32:42.296 +07:00 [INF] Executed DbCommand (7ms) [Parameters=[@__year_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE [o].[Status]
+    WHEN 0 THEN N'ChoXuLy'
+    WHEN 1 THEN N'DangGiaoHang'
+    WHEN 2 THEN N'DaGiaoHang'
+    WHEN 3 THEN N'DaHuy'
+    ELSE CAST([o].[Status] AS nvarchar(max))
+END AS [Status], COUNT(*) AS [Count]
+FROM [Orders] AS [o]
+WHERE DATEPART(year, [o].[OrderDate]) = @__year_0
+GROUP BY [o].[Status]
+2025-05-21 16:32:42.314 +07:00 [INF] Executed DbCommand (5ms) [Parameters=[@__year_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE [p].[Status]
+    WHEN 0 THEN N'ChoXacNhan'
+    WHEN 1 THEN N'DaXacNhan'
+    WHEN 2 THEN N'DangThucHien'
+    WHEN 3 THEN N'HoanThanh'
+    WHEN 4 THEN N'DaHuy'
+    ELSE CAST([p].[Status] AS nvarchar(max))
+END AS [Status], COUNT(*) AS [Count]
+FROM [PetServices] AS [p]
+WHERE DATEPART(year, [p].[BookingDate]) = @__year_0
+GROUP BY [p].[Status]
+2025-05-21 16:32:42.327 +07:00 [INF] Executed DbCommand (6ms) [Parameters=[@__year_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE [p].[Status]
+    WHEN 0 THEN N'ChoXacNhan'
+    WHEN 1 THEN N'DaXacNhan'
+    WHEN 2 THEN N'DaHuy'
+    ELSE CAST([p].[Status] AS nvarchar(max))
+END AS [Status], COUNT(*) AS [Count]
+FROM [PetHotelBookings] AS [p]
+WHERE DATEPART(year, [p].[BookingDate]) = @__year_0
+GROUP BY [p].[Status]
+2025-05-21 16:32:42.345 +07:00 [INF] Executed DbCommand (8ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [b].[Name] AS [Brand], COUNT(*) AS [Count]
+FROM [Products] AS [p]
+INNER JOIN [Brands] AS [b] ON [p].[BrandId] = [b].[BrandId]
+GROUP BY [b].[Name]
+2025-05-21 16:32:42.367 +07:00 [INF] Executed DbCommand (11ms) [Parameters=[@__year_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [c].[Name] AS [Category], COALESCE(SUM([o].[Quantity]), 0) AS [Quantity]
+FROM [OrderDetails] AS [o]
+INNER JOIN [Orders] AS [o0] ON [o].[OrderId] = [o0].[Id]
+INNER JOIN [Products] AS [p] ON [o].[ProductId] = [p].[ProductId]
+INNER JOIN [Categories] AS [c] ON [p].[CategoryId] = [c].[CategoryId]
+WHERE DATEPART(year, [o0].[OrderDate]) = @__year_0
+GROUP BY [c].[Name]
+2025-05-21 16:32:42.387 +07:00 [INF] Executed DbCommand (7ms) [Parameters=[@__year_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [s].[Name] AS [ServiceName], COUNT(*) AS [Count]
+FROM [PetServices] AS [p]
+INNER JOIN [Services] AS [s] ON [p].[ServiceId] = [s].[ServiceId]
+WHERE DATEPART(year, [p].[BookingDate]) = @__year_0
+GROUP BY [s].[Name]
+2025-05-21 16:32:42.405 +07:00 [INF] Executed DbCommand (4ms) [Parameters=[@__year_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [o0].[Key] AS [Month], COALESCE(SUM([o0].[TotalAmount]), 0.0) AS [Revenue]
+FROM (
+    SELECT [o].[TotalAmount], DATEPART(month, [o].[OrderDate]) AS [Key]
+    FROM [Orders] AS [o]
+    WHERE DATEPART(year, [o].[OrderDate]) = @__year_0
+) AS [o0]
+GROUP BY [o0].[Key]
+2025-05-21 16:32:42.427 +07:00 [INF] Executed DbCommand (4ms) [Parameters=[@__year_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [p0].[Key] AS [Month], COALESCE(SUM([p0].[Price]), 0.0) AS [Revenue]
+FROM (
+    SELECT [p].[Price], DATEPART(month, [p].[BookingDate]) AS [Key]
+    FROM [PetServices] AS [p]
+    WHERE DATEPART(year, [p].[BookingDate]) = @__year_0
+) AS [p0]
+GROUP BY [p0].[Key]
+2025-05-21 16:32:42.451 +07:00 [INF] Executed DbCommand (6ms) [Parameters=[@__year_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [p0].[Key] AS [Month], COALESCE(SUM([p0].[TotalPrice]), 0.0) AS [Revenue]
+FROM (
+    SELECT [p].[TotalPrice], DATEPART(month, [p].[BookingDate]) AS [Key]
+    FROM [PetHotelBookings] AS [p]
+    WHERE DATEPART(year, [p].[BookingDate]) = @__year_0 AND [p].[Status] <> 2
+) AS [p0]
+GROUP BY [p0].[Key]
+2025-05-21 16:32:42.470 +07:00 [INF] Executed DbCommand (6ms) [Parameters=[@__year_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [o0].[Key] AS [Quarter], COALESCE(SUM([o0].[TotalAmount]), 0.0) AS [Revenue]
+FROM (
+    SELECT [o].[TotalAmount], (DATEPART(month, [o].[OrderDate]) - 1) / 3 + 1 AS [Key]
+    FROM [Orders] AS [o]
+    WHERE DATEPART(year, [o].[OrderDate]) = @__year_0
+) AS [o0]
+GROUP BY [o0].[Key]
+2025-05-21 16:32:42.485 +07:00 [INF] Executed DbCommand (5ms) [Parameters=[@__year_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [p0].[Key] AS [Quarter], COALESCE(SUM([p0].[Price]), 0.0) AS [Revenue]
+FROM (
+    SELECT [p].[Price], (DATEPART(month, [p].[BookingDate]) - 1) / 3 + 1 AS [Key]
+    FROM [PetServices] AS [p]
+    WHERE DATEPART(year, [p].[BookingDate]) = @__year_0
+) AS [p0]
+GROUP BY [p0].[Key]
+2025-05-21 16:32:42.503 +07:00 [INF] Executed DbCommand (6ms) [Parameters=[@__year_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [p0].[Key] AS [Quarter], COALESCE(SUM([p0].[TotalPrice]), 0.0) AS [Revenue]
+FROM (
+    SELECT [p].[TotalPrice], (DATEPART(month, [p].[BookingDate]) - 1) / 3 + 1 AS [Key]
+    FROM [PetHotelBookings] AS [p]
+    WHERE DATEPART(year, [p].[BookingDate]) = @__year_0 AND [p].[Status] <> 2
+) AS [p0]
+GROUP BY [p0].[Key]
+2025-05-21 16:32:42.535 +07:00 [INF] Executed DbCommand (11ms) [Parameters=[@__p_1='?' (DbType = Int32), @__year_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(@__p_1) [o].[ProductId], [p].[Name] AS [ProductName], COALESCE(SUM([o].[Quantity]), 0) AS [QuantitySold], COALESCE(SUM(CAST([o].[Quantity] AS decimal(18,2)) * [o].[Price]), 0.0) AS [Revenue]
+FROM [OrderDetails] AS [o]
+INNER JOIN [Orders] AS [o0] ON [o].[OrderId] = [o0].[Id]
+INNER JOIN [Products] AS [p] ON [o].[ProductId] = [p].[ProductId]
+WHERE DATEPART(year, [o0].[OrderDate]) = @__year_0
+GROUP BY [o].[ProductId], [p].[Name]
+ORDER BY COALESCE(SUM([o].[Quantity]), 0) DESC
+2025-05-21 16:32:42.554 +07:00 [INF] Executed DbCommand (9ms) [Parameters=[@__p_1='?' (DbType = Int32), @__year_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(@__p_1) [p].[ServiceId], [s].[Name] AS [ServiceName], COUNT(*) AS [BookingCount], COALESCE(SUM([p].[Price]), 0.0) AS [Revenue]
+FROM [PetServices] AS [p]
+INNER JOIN [Services] AS [s] ON [p].[ServiceId] = [s].[ServiceId]
+WHERE DATEPART(year, [p].[BookingDate]) = @__year_0
+GROUP BY [p].[ServiceId], [s].[Name]
+ORDER BY COUNT(*) DESC
+2025-05-21 16:32:42.575 +07:00 [INF] Executed DbCommand (11ms) [Parameters=[@__p_1='?' (DbType = Int32), @__year_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(@__p_1) [r].[RoomTypeId], [r].[Name] AS [RoomTypeName], COUNT(*) AS [BookingCount], COALESCE(SUM([p].[TotalPrice]), 0.0) AS [Revenue]
+FROM [PetHotelBookings] AS [p]
+INNER JOIN [HotelRooms] AS [h] ON [p].[RoomId] = [h].[RoomId]
+INNER JOIN [RoomTypes] AS [r] ON [h].[RoomTypeId] = [r].[RoomTypeId]
+WHERE DATEPART(year, [p].[BookingDate]) = @__year_0 AND [p].[Status] <> 2
+GROUP BY [r].[RoomTypeId], [r].[Name]
+ORDER BY COUNT(*) DESC
+2025-05-21 16:32:42.580 +07:00 [INF] Statistics retrieval completed successfully for year 2025
+2025-05-21 16:32:42.583 +07:00 [INF] Executing ViewResult, running view Index.
+2025-05-21 16:32:42.597 +07:00 [INF] Executed DbCommand (4ms) [Parameters=[@__p_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[SecurityStamp], [a].[TwoFactorEnabled], [a].[UserName]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[Id] = @__p_0
+2025-05-21 16:32:42.608 +07:00 [INF] Executed DbCommand (4ms) [Parameters=[@__userId_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a0].[Name]
+FROM [AspNetUserRoles] AS [a]
+INNER JOIN [AspNetRoles] AS [a0] ON [a].[RoleId] = [a0].[Id]
+WHERE [a].[UserId] = @__userId_0
+2025-05-21 16:32:42.620 +07:00 [INF] Executed ViewResult - view Index executed in 36.9451ms.
+2025-05-21 16:32:42.622 +07:00 [INF] Executed action DoAnLTW.Areas.Admin.Controllers.StatisticsController.Index (DoAnLTW) in 632.8039ms
+2025-05-21 16:32:42.623 +07:00 [INF] Executed endpoint 'DoAnLTW.Areas.Admin.Controllers.StatisticsController.Index (DoAnLTW)'
+2025-05-21 16:32:42.625 +07:00 [INF] HTTP GET /Admin/Statistics responded 200 in 645.4719 ms
+2025-05-21 16:32:42.626 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/Admin/Statistics - 200 null text/html; charset=utf-8 653.2293ms
+2025-05-21 16:32:42.643 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/_framework/aspnetcore-browser-refresh.js - null null
+2025-05-21 16:32:42.644 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/_vs/browserLink - null null
+2025-05-21 16:32:42.645 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/_framework/aspnetcore-browser-refresh.js - 200 16499 application/javascript; charset=utf-8 2.4376ms
+2025-05-21 16:32:42.654 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/_vs/browserLink - 200 null text/javascript; charset=UTF-8 9.7808ms
