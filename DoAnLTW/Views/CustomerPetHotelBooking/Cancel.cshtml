@@ -1,0 +1,19 @@
+﻿@model DoAnLTW.Models.PetHotelBooking
+@using DoAnLTW.Models
+
+@{
+    ViewData["Title"] = "Hủy đặt phòng";
+}
+
+<h1>Hủy đặt phòng</h1>
+
+<div class="alert alert-warning">
+    Bạn có chắc chắn muốn hủy đặt phòng cho thú cưng <strong>@Model.Pet.Name</strong> tại phòng <strong>@Model.Room.RoomNumber</strong>
+    từ <strong>@Model.StartDate.ToString("dd/MM/yyyy")</strong> đến <strong>@Model.EndDate.ToString("dd/MM/yyyy")</strong>?
+</div>
+
+<form asp-action="CancelConfirmed" method="post">
+    <input type="hidden" asp-for="BookingId" />
+    <button type="submit" class="btn btn-danger">Xác nhận hủy</button>
+    <a asp-action="Index" class="btn btn-secondary">Quay lại</a>
+</form>

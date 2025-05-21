@@ -1,0 +1,242 @@
+﻿@model DoAnLTW.Models.PetHotelBooking
+@using DoAnLTW.Models
+@using DoAnLTW.Extensions
+
+@{
+    ViewData["Title"] = "Tạo đặt phòng khách sạn thú cưng";
+}
+
+<h1>Tạo đặt phòng mới</h1>
+
+@if (TempData["Error"] != null)
+{
+    <div class="alert alert-danger">@TempData["Error"]</div>
+}
+@if (TempData["ValidationErrors"] != null)
+{
+    <div class="alert alert-danger">@TempData["ValidationErrors"]</div>
+}
+
+<div class="row">
+    <div class="col-md-8">
+        <form asp-action="Create" method="post" id="bookingForm">
+            <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+            <!-- Hidden UserId -->
+            <input type="hidden" asp-for="UserId" name="UserId" value="@ViewBag.UserId" />
+
+            <!-- Chọn thú cưng -->
+            <div class="mb-3">
+                <label asp-for="PetId" class="form-label">Thú cưng <span class="text-danger">*</span></label>
+                <select asp-for="PetId" name="PetId" class="form-select" id="petSelect" required>
+                    <option value="" disabled selected>Chọn thú cưng</option>
+                    @foreach (var pet in ViewBag.Pets)
+                    {
+                        <option value="@pet.PetId">@pet.Name (@pet.Type, @pet.Breed)</option>
+                    }
+                </select>
+                <span asp-validation-for="PetId" class="text-danger"></span>
+            </div>
+
+            <!-- Chọn phòng -->
+            <div class="mb-3">
+                <label asp-for="RoomId" class="form-label">Phòng <span class="text-danger">*</span></label>
+                <select asp-for="RoomId" name="RoomId" class="form-select" id="roomSelect" required>
+                    <option value="" disabled selected>Chọn phòng</option>
+                    @foreach (var room in ViewBag.Rooms)
+                    {
+                        <option value="@room.RoomId" data-price="@room.RoomType.PricePerNight">
+                            @room.RoomNumber (@room.RoomType.Name, @room.RoomType.PricePerNight.ToString("C"))
+                        </option>
+                    }
+                </select>
+                <span asp-validation-for="RoomId" class="text-danger"></span>
+            </div>
+
+            <!-- Ngày bắt đầu -->
+            <div class="mb-3">
+                <label asp-for="StartDate" class="form-label">Ngày bắt đầu <span class="text-danger">*</span></label>
+                <input asp-for="StartDate" type="date" class="form-control" id="startDate" name="StartDate"
+                       min="@DateTime.Now.ToString("yyyy-MM-dd")" required />
+                <span asp-validation-for="StartDate" class="text-danger"></span>
+            </div>
+
+            <!-- Ngày kết thúc -->
+            <div class="mb-3">
+                <label asp-for="EndDate" class="form-label">Ngày kết thúc <span class="text-danger">*</span></label>
+                <input asp-for="EndDate" type="date" class="form-control" id="endDate" name="EndDate"
+                       min="@DateTime.Now.ToString("yyyy-MM-dd")" required />
+                <span asp-validation-for="EndDate" class="text-danger"></span>
+            </div>
+
+            <!-- Địa chỉ -->
+            <div class="mb-3">
+                <label asp-for="Address" class="form-label">Địa chỉ <span class="text-danger">*</span></label>
+                <input asp-for="Address" name="Address" class="form-control" required maxlength="200" />
+                <span asp-validation-for="Address" class="text-danger"></span>
+            </div>
+
+            <!-- Ghi chú -->
+            <div class="mb-3">
+                <label asp-for="Note" class="form-label">Ghi chú</label>
+                <textarea asp-for="Note" name="Note" class="form-control" rows="4"></textarea>
+                <span asp-validation-for="Note" class="text-danger"></span>
+            </div>
+
+            <!-- Tổng giá dự kiến -->
+            <div class="mb-3">
+                <label class="form-label">Tổng giá dự kiến</label>
+                <input type="text" class="form-control" id="totalPrice" readonly />
+            </div>
+
+            <!-- Nút gửi -->
+            <div class="mb-3">
+                <button type="submit" class="btn btn-primary">Tạo đặt phòng</button>
+                <a asp-action="Index" class="btn btn-secondary">Quay lại</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script>
+        $(document).ready(function () {
+            // Cập nhật min của EndDate và kiểm tra phòng trống khi StartDate thay đổi
+            $("#startDate").change(function () {
+                var startDate = $(this).val();
+                $("#endDate").attr("min", startDate);
+                if ($("#endDate").val() && new Date($("#endDate").val()) <= new Date(startDate)) {
+                    $("#endDate").val("");
+                }
+                updateRoomAvailability();
+                updateTotalPrice();
+            });
+
+            // Cập nhật phòng trống và tổng giá khi EndDate thay đổi
+            $("#endDate").change(function () {
+                updateRoomAvailability();
+                updateTotalPrice();
+            });
+
+            // Cập nhật tổng giá khi chọn phòng
+            $("#roomSelect").change(function () {
+                updateTotalPrice();
+            });
+
+            // Hàm kiểm tra phòng trống qua AJAX
+            function updateRoomAvailability() {
+                var startDate = $("#startDate").val();
+                var endDate = $("#endDate").val();
+                var roomSelect = $("#roomSelect");
+                var selectedRoomId = roomSelect.val();
+
+                if (startDate && endDate) {
+                    $.ajax({
+                        url: '/CustomerPetHotelBooking/GetAvailableRooms',
+                        type: 'GET',
+                        data: { startDate: startDate, endDate: endDate },
+                        success: function (data) {
+                            roomSelect.empty();
+                            roomSelect.append('<option value="" disabled selected>Chọn phòng</option>');
+                            $.each(data, function (index, room) {
+                                roomSelect.append(
+                                    '<option value="' + room.roomId + '" data-price="' + room.pricePerNight + '">' +
+                                    room.roomNumber + ' (' + room.roomTypeName + ', ' + room.pricePerNight.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' }) + ')' +
+                                    '</option>'
+                                );
+                            });
+                            // Khôi phục lựa chọn phòng nếu vẫn còn trong danh sách
+                            if (selectedRoomId && roomSelect.find('option[value="' + selectedRoomId + '"]').length) {
+                                roomSelect.val(selectedRoomId);
+                            } else {
+                                roomSelect.val("");
+                            }
+                            updateTotalPrice();
+                        },
+                        error: function (xhr) {
+                            alert("Lỗi khi tải danh sách phòng trống: " + xhr.responseText);
+                            roomSelect.empty();
+                            roomSelect.append('<option value="" disabled selected>Chọn phòng</option>');
+                        }
+                    });
+                } else {
+                    roomSelect.val("");
+                }
+            }
+
+            // Hàm tính và hiển thị tổng giá dự kiến
+            function updateTotalPrice() {
+                var startDate = $("#startDate").val();
+                var endDate = $("#endDate").val();
+                var roomPrice = $("#roomSelect option:selected").data("price") || 0;
+
+                if (startDate && endDate && roomPrice) {
+                    var start = new Date(startDate);
+                    var end = new Date(endDate);
+                    var days = Math.ceil((end - start) / (1000 * 60 * 60 * 24));
+                    if (days > 0) {
+                        var total = days * roomPrice;
+                        $("#totalPrice").val(total.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' }));
+                    } else {
+                        $("#totalPrice").val("");
+                    }
+                } else {
+                    $("#totalPrice").val("");
+                }
+            }
+
+            // Kiểm tra client-side trước khi gửi form
+            $("#bookingForm").submit(function (e) {
+                var petId = $("#petSelect").val();
+                var roomId = $("#roomSelect").val();
+                var startDate = new Date($("#startDate").val());
+                var endDate = new Date($("#endDate").val());
+                var address = $("#Address").val();
+                var userId = $("#UserId").val();
+
+                if (!userId) {
+                    e.preventDefault();
+                    alert("Vui lòng đăng nhập để đặt phòng.");
+                    return false;
+                }
+                if (!petId || petId === "") {
+                    e.preventDefault();
+                    alert("Vui lòng chọn thú cưng.");
+                    $("#petSelect").focus();
+                    return false;
+                }
+                if (!roomId || roomId === "") {
+                    e.preventDefault();
+                    alert("Vui lòng chọn phòng.");
+                    $("#roomSelect").focus();
+                    return false;
+                }
+                if (!startDate || isNaN(startDate)) {
+                    e.preventDefault();
+                    alert("Vui lòng chọn ngày bắt đầu hợp lệ.");
+                    $("#startDate").focus();
+                    return false;
+                }
+                if (!endDate || isNaN(endDate)) {
+                    e.preventDefault();
+                    alert("Vui lòng chọn ngày kết thúc hợp lệ.");
+                    $("#endDate").focus();
+                    return false;
+                }
+                if (endDate <= startDate) {
+                    e.preventDefault();
+                    alert("Ngày kết thúc phải sau ngày bắt đầu.");
+                    $("#endDate").focus();
+                    return false;
+                }
+                if (!address) {
+                    e.preventDefault();
+                    alert("Vui lòng nhập địa chỉ.");
+                    $("#Address").focus();
+                    return false;
+                }
+            });
+        });
+    </script>
+}

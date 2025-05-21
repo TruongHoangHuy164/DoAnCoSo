@@ -1,0 +1,82 @@
+﻿@model DoAnLTW.ViewModels.PetHotelBookingViewModel
+@using DoAnLTW.Models
+@using DoAnLTW.Extensions
+
+@{
+    ViewData["Title"] = "Danh sách đặt phòng";
+}
+
+<h1>Danh sách đặt phòng</h1>
+
+@if (TempData["Success"] != null)
+{
+    <div class="alert alert-success">@TempData["Success"]</div>
+}
+@if (TempData["Error"] != null)
+{
+    <div class="alert alert-danger">@TempData["Error"]</div>
+}
+
+<p>
+    <a asp-action="Create" class="btn btn-primary">Tạo đặt phòng mới</a>
+</p>
+
+<!-- Danh sách đặt phòng -->
+<h2>Đặt phòng của bạn</h2>
+@if (Model.Bookings.Any())
+{
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Thú cưng</th>
+                <th>Phòng</th>
+                <th>Ngày bắt đầu</th>
+                <th>Ngày kết thúc</th>
+                <th>Trạng thái</th>
+                <th>Tổng giá</th>
+                <th>Hành động</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var booking in Model.Bookings)
+            {
+                <tr>
+                    <td>@booking.Pet.Name</td>
+                    <td>@booking.Room.RoomNumber (@booking.Room.RoomType.Name)</td>
+                    <td>@booking.StartDate.ToString("dd/MM/yyyy")</td>
+                    <td>@booking.EndDate.ToString("dd/MM/yyyy")</td>
+                    <td>@booking.Status.GetDisplayName()</td>
+                    <td>@booking.TotalPrice.ToString("C")</td>
+                    <td>
+                        <a asp-action="Details" asp-route-id="@booking.BookingId" class="btn btn-info btn-sm">Chi tiết</a>
+                        @if (booking.Status == PetHotelBookingStatus.ChoXacNhan || booking.Status == PetHotelBookingStatus.DaXacNhan)
+                        {
+                            <a asp-action="Cancel" asp-route-id="@booking.BookingId" class="btn btn-danger btn-sm">Hủy</a>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>Bạn chưa có đặt phòng nào.</p>
+}
+
+<!-- Sơ đồ phòng -->
+<h2>Sơ đồ phòng</h2>
+<div class="row">
+    @foreach (var room in Model.Rooms)
+    {
+        <div class="col-md-4 mb-3">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">@room.RoomNumber (@room.RoomType.Name)</h5>
+                    <p class="card-text">Giá: @room.RoomType.PricePerNight.ToString("C")/đêm</p>
+                    <p class="card-text">Trạng thái: @(room.IsAvailable ? "Trống" : "Đã đặt")</p>
+                </div>
+            </div>
+        </div>
+    }
+</div>

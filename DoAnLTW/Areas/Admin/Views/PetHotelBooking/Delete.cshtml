@@ -1,0 +1,39 @@
+﻿@using DoAnLTW.Extensions
+@model DoAnLTW.Models.PetHotelBooking
+
+@{
+    ViewData["Title"] = "Xóa đặt phòng";
+    Layout = "~/Areas/Admin/Views/Shared/layoutAdmin.cshtml";
+}
+
+<h2>Xóa đặt phòng</h2>
+
+<h3>Bạn có chắc muốn xóa đặt phòng này?</h3>
+
+<div class="card shadow-sm p-4">
+    <dl class="row">
+        <dt class="col-sm-3">Mã đặt phòng</dt>
+        <dd class="col-sm-9">@Model.BookingId</dd>
+
+        <dt class="col-sm-3">Thú cưng</dt>
+        <dd class="col-sm-9">@(Model.Pet?.Name ?? "Không rõ")</dd>
+
+        <dt class="col-sm-3">Phòng</dt>
+        <dd class="col-sm-9">@(Model.Room?.RoomNumber ?? "Không rõ") (@(Model.Room?.RoomType?.Name ?? "Không rõ"))</dd>
+
+        <dt class="col-sm-3">Ngày bắt đầu</dt>
+        <dd class="col-sm-9">@Model.StartDate.ToString("dd/MM/yyyy")</dd>
+
+        <dt class="col-sm-3">Ngày kết thúc</dt>
+        <dd class="col-sm-9">@Model.EndDate.ToString("dd/MM/yyyy")</dd>
+
+        <dt class="col-sm-3">Trạng thái</dt>
+        <dd class="col-sm-9">@Model.Status.GetDisplayName()</dd>
+    </dl>
+
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="BookingId" />
+        <input type="submit" value="Xóa" class="btn btn-danger" />
+        <a asp-action="Index" class="btn btn-secondary">Quay lại</a>
+    </form>
+</div>

@@ -1,0 +1,312 @@
+﻿@model DoAnLTW.ViewModels.PetHotelBookingCalendarViewModel
+
+@{
+    ViewData["Title"] = "Lịch đặt phòng khách sạn thú cưng";
+    Layout = "~/Areas/Admin/Views/Shared/layoutAdmin.cshtml";
+    var currentDate = ViewBag.SelectedDate ?? DateTime.Now;
+    var firstDayOfMonth = new DateTime(currentDate.Year, currentDate.Month, 1);
+    var daysInMonth = DateTime.DaysInMonth(currentDate.Year, currentDate.Month);
+    var firstDayOfWeek = (int)firstDayOfMonth.DayOfWeek;
+    var years = Enumerable.Range(DateTime.Now.Year - 5, 11).ToList(); // Range from 5 years past to 5 years future
+    var months = Enumerable.Range(1, 12).Select(m => new { Value = m, Name = System.Globalization.CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(m) }).ToList();
+}
+
+<h2 class="mb-4 text-center">Lịch đặt phòng - @currentDate.ToString("MMMM yyyy")</h2>
+
+@if (TempData["Success"] != null)
+{
+    <div class="alert alert-success">@TempData["Success"]</div>
+}
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success">@TempData["SuccessMessage"]</div>
+}
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger">@TempData["ErrorMessage"]</div>
+}
+
+<div class="mb-4 text-center">
+    <form asp-action="Index" method="get" class="form-inline d-inline-flex">
+        <div class="form-group mr-2">
+            <label for="month" class="mr-1">Tháng:</label>
+            <select name="month" id="month" class="form-control" onchange="this.form.submit()">
+                @foreach (var month in months)
+                {
+                    <option value="@month.Value" selected="@(month.Value == currentDate.Month)">@month.Name</option>
+                }
+            </select>
+        </div>
+        <div class="form-group mr-2">
+            <label for="year" class="mr-1">Năm:</label>
+            <select name="year" id="year" class="form-control" onchange="this.form.submit()">
+                @foreach (var year in years)
+                {
+                    <option value="@year" selected="@(year == currentDate.Year)">@year</option>
+                }
+            </select>
+        </div>
+    </form>
+   
+</div>
+
+<style>
+    .calendar {
+        width: 100%;
+        border-collapse: collapse;
+        table-layout: fixed;
+        background-color: #fff;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
+        overflow: hidden;
+    }
+
+        .calendar th, .calendar td {
+            border: 1px solid #e0e0e0;
+            padding: 8px;
+            text-align: center;
+            vertical-align: middle;
+            height: 70px;
+            font-size: 14px;
+            transition: background-color 0.2s ease;
+        }
+
+        .calendar th {
+            background-color: #4a90e2;
+            color: white;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 12px;
+        }
+
+    .booked {
+        background-color: #ff6b6b;
+        color: white;
+        cursor: pointer;
+        position: relative;
+        transition: transform 0.2s ease;
+    }
+
+        .booked:hover {
+            transform: scale(1.05);
+            background-color: #ff4d4d;
+        }
+
+    .available {
+        background-color: #e6ffed;
+        color: #2e7d32;
+    }
+
+        .available:hover {
+            background-color: #ccffcc;
+        }
+
+    .room-header {
+        font-weight: 600;
+        background-color: #f5f5f5;
+        color: #333;
+        font-size: 15px;
+        border-right: 2px solid #e0e0e0;
+    }
+
+    .day-header {
+        background-color: #5aa0ff;
+        color: white;
+        font-weight: 500;
+    }
+
+    .tooltip {
+        position: absolute;
+        background-color: #1a1a1a;
+        color: white;
+        padding: 10px;
+        border-radius: 6px;
+        z-index: 1000;
+        max-width: 300px;
+        font-size: 13px;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+        display: none;
+        pointer-events: auto;
+        line-height: 1.5;
+    }
+
+        .tooltip a {
+            color: #4a90e2;
+            text-decoration: none;
+            margin-right: 10px;
+        }
+
+            .tooltip a:hover {
+                text-decoration: underline;
+            }
+
+    .total-days {
+        font-weight: 600;
+        background-color: #fff3cd;
+        color: #856404;
+        border-left: 2px solid #e0e0e0;
+    }
+
+    .action-column {
+        font-size: 13px;
+        background-color: #f8f9fa;
+        border-left: 2px solid #e0e0e0;
+        text-align: left;
+        padding: 10px;
+    }
+
+        .action-column a {
+            color: #4a90e2;
+            text-decoration: none;
+            margin-right: 8px;
+        }
+
+            .action-column a:hover {
+                text-decoration: underline;
+            }
+
+    @@media (max-width: 768px) {
+        .calendar th, .calendar td
+
+    {
+        font-size: 12px;
+        height: 50px;
+        padding: 4px;
+    }
+
+    .room-header {
+        font-size: 13px;
+    }
+
+    .tooltip {
+        max-width: 200px;
+        font-size: 12px;
+    }
+
+    .action-column {
+        font-size: 11px;
+        padding: 5px;
+    }
+
+    }
+</style>
+
+<table class="calendar">
+    <thead>
+        <tr>
+            <th>Phòng</th>
+            @for (int day = 1; day <= daysInMonth; day++)
+            {
+                var date = new DateTime(currentDate.Year, currentDate.Month, day);
+                <th class="day-header">@day <br>(@date.ToString("ddd"))</th>
+            }
+            <th class="total-days">Tổng ngày đặt</th>
+            <th class="action-column">Hành động</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var room in Model.Rooms)
+        {
+            <tr>
+                <td class="room-header">
+                    @room.RoomNumber (@(room.RoomType?.Name ?? "Không rõ loại"))
+                </td>
+                @for (int day = 1; day <= daysInMonth; day++)
+                {
+                    var currentDay = new DateTime(currentDate.Year, currentDate.Month, day);
+                    var bookingsForDay = Model.Bookings
+                    .Where(b => b.RoomId == room.RoomId
+                    && b.StartDate.Date <= currentDay
+                    && b.EndDate.Date >= currentDay
+                    && b.Status != DoAnLTW.Models.PetHotelBookingStatus.DaHuy)
+                    .ToList();
+                    var bookingInfo = string.Join("; ", bookingsForDay.Select(b =>
+                    $"ID: {b.BookingId}, Thú cưng: {b.Pet?.Name ?? "Không rõ"}, Từ: {b.StartDate:dd/MM}, Đến: {b.EndDate:dd/MM}, " +
+                    $"<a href='javascript:void(0)' onclick=\"window.location.href='" +
+                    Url.Action("Details", "PetHotelBooking", new { area = "Admin", id = b.BookingId }) + "'\">Chi tiết</a> | " +
+                    $"<a href='javascript:void(0)' onclick=\"window.location.href='" +
+                    Url.Action("UpdateBookingStatus", "PetHotelBooking", new { area = "Admin", id = b.BookingId }) + "'\">Cập nhật trạng thái</a> | " +
+                    $"<a href='javascript:void(0)' onclick=\"window.location.href='" +
+                    Url.Action("Edit", "PetHotelBooking", new { area = "Admin", id = b.BookingId }) + "'\">Sửa</a> | " +
+                    $"<a href='javascript:void(0)' onclick=\"if(confirm('Bạn có chắc muốn xóa đặt phòng này?')) " +
+                    $"window.location.href='" + Url.Action("Delete", "PetHotelBooking", new { area = "Admin", id = b.BookingId }) + "'\">Xóa</a>"));
+                    <td class="@(bookingsForDay.Any() ? "booked" : "available")"
+                        data-bookings="@bookingInfo">
+                        @if (bookingsForDay.Any())
+                        {
+                            <span>@bookingsForDay.Count đặt phòng</span>
+                        }
+                    </td>
+                }
+                @{
+                    var bookedDays = Model.Bookings
+                    .Where(b => b.RoomId == room.RoomId
+                    && b.StartDate.Year == currentDate.Year
+                    && b.StartDate.Month == currentDate.Month
+                    && b.Status != DoAnLTW.Models.PetHotelBookingStatus.DaHuy)
+                    .SelectMany(b => Enumerable.Range(0, (b.EndDate.Date - b.StartDate.Date).Days + 1)
+                    .Select(d => b.StartDate.Date.AddDays(d)))
+                    .Distinct()
+                    .Count();
+                    var roomBookings = Model.Bookings
+                    .Where(b => b.RoomId == room.RoomId
+                    && b.StartDate.Year == currentDate.Year
+                    && b.StartDate.Month == currentDate.Month
+                    && b.Status != DoAnLTW.Models.PetHotelBookingStatus.DaHuy)
+                    .ToList();
+                }
+                <td class="total-days">@bookedDays ngày</td>
+                <td class="action-column">
+                    @if (roomBookings.Any())
+                    {
+                        foreach (var booking in roomBookings)
+                        {
+                            <div>
+                                ID: @booking.BookingId (@booking.Pet?.Name ?? "Không rõ")
+                                <br />
+                                <a asp-area="Admin" asp-controller="PetHotelBooking" asp-action="Details" asp-route-id="@booking.BookingId">Chi tiết</a> |
+                                <a asp-area="Admin" asp-controller="PetHotelBooking" asp-action="UpdateBookingStatus" asp-route-id="@booking.BookingId">Cập nhật trạng thái</a> |
+                                <a asp-area="Admin" asp-controller="PetHotelBooking" asp-action="Edit" asp-route-id="@booking.BookingId">Sửa</a> |
+                                <a asp-area="Admin" asp-controller="PetHotelBooking" asp-action="Delete" asp-route-id="@booking.BookingId"
+                                   onclick="return confirm('Bạn có chắc muốn xóa đặt phòng này?');">Xóa</a>
+                            </div>
+                        }
+                    }
+                    else
+                    {
+                        <span>Không có đặt phòng</span>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<div id="tooltip" class="tooltip"></div>
+
+@section Scripts {
+    <script>
+        const tooltip = document.getElementById('tooltip');
+
+        document.querySelectorAll('.booked').forEach(cell => {
+            cell.addEventListener('mouseover', function (e) {
+                const bookings = this.getAttribute('data-bookings');
+                if (bookings) {
+                    tooltip.style.display = 'block';
+                    tooltip.innerHTML = bookings.replace(/; /g, '<br>');
+                    tooltip.style.left = (e.pageX + 15) + 'px';
+                    tooltip.style.top = (e.pageY + 15) + 'px';
+                }
+            });
+
+            cell.addEventListener('mousemove', function (e) {
+                tooltip.style.left = (e.pageX + 15) + 'px';
+                tooltip.style.top = (e.pageY + 15) + 'px';
+            });
+
+            cell.addEventListener('mouseout', function () {
+                tooltip.style.display = 'none';
+            });
+        });
+    </script>
+}

@@ -55,87 +55,87 @@
                     <li class="nav-item">
                         <a class="nav-link" asp-area="Admin" asp-controller="Statistics" asp-action="Index">
                             <span class="menu-title">Thống Kê</span>
-                            <i class="fa-solid fa-file-invoice-dollar menu-icon"></i>
+                            <i class="fa-solid fa-chart-line menu-icon"></i> <!-- Icon biểu đồ cho thống kê -->
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" asp-area="Admin" asp-controller="PromotionCode" asp-action="Index">
                             <span class="menu-title">Quản Lý Mã Khuyến Mãi</span>
-                            <i class="fa-solid fa-box promotion-icon"></i>
+                            <i class="fa-solid fa-ticket promotion-icon"></i> <!-- Icon vé cho mã khuyến mãi -->
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" data-toggle="collapse" href="#petHotelSubMenu" aria-expanded="false" aria-controls="petHotelSubMenu">
-                            <span class="menu-title">Quản Lý Khách Sạn Thú Cưng</span>
-                            <i class="fa-solid fa-hotel menu-icon"></i>
+                            <span class="menu-title">Quản Lý Hotel Pet</span>
+                            <i class="fa-solid fa-hotel menu-icon"></i> <!-- Giữ icon khách sạn -->
                             <i class="mdi mdi-chevron-down ms-auto"></i>
                         </a>
                         <div class="collapse" id="petHotelSubMenu">
                             <ul class="nav flex-column sub-menu">
                                 <li class="nav-item">
-                                    <a class="nav-link" asp-area="Admin" asp-controller="PetHotelManagement" asp-action="Bookings">Đặt Phòng</a>
+                                    <a class="nav-link" asp-area="Admin" asp-controller="PetHotelBooking" asp-action="Index">Lịch Đặt Phòng</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" asp-area="Admin" asp-controller="PetHotelManagement" asp-action="RoomTypes">Loại Phòng</a>
+                                    <a class="nav-link" asp-area="Admin" asp-controller="PetHotelBooking" asp-action="RoomTypeIndex">Loại Phòng</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" asp-area="Admin" asp-controller="PetHotelManagement" asp-action="HotelRooms">Phòng</a>
-                                </li>
+                                    <a class="nav-link" asp-area="Admin" asp-controller="PetHotelBooking" asp-action="HotelRoomIndex">Phòng</a>
+                                </li>                            
                             </ul>
                         </div>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" asp-area="Admin" asp-controller="CustomerPoint" asp-action="Index">
-                            <span class="menu-title">Quản Lý Điểm Khách Hàng</span>
-                            <i class="fa-solid fa-box promotion-icon"></i>
+                            <span class="menu-title">Quản Lý Customer Point</span>
+                            <i class="fa-solid fa-star promotion-icon"></i> <!-- Icon ngôi sao cho điểm khách hàng -->
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" asp-area="Admin" asp-controller="Order" asp-action="Index">
                             <span class="menu-title">Quản Lý Đơn Hàng</span>
-                            <i class="fa-solid fa-file-invoice-dollar menu-icon"></i>
+                            <i class="fa-solid fa-shopping-cart menu-icon"></i> <!-- Icon giỏ hàng cho đơn hàng -->
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" asp-area="Admin" asp-controller="Product" asp-action="Index">
                             <span class="menu-title">Quản Lý Sản Phẩm</span>
-                            <i class="fa-solid fa-box menu-icon"></i>
+                            <i class="fa-solid fa-box-open menu-icon"></i> <!-- Icon hộp mở cho sản phẩm -->
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="navのうち
+                        <a class="nav-link" asp-area="Admin" asp-controller="Category" asp-action="Index">
                             <span class="menu-title">Quản Lý Danh Mục</span>
-                            <i class="fa-solid fa-list menu-icon"></i>
+                            <i class="fa-solid fa-folder-tree menu-icon"></i> <!-- Icon cây thư tosản phẩm -->
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" asp-area="Admin" asp-controller="Brand" asp-action="Index">
                             <span class="menu-title">Quản Lý Brand</span>
-                            <i class="fa-solid fa-list menu-icon"></i>
+                            <i class="fa-solid fa-copyright menu-icon"></i> <!-- Icon bản quyền cho thương hiệu -->
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" asp-area="Admin" asp-controller="Size" asp-action="Index">
                             <span class="menu-title">Quản lý Size</span>
-                            <i class="fa-solid fa-file-invoice-dollar menu-icon"></i>
+                            <i class="fa-solid fa-ruler-horizontal menu-icon"></i> <!-- Icon thước đo cho kích thước -->
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" asp-area="Admin" asp-controller="PetServices" asp-action="Index">
                             <span class="menu-title">Quản Lý Đặt Lịch</span>
-                            <i class="fa-solid fa-calendar-check menu-icon"></i>
+                            <i class="fa-solid fa-calendar-alt menu-icon"></i> <!-- Icon lịch cho đặt lịch -->
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" asp-area="Admin" asp-controller="Service" asp-action="Index">
                             <span class="menu-title">Quản Lý Dịch Vụ</span>
-                            <i class="fa-solid fa-concierge-bell menu-icon"></i>
+                            <i class="fa-solid fa-tools menu-icon"></i> <!-- Icon công cụ cho dịch vụ -->
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" asp-area="Admin" asp-controller="Pet" asp-action="Index">
                             <span class="menu-title">Quản Lý Thú Cưng</span>
-                            <i class="mdi mdi-paw menu-icon"></i>
+                            <i class="fa-solid fa-paw menu-icon"></i> <!-- Giữ icon bàn chân cho thú cưng -->
                         </a>
                     </li>
                     @if (User.IsInRole("Admin"))
@@ -143,14 +143,14 @@
                         <li class="nav-item">
                             <a class="nav-link" asp-area="Admin" asp-controller="Admin" asp-action="PhanQuyen">
                                 <span class="menu-title">Quản lý phân quyền</span>
-                                <i class="fa-solid fa-ruler menu-icon"></i>
+                                <i class="fa-solid fa-user-shield menu-icon"></i> <!-- Icon người dùng với khiên cho phân quyền -->
                             </a>
                         </li>
                     }
                     <li class="nav-item">
-                        <a class="nav-link" asp-area="Admin" asp-controller="Employee    <span class="menu-title">
-                            Quản lý Chat</span>
-                            <i class="fa-solid fa-comments menu-icon"></i>
+                        <a class="nav-link" asp-area="Admin" asp-controller="EmployeeChat" asp-action="Index">
+                            <span class="menu-title">Quản lý Chat</span>
+                            <i class="fa-solid fa-comment-dots menu-icon"></i> <!-- Icon hội thoại cho chat -->
                         </a>
                     </li>
                 </ul>

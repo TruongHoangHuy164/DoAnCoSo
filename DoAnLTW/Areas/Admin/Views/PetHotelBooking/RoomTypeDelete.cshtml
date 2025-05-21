@@ -1,0 +1,34 @@
+﻿@model DoAnLTW.Models.RoomType
+
+@{
+    ViewData["Title"] = "Xóa loại phòng";
+    Layout = "~/Areas/Admin/Views/Shared/layoutAdmin.cshtml";
+}
+
+<h2>Xóa loại phòng</h2>
+
+<h3>Bạn có chắc muốn xóa loại phòng này?</h3>
+
+<div class="card shadow-sm p-4">
+    <dl class="row">
+        <dt class="col-sm-3">Tên loại phòng</dt>
+        <dd class="col-sm-9">@Model.Name</dd>
+
+        <dt class="col-sm-3">Mô tả</dt>
+        <dd class="col-sm-9">@Model.Description</dd>
+
+        <dt class="col-sm-3">Giá mỗi đêm</dt>
+        <dd class="col-sm-9">@Model.PricePerNight.ToString("C")</dd>
+    </dl>
+
+    @if (Model.Rooms.Any())
+    {
+        <div class="alert alert-danger">Không thể xóa loại phòng này vì có @Model.Rooms.Count phòng đang sử dụng.</div>
+    }
+
+    <form asp-action="RoomTypeDelete">
+        <input type="hidden" asp-for="RoomTypeId" />
+        <input type="submit" value="Xóa" class="btn btn-danger" @(Model.Rooms.Any() ? "disabled" : "") />
+        <a asp-action="RoomTypeIndex" class="btn btn-secondary">Quay lại</a>
+    </form>
+</div>

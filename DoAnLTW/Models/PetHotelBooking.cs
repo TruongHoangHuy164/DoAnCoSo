@@ -4,19 +4,20 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DoAnLTW.Models
 {
-    public enum PetHotelBookingStatus
-    {
-        [Display(Name = "Chờ xác nhận")]
-        ChoXacNhan,
-        [Display(Name = "Đã xác nhận")]
-        DaXacNhan,
-        [Display(Name = "Đang sử dụng")]
-        DangSuDung,
-        [Display(Name = "Hoàn thành")]
-        HoanThanh,
-        [Display(Name = "Đã hủy")]
-        DaHuy
-    }
+    using System.ComponentModel.DataAnnotations;
+
+        public enum PetHotelBookingStatus
+        {
+            [Display(Name = "Chờ xác nhận")]
+            ChoXacNhan,
+
+            [Display(Name = "Đã xác nhận")]
+            DaXacNhan,
+
+            [Display(Name = "Đã hủy")]
+            DaHuy
+        }
+   
 
     public class PetHotelBooking
     {
@@ -27,16 +28,16 @@ namespace DoAnLTW.Models
         public int PetId { get; set; }
 
         [ForeignKey("PetId")]
-        public Pet Pet { get; set; }
+        public Pet ?Pet { get; set; }
 
         [Required]
         public int RoomId { get; set; }
 
         [ForeignKey("RoomId")]
-        public HotelRoom Room { get; set; }
+        public HotelRoom ?Room { get; set; }
 
         [Required]
-        public string UserId { get; set; } // Người đặt phòng
+        public string? UserId { get; set; } // Người đặt phòng
 
         [Required(ErrorMessage = "Ngày bắt đầu là bắt buộc")]
         [DataType(DataType.Date)]
@@ -48,9 +49,9 @@ namespace DoAnLTW.Models
 
         [Required(ErrorMessage = "Địa chỉ là bắt buộc")]
         [StringLength(200)]
-        public string Address { get; set; }
+        public string ?Address { get; set; }
 
-        public string Note { get; set; }
+        public string ?Note { get; set; }
 
         [Required]
         public DateTime BookingDate { get; set; } = DateTime.Now;

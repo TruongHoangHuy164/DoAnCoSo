@@ -1,0 +1,34 @@
+﻿@model DoAnLTW.Models.HotelRoom
+
+@{
+    ViewData["Title"] = "Xóa phòng";
+    Layout = "~/Areas/Admin/Views/Shared/layoutAdmin.cshtml";
+}
+
+<h2>Xóa phòng</h2>
+
+<h3>Bạn có chắc muốn xóa phòng này?</h3>
+
+<div class="card shadow-sm p-4">
+    <dl class="row">
+        <dt class="col-sm-3">Số phòng</dt>
+        <dd class="col-sm-9">@Model.RoomNumber</dd>
+
+        <dt class="col-sm-3">Loại phòng</dt>
+        <dd class="col-sm-9">@(Model.RoomType?.Name ?? "Không rõ")</dd>
+
+        <dt class="col-sm-3">Trạng thái</dt>
+        <dd class="col-sm-9">@(Model.IsAvailable ? "Trống" : "Đã đặt")</dd>
+    </dl>
+
+    @if (Model.Bookings.Any())
+    {
+        <div class="alert alert-danger">Không thể xóa phòng này vì có @Model.Bookings.Count đặt phòng liên quan.</div>
+    }
+
+    <form asp-action="HotelRoomDelete">
+        <input type="hidden" asp-for="RoomId" />
+        <input type="submit" value="Xóa" class="btn btn-danger" @(Model.Bookings.Any() ? "disabled" : "") />
+        <a asp-action="HotelRoomIndex" class="btn btn-secondary">Quay lại</a>
+    </form>
+</div>

@@ -1,0 +1,62 @@
+﻿@model DoAnLTW.Models.PetHotelBooking
+@using DoAnLTW.Models
+@using DoAnLTW.Extensions
+
+@{
+    ViewData["Title"] = "Chi tiết đặt phòng";
+    Layout = "~/Views/Shared/_LayoutHome.cshtml";
+}
+
+<h1>Chi tiết đặt phòng</h1>
+
+@if (Model == null)
+{
+    <p>Không tìm thấy đặt phòng.</p>
+}
+else
+{
+    <div class="card">
+        <div class="card-header">
+            <h3>Đặt phòng #@Model.BookingId</h3>
+        </div>
+        <div class="card-body">
+            <dl class="row">
+                <dt class="col-sm-3">Thú cưng</dt>
+                <dd class="col-sm-9">@Model.Pet?.Name</dd>
+
+                <dt class="col-sm-3">Phòng</dt>
+                <dd class="col-sm-9">@Model.Room?.RoomNumber (@Model.Room?.RoomType?.Name)</dd>
+
+                <dt class="col-sm-3">Ngày bắt đầu</dt>
+                <dd class="col-sm-9">@Model.StartDate.ToString("dd/MM/yyyy")</dd>
+
+                <dt class="col-sm-3">Ngày kết thúc</dt>
+                <dd class="col-sm-9">@Model.EndDate.ToString("dd/MM/yyyy")</dd>
+
+                <dt class="col-sm-3">Địa chỉ</dt>
+                <dd class="col-sm-9">@Model.Address</dd>
+
+                <dt class="col-sm-3">Ghi chú</dt>
+                <dd class="col-sm-9">@Model.Note</dd>
+
+                <dt class="col-sm-3">Trạng thái</dt>
+                <dd class="col-sm-9">@Model.Status</dd>
+
+                <dt class="col-sm-3">Tổng giá</dt>
+                <dd class="col-sm-9">@Model.TotalPrice.ToString("C")</dd>
+
+                <dt class="col-sm-3">Ngày đặt</dt>
+                <dd class="col-sm-9">@Model.BookingDate.ToString("dd/MM/yyyy HH:mm")</dd>
+            </dl>
+        </div>
+        <div class="card-footer">
+            <a asp-action="Index" class="btn btn-secondary">Quay lại</a>
+            @if (Model.Status == PetHotelBookingStatus.ChoXacNhan || Model.Status == PetHotelBookingStatus.DaXacNhan)
+            {
+                <form asp-action="Cancel" asp-route-id="@Model.BookingId" method="post" style="display:inline;">
+                    <button type="submit" class="btn btn-danger" onclick="return confirm('Bạn có chắc muốn hủy đặt phòng này?');">Hủy đặt phòng</button>
+                </form>
+            }
+        </div>
+    </div>
+}

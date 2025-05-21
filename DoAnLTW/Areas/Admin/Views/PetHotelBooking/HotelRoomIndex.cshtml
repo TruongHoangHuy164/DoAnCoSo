@@ -1,0 +1,46 @@
+﻿@model IEnumerable<DoAnLTW.Models.HotelRoom>
+
+@{
+    ViewData["Title"] = "Danh sách phòng";
+    Layout = "~/Areas/Admin/Views/Shared/layoutAdmin.cshtml";
+}
+
+<h2>Danh sách phòng</h2>
+
+@if (TempData["Success"] != null)
+{
+    <div class="alert alert-success">@TempData["Success"]</div>
+}
+@if (TempData["Error"] != null)
+{
+    <div class="alert alert-danger">@TempData["Error"]</div>
+}
+
+<p>
+    <a asp-action="HotelRoomCreate" class="btn btn-primary">Tạo phòng mới</a>
+</p>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Số phòng</th>
+            <th>Loại phòng</th>
+            <th>Trạng thái</th>
+            <th>Thao tác</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var room in Model)
+        {
+            <tr>
+                <td>@room.RoomNumber</td>
+                <td>@(room.RoomType?.Name ?? "Không rõ")</td>
+                <td>@(room.IsAvailable ? "Trống" : "Đã đặt")</td>
+                <td>
+                    <a asp-action="HotelRoomEdit" asp-route-id="@room.RoomId" class="btn btn-warning btn-sm">Sửa</a>
+                    <a asp-action="HotelRoomDelete" asp-route-id="@room.RoomId" class="btn btn-danger btn-sm">Xóa</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
