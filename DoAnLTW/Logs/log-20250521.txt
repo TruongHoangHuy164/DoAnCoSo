@@ -11002,3 +11002,898 @@ WHERE [a].[UserId] = @__userId_0
 2025-05-21 16:53:25.168 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/_framework/aspnetcore-browser-refresh.js - null null
 2025-05-21 16:53:25.173 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/_framework/aspnetcore-browser-refresh.js - 200 16499 application/javascript; charset=utf-8 4.6705ms
 2025-05-21 16:53:25.174 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/_vs/browserLink - 200 null text/javascript; charset=UTF-8 6.5115ms
+2025-05-21 16:57:26.501 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/Admin/Order - null null
+2025-05-21 16:57:26.517 +07:00 [INF] Executing endpoint 'DoAnLTW.Areas.Admin.Controllers.OrderController.Index (DoAnLTW)'
+2025-05-21 16:57:26.523 +07:00 [INF] Route matched with {area = "Admin", action = "Index", controller = "Order", page = ""}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Index() on controller DoAnLTW.Areas.Admin.Controllers.OrderController (DoAnLTW).
+2025-05-21 16:57:26.548 +07:00 [INF] Executed DbCommand (6ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [o].[Id], [o].[Address], [o].[AlternateAddress], [o].[Email], [o].[FirstName], [o].[IsPaid], [o].[LastName], [o].[OrderDate], [o].[PaymentMethod], [o].[PhoneNumber], [o].[PointsEarned], [o].[PromotionCodeId], [o].[Status], [o].[TotalAmount], [o0].[Id], [o0].[OrderId], [o0].[Price], [o0].[ProductId], [o0].[ProductName], [o0].[Quantity], [o0].[Size]
+FROM [Orders] AS [o]
+LEFT JOIN [OrderDetails] AS [o0] ON [o].[Id] = [o0].[OrderId]
+ORDER BY [o].[Id]
+2025-05-21 16:57:26.563 +07:00 [INF] Executing ViewResult, running view Index.
+2025-05-21 16:57:26.576 +07:00 [INF] Executed DbCommand (3ms) [Parameters=[@__p_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[SecurityStamp], [a].[TwoFactorEnabled], [a].[UserName]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[Id] = @__p_0
+2025-05-21 16:57:26.589 +07:00 [INF] Executed DbCommand (4ms) [Parameters=[@__userId_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a0].[Name]
+FROM [AspNetUserRoles] AS [a]
+INNER JOIN [AspNetRoles] AS [a0] ON [a].[RoleId] = [a0].[Id]
+WHERE [a].[UserId] = @__userId_0
+2025-05-21 16:57:26.592 +07:00 [INF] Executed ViewResult - view Index executed in 30.2251ms.
+2025-05-21 16:57:26.594 +07:00 [INF] Executed action DoAnLTW.Areas.Admin.Controllers.OrderController.Index (DoAnLTW) in 66.5831ms
+2025-05-21 16:57:26.596 +07:00 [INF] Executed endpoint 'DoAnLTW.Areas.Admin.Controllers.OrderController.Index (DoAnLTW)'
+2025-05-21 16:57:26.597 +07:00 [INF] HTTP GET /Admin/Order responded 200 in 80.6723 ms
+2025-05-21 16:57:26.599 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/Admin/Order - 200 null text/html; charset=utf-8 97.5809ms
+2025-05-21 16:57:26.627 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/_vs/browserLink - null null
+2025-05-21 16:57:26.627 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/_framework/aspnetcore-browser-refresh.js - null null
+2025-05-21 16:57:26.638 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/_framework/aspnetcore-browser-refresh.js - 200 16499 application/javascript; charset=utf-8 10.9541ms
+2025-05-21 16:57:26.638 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/_vs/browserLink - 200 null text/javascript; charset=UTF-8 11.6939ms
+2025-05-21 16:57:29.631 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/Admin/Brand - null null
+2025-05-21 16:57:29.638 +07:00 [INF] Executing endpoint 'DoAnLTW.Areas.Admin.Controllers.BrandController.Index (DoAnLTW)'
+2025-05-21 16:57:29.641 +07:00 [INF] Route matched with {area = "Admin", action = "Index", controller = "Brand", page = ""}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Index() on controller DoAnLTW.Areas.Admin.Controllers.BrandController (DoAnLTW).
+2025-05-21 16:57:29.650 +07:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [b].[BrandId], [b].[ImageUrl], [b].[Name]
+FROM [Brands] AS [b]
+2025-05-21 16:57:29.654 +07:00 [INF] Executing ViewResult, running view Index.
+2025-05-21 16:57:29.671 +07:00 [INF] Executed DbCommand (3ms) [Parameters=[@__p_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[SecurityStamp], [a].[TwoFactorEnabled], [a].[UserName]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[Id] = @__p_0
+2025-05-21 16:57:29.681 +07:00 [INF] Executed DbCommand (4ms) [Parameters=[@__userId_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a0].[Name]
+FROM [AspNetUserRoles] AS [a]
+INNER JOIN [AspNetRoles] AS [a0] ON [a].[RoleId] = [a0].[Id]
+WHERE [a].[UserId] = @__userId_0
+2025-05-21 16:57:29.687 +07:00 [INF] Executed ViewResult - view Index executed in 33.7716ms.
+2025-05-21 16:57:29.692 +07:00 [INF] Executed action DoAnLTW.Areas.Admin.Controllers.BrandController.Index (DoAnLTW) in 48.7066ms
+2025-05-21 16:57:29.693 +07:00 [INF] Executed endpoint 'DoAnLTW.Areas.Admin.Controllers.BrandController.Index (DoAnLTW)'
+2025-05-21 16:57:29.694 +07:00 [INF] HTTP GET /Admin/Brand responded 200 in 59.3220 ms
+2025-05-21 16:57:29.697 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/Admin/Brand - 200 null text/html; charset=utf-8 66.2827ms
+2025-05-21 16:57:29.721 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/_framework/aspnetcore-browser-refresh.js - null null
+2025-05-21 16:57:29.722 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/_vs/browserLink - null null
+2025-05-21 16:57:29.725 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/_framework/aspnetcore-browser-refresh.js - 200 16499 application/javascript; charset=utf-8 4.0108ms
+2025-05-21 16:57:29.732 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/_vs/browserLink - 200 null text/javascript; charset=UTF-8 10.2357ms
+2025-05-21 16:57:34.244 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/Admin/Brand/Edit/1 - null null
+2025-05-21 16:57:34.252 +07:00 [INF] Executing endpoint 'DoAnLTW.Areas.Admin.Controllers.BrandController.Edit (DoAnLTW)'
+2025-05-21 16:57:34.258 +07:00 [INF] Route matched with {area = "Admin", action = "Edit", controller = "Brand", page = ""}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Edit(Int32) on controller DoAnLTW.Areas.Admin.Controllers.BrandController (DoAnLTW).
+2025-05-21 16:57:34.276 +07:00 [INF] Executed DbCommand (3ms) [Parameters=[@__p_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [b].[BrandId], [b].[ImageUrl], [b].[Name]
+FROM [Brands] AS [b]
+WHERE [b].[BrandId] = @__p_0
+2025-05-21 16:57:34.283 +07:00 [INF] Executing ViewResult, running view Edit.
+2025-05-21 16:57:34.339 +07:00 [INF] Executed DbCommand (3ms) [Parameters=[@__p_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[SecurityStamp], [a].[TwoFactorEnabled], [a].[UserName]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[Id] = @__p_0
+2025-05-21 16:57:34.349 +07:00 [INF] Executed DbCommand (3ms) [Parameters=[@__userId_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a0].[Name]
+FROM [AspNetUserRoles] AS [a]
+INNER JOIN [AspNetRoles] AS [a0] ON [a].[RoleId] = [a0].[Id]
+WHERE [a].[UserId] = @__userId_0
+2025-05-21 16:57:34.358 +07:00 [INF] Executed ViewResult - view Edit executed in 76.8547ms.
+2025-05-21 16:57:34.361 +07:00 [INF] Executed action DoAnLTW.Areas.Admin.Controllers.BrandController.Edit (DoAnLTW) in 98.4474ms
+2025-05-21 16:57:34.363 +07:00 [INF] Executed endpoint 'DoAnLTW.Areas.Admin.Controllers.BrandController.Edit (DoAnLTW)'
+2025-05-21 16:57:34.364 +07:00 [INF] HTTP GET /Admin/Brand/Edit/1 responded 200 in 114.0833 ms
+2025-05-21 16:57:34.366 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/Admin/Brand/Edit/1 - 200 null text/html; charset=utf-8 122.6005ms
+2025-05-21 16:57:34.387 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/lib/jquery-validation/dist/jquery.validate.min.js - null null
+2025-05-21 16:57:34.387 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js - null null
+2025-05-21 16:57:34.389 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/_framework/aspnetcore-browser-refresh.js - null null
+2025-05-21 16:57:34.389 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/_vs/browserLink - null null
+2025-05-21 16:57:34.390 +07:00 [INF] HTTP GET /lib/jquery-validation/dist/jquery.validate.min.js responded 404 in 0.6248 ms
+2025-05-21 16:57:34.396 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/_framework/aspnetcore-browser-refresh.js - 200 16499 application/javascript; charset=utf-8 7.0036ms
+2025-05-21 16:57:34.406 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/lib/jquery-validation/dist/jquery.validate.min.js - 404 0 null 19.0501ms
+2025-05-21 16:57:34.393 +07:00 [INF] HTTP GET /lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js responded 404 in 0.5208 ms
+2025-05-21 16:57:34.408 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/_vs/browserLink - 200 null text/javascript; charset=UTF-8 19.4011ms
+2025-05-21 16:57:34.421 +07:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET https://localhost:5134/lib/jquery-validation/dist/jquery.validate.min.js, Response status code: 404
+2025-05-21 16:57:34.424 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js - 404 0 null 36.6097ms
+2025-05-21 16:57:34.433 +07:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET https://localhost:5134/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js, Response status code: 404
+2025-05-21 16:57:36.727 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/Admin/Brand - null null
+2025-05-21 16:57:36.736 +07:00 [INF] Executing endpoint 'DoAnLTW.Areas.Admin.Controllers.BrandController.Index (DoAnLTW)'
+2025-05-21 16:57:36.737 +07:00 [INF] Route matched with {area = "Admin", action = "Index", controller = "Brand", page = ""}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Index() on controller DoAnLTW.Areas.Admin.Controllers.BrandController (DoAnLTW).
+2025-05-21 16:57:36.741 +07:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [b].[BrandId], [b].[ImageUrl], [b].[Name]
+FROM [Brands] AS [b]
+2025-05-21 16:57:36.742 +07:00 [INF] Executing ViewResult, running view Index.
+2025-05-21 16:57:36.747 +07:00 [INF] Executed DbCommand (3ms) [Parameters=[@__p_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[SecurityStamp], [a].[TwoFactorEnabled], [a].[UserName]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[Id] = @__p_0
+2025-05-21 16:57:36.752 +07:00 [INF] Executed DbCommand (3ms) [Parameters=[@__userId_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a0].[Name]
+FROM [AspNetUserRoles] AS [a]
+INNER JOIN [AspNetRoles] AS [a0] ON [a].[RoleId] = [a0].[Id]
+WHERE [a].[UserId] = @__userId_0
+2025-05-21 16:57:36.755 +07:00 [INF] Executed ViewResult - view Index executed in 12.9853ms.
+2025-05-21 16:57:36.757 +07:00 [INF] Executed action DoAnLTW.Areas.Admin.Controllers.BrandController.Index (DoAnLTW) in 18.3897ms
+2025-05-21 16:57:36.758 +07:00 [INF] Executed endpoint 'DoAnLTW.Areas.Admin.Controllers.BrandController.Index (DoAnLTW)'
+2025-05-21 16:57:36.759 +07:00 [INF] HTTP GET /Admin/Brand responded 200 in 23.8589 ms
+2025-05-21 16:57:36.761 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/Admin/Brand - 200 null text/html; charset=utf-8 34.6756ms
+2025-05-21 16:57:36.782 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/_vs/browserLink - null null
+2025-05-21 16:57:36.783 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/_framework/aspnetcore-browser-refresh.js - null null
+2025-05-21 16:57:36.788 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/_framework/aspnetcore-browser-refresh.js - 200 16499 application/javascript; charset=utf-8 4.9913ms
+2025-05-21 16:57:36.789 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/_vs/browserLink - 200 null text/javascript; charset=UTF-8 6.7265ms
+2025-05-21 16:57:39.137 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/Admin/Brand/Create - null null
+2025-05-21 16:57:39.144 +07:00 [INF] Executing endpoint 'DoAnLTW.Areas.Admin.Controllers.BrandController.Create (DoAnLTW)'
+2025-05-21 16:57:39.146 +07:00 [INF] Route matched with {area = "Admin", action = "Create", controller = "Brand", page = ""}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Create() on controller DoAnLTW.Areas.Admin.Controllers.BrandController (DoAnLTW).
+2025-05-21 16:57:39.151 +07:00 [INF] Executing ViewResult, running view Create.
+2025-05-21 16:57:39.179 +07:00 [INF] Executed DbCommand (4ms) [Parameters=[@__p_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[SecurityStamp], [a].[TwoFactorEnabled], [a].[UserName]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[Id] = @__p_0
+2025-05-21 16:57:39.192 +07:00 [INF] Executed DbCommand (5ms) [Parameters=[@__userId_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a0].[Name]
+FROM [AspNetUserRoles] AS [a]
+INNER JOIN [AspNetRoles] AS [a0] ON [a].[RoleId] = [a0].[Id]
+WHERE [a].[UserId] = @__userId_0
+2025-05-21 16:57:39.201 +07:00 [INF] Executed ViewResult - view Create executed in 51.3973ms.
+2025-05-21 16:57:39.206 +07:00 [INF] Executed action DoAnLTW.Areas.Admin.Controllers.BrandController.Create (DoAnLTW) in 56.9419ms
+2025-05-21 16:57:39.208 +07:00 [INF] Executed endpoint 'DoAnLTW.Areas.Admin.Controllers.BrandController.Create (DoAnLTW)'
+2025-05-21 16:57:39.210 +07:00 [INF] HTTP GET /Admin/Brand/Create responded 200 in 67.8045 ms
+2025-05-21 16:57:39.212 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/Admin/Brand/Create - 200 null text/html; charset=utf-8 75.1673ms
+2025-05-21 16:57:39.230 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/lib/jquery-validation/dist/jquery.validate.min.js - null null
+2025-05-21 16:57:39.230 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/_framework/aspnetcore-browser-refresh.js - null null
+2025-05-21 16:57:39.231 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js - null null
+2025-05-21 16:57:39.231 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/_vs/browserLink - null null
+2025-05-21 16:57:39.233 +07:00 [INF] HTTP GET /lib/jquery-validation/dist/jquery.validate.min.js responded 404 in 0.5951 ms
+2025-05-21 16:57:39.238 +07:00 [INF] HTTP GET /lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js responded 404 in 0.3409 ms
+2025-05-21 16:57:39.236 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/_framework/aspnetcore-browser-refresh.js - 200 16499 application/javascript; charset=utf-8 5.0769ms
+2025-05-21 16:57:39.245 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/lib/jquery-validation/dist/jquery.validate.min.js - 404 0 null 14.6383ms
+2025-05-21 16:57:39.246 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js - 404 0 null 15.7449ms
+2025-05-21 16:57:39.247 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/_vs/browserLink - 200 null text/javascript; charset=UTF-8 16.2257ms
+2025-05-21 16:57:39.252 +07:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET https://localhost:5134/lib/jquery-validation/dist/jquery.validate.min.js, Response status code: 404
+2025-05-21 16:57:39.256 +07:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET https://localhost:5134/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js, Response status code: 404
+2025-05-21 16:57:44.972 +07:00 [INF] Request starting HTTP/2 POST https://localhost:5134/Admin/Brand/Create - multipart/form-data; boundary=----WebKitFormBoundaryU0lsZsZRvYlpQUnL 595
+2025-05-21 16:57:44.981 +07:00 [INF] CORS policy execution successful.
+2025-05-21 16:57:44.984 +07:00 [INF] Executing endpoint 'DoAnLTW.Areas.Admin.Controllers.BrandController.Create (DoAnLTW)'
+2025-05-21 16:57:44.995 +07:00 [INF] Route matched with {area = "Admin", action = "Create", controller = "Brand", page = ""}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Create(DoAnLTW.Models.Brand, Microsoft.AspNetCore.Http.IFormFile) on controller DoAnLTW.Areas.Admin.Controllers.BrandController (DoAnLTW).
+2025-05-21 16:57:45.024 +07:00 [INF] Executing ViewResult, running view Create.
+2025-05-21 16:57:45.032 +07:00 [INF] Executed DbCommand (3ms) [Parameters=[@__p_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[SecurityStamp], [a].[TwoFactorEnabled], [a].[UserName]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[Id] = @__p_0
+2025-05-21 16:57:45.046 +07:00 [INF] Executed DbCommand (5ms) [Parameters=[@__userId_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a0].[Name]
+FROM [AspNetUserRoles] AS [a]
+INNER JOIN [AspNetRoles] AS [a0] ON [a].[RoleId] = [a0].[Id]
+WHERE [a].[UserId] = @__userId_0
+2025-05-21 16:57:45.054 +07:00 [INF] Executed ViewResult - view Create executed in 30.1572ms.
+2025-05-21 16:57:45.060 +07:00 [INF] Executed action DoAnLTW.Areas.Admin.Controllers.BrandController.Create (DoAnLTW) in 58.7131ms
+2025-05-21 16:57:45.063 +07:00 [INF] Executed endpoint 'DoAnLTW.Areas.Admin.Controllers.BrandController.Create (DoAnLTW)'
+2025-05-21 16:57:45.065 +07:00 [INF] HTTP POST /Admin/Brand/Create responded 200 in 84.2369 ms
+2025-05-21 16:57:45.067 +07:00 [INF] Request finished HTTP/2 POST https://localhost:5134/Admin/Brand/Create - 200 null text/html; charset=utf-8 94.7066ms
+2025-05-21 16:57:45.080 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/lib/jquery-validation/dist/jquery.validate.min.js - null null
+2025-05-21 16:57:45.084 +07:00 [INF] HTTP GET /lib/jquery-validation/dist/jquery.validate.min.js responded 404 in 0.4913 ms
+2025-05-21 16:57:45.085 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js - null null
+2025-05-21 16:57:45.085 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/_framework/aspnetcore-browser-refresh.js - null null
+2025-05-21 16:57:45.085 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/_vs/browserLink - null null
+2025-05-21 16:57:45.086 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/lib/jquery-validation/dist/jquery.validate.min.js - 404 0 null 5.829ms
+2025-05-21 16:57:45.089 +07:00 [INF] HTTP GET /lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js responded 404 in 0.4094 ms
+2025-05-21 16:57:45.091 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/_framework/aspnetcore-browser-refresh.js - 200 16499 application/javascript; charset=utf-8 6.1125ms
+2025-05-21 16:57:45.096 +07:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET https://localhost:5134/lib/jquery-validation/dist/jquery.validate.min.js, Response status code: 404
+2025-05-21 16:57:45.097 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/_vs/browserLink - 200 null text/javascript; charset=UTF-8 11.6201ms
+2025-05-21 16:57:45.098 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js - 404 0 null 13.3152ms
+2025-05-21 16:57:45.108 +07:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET https://localhost:5134/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js, Response status code: 404
+2025-05-21 17:01:35.356 +07:00 [INF] Request starting HTTP/2 POST https://localhost:5134/Admin/Brand/Create - multipart/form-data; boundary=----WebKitFormBoundaryU0lsZsZRvYlpQUnL 595
+2025-05-21 17:01:35.366 +07:00 [INF] CORS policy execution successful.
+2025-05-21 17:01:35.370 +07:00 [INF] Executing endpoint 'DoAnLTW.Areas.Admin.Controllers.BrandController.Create (DoAnLTW)'
+2025-05-21 17:01:35.379 +07:00 [INF] Route matched with {area = "Admin", action = "Create", controller = "Brand", page = ""}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Create(DoAnLTW.Models.Brand, Microsoft.AspNetCore.Http.IFormFile) on controller DoAnLTW.Areas.Admin.Controllers.BrandController (DoAnLTW).
+2025-05-21 17:01:35.386 +07:00 [INF] Executing ViewResult, running view Create.
+2025-05-21 17:01:35.397 +07:00 [INF] Executed DbCommand (4ms) [Parameters=[@__p_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[SecurityStamp], [a].[TwoFactorEnabled], [a].[UserName]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[Id] = @__p_0
+2025-05-21 17:01:35.405 +07:00 [INF] Executed DbCommand (4ms) [Parameters=[@__userId_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a0].[Name]
+FROM [AspNetUserRoles] AS [a]
+INNER JOIN [AspNetRoles] AS [a0] ON [a].[RoleId] = [a0].[Id]
+WHERE [a].[UserId] = @__userId_0
+2025-05-21 17:01:35.413 +07:00 [INF] Executed ViewResult - view Create executed in 27.866ms.
+2025-05-21 17:01:35.418 +07:00 [INF] Executed action DoAnLTW.Areas.Admin.Controllers.BrandController.Create (DoAnLTW) in 35.2069ms
+2025-05-21 17:01:35.420 +07:00 [INF] Executed endpoint 'DoAnLTW.Areas.Admin.Controllers.BrandController.Create (DoAnLTW)'
+2025-05-21 17:01:35.423 +07:00 [INF] HTTP POST /Admin/Brand/Create responded 200 in 56.8909 ms
+2025-05-21 17:01:35.426 +07:00 [INF] Request finished HTTP/2 POST https://localhost:5134/Admin/Brand/Create - 200 null text/html; charset=utf-8 69.7203ms
+2025-05-21 17:01:35.453 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/lib/jquery-validation/dist/jquery.validate.min.js - null null
+2025-05-21 17:01:35.453 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js - null null
+2025-05-21 17:01:35.455 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/_framework/aspnetcore-browser-refresh.js - null null
+2025-05-21 17:01:35.461 +07:00 [INF] HTTP GET /lib/jquery-validation/dist/jquery.validate.min.js responded 404 in 2.1300 ms
+2025-05-21 17:01:35.464 +07:00 [INF] HTTP GET /lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js responded 404 in 0.5968 ms
+2025-05-21 17:01:35.468 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/_framework/aspnetcore-browser-refresh.js - 200 16499 application/javascript; charset=utf-8 12.9749ms
+2025-05-21 17:01:35.471 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/lib/jquery-validation/dist/jquery.validate.min.js - 404 0 null 18.2626ms
+2025-05-21 17:01:35.473 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js - 404 0 null 19.807ms
+2025-05-21 17:01:35.482 +07:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET https://localhost:5134/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js, Response status code: 404
+2025-05-21 17:01:35.480 +07:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET https://localhost:5134/lib/jquery-validation/dist/jquery.validate.min.js, Response status code: 404
+2025-05-21 17:01:35.477 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/_vs/browserLink - null null
+2025-05-21 17:01:35.491 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/_vs/browserLink - 200 null text/javascript; charset=UTF-8 14.3922ms
+2025-05-21 17:01:40.093 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/Admin/Product - null null
+2025-05-21 17:01:40.101 +07:00 [INF] Executing endpoint 'DoAnLTW.Areas.Admin.Controllers.ProductController.Index (DoAnLTW)'
+2025-05-21 17:01:40.103 +07:00 [INF] Route matched with {area = "Admin", action = "Index", controller = "Product", page = ""}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Index() on controller DoAnLTW.Areas.Admin.Controllers.ProductController (DoAnLTW).
+2025-05-21 17:01:40.124 +07:00 [INF] Executed DbCommand (15ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [p].[ProductId], [p].[BrandId], [p].[CategoryId], [p].[Description], [p].[Name], [c].[CategoryId], [c].[ImageUrl], [c].[Name], [b].[BrandId], [b].[ImageUrl], [b].[Name], [s0].[ProductId], [s0].[SizeId], [s0].[Price], [s0].[Stock], [s0].[SizeId0], [s0].[size], [p1].[Product_ImagesId], [p1].[ImageUrl], [p1].[ProductId]
+FROM [Products] AS [p]
+INNER JOIN [Categories] AS [c] ON [p].[CategoryId] = [c].[CategoryId]
+INNER JOIN [Brands] AS [b] ON [p].[BrandId] = [b].[BrandId]
+LEFT JOIN (
+    SELECT [p0].[ProductId], [p0].[SizeId], [p0].[Price], [p0].[Stock], [s].[SizeId] AS [SizeId0], [s].[size]
+    FROM [ProductSizes] AS [p0]
+    INNER JOIN [Sizes] AS [s] ON [p0].[SizeId] = [s].[SizeId]
+) AS [s0] ON [p].[ProductId] = [s0].[ProductId]
+LEFT JOIN [ProductImages] AS [p1] ON [p].[ProductId] = [p1].[ProductId]
+ORDER BY [p].[ProductId], [c].[CategoryId], [b].[BrandId], [s0].[ProductId], [s0].[SizeId], [s0].[SizeId0]
+2025-05-21 17:01:40.148 +07:00 [INF] Executing ViewResult, running view Index.
+2025-05-21 17:01:40.174 +07:00 [INF] Executed DbCommand (4ms) [Parameters=[@__p_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[SecurityStamp], [a].[TwoFactorEnabled], [a].[UserName]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[Id] = @__p_0
+2025-05-21 17:01:40.186 +07:00 [INF] Executed DbCommand (4ms) [Parameters=[@__userId_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a0].[Name]
+FROM [AspNetUserRoles] AS [a]
+INNER JOIN [AspNetRoles] AS [a0] ON [a].[RoleId] = [a0].[Id]
+WHERE [a].[UserId] = @__userId_0
+2025-05-21 17:01:40.199 +07:00 [INF] Executed ViewResult - view Index executed in 51.4797ms.
+2025-05-21 17:01:40.202 +07:00 [INF] Executed action DoAnLTW.Areas.Admin.Controllers.ProductController.Index (DoAnLTW) in 96.3818ms
+2025-05-21 17:01:40.205 +07:00 [INF] Executed endpoint 'DoAnLTW.Areas.Admin.Controllers.ProductController.Index (DoAnLTW)'
+2025-05-21 17:01:40.206 +07:00 [INF] HTTP GET /Admin/Product responded 200 in 107.6336 ms
+2025-05-21 17:01:40.209 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/Admin/Product - 200 null text/html; charset=utf-8 115.9255ms
+2025-05-21 17:01:40.230 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/_framework/aspnetcore-browser-refresh.js - null null
+2025-05-21 17:01:40.231 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/_vs/browserLink - null null
+2025-05-21 17:01:40.232 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/_framework/aspnetcore-browser-refresh.js - 200 16499 application/javascript; charset=utf-8 2.1648ms
+2025-05-21 17:01:40.238 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/_vs/browserLink - 200 null text/javascript; charset=UTF-8 6.5976ms
+2025-05-21 17:01:42.440 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/Admin/Category - null null
+2025-05-21 17:01:42.445 +07:00 [INF] Executing endpoint 'DoAnLTW.Areas.Admin.Controllers.CategoryController.Index (DoAnLTW)'
+2025-05-21 17:01:42.448 +07:00 [INF] Route matched with {area = "Admin", action = "Index", controller = "Category", page = ""}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Index() on controller DoAnLTW.Areas.Admin.Controllers.CategoryController (DoAnLTW).
+2025-05-21 17:01:42.455 +07:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [c].[CategoryId], [c].[ImageUrl], [c].[Name]
+FROM [Categories] AS [c]
+2025-05-21 17:01:42.459 +07:00 [INF] Executing ViewResult, running view Index.
+2025-05-21 17:01:42.481 +07:00 [INF] Executed DbCommand (3ms) [Parameters=[@__p_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[SecurityStamp], [a].[TwoFactorEnabled], [a].[UserName]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[Id] = @__p_0
+2025-05-21 17:01:42.489 +07:00 [INF] Executed DbCommand (4ms) [Parameters=[@__userId_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a0].[Name]
+FROM [AspNetUserRoles] AS [a]
+INNER JOIN [AspNetRoles] AS [a0] ON [a].[RoleId] = [a0].[Id]
+WHERE [a].[UserId] = @__userId_0
+2025-05-21 17:01:42.496 +07:00 [INF] Executed ViewResult - view Index executed in 37.7455ms.
+2025-05-21 17:01:42.498 +07:00 [INF] Executed action DoAnLTW.Areas.Admin.Controllers.CategoryController.Index (DoAnLTW) in 48.1546ms
+2025-05-21 17:01:42.500 +07:00 [INF] Executed endpoint 'DoAnLTW.Areas.Admin.Controllers.CategoryController.Index (DoAnLTW)'
+2025-05-21 17:01:42.501 +07:00 [INF] HTTP GET /Admin/Category responded 200 in 56.7202 ms
+2025-05-21 17:01:42.503 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/Admin/Category - 200 null text/html; charset=utf-8 63.5015ms
+2025-05-21 17:01:42.525 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/_framework/aspnetcore-browser-refresh.js - null null
+2025-05-21 17:01:42.526 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/_vs/browserLink - null null
+2025-05-21 17:01:42.528 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/_framework/aspnetcore-browser-refresh.js - 200 16499 application/javascript; charset=utf-8 2.8781ms
+2025-05-21 17:01:42.533 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/_vs/browserLink - 200 null text/javascript; charset=UTF-8 7.8389ms
+2025-05-21 17:01:47.590 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/Admin/Category/Create - null null
+2025-05-21 17:01:47.597 +07:00 [INF] Executing endpoint 'DoAnLTW.Areas.Admin.Controllers.CategoryController.Create (DoAnLTW)'
+2025-05-21 17:01:47.599 +07:00 [INF] Route matched with {area = "Admin", action = "Create", controller = "Category", page = ""}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Create() on controller DoAnLTW.Areas.Admin.Controllers.CategoryController (DoAnLTW).
+2025-05-21 17:01:47.602 +07:00 [INF] Executing ViewResult, running view Create.
+2025-05-21 17:01:47.634 +07:00 [INF] Executed DbCommand (5ms) [Parameters=[@__p_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[SecurityStamp], [a].[TwoFactorEnabled], [a].[UserName]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[Id] = @__p_0
+2025-05-21 17:01:47.649 +07:00 [INF] Executed DbCommand (4ms) [Parameters=[@__userId_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a0].[Name]
+FROM [AspNetUserRoles] AS [a]
+INNER JOIN [AspNetRoles] AS [a0] ON [a].[RoleId] = [a0].[Id]
+WHERE [a].[UserId] = @__userId_0
+2025-05-21 17:01:47.655 +07:00 [INF] Executed ViewResult - view Create executed in 53.7567ms.
+2025-05-21 17:01:47.660 +07:00 [INF] Executed action DoAnLTW.Areas.Admin.Controllers.CategoryController.Create (DoAnLTW) in 59.3614ms
+2025-05-21 17:01:47.664 +07:00 [INF] Executed endpoint 'DoAnLTW.Areas.Admin.Controllers.CategoryController.Create (DoAnLTW)'
+2025-05-21 17:01:47.665 +07:00 [INF] HTTP GET /Admin/Category/Create responded 200 in 68.5847 ms
+2025-05-21 17:01:47.667 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/Admin/Category/Create - 200 null text/html; charset=utf-8 77.0391ms
+2025-05-21 17:01:47.686 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/lib/jquery-validation/dist/jquery.validate.min.js - null null
+2025-05-21 17:01:47.688 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/_vs/browserLink - null null
+2025-05-21 17:01:47.687 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/_framework/aspnetcore-browser-refresh.js - null null
+2025-05-21 17:01:47.687 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js - null null
+2025-05-21 17:01:47.698 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/_framework/aspnetcore-browser-refresh.js - 200 16499 application/javascript; charset=utf-8 11.4365ms
+2025-05-21 17:01:47.693 +07:00 [INF] HTTP GET /lib/jquery-validation/dist/jquery.validate.min.js responded 404 in 0.6802 ms
+2025-05-21 17:01:47.687 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/Admin/Category/Create - null null
+2025-05-21 17:01:47.730 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/_vs/browserLink - 200 null text/javascript; charset=UTF-8 42.8305ms
+2025-05-21 17:01:47.735 +07:00 [INF] HTTP GET /lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js responded 404 in 0.4896 ms
+2025-05-21 17:01:47.749 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/lib/jquery-validation/dist/jquery.validate.min.js - 404 0 null 63.4622ms
+2025-05-21 17:01:47.755 +07:00 [INF] Executing endpoint 'DoAnLTW.Areas.Admin.Controllers.CategoryController.Create (DoAnLTW)'
+2025-05-21 17:01:47.767 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js - 404 0 null 79.6941ms
+2025-05-21 17:01:47.769 +07:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET https://localhost:5134/lib/jquery-validation/dist/jquery.validate.min.js, Response status code: 404
+2025-05-21 17:01:47.771 +07:00 [INF] Route matched with {area = "Admin", action = "Create", controller = "Category", page = ""}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Create() on controller DoAnLTW.Areas.Admin.Controllers.CategoryController (DoAnLTW).
+2025-05-21 17:01:47.774 +07:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET https://localhost:5134/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js, Response status code: 404
+2025-05-21 17:01:47.777 +07:00 [INF] Executing ViewResult, running view Create.
+2025-05-21 17:01:47.782 +07:00 [INF] Executed DbCommand (1ms) [Parameters=[@__p_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[SecurityStamp], [a].[TwoFactorEnabled], [a].[UserName]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[Id] = @__p_0
+2025-05-21 17:01:47.786 +07:00 [INF] Executed DbCommand (0ms) [Parameters=[@__userId_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a0].[Name]
+FROM [AspNetUserRoles] AS [a]
+INNER JOIN [AspNetRoles] AS [a0] ON [a].[RoleId] = [a0].[Id]
+WHERE [a].[UserId] = @__userId_0
+2025-05-21 17:01:47.788 +07:00 [INF] Executed ViewResult - view Create executed in 10.4645ms.
+2025-05-21 17:01:47.789 +07:00 [INF] Executed action DoAnLTW.Areas.Admin.Controllers.CategoryController.Create (DoAnLTW) in 11.805ms
+2025-05-21 17:01:47.791 +07:00 [INF] Executed endpoint 'DoAnLTW.Areas.Admin.Controllers.CategoryController.Create (DoAnLTW)'
+2025-05-21 17:01:47.792 +07:00 [INF] HTTP GET /Admin/Category/Create responded 200 in 38.7648 ms
+2025-05-21 17:01:47.795 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/Admin/Category/Create - 200 null text/html; charset=utf-8 107.77ms
+2025-05-21 17:01:53.012 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/Admin/Category - null null
+2025-05-21 17:01:53.022 +07:00 [INF] Executing endpoint 'DoAnLTW.Areas.Admin.Controllers.CategoryController.Index (DoAnLTW)'
+2025-05-21 17:01:53.024 +07:00 [INF] Route matched with {area = "Admin", action = "Index", controller = "Category", page = ""}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Index() on controller DoAnLTW.Areas.Admin.Controllers.CategoryController (DoAnLTW).
+2025-05-21 17:01:53.028 +07:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [c].[CategoryId], [c].[ImageUrl], [c].[Name]
+FROM [Categories] AS [c]
+2025-05-21 17:01:53.030 +07:00 [INF] Executing ViewResult, running view Index.
+2025-05-21 17:01:53.033 +07:00 [INF] Executed DbCommand (2ms) [Parameters=[@__p_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[SecurityStamp], [a].[TwoFactorEnabled], [a].[UserName]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[Id] = @__p_0
+2025-05-21 17:01:53.039 +07:00 [INF] Executed DbCommand (4ms) [Parameters=[@__userId_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a0].[Name]
+FROM [AspNetUserRoles] AS [a]
+INNER JOIN [AspNetRoles] AS [a0] ON [a].[RoleId] = [a0].[Id]
+WHERE [a].[UserId] = @__userId_0
+2025-05-21 17:01:53.043 +07:00 [INF] Executed ViewResult - view Index executed in 12.4242ms.
+2025-05-21 17:01:53.044 +07:00 [INF] Executed action DoAnLTW.Areas.Admin.Controllers.CategoryController.Index (DoAnLTW) in 17.6346ms
+2025-05-21 17:01:53.045 +07:00 [INF] Executed endpoint 'DoAnLTW.Areas.Admin.Controllers.CategoryController.Index (DoAnLTW)'
+2025-05-21 17:01:53.046 +07:00 [INF] HTTP GET /Admin/Category responded 200 in 24.6477 ms
+2025-05-21 17:01:53.048 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/Admin/Category - 200 null text/html; charset=utf-8 35.7897ms
+2025-05-21 17:01:53.068 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/_vs/browserLink - null null
+2025-05-21 17:01:53.068 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/_framework/aspnetcore-browser-refresh.js - null null
+2025-05-21 17:01:53.073 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/_framework/aspnetcore-browser-refresh.js - 200 16499 application/javascript; charset=utf-8 4.993ms
+2025-05-21 17:01:53.073 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/_vs/browserLink - 200 null text/javascript; charset=UTF-8 5.6179ms
+2025-05-21 17:01:54.384 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/Admin/Brand - null null
+2025-05-21 17:01:54.395 +07:00 [INF] Executing endpoint 'DoAnLTW.Areas.Admin.Controllers.BrandController.Index (DoAnLTW)'
+2025-05-21 17:01:54.399 +07:00 [INF] Route matched with {area = "Admin", action = "Index", controller = "Brand", page = ""}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Index() on controller DoAnLTW.Areas.Admin.Controllers.BrandController (DoAnLTW).
+2025-05-21 17:01:54.403 +07:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [b].[BrandId], [b].[ImageUrl], [b].[Name]
+FROM [Brands] AS [b]
+2025-05-21 17:01:54.406 +07:00 [INF] Executing ViewResult, running view Index.
+2025-05-21 17:01:54.412 +07:00 [INF] Executed DbCommand (2ms) [Parameters=[@__p_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[SecurityStamp], [a].[TwoFactorEnabled], [a].[UserName]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[Id] = @__p_0
+2025-05-21 17:01:54.419 +07:00 [INF] Executed DbCommand (4ms) [Parameters=[@__userId_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a0].[Name]
+FROM [AspNetUserRoles] AS [a]
+INNER JOIN [AspNetRoles] AS [a0] ON [a].[RoleId] = [a0].[Id]
+WHERE [a].[UserId] = @__userId_0
+2025-05-21 17:01:54.423 +07:00 [INF] Executed ViewResult - view Index executed in 17.4371ms.
+2025-05-21 17:01:54.425 +07:00 [INF] Executed action DoAnLTW.Areas.Admin.Controllers.BrandController.Index (DoAnLTW) in 24.5623ms
+2025-05-21 17:01:54.427 +07:00 [INF] Executed endpoint 'DoAnLTW.Areas.Admin.Controllers.BrandController.Index (DoAnLTW)'
+2025-05-21 17:01:54.428 +07:00 [INF] HTTP GET /Admin/Brand responded 200 in 34.1207 ms
+2025-05-21 17:01:54.430 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/Admin/Brand - 200 null text/html; charset=utf-8 46.9277ms
+2025-05-21 17:01:54.448 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/_framework/aspnetcore-browser-refresh.js - null null
+2025-05-21 17:01:54.448 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/_vs/browserLink - null null
+2025-05-21 17:01:54.450 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/_framework/aspnetcore-browser-refresh.js - 200 16499 application/javascript; charset=utf-8 2.719ms
+2025-05-21 17:01:54.455 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/_vs/browserLink - 200 null text/javascript; charset=UTF-8 6.886ms
+2025-05-21 17:01:55.359 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/Admin/Size - null null
+2025-05-21 17:01:55.369 +07:00 [INF] Executing endpoint 'DoAnLTW.Areas.Admin.Controllers.SizeController.Index (DoAnLTW)'
+2025-05-21 17:01:55.373 +07:00 [INF] Route matched with {area = "Admin", action = "Index", controller = "Size", page = ""}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Index() on controller DoAnLTW.Areas.Admin.Controllers.SizeController (DoAnLTW).
+2025-05-21 17:01:55.388 +07:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [s].[SizeId], [s].[size]
+FROM [Sizes] AS [s]
+2025-05-21 17:01:55.393 +07:00 [INF] Executing ViewResult, running view Index.
+2025-05-21 17:01:55.422 +07:00 [INF] Executed DbCommand (3ms) [Parameters=[@__p_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[SecurityStamp], [a].[TwoFactorEnabled], [a].[UserName]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[Id] = @__p_0
+2025-05-21 17:01:55.429 +07:00 [INF] Executed DbCommand (4ms) [Parameters=[@__userId_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a0].[Name]
+FROM [AspNetUserRoles] AS [a]
+INNER JOIN [AspNetRoles] AS [a0] ON [a].[RoleId] = [a0].[Id]
+WHERE [a].[UserId] = @__userId_0
+2025-05-21 17:01:55.443 +07:00 [INF] Executed ViewResult - view Index executed in 50.671ms.
+2025-05-21 17:01:55.448 +07:00 [INF] Executed action DoAnLTW.Areas.Admin.Controllers.SizeController.Index (DoAnLTW) in 72.0465ms
+2025-05-21 17:01:55.450 +07:00 [INF] Executed endpoint 'DoAnLTW.Areas.Admin.Controllers.SizeController.Index (DoAnLTW)'
+2025-05-21 17:01:55.452 +07:00 [INF] HTTP GET /Admin/Size responded 200 in 83.5795 ms
+2025-05-21 17:01:55.456 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/Admin/Size - 200 null text/html; charset=utf-8 96.5345ms
+2025-05-21 17:01:55.470 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/_vs/browserLink - null null
+2025-05-21 17:01:55.471 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/_framework/aspnetcore-browser-refresh.js - null null
+2025-05-21 17:01:55.480 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/_framework/aspnetcore-browser-refresh.js - 200 16499 application/javascript; charset=utf-8 9.1166ms
+2025-05-21 17:01:55.480 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/_vs/browserLink - 200 null text/javascript; charset=UTF-8 9.8881ms
+2025-05-21 17:02:12.649 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/Admin/PromotionCode/Index - null null
+2025-05-21 17:02:12.657 +07:00 [INF] Executing endpoint 'DoAnLTW.Areas.Admin.Controllers.PromotionCodeController.Index (DoAnLTW)'
+2025-05-21 17:02:12.660 +07:00 [INF] Route matched with {area = "Admin", action = "Index", controller = "PromotionCode", page = ""}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Index() on controller DoAnLTW.Areas.Admin.Controllers.PromotionCodeController (DoAnLTW).
+2025-05-21 17:02:12.667 +07:00 [INF] Executed DbCommand (3ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [p].[Id], [p].[Code], [p].[DiscountAmount], [p].[DiscountPercentage], [p].[EndDate], [p].[IsActive], [p].[MaxUsage], [p].[StartDate], [p].[UsageCount]
+FROM [PromotionCodes] AS [p]
+ORDER BY CASE
+    WHEN [p].[IsActive] = CAST(1 AS bit) THEN 0
+    ELSE 1
+END, [p].[StartDate]
+2025-05-21 17:02:12.669 +07:00 [INF] Executing ViewResult, running view Index.
+2025-05-21 17:02:12.677 +07:00 [INF] Executed DbCommand (3ms) [Parameters=[@__p_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[SecurityStamp], [a].[TwoFactorEnabled], [a].[UserName]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[Id] = @__p_0
+2025-05-21 17:02:12.686 +07:00 [INF] Executed DbCommand (5ms) [Parameters=[@__userId_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a0].[Name]
+FROM [AspNetUserRoles] AS [a]
+INNER JOIN [AspNetRoles] AS [a0] ON [a].[RoleId] = [a0].[Id]
+WHERE [a].[UserId] = @__userId_0
+2025-05-21 17:02:12.691 +07:00 [INF] Executed ViewResult - view Index executed in 21.7411ms.
+2025-05-21 17:02:12.693 +07:00 [INF] Executed action DoAnLTW.Areas.Admin.Controllers.PromotionCodeController.Index (DoAnLTW) in 29.1907ms
+2025-05-21 17:02:12.694 +07:00 [INF] Executed endpoint 'DoAnLTW.Areas.Admin.Controllers.PromotionCodeController.Index (DoAnLTW)'
+2025-05-21 17:02:12.695 +07:00 [INF] HTTP GET /Admin/PromotionCode/Index responded 200 in 38.6582 ms
+2025-05-21 17:02:12.697 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/Admin/PromotionCode/Index - 200 null text/html; charset=utf-8 48.0606ms
+2025-05-21 17:02:12.718 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/_vs/browserLink - null null
+2025-05-21 17:02:12.718 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/_framework/aspnetcore-browser-refresh.js - null null
+2025-05-21 17:02:12.722 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/_framework/aspnetcore-browser-refresh.js - 200 16499 application/javascript; charset=utf-8 4.1421ms
+2025-05-21 17:02:12.724 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/_vs/browserLink - 200 null text/javascript; charset=UTF-8 6.0184ms
+2025-05-21 17:04:56.427 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/Admin/PromotionCode/Index - null null
+2025-05-21 17:04:56.437 +07:00 [INF] Executing endpoint 'DoAnLTW.Areas.Admin.Controllers.PromotionCodeController.Index (DoAnLTW)'
+2025-05-21 17:04:56.443 +07:00 [INF] Route matched with {area = "Admin", action = "Index", controller = "PromotionCode", page = ""}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Index() on controller DoAnLTW.Areas.Admin.Controllers.PromotionCodeController (DoAnLTW).
+2025-05-21 17:04:56.454 +07:00 [INF] Executed DbCommand (3ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [p].[Id], [p].[Code], [p].[DiscountAmount], [p].[DiscountPercentage], [p].[EndDate], [p].[IsActive], [p].[MaxUsage], [p].[StartDate], [p].[UsageCount]
+FROM [PromotionCodes] AS [p]
+ORDER BY CASE
+    WHEN [p].[IsActive] = CAST(1 AS bit) THEN 0
+    ELSE 1
+END, [p].[StartDate]
+2025-05-21 17:04:56.459 +07:00 [INF] Executing ViewResult, running view Index.
+2025-05-21 17:04:56.469 +07:00 [INF] Executed DbCommand (5ms) [Parameters=[@__p_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[SecurityStamp], [a].[TwoFactorEnabled], [a].[UserName]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[Id] = @__p_0
+2025-05-21 17:04:56.484 +07:00 [INF] Executed DbCommand (5ms) [Parameters=[@__userId_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a0].[Name]
+FROM [AspNetUserRoles] AS [a]
+INNER JOIN [AspNetRoles] AS [a0] ON [a].[RoleId] = [a0].[Id]
+WHERE [a].[UserId] = @__userId_0
+2025-05-21 17:04:56.490 +07:00 [INF] Executed ViewResult - view Index executed in 32.4677ms.
+2025-05-21 17:04:56.494 +07:00 [INF] Executed action DoAnLTW.Areas.Admin.Controllers.PromotionCodeController.Index (DoAnLTW) in 44.0976ms
+2025-05-21 17:04:56.496 +07:00 [INF] Executed endpoint 'DoAnLTW.Areas.Admin.Controllers.PromotionCodeController.Index (DoAnLTW)'
+2025-05-21 17:04:56.497 +07:00 [INF] HTTP GET /Admin/PromotionCode/Index responded 200 in 61.3999 ms
+2025-05-21 17:04:56.500 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/Admin/PromotionCode/Index - 200 null text/html; charset=utf-8 73.1071ms
+2025-05-21 17:04:56.517 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/_vs/browserLink - null null
+2025-05-21 17:04:56.517 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/_framework/aspnetcore-browser-refresh.js - null null
+2025-05-21 17:04:56.527 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/_framework/aspnetcore-browser-refresh.js - 200 16499 application/javascript; charset=utf-8 9.2961ms
+2025-05-21 17:04:56.532 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/_vs/browserLink - 200 null text/javascript; charset=UTF-8 15.6262ms
+2025-05-21 17:05:30.048 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/Admin/Pet - null null
+2025-05-21 17:05:30.060 +07:00 [INF] Executing endpoint 'DoAnLTW.Areas.Admin.Controllers.PetController.Index (DoAnLTW)'
+2025-05-21 17:05:30.063 +07:00 [INF] Route matched with {area = "Admin", action = "Index", controller = "Pet", page = ""}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Index() on controller DoAnLTW.Areas.Admin.Controllers.PetController (DoAnLTW).
+2025-05-21 17:05:30.078 +07:00 [INF] Executed DbCommand (3ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [p].[PetId], [p].[Age], [p].[Breed], [p].[Description], [p].[Gender], [p].[Name], [p].[Type], [p].[UserId]
+FROM [Pets] AS [p]
+2025-05-21 17:05:30.093 +07:00 [INF] Executing ViewResult, running view ~/Areas/Admin/Views/Pet/Index.cshtml.
+2025-05-21 17:05:30.112 +07:00 [INF] Executed DbCommand (3ms) [Parameters=[@__p_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[SecurityStamp], [a].[TwoFactorEnabled], [a].[UserName]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[Id] = @__p_0
+2025-05-21 17:05:30.125 +07:00 [INF] Executed DbCommand (6ms) [Parameters=[@__userId_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a0].[Name]
+FROM [AspNetUserRoles] AS [a]
+INNER JOIN [AspNetRoles] AS [a0] ON [a].[RoleId] = [a0].[Id]
+WHERE [a].[UserId] = @__userId_0
+2025-05-21 17:05:30.133 +07:00 [INF] Executed ViewResult - view ~/Areas/Admin/Views/Pet/Index.cshtml executed in 40.4097ms.
+2025-05-21 17:05:30.137 +07:00 [INF] Executed action DoAnLTW.Areas.Admin.Controllers.PetController.Index (DoAnLTW) in 71.1101ms
+2025-05-21 17:05:30.140 +07:00 [INF] Executed endpoint 'DoAnLTW.Areas.Admin.Controllers.PetController.Index (DoAnLTW)'
+2025-05-21 17:05:30.141 +07:00 [INF] HTTP GET /Admin/Pet responded 200 in 84.2740 ms
+2025-05-21 17:05:30.145 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/Admin/Pet - 200 null text/html; charset=utf-8 97.1583ms
+2025-05-21 17:05:30.163 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/_vs/browserLink - null null
+2025-05-21 17:05:30.163 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/_framework/aspnetcore-browser-refresh.js - null null
+2025-05-21 17:05:30.170 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/_framework/aspnetcore-browser-refresh.js - 200 16499 application/javascript; charset=utf-8 6.1621ms
+2025-05-21 17:05:30.176 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/_vs/browserLink - 200 null text/javascript; charset=UTF-8 13.0613ms
+2025-05-21 17:05:31.832 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/Admin/Pet/Detail/1 - null null
+2025-05-21 17:05:31.840 +07:00 [INF] Executing endpoint 'DoAnLTW.Areas.Admin.Controllers.PetController.Detail (DoAnLTW)'
+2025-05-21 17:05:31.844 +07:00 [INF] Route matched with {area = "Admin", action = "Detail", controller = "Pet", page = ""}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Detail(Int32) on controller DoAnLTW.Areas.Admin.Controllers.PetController (DoAnLTW).
+2025-05-21 17:05:31.857 +07:00 [INF] Executed DbCommand (2ms) [Parameters=[@__p_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [p].[PetId], [p].[Age], [p].[Breed], [p].[Description], [p].[Gender], [p].[Name], [p].[Type], [p].[UserId]
+FROM [Pets] AS [p]
+WHERE [p].[PetId] = @__p_0
+2025-05-21 17:05:31.865 +07:00 [INF] Executed DbCommand (3ms) [Parameters=[@__p_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[SecurityStamp], [a].[TwoFactorEnabled], [a].[UserName]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[Id] = @__p_0
+2025-05-21 17:05:31.872 +07:00 [INF] Executing ViewResult, running view Detail.
+2025-05-21 17:05:31.888 +07:00 [INF] Executed DbCommand (1ms) [Parameters=[@__p_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[SecurityStamp], [a].[TwoFactorEnabled], [a].[UserName]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[Id] = @__p_0
+2025-05-21 17:05:31.902 +07:00 [INF] Executed DbCommand (5ms) [Parameters=[@__userId_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a0].[Name]
+FROM [AspNetUserRoles] AS [a]
+INNER JOIN [AspNetRoles] AS [a0] ON [a].[RoleId] = [a0].[Id]
+WHERE [a].[UserId] = @__userId_0
+2025-05-21 17:05:31.907 +07:00 [INF] Executed ViewResult - view Detail executed in 35.9193ms.
+2025-05-21 17:05:31.909 +07:00 [INF] Executed action DoAnLTW.Areas.Admin.Controllers.PetController.Detail (DoAnLTW) in 63.1549ms
+2025-05-21 17:05:31.910 +07:00 [INF] Executed endpoint 'DoAnLTW.Areas.Admin.Controllers.PetController.Detail (DoAnLTW)'
+2025-05-21 17:05:31.912 +07:00 [INF] HTTP GET /Admin/Pet/Detail/1 responded 200 in 72.4366 ms
+2025-05-21 17:05:31.915 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/Admin/Pet/Detail/1 - 200 null text/html; charset=utf-8 82.6814ms
+2025-05-21 17:05:31.935 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/_vs/browserLink - null null
+2025-05-21 17:05:31.936 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/_framework/aspnetcore-browser-refresh.js - null null
+2025-05-21 17:05:31.941 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/_framework/aspnetcore-browser-refresh.js - 200 16499 application/javascript; charset=utf-8 5.0282ms
+2025-05-21 17:05:31.942 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/_vs/browserLink - 200 null text/javascript; charset=UTF-8 6.7307ms
+2025-05-21 17:05:37.849 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/Admin/Pet - null null
+2025-05-21 17:05:37.863 +07:00 [INF] Executing endpoint 'DoAnLTW.Areas.Admin.Controllers.PetController.Index (DoAnLTW)'
+2025-05-21 17:05:37.865 +07:00 [INF] Route matched with {area = "Admin", action = "Index", controller = "Pet", page = ""}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Index() on controller DoAnLTW.Areas.Admin.Controllers.PetController (DoAnLTW).
+2025-05-21 17:05:37.871 +07:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [p].[PetId], [p].[Age], [p].[Breed], [p].[Description], [p].[Gender], [p].[Name], [p].[Type], [p].[UserId]
+FROM [Pets] AS [p]
+2025-05-21 17:05:37.873 +07:00 [INF] Executing ViewResult, running view ~/Areas/Admin/Views/Pet/Index.cshtml.
+2025-05-21 17:05:37.876 +07:00 [INF] Executed DbCommand (3ms) [Parameters=[@__p_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[SecurityStamp], [a].[TwoFactorEnabled], [a].[UserName]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[Id] = @__p_0
+2025-05-21 17:05:37.884 +07:00 [INF] Executed DbCommand (4ms) [Parameters=[@__userId_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a0].[Name]
+FROM [AspNetUserRoles] AS [a]
+INNER JOIN [AspNetRoles] AS [a0] ON [a].[RoleId] = [a0].[Id]
+WHERE [a].[UserId] = @__userId_0
+2025-05-21 17:05:37.890 +07:00 [INF] Executed ViewResult - view ~/Areas/Admin/Views/Pet/Index.cshtml executed in 17.4897ms.
+2025-05-21 17:05:37.893 +07:00 [INF] Executed action DoAnLTW.Areas.Admin.Controllers.PetController.Index (DoAnLTW) in 25.1762ms
+2025-05-21 17:05:37.894 +07:00 [INF] Executed endpoint 'DoAnLTW.Areas.Admin.Controllers.PetController.Index (DoAnLTW)'
+2025-05-21 17:05:37.896 +07:00 [INF] HTTP GET /Admin/Pet responded 200 in 34.8020 ms
+2025-05-21 17:05:37.898 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/Admin/Pet - 200 null text/html; charset=utf-8 48.4145ms
+2025-05-21 17:05:37.914 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/_vs/browserLink - null null
+2025-05-21 17:05:37.915 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/_framework/aspnetcore-browser-refresh.js - null null
+2025-05-21 17:05:37.921 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/_framework/aspnetcore-browser-refresh.js - 200 16499 application/javascript; charset=utf-8 6.0419ms
+2025-05-21 17:05:37.921 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/_vs/browserLink - 200 null text/javascript; charset=UTF-8 6.7521ms
+2025-05-21 17:05:41.694 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/Admin/Pet - null null
+2025-05-21 17:05:41.704 +07:00 [INF] Executing endpoint 'DoAnLTW.Areas.Admin.Controllers.PetController.Index (DoAnLTW)'
+2025-05-21 17:05:41.706 +07:00 [INF] Route matched with {area = "Admin", action = "Index", controller = "Pet", page = ""}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Index() on controller DoAnLTW.Areas.Admin.Controllers.PetController (DoAnLTW).
+2025-05-21 17:05:41.710 +07:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [p].[PetId], [p].[Age], [p].[Breed], [p].[Description], [p].[Gender], [p].[Name], [p].[Type], [p].[UserId]
+FROM [Pets] AS [p]
+2025-05-21 17:05:41.711 +07:00 [INF] Executing ViewResult, running view ~/Areas/Admin/Views/Pet/Index.cshtml.
+2025-05-21 17:05:41.714 +07:00 [INF] Executed DbCommand (1ms) [Parameters=[@__p_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[SecurityStamp], [a].[TwoFactorEnabled], [a].[UserName]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[Id] = @__p_0
+2025-05-21 17:05:41.718 +07:00 [INF] Executed DbCommand (1ms) [Parameters=[@__userId_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a0].[Name]
+FROM [AspNetUserRoles] AS [a]
+INNER JOIN [AspNetRoles] AS [a0] ON [a].[RoleId] = [a0].[Id]
+WHERE [a].[UserId] = @__userId_0
+2025-05-21 17:05:41.721 +07:00 [INF] Executed ViewResult - view ~/Areas/Admin/Views/Pet/Index.cshtml executed in 9.175ms.
+2025-05-21 17:05:41.722 +07:00 [INF] Executed action DoAnLTW.Areas.Admin.Controllers.PetController.Index (DoAnLTW) in 13.7464ms
+2025-05-21 17:05:41.723 +07:00 [INF] Executed endpoint 'DoAnLTW.Areas.Admin.Controllers.PetController.Index (DoAnLTW)'
+2025-05-21 17:05:41.724 +07:00 [INF] HTTP GET /Admin/Pet responded 200 in 21.3016 ms
+2025-05-21 17:05:41.726 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/Admin/Pet - 200 null text/html; charset=utf-8 32.1618ms
+2025-05-21 17:05:41.750 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/_vs/browserLink - null null
+2025-05-21 17:05:41.751 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/_framework/aspnetcore-browser-refresh.js - null null
+2025-05-21 17:05:41.755 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/_framework/aspnetcore-browser-refresh.js - 200 16499 application/javascript; charset=utf-8 4.3781ms
+2025-05-21 17:05:41.756 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/_vs/browserLink - 200 null text/javascript; charset=UTF-8 5.4052ms
+2025-05-21 17:05:42.646 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/Admin/Service - null null
+2025-05-21 17:05:42.659 +07:00 [INF] Executing endpoint 'DoAnLTW.Areas.Admin.Controllers.ServiceController.Index (DoAnLTW)'
+2025-05-21 17:05:42.665 +07:00 [INF] Route matched with {area = "Admin", action = "Index", controller = "Service", page = ""}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Index() on controller DoAnLTW.Areas.Admin.Controllers.ServiceController (DoAnLTW).
+2025-05-21 17:05:42.681 +07:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [s].[ServiceId], [s].[Description], [s].[Duration], [s].[Name], [s].[Price]
+FROM [Services] AS [s]
+2025-05-21 17:05:42.700 +07:00 [INF] Executing ViewResult, running view Index.
+2025-05-21 17:05:42.729 +07:00 [INF] Executed DbCommand (1ms) [Parameters=[@__p_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[SecurityStamp], [a].[TwoFactorEnabled], [a].[UserName]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[Id] = @__p_0
+2025-05-21 17:05:42.739 +07:00 [INF] Executed DbCommand (1ms) [Parameters=[@__userId_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a0].[Name]
+FROM [AspNetUserRoles] AS [a]
+INNER JOIN [AspNetRoles] AS [a0] ON [a].[RoleId] = [a0].[Id]
+WHERE [a].[UserId] = @__userId_0
+2025-05-21 17:05:42.751 +07:00 [INF] Executed ViewResult - view Index executed in 52.5389ms.
+2025-05-21 17:05:42.754 +07:00 [INF] Executed action DoAnLTW.Areas.Admin.Controllers.ServiceController.Index (DoAnLTW) in 86.7597ms
+2025-05-21 17:05:42.756 +07:00 [INF] Executed endpoint 'DoAnLTW.Areas.Admin.Controllers.ServiceController.Index (DoAnLTW)'
+2025-05-21 17:05:42.757 +07:00 [INF] HTTP GET /Admin/Service responded 200 in 98.2275 ms
+2025-05-21 17:05:42.759 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/Admin/Service - 200 null text/html; charset=utf-8 113.266ms
+2025-05-21 17:05:42.776 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/_vs/browserLink - null null
+2025-05-21 17:05:42.779 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/_framework/aspnetcore-browser-refresh.js - null null
+2025-05-21 17:05:42.781 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/_vs/browserLink - 200 null text/javascript; charset=UTF-8 5.3102ms
+2025-05-21 17:05:42.782 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/_framework/aspnetcore-browser-refresh.js - 200 16499 application/javascript; charset=utf-8 2.8758ms
+2025-05-21 17:05:44.753 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/Admin/Pet - null null
+2025-05-21 17:05:44.762 +07:00 [INF] Executing endpoint 'DoAnLTW.Areas.Admin.Controllers.PetController.Index (DoAnLTW)'
+2025-05-21 17:05:44.763 +07:00 [INF] Route matched with {area = "Admin", action = "Index", controller = "Pet", page = ""}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Index() on controller DoAnLTW.Areas.Admin.Controllers.PetController (DoAnLTW).
+2025-05-21 17:05:44.766 +07:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [p].[PetId], [p].[Age], [p].[Breed], [p].[Description], [p].[Gender], [p].[Name], [p].[Type], [p].[UserId]
+FROM [Pets] AS [p]
+2025-05-21 17:05:44.768 +07:00 [INF] Executing ViewResult, running view ~/Areas/Admin/Views/Pet/Index.cshtml.
+2025-05-21 17:05:44.770 +07:00 [INF] Executed DbCommand (0ms) [Parameters=[@__p_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[SecurityStamp], [a].[TwoFactorEnabled], [a].[UserName]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[Id] = @__p_0
+2025-05-21 17:05:44.773 +07:00 [INF] Executed DbCommand (0ms) [Parameters=[@__userId_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a0].[Name]
+FROM [AspNetUserRoles] AS [a]
+INNER JOIN [AspNetRoles] AS [a0] ON [a].[RoleId] = [a0].[Id]
+WHERE [a].[UserId] = @__userId_0
+2025-05-21 17:05:44.775 +07:00 [INF] Executed ViewResult - view ~/Areas/Admin/Views/Pet/Index.cshtml executed in 7.0568ms.
+2025-05-21 17:05:44.776 +07:00 [INF] Executed action DoAnLTW.Areas.Admin.Controllers.PetController.Index (DoAnLTW) in 11.9497ms
+2025-05-21 17:05:44.778 +07:00 [INF] Executed endpoint 'DoAnLTW.Areas.Admin.Controllers.PetController.Index (DoAnLTW)'
+2025-05-21 17:05:44.779 +07:00 [INF] HTTP GET /Admin/Pet responded 200 in 17.1443 ms
+2025-05-21 17:05:44.780 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/Admin/Pet - 200 null text/html; charset=utf-8 27.2681ms
+2025-05-21 17:05:44.798 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/_vs/browserLink - null null
+2025-05-21 17:05:44.799 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/_framework/aspnetcore-browser-refresh.js - null null
+2025-05-21 17:05:44.803 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/_framework/aspnetcore-browser-refresh.js - 200 16499 application/javascript; charset=utf-8 3.9651ms
+2025-05-21 17:05:44.804 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/_vs/browserLink - 200 null text/javascript; charset=UTF-8 5.4781ms
+2025-05-21 17:05:46.332 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/Admin/Pet/Detail/1 - null null
+2025-05-21 17:05:46.343 +07:00 [INF] Executing endpoint 'DoAnLTW.Areas.Admin.Controllers.PetController.Detail (DoAnLTW)'
+2025-05-21 17:05:46.345 +07:00 [INF] Route matched with {area = "Admin", action = "Detail", controller = "Pet", page = ""}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Detail(Int32) on controller DoAnLTW.Areas.Admin.Controllers.PetController (DoAnLTW).
+2025-05-21 17:05:46.349 +07:00 [INF] Executed DbCommand (2ms) [Parameters=[@__p_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [p].[PetId], [p].[Age], [p].[Breed], [p].[Description], [p].[Gender], [p].[Name], [p].[Type], [p].[UserId]
+FROM [Pets] AS [p]
+WHERE [p].[PetId] = @__p_0
+2025-05-21 17:05:46.352 +07:00 [INF] Executed DbCommand (1ms) [Parameters=[@__p_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[SecurityStamp], [a].[TwoFactorEnabled], [a].[UserName]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[Id] = @__p_0
+2025-05-21 17:05:46.355 +07:00 [INF] Executing ViewResult, running view Detail.
+2025-05-21 17:05:46.357 +07:00 [INF] Executed DbCommand (0ms) [Parameters=[@__p_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[SecurityStamp], [a].[TwoFactorEnabled], [a].[UserName]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[Id] = @__p_0
+2025-05-21 17:05:46.360 +07:00 [INF] Executed DbCommand (0ms) [Parameters=[@__userId_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a0].[Name]
+FROM [AspNetUserRoles] AS [a]
+INNER JOIN [AspNetRoles] AS [a0] ON [a].[RoleId] = [a0].[Id]
+WHERE [a].[UserId] = @__userId_0
+2025-05-21 17:05:46.362 +07:00 [INF] Executed ViewResult - view Detail executed in 6.8387ms.
+2025-05-21 17:05:46.364 +07:00 [INF] Executed action DoAnLTW.Areas.Admin.Controllers.PetController.Detail (DoAnLTW) in 17.5294ms
+2025-05-21 17:05:46.365 +07:00 [INF] Executed endpoint 'DoAnLTW.Areas.Admin.Controllers.PetController.Detail (DoAnLTW)'
+2025-05-21 17:05:46.366 +07:00 [INF] HTTP GET /Admin/Pet/Detail/1 responded 200 in 24.0907 ms
+2025-05-21 17:05:46.367 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/Admin/Pet/Detail/1 - 200 null text/html; charset=utf-8 35.1306ms
+2025-05-21 17:05:46.385 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/_vs/browserLink - null null
+2025-05-21 17:05:46.386 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/_framework/aspnetcore-browser-refresh.js - null null
+2025-05-21 17:05:46.391 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/_framework/aspnetcore-browser-refresh.js - 200 16499 application/javascript; charset=utf-8 5.4046ms
+2025-05-21 17:05:46.391 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/_vs/browserLink - 200 null text/javascript; charset=UTF-8 6.349ms
+2025-05-21 17:05:47.646 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/Admin/Pet - null null
+2025-05-21 17:05:47.655 +07:00 [INF] Executing endpoint 'DoAnLTW.Areas.Admin.Controllers.PetController.Index (DoAnLTW)'
+2025-05-21 17:05:47.658 +07:00 [INF] Route matched with {area = "Admin", action = "Index", controller = "Pet", page = ""}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Index() on controller DoAnLTW.Areas.Admin.Controllers.PetController (DoAnLTW).
+2025-05-21 17:05:47.661 +07:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [p].[PetId], [p].[Age], [p].[Breed], [p].[Description], [p].[Gender], [p].[Name], [p].[Type], [p].[UserId]
+FROM [Pets] AS [p]
+2025-05-21 17:05:47.663 +07:00 [INF] Executing ViewResult, running view ~/Areas/Admin/Views/Pet/Index.cshtml.
+2025-05-21 17:05:47.665 +07:00 [INF] Executed DbCommand (0ms) [Parameters=[@__p_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[SecurityStamp], [a].[TwoFactorEnabled], [a].[UserName]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[Id] = @__p_0
+2025-05-21 17:05:47.667 +07:00 [INF] Executed DbCommand (0ms) [Parameters=[@__userId_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a0].[Name]
+FROM [AspNetUserRoles] AS [a]
+INNER JOIN [AspNetRoles] AS [a0] ON [a].[RoleId] = [a0].[Id]
+WHERE [a].[UserId] = @__userId_0
+2025-05-21 17:05:47.670 +07:00 [INF] Executed ViewResult - view ~/Areas/Admin/Views/Pet/Index.cshtml executed in 6.684ms.
+2025-05-21 17:05:47.671 +07:00 [INF] Executed action DoAnLTW.Areas.Admin.Controllers.PetController.Index (DoAnLTW) in 11.3057ms
+2025-05-21 17:05:47.672 +07:00 [INF] Executed endpoint 'DoAnLTW.Areas.Admin.Controllers.PetController.Index (DoAnLTW)'
+2025-05-21 17:05:47.673 +07:00 [INF] HTTP GET /Admin/Pet responded 200 in 18.0311 ms
+2025-05-21 17:05:47.675 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/Admin/Pet - 200 null text/html; charset=utf-8 28.9673ms
+2025-05-21 17:05:47.692 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/_vs/browserLink - null null
+2025-05-21 17:05:47.693 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/_framework/aspnetcore-browser-refresh.js - null null
+2025-05-21 17:05:47.697 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/_framework/aspnetcore-browser-refresh.js - 200 16499 application/javascript; charset=utf-8 3.7729ms
+2025-05-21 17:05:47.698 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/_vs/browserLink - 200 null text/javascript; charset=UTF-8 5.513ms
+2025-05-21 17:05:52.875 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/Admin/Service - null null
+2025-05-21 17:05:52.886 +07:00 [INF] Executing endpoint 'DoAnLTW.Areas.Admin.Controllers.ServiceController.Index (DoAnLTW)'
+2025-05-21 17:05:52.887 +07:00 [INF] Route matched with {area = "Admin", action = "Index", controller = "Service", page = ""}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Index() on controller DoAnLTW.Areas.Admin.Controllers.ServiceController (DoAnLTW).
+2025-05-21 17:05:52.889 +07:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [s].[ServiceId], [s].[Description], [s].[Duration], [s].[Name], [s].[Price]
+FROM [Services] AS [s]
+2025-05-21 17:05:52.891 +07:00 [INF] Executing ViewResult, running view Index.
+2025-05-21 17:05:52.894 +07:00 [INF] Executed DbCommand (1ms) [Parameters=[@__p_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[SecurityStamp], [a].[TwoFactorEnabled], [a].[UserName]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[Id] = @__p_0
+2025-05-21 17:05:52.896 +07:00 [INF] Executed DbCommand (0ms) [Parameters=[@__userId_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a0].[Name]
+FROM [AspNetUserRoles] AS [a]
+INNER JOIN [AspNetRoles] AS [a0] ON [a].[RoleId] = [a0].[Id]
+WHERE [a].[UserId] = @__userId_0
+2025-05-21 17:05:52.898 +07:00 [INF] Executed ViewResult - view Index executed in 6.9057ms.
+2025-05-21 17:05:52.900 +07:00 [INF] Executed action DoAnLTW.Areas.Admin.Controllers.ServiceController.Index (DoAnLTW) in 11.329ms
+2025-05-21 17:05:52.901 +07:00 [INF] Executed endpoint 'DoAnLTW.Areas.Admin.Controllers.ServiceController.Index (DoAnLTW)'
+2025-05-21 17:05:52.902 +07:00 [INF] HTTP GET /Admin/Service responded 200 in 16.3065 ms
+2025-05-21 17:05:52.903 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/Admin/Service - 200 null text/html; charset=utf-8 28.3641ms
+2025-05-21 17:05:52.927 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/_vs/browserLink - null null
+2025-05-21 17:05:52.931 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/_framework/aspnetcore-browser-refresh.js - null null
+2025-05-21 17:05:52.934 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/_framework/aspnetcore-browser-refresh.js - 200 16499 application/javascript; charset=utf-8 3.3858ms
+2025-05-21 17:05:52.934 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/_vs/browserLink - 200 null text/javascript; charset=UTF-8 6.9096ms
+2025-05-21 17:05:54.553 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/Admin/Pet - null null
+2025-05-21 17:05:54.566 +07:00 [INF] Executing endpoint 'DoAnLTW.Areas.Admin.Controllers.PetController.Index (DoAnLTW)'
+2025-05-21 17:05:54.567 +07:00 [INF] Route matched with {area = "Admin", action = "Index", controller = "Pet", page = ""}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Index() on controller DoAnLTW.Areas.Admin.Controllers.PetController (DoAnLTW).
+2025-05-21 17:05:54.570 +07:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [p].[PetId], [p].[Age], [p].[Breed], [p].[Description], [p].[Gender], [p].[Name], [p].[Type], [p].[UserId]
+FROM [Pets] AS [p]
+2025-05-21 17:05:54.572 +07:00 [INF] Executing ViewResult, running view ~/Areas/Admin/Views/Pet/Index.cshtml.
+2025-05-21 17:05:54.574 +07:00 [INF] Executed DbCommand (1ms) [Parameters=[@__p_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[SecurityStamp], [a].[TwoFactorEnabled], [a].[UserName]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[Id] = @__p_0
+2025-05-21 17:05:54.577 +07:00 [INF] Executed DbCommand (1ms) [Parameters=[@__userId_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a0].[Name]
+FROM [AspNetUserRoles] AS [a]
+INNER JOIN [AspNetRoles] AS [a0] ON [a].[RoleId] = [a0].[Id]
+WHERE [a].[UserId] = @__userId_0
+2025-05-21 17:05:54.580 +07:00 [INF] Executed ViewResult - view ~/Areas/Admin/Views/Pet/Index.cshtml executed in 7.9509ms.
+2025-05-21 17:05:54.581 +07:00 [INF] Executed action DoAnLTW.Areas.Admin.Controllers.PetController.Index (DoAnLTW) in 12.3746ms
+2025-05-21 17:05:54.582 +07:00 [INF] Executed endpoint 'DoAnLTW.Areas.Admin.Controllers.PetController.Index (DoAnLTW)'
+2025-05-21 17:05:54.583 +07:00 [INF] HTTP GET /Admin/Pet responded 200 in 17.9261 ms
+2025-05-21 17:05:54.585 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/Admin/Pet - 200 null text/html; charset=utf-8 32.7026ms
+2025-05-21 17:05:54.608 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/_vs/browserLink - null null
+2025-05-21 17:05:54.608 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/_framework/aspnetcore-browser-refresh.js - null null
+2025-05-21 17:05:54.613 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/_framework/aspnetcore-browser-refresh.js - 200 16499 application/javascript; charset=utf-8 5.1024ms
+2025-05-21 17:05:54.615 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/_vs/browserLink - 200 null text/javascript; charset=UTF-8 6.7667ms
+2025-05-21 17:05:55.734 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/Admin/Brand - null null
+2025-05-21 17:05:55.745 +07:00 [INF] Executing endpoint 'DoAnLTW.Areas.Admin.Controllers.BrandController.Index (DoAnLTW)'
+2025-05-21 17:05:55.751 +07:00 [INF] Route matched with {area = "Admin", action = "Index", controller = "Brand", page = ""}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Index() on controller DoAnLTW.Areas.Admin.Controllers.BrandController (DoAnLTW).
+2025-05-21 17:05:55.759 +07:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [b].[BrandId], [b].[ImageUrl], [b].[Name]
+FROM [Brands] AS [b]
+2025-05-21 17:05:55.762 +07:00 [INF] Executing ViewResult, running view Index.
+2025-05-21 17:05:55.767 +07:00 [INF] Executed DbCommand (1ms) [Parameters=[@__p_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[SecurityStamp], [a].[TwoFactorEnabled], [a].[UserName]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[Id] = @__p_0
+2025-05-21 17:05:55.771 +07:00 [INF] Executed DbCommand (1ms) [Parameters=[@__userId_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a0].[Name]
+FROM [AspNetUserRoles] AS [a]
+INNER JOIN [AspNetRoles] AS [a0] ON [a].[RoleId] = [a0].[Id]
+WHERE [a].[UserId] = @__userId_0
+2025-05-21 17:05:55.778 +07:00 [INF] Executed ViewResult - view Index executed in 16.9916ms.
+2025-05-21 17:05:55.782 +07:00 [INF] Executed action DoAnLTW.Areas.Admin.Controllers.BrandController.Index (DoAnLTW) in 25.918ms
+2025-05-21 17:05:55.784 +07:00 [INF] Executed endpoint 'DoAnLTW.Areas.Admin.Controllers.BrandController.Index (DoAnLTW)'
+2025-05-21 17:05:55.785 +07:00 [INF] HTTP GET /Admin/Brand responded 200 in 39.9532 ms
+2025-05-21 17:05:55.787 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/Admin/Brand - 200 null text/html; charset=utf-8 53.4183ms
+2025-05-21 17:05:55.810 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/_framework/aspnetcore-browser-refresh.js - null null
+2025-05-21 17:05:55.811 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/_vs/browserLink - null null
+2025-05-21 17:05:55.814 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/_framework/aspnetcore-browser-refresh.js - 200 16499 application/javascript; charset=utf-8 3.4226ms
+2025-05-21 17:05:55.820 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/_vs/browserLink - 200 null text/javascript; charset=UTF-8 8.9011ms
+2025-05-21 17:05:56.806 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/Admin/Pet - null null
+2025-05-21 17:05:56.815 +07:00 [INF] Executing endpoint 'DoAnLTW.Areas.Admin.Controllers.PetController.Index (DoAnLTW)'
+2025-05-21 17:05:56.818 +07:00 [INF] Route matched with {area = "Admin", action = "Index", controller = "Pet", page = ""}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Index() on controller DoAnLTW.Areas.Admin.Controllers.PetController (DoAnLTW).
+2025-05-21 17:05:56.821 +07:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [p].[PetId], [p].[Age], [p].[Breed], [p].[Description], [p].[Gender], [p].[Name], [p].[Type], [p].[UserId]
+FROM [Pets] AS [p]
+2025-05-21 17:05:56.823 +07:00 [INF] Executing ViewResult, running view ~/Areas/Admin/Views/Pet/Index.cshtml.
+2025-05-21 17:05:56.825 +07:00 [INF] Executed DbCommand (0ms) [Parameters=[@__p_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[SecurityStamp], [a].[TwoFactorEnabled], [a].[UserName]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[Id] = @__p_0
+2025-05-21 17:05:56.828 +07:00 [INF] Executed DbCommand (0ms) [Parameters=[@__userId_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a0].[Name]
+FROM [AspNetUserRoles] AS [a]
+INNER JOIN [AspNetRoles] AS [a0] ON [a].[RoleId] = [a0].[Id]
+WHERE [a].[UserId] = @__userId_0
+2025-05-21 17:05:56.831 +07:00 [INF] Executed ViewResult - view ~/Areas/Admin/Views/Pet/Index.cshtml executed in 7.224ms.
+2025-05-21 17:05:56.832 +07:00 [INF] Executed action DoAnLTW.Areas.Admin.Controllers.PetController.Index (DoAnLTW) in 12.0959ms
+2025-05-21 17:05:56.833 +07:00 [INF] Executed endpoint 'DoAnLTW.Areas.Admin.Controllers.PetController.Index (DoAnLTW)'
+2025-05-21 17:05:56.834 +07:00 [INF] HTTP GET /Admin/Pet responded 200 in 19.2856 ms
+2025-05-21 17:05:56.836 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/Admin/Pet - 200 null text/html; charset=utf-8 29.9545ms
+2025-05-21 17:05:56.857 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/_vs/browserLink - null null
+2025-05-21 17:05:56.858 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/_framework/aspnetcore-browser-refresh.js - null null
+2025-05-21 17:05:56.863 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/_framework/aspnetcore-browser-refresh.js - 200 16499 application/javascript; charset=utf-8 5.3682ms
+2025-05-21 17:05:56.864 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/_vs/browserLink - 200 null text/javascript; charset=UTF-8 6.6638ms
+2025-05-21 17:06:01.443 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/Admin/Service - null null
+2025-05-21 17:06:01.452 +07:00 [INF] Executing endpoint 'DoAnLTW.Areas.Admin.Controllers.ServiceController.Index (DoAnLTW)'
+2025-05-21 17:06:01.453 +07:00 [INF] Route matched with {area = "Admin", action = "Index", controller = "Service", page = ""}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Index() on controller DoAnLTW.Areas.Admin.Controllers.ServiceController (DoAnLTW).
+2025-05-21 17:06:01.462 +07:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [s].[ServiceId], [s].[Description], [s].[Duration], [s].[Name], [s].[Price]
+FROM [Services] AS [s]
+2025-05-21 17:06:01.466 +07:00 [INF] Executing ViewResult, running view Index.
+2025-05-21 17:06:01.471 +07:00 [INF] Executed DbCommand (1ms) [Parameters=[@__p_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[SecurityStamp], [a].[TwoFactorEnabled], [a].[UserName]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[Id] = @__p_0
+2025-05-21 17:06:01.476 +07:00 [INF] Executed DbCommand (1ms) [Parameters=[@__userId_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a0].[Name]
+FROM [AspNetUserRoles] AS [a]
+INNER JOIN [AspNetRoles] AS [a0] ON [a].[RoleId] = [a0].[Id]
+WHERE [a].[UserId] = @__userId_0
+2025-05-21 17:06:01.478 +07:00 [INF] Executed ViewResult - view Index executed in 11.8027ms.
+2025-05-21 17:06:01.479 +07:00 [INF] Executed action DoAnLTW.Areas.Admin.Controllers.ServiceController.Index (DoAnLTW) in 20.4404ms
+2025-05-21 17:06:01.481 +07:00 [INF] Executed endpoint 'DoAnLTW.Areas.Admin.Controllers.ServiceController.Index (DoAnLTW)'
+2025-05-21 17:06:01.482 +07:00 [INF] HTTP GET /Admin/Service responded 200 in 30.8948 ms
+2025-05-21 17:06:01.485 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/Admin/Service - 200 null text/html; charset=utf-8 41.7144ms
+2025-05-21 17:06:01.505 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/_vs/browserLink - null null
+2025-05-21 17:06:01.505 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/_framework/aspnetcore-browser-refresh.js - null null
+2025-05-21 17:06:01.510 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/_framework/aspnetcore-browser-refresh.js - 200 16499 application/javascript; charset=utf-8 5.2911ms
+2025-05-21 17:06:01.511 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/_vs/browserLink - 200 null text/javascript; charset=UTF-8 6.5843ms
+2025-05-21 17:06:04.741 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/Admin/Pet - null null
+2025-05-21 17:06:04.752 +07:00 [INF] Executing endpoint 'DoAnLTW.Areas.Admin.Controllers.PetController.Index (DoAnLTW)'
+2025-05-21 17:06:04.754 +07:00 [INF] Route matched with {area = "Admin", action = "Index", controller = "Pet", page = ""}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Index() on controller DoAnLTW.Areas.Admin.Controllers.PetController (DoAnLTW).
+2025-05-21 17:06:04.757 +07:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [p].[PetId], [p].[Age], [p].[Breed], [p].[Description], [p].[Gender], [p].[Name], [p].[Type], [p].[UserId]
+FROM [Pets] AS [p]
+2025-05-21 17:06:04.759 +07:00 [INF] Executing ViewResult, running view ~/Areas/Admin/Views/Pet/Index.cshtml.
+2025-05-21 17:06:04.760 +07:00 [INF] Executed DbCommand (1ms) [Parameters=[@__p_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[SecurityStamp], [a].[TwoFactorEnabled], [a].[UserName]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[Id] = @__p_0
+2025-05-21 17:06:04.764 +07:00 [INF] Executed DbCommand (0ms) [Parameters=[@__userId_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a0].[Name]
+FROM [AspNetUserRoles] AS [a]
+INNER JOIN [AspNetRoles] AS [a0] ON [a].[RoleId] = [a0].[Id]
+WHERE [a].[UserId] = @__userId_0
+2025-05-21 17:06:04.766 +07:00 [INF] Executed ViewResult - view ~/Areas/Admin/Views/Pet/Index.cshtml executed in 7.6153ms.
+2025-05-21 17:06:04.767 +07:00 [INF] Executed action DoAnLTW.Areas.Admin.Controllers.PetController.Index (DoAnLTW) in 11.6471ms
+2025-05-21 17:06:04.769 +07:00 [INF] Executed endpoint 'DoAnLTW.Areas.Admin.Controllers.PetController.Index (DoAnLTW)'
+2025-05-21 17:06:04.770 +07:00 [INF] HTTP GET /Admin/Pet responded 200 in 17.9754 ms
+2025-05-21 17:06:04.771 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/Admin/Pet - 200 null text/html; charset=utf-8 30.3585ms
+2025-05-21 17:06:04.789 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/_vs/browserLink - null null
+2025-05-21 17:06:04.789 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/_framework/aspnetcore-browser-refresh.js - null null
+2025-05-21 17:06:04.794 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/_framework/aspnetcore-browser-refresh.js - 200 16499 application/javascript; charset=utf-8 4.6028ms
+2025-05-21 17:06:04.795 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/_vs/browserLink - 200 null text/javascript; charset=UTF-8 5.746ms
+2025-05-21 17:20:32.214 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/Admin/Pet - null null
+2025-05-21 17:20:32.225 +07:00 [INF] Executing endpoint 'DoAnLTW.Areas.Admin.Controllers.PetController.Index (DoAnLTW)'
+2025-05-21 17:20:32.228 +07:00 [INF] Route matched with {area = "Admin", action = "Index", controller = "Pet", page = ""}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Index() on controller DoAnLTW.Areas.Admin.Controllers.PetController (DoAnLTW).
+2025-05-21 17:20:32.243 +07:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [p].[PetId], [p].[Age], [p].[Breed], [p].[Description], [p].[Gender], [p].[Name], [p].[Type], [p].[UserId]
+FROM [Pets] AS [p]
+2025-05-21 17:20:32.247 +07:00 [INF] Executing ViewResult, running view ~/Areas/Admin/Views/Pet/Index.cshtml.
+2025-05-21 17:20:32.256 +07:00 [INF] Executed DbCommand (3ms) [Parameters=[@__p_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[SecurityStamp], [a].[TwoFactorEnabled], [a].[UserName]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[Id] = @__p_0
+2025-05-21 17:20:32.263 +07:00 [INF] Executed DbCommand (4ms) [Parameters=[@__userId_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a0].[Name]
+FROM [AspNetUserRoles] AS [a]
+INNER JOIN [AspNetRoles] AS [a0] ON [a].[RoleId] = [a0].[Id]
+WHERE [a].[UserId] = @__userId_0
+2025-05-21 17:20:32.266 +07:00 [INF] Executed ViewResult - view ~/Areas/Admin/Views/Pet/Index.cshtml executed in 19.7784ms.
+2025-05-21 17:20:32.268 +07:00 [INF] Executed action DoAnLTW.Areas.Admin.Controllers.PetController.Index (DoAnLTW) in 38.2214ms
+2025-05-21 17:20:32.270 +07:00 [INF] Executed endpoint 'DoAnLTW.Areas.Admin.Controllers.PetController.Index (DoAnLTW)'
+2025-05-21 17:20:32.270 +07:00 [INF] HTTP GET /Admin/Pet responded 200 in 46.4705 ms
+2025-05-21 17:20:32.272 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/Admin/Pet - 200 null text/html; charset=utf-8 58.2312ms
+2025-05-21 17:20:32.293 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/_vs/browserLink - null null
+2025-05-21 17:20:32.294 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/_framework/aspnetcore-browser-refresh.js - null null
+2025-05-21 17:20:32.301 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/_framework/aspnetcore-browser-refresh.js - 200 16499 application/javascript; charset=utf-8 6.8726ms
+2025-05-21 17:20:32.307 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/_vs/browserLink - 200 null text/javascript; charset=UTF-8 13.5546ms
+2025-05-21 17:20:41.012 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/Admin/Service - null null
+2025-05-21 17:20:41.023 +07:00 [INF] Executing endpoint 'DoAnLTW.Areas.Admin.Controllers.ServiceController.Index (DoAnLTW)'
+2025-05-21 17:20:41.028 +07:00 [INF] Route matched with {area = "Admin", action = "Index", controller = "Service", page = ""}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Index() on controller DoAnLTW.Areas.Admin.Controllers.ServiceController (DoAnLTW).
+2025-05-21 17:20:41.031 +07:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [s].[ServiceId], [s].[Description], [s].[Duration], [s].[Name], [s].[Price]
+FROM [Services] AS [s]
+2025-05-21 17:20:41.035 +07:00 [INF] Executing ViewResult, running view Index.
+2025-05-21 17:20:41.038 +07:00 [INF] Executed DbCommand (0ms) [Parameters=[@__p_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[SecurityStamp], [a].[TwoFactorEnabled], [a].[UserName]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[Id] = @__p_0
+2025-05-21 17:20:41.042 +07:00 [INF] Executed DbCommand (0ms) [Parameters=[@__userId_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a0].[Name]
+FROM [AspNetUserRoles] AS [a]
+INNER JOIN [AspNetRoles] AS [a0] ON [a].[RoleId] = [a0].[Id]
+WHERE [a].[UserId] = @__userId_0
+2025-05-21 17:20:41.045 +07:00 [INF] Executed ViewResult - view Index executed in 10.1979ms.
+2025-05-21 17:20:41.046 +07:00 [INF] Executed action DoAnLTW.Areas.Admin.Controllers.ServiceController.Index (DoAnLTW) in 17.1451ms
+2025-05-21 17:20:41.048 +07:00 [INF] Executed endpoint 'DoAnLTW.Areas.Admin.Controllers.ServiceController.Index (DoAnLTW)'
+2025-05-21 17:20:41.048 +07:00 [INF] HTTP GET /Admin/Service responded 200 in 30.0655 ms
+2025-05-21 17:20:41.051 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/Admin/Service - 200 null text/html; charset=utf-8 39.2715ms
+2025-05-21 17:20:41.068 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/_vs/browserLink - null null
+2025-05-21 17:20:41.068 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/_framework/aspnetcore-browser-refresh.js - null null
+2025-05-21 17:20:41.073 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/_framework/aspnetcore-browser-refresh.js - 200 16499 application/javascript; charset=utf-8 4.2669ms
+2025-05-21 17:20:41.074 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/_vs/browserLink - 200 null text/javascript; charset=UTF-8 5.8037ms
+2025-05-21 17:20:42.036 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/Admin/Pet - null null
+2025-05-21 17:20:42.051 +07:00 [INF] Executed DbCommand (0ms) [Parameters=[@__p_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[SecurityStamp], [a].[TwoFactorEnabled], [a].[UserName]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[Id] = @__p_0
+2025-05-21 17:20:42.056 +07:00 [INF] Executed DbCommand (2ms) [Parameters=[@__user_Id_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a].[Id], [a].[ClaimType], [a].[ClaimValue], [a].[UserId]
+FROM [AspNetUserClaims] AS [a]
+WHERE [a].[UserId] = @__user_Id_0
+2025-05-21 17:20:42.059 +07:00 [INF] Executed DbCommand (1ms) [Parameters=[@__userId_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a0].[Name]
+FROM [AspNetUserRoles] AS [a]
+INNER JOIN [AspNetRoles] AS [a0] ON [a].[RoleId] = [a0].[Id]
+WHERE [a].[UserId] = @__userId_0
+2025-05-21 17:20:42.063 +07:00 [INF] Executed DbCommand (2ms) [Parameters=[@__normalizedName_0='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[ConcurrencyStamp], [a].[Name], [a].[NormalizedName]
+FROM [AspNetRoles] AS [a]
+WHERE [a].[NormalizedName] = @__normalizedName_0
+2025-05-21 17:20:42.068 +07:00 [INF] Executed DbCommand (2ms) [Parameters=[@__role_Id_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a].[ClaimType], [a].[ClaimValue]
+FROM [AspNetRoleClaims] AS [a]
+WHERE [a].[RoleId] = @__role_Id_0
+2025-05-21 17:20:42.072 +07:00 [INF] Executing endpoint 'DoAnLTW.Areas.Admin.Controllers.PetController.Index (DoAnLTW)'
+2025-05-21 17:20:42.073 +07:00 [INF] Route matched with {area = "Admin", action = "Index", controller = "Pet", page = ""}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Index() on controller DoAnLTW.Areas.Admin.Controllers.PetController (DoAnLTW).
+2025-05-21 17:20:42.076 +07:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [p].[PetId], [p].[Age], [p].[Breed], [p].[Description], [p].[Gender], [p].[Name], [p].[Type], [p].[UserId]
+FROM [Pets] AS [p]
+2025-05-21 17:20:42.078 +07:00 [INF] Executing ViewResult, running view ~/Areas/Admin/Views/Pet/Index.cshtml.
+2025-05-21 17:20:42.080 +07:00 [INF] Executed DbCommand (0ms) [Parameters=[@__userId_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a0].[Name]
+FROM [AspNetUserRoles] AS [a]
+INNER JOIN [AspNetRoles] AS [a0] ON [a].[RoleId] = [a0].[Id]
+WHERE [a].[UserId] = @__userId_0
+2025-05-21 17:20:42.083 +07:00 [INF] Executed ViewResult - view ~/Areas/Admin/Views/Pet/Index.cshtml executed in 4.8627ms.
+2025-05-21 17:20:42.085 +07:00 [INF] Executed action DoAnLTW.Areas.Admin.Controllers.PetController.Index (DoAnLTW) in 9.609ms
+2025-05-21 17:20:42.087 +07:00 [INF] Executed endpoint 'DoAnLTW.Areas.Admin.Controllers.PetController.Index (DoAnLTW)'
+2025-05-21 17:20:42.088 +07:00 [INF] HTTP GET /Admin/Pet responded 200 in 40.4036 ms
+2025-05-21 17:20:42.089 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/Admin/Pet - 200 null text/html; charset=utf-8 53.2043ms
+2025-05-21 17:20:42.105 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/_vs/browserLink - null null
+2025-05-21 17:20:42.106 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/_framework/aspnetcore-browser-refresh.js - null null
+2025-05-21 17:20:42.109 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/_framework/aspnetcore-browser-refresh.js - 200 16499 application/javascript; charset=utf-8 3.7052ms
+2025-05-21 17:20:42.140 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/_vs/browserLink - 200 null text/javascript; charset=UTF-8 34.1504ms

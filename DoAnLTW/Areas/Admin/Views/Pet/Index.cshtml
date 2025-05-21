@@ -1,65 +1,212 @@
 ﻿@model IEnumerable<DoAnLTW.Models.Pet>
 @{
-    ViewData["Title"] = "Quản lý thú cưng";
+    ViewData["Title"] = "Quản Lý Thú Cưng";
     Layout = "~/Areas/Admin/Views/Shared/layoutAdmin.cshtml";
 }
 
-<div class="page-header">
-    <h3 class="page-title">
-        <span class="page-title-icon bg-gradient-primary text-white me-2">
-            <i class="fa-solid fa-paw"></i>
-        </span> Quản lý thú cưng
-    </h3>
-    <nav aria-label="breadcrumb">
-        <ul class="breadcrumb">
-            <li class="breadcrumb-item active" aria-current="page">
-                <span></span>Danh sách thú cưng
-            </li>
-        </ul>
-    </nav>
-</div>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+<style>
+    /* General page styling */
+    body {
+        background-color: #000000; /* Black background */
+        color: #FFFFFF; /* White text */
+        font-family: 'Arial', sans-serif;
+    }
 
-<div class="row">
-    <div class="col-lg-12 grid-margin stretch-card">
-        <div class="card">
-            <div class="card-body">
-                <h4 class="card-title">Danh sách thú cưng</h4>
-                <div class="table-responsive">
-                    <table class="table table-hover">
-                        <thead>
-                            <tr>
-                                <th>ID</th>
-                                <th>Tên</th>
-                                <th>Loại</th>
-                                <th>Giống</th>
-                                <th>Tuổi</th>
-                                <th>Giới tính</th>
-                               
-                                <th>Thao tác</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach (var item in Model)
-                            {
+    h3 {
+        color: #FFD700; /* Gold heading */
+        border-bottom: 2px solid #FFD700;
+        padding-bottom: 10px;
+        margin-bottom: 20px;
+        text-align: center;
+        text-transform: uppercase;
+        animation: fadeInDown 0.5s ease-in-out;
+    }
+
+    /* Card styling */
+    .card {
+        background-color: #FFFFFF; /* White card background */
+        color: #000000; /* Black text */
+        border: 1px solid #FFD700; /* Gold border */
+        border-radius: 10px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        margin-bottom: 20px;
+    }
+
+    .card-title {
+        color: #FFD700; /* Gold title */
+        font-weight: bold;
+    }
+
+    /* Table styling */
+    .table {
+        background-color: #FFFFFF; /* White table background */
+        color: #000000; /* Black text */
+        border-collapse: separate;
+        border-spacing: 0 10px;
+    }
+
+        .table thead th {
+            background-color: #FFD700; /* Gold header background */
+            color: #000000; /* Black header text */
+            text-transform: uppercase;
+            font-weight: bold;
+            padding: 15px;
+            border: none;
+            text-align: center;
+        }
+
+        .table tbody tr {
+            transition: all 0.3s ease;
+        }
+
+            .table tbody tr:hover {
+                background-color: #FFD70033; /* Light gold hover effect */
+                box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+            }
+
+        .table td {
+            padding: 15px;
+            vertical-align: middle;
+            border: 1px solid #000000; /* Black borders */
+        }
+
+        .table tbody tr:nth-child(even) {
+            background-color: #F5F5F5; /* Light gray for alternating rows */
+        }
+
+    /* Button styling */
+    .btn-outline-info {
+        background-color: #FFD700; /* Gold background */
+        border-color: #FFD700;
+        color: #000000; /* Black text */
+        font-weight: bold;
+        padding: 6px 12px;
+        border-radius: 5px;
+        transition: all 0.3s ease;
+    }
+
+        .btn-outline-info:hover {
+            background-color: #E6C200; /* Darker gold */
+            border-color: #E6C200;
+            color: #000000;
+            box-shadow: 0 4px 10px rgba(255, 215, 0, 0.3);
+        }
+
+    /* Breadcrumb styling */
+    .breadcrumb {
+        background-color: transparent; /* Transparent background */
+        padding: 0;
+    }
+
+    .breadcrumb-item {
+        color: #FFD700; /* Gold text */
+    }
+
+        .breadcrumb-item.active {
+            color: #FFFFFF; /* White for active item */
+        }
+
+    /* Animations */
+    @@keyframes fadeInDown {
+        from
+
+    {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    }
+
+    /* Responsive adjustments */
+    @@media (max-width: 768px) {
+        .table th, .table td
+
+    {
+        padding: 10px;
+        font-size: 0.9rem;
+    }
+
+    .btn-outline-info {
+        padding: 5px 10px;
+        font-size: 0.9rem;
+    }
+
+    h3 {
+        font-size: 1.5rem;
+    }
+
+    .card {
+        padding: 10px;
+    }
+
+    }
+</style>
+
+<div class="container-fluid">
+    <div class="page-header">
+        <h3>
+            <span class="page-title-icon bg-gradient-primary text-white me-2">
+                <i class="fas fa-paw"></i>
+            </span> Quản Lý Thú Cưng
+        </h3>
+        <nav aria-label="breadcrumb">
+            <ul class="breadcrumb">
+                <li class="breadcrumb-item active" aria-current="page">
+                    Danh Sách Thú Cưng
+                </li>
+            </ul>
+        </nav>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-12 grid-margin stretch-card">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">Danh Sách Thú Cưng</h4>
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
                                 <tr>
-                                    <td>@item.PetId</td>
-                                    <td>@item.Name</td>
-                                    <td>@item.Type</td>
-                                    <td>@item.Breed</td>
-                                    <td>@item.Age</td>
-                                    <td>@item.Gender</td>
-                                    
-                                    <td>
-                                        <div class="btn-group" role="group">
-                                            <a asp-action="Detail" asp-route-id="@item.PetId" class="btn btn-outline-info btn-sm">
-                                                <i class="mdi mdi-eye"></i> Chi tiết
-                                            </a>
-                                        </div>
-                                    </td>
+                                    <th>ID</th>
+                                    <th>Tên</th>
+                                    <th>Loại</th>
+                                    <th>Giống</th>
+                                    <th>Tuổi</th>
+                                    <th>Giới Tính</th>
+                                    <th>Thao Tác</th>
                                 </tr>
-                            }
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td>@item.PetId</td>
+                                        <td>@item.Name</td>
+                                        <td>@item.Type</td>
+                                        <td>@item.Breed</td>
+                                        <td>@item.Age</td>
+                                        <td>@item.Gender</td>
+                                        <td>
+                                            <div class="btn-group" role="group">
+                                                <a asp-action="Detail" asp-route-id="@item.PetId" class="btn btn-outline-info btn-sm">
+                                                    <i class="fas fa-eye"></i> Chi Tiết
+                                                </a>
+                                                <a asp-action="Delete" asp-route-id="@item.PetId" class="btn btn-outline-danger btn-sm">
+                                                    <i class="fas fa-trash"></i> Xóa
+                                                </a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>

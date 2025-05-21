@@ -1,26 +1,149 @@
 ﻿@model DoAnLTW.Models.Pet
-
 @{
-     Layout = "~/Areas/Admin/Views/Shared/layoutAdmin.cshtml";
+    ViewData["Title"] = "Xác Nhận Xóa Thú Cưng";
+    Layout = "~/Areas/Admin/Views/Shared/layoutAdmin.cshtml";
 }
 
-<h1 class="text-center">Xác Nhận Xóa Thú Cưng</h1>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+<style>
+    /* General page styling */
+    body {
+        background-color: #000000; /* Black background */
+        color: #FFFFFF; /* White text */
+        font-family: 'Arial', sans-serif;
+    }
 
-<div class="text-center">
-    <h3>Bạn có chắc chắn muốn xóa thú cưng này không?</h3>
-    <div>
-        <h4>Thông tin thú cưng:</h4>
-        <p><strong>Tên:</strong> @Model.Name</p>
-        <p><strong>Loại:</strong> @Model.Type</p>
-        <p><strong>Giống:</strong> @Model.Breed</p>
-        <p><strong>Tuổi:</strong> @Model.Age</p>
-        <p><strong>Giới tính:</strong> @Model.Gender</p>
-        <p><strong>Mô tả:</strong> @Model.Description</p>
+    h1, h3, h4 {
+        color: #FFD700; /* Gold heading */
+        text-align: center;
+        text-transform: uppercase;
+        animation: fadeInDown 0.5s ease-in-out;
+    }
+
+    h1 {
+        border-bottom: 2px solid #FFD700;
+        padding-bottom: 10px;
+        margin-bottom: 20px;
+    }
+
+    /* Container styling */
+    .delete-container {
+        background-color: #FFFFFF; /* White background */
+        color: #000000; /* Black text */
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        border: 1px solid #FFD700; /* Gold border */
+    }
+
+    p {
+        color: #000000; /* Black text */
+        margin-bottom: 10px;
+    }
+
+        p strong {
+            font-weight: bold;
+        }
+
+    /* Button styling */
+    .btn-danger {
+        background-color: #000000; /* Black background */
+        border-color: #FFD700; /* Gold border */
+        color: #FFD700; /* Gold text */
+        font-weight: bold;
+        padding: 8px 16px;
+        border-radius: 5px;
+        transition: all 0.3s ease;
+    }
+
+        .btn-danger:hover {
+            background-color: #333333; /* Darker black */
+            border-color: #FFD700;
+            color: #FFD700;
+            box-shadow: 0 4px 10px rgba(255, 215, 0, 0.3);
+        }
+
+    .btn-secondary {
+        background-color: #000000; /* Black background */
+        border-color: #FFD700; /* Gold border */
+        color: #FFD700; /* Gold text */
+        padding: 8px 16px;
+        border-radius: 5px;
+        transition: all 0.3s ease;
+    }
+
+        .btn-secondary:hover {
+            background-color: #333333; /* Darker black */
+            border-color: #FFD700;
+            color: #FFD700;
+            box-shadow: 0 4px 10px rgba(255, 215, 0, 0.3);
+        }
+
+    /* Animations */
+    @@keyframes fadeInDown {
+        from
+
+    {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    }
+
+    /* Responsive adjustments */
+    @@media (max-width: 768px) {
+        .delete-container
+
+    {
+        padding: 15px;
+    }
+
+    h1, h3, h4 {
+        font-size: 1.2rem;
+    }
+
+    p {
+        font-size: 0.9rem;
+    }
+
+    .btn-danger, .btn-secondary {
+        padding: 6px 12px;
+        font-size: 0.9rem;
+    }
+
+    }
+</style>
+
+<div class="container-fluid">
+    <h1>Xác Nhận Xóa Thú Cưng</h1>
+
+    <div class="row">
+        <div class="col-md-6 offset-md-3">
+            <div class="delete-container text-center">
+                <h3>Bạn có chắc chắn muốn xóa thú cưng này không?</h3>
+                <div>
+                    <h4>Thông Tin Thú Cưng:</h4>
+                    <p><strong>Tên:</strong> @Model.Name</p>
+                    <p><strong>Loại:</strong> @Model.Type</p>
+                    <p><strong>Giống:</strong> @Model.Breed</p>
+                    <p><strong>Tuổi:</strong> @Model.Age</p>
+                    <p><strong>Giới Tính:</strong> @Model.Gender</p>
+                    <p><strong>Mô Tả:</strong> @Model.Description</p>
+                </div>
+
+                <form method="post" asp-action="Delete" asp-route-id="@Model.PetId">
+                    @Html.AntiForgeryToken()
+                    <div class="form-group text-center mt-3">
+                        <button type="submit" class="btn btn-danger"><i class="fas fa-trash"></i> Xóa Thú Cưng</button>
+                        <a asp-action="Index" asp-controller="Pet" asp-area="Admin" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Hủy</a>
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
-
-    <form method="post" asp-action="Delete" asp-route-id="@Model.PetId">
-        @Html.AntiForgeryToken() <!-- Thêm token để bảo vệ khỏi CSRF -->
-        <button type="submit" class="btn btn-danger">Xóa Thú Cưng</button>
-        <a asp-action="Index" class="btn btn-secondary">Hủy</a>
-    </form>
 </div>

@@ -1,45 +1,205 @@
 ﻿@model DoAnLTW.Models.Category
-
 @{
     ViewData["Title"] = "Thêm Danh Mục";
     Layout = "~/Areas/Admin/Views/Shared/layoutAdmin.cshtml";
 }
 
-<h2>Thêm Danh Mục</h2>
-
-<form asp-action="Create" method="post" enctype="multipart/form-data">
-    <div class="form-group">
-        <label for="Name">Tên Danh Mục</label>
-        <input asp-for="Name" class="form-control" required />
-        <span asp-validation-for="Name" class="text-danger"></span>
-    </div>
-    <div class="form-group mb-3">
-        <label class="control-label">Hình ảnh danh mục</label>
-        <input type="file" name="ImageFile" class="form-control" accept="image/*" id="imageInput" onchange="previewImage(event)" />
-
-        @if (!string.IsNullOrEmpty(Model?.ImageUrl))
-        {
-            <img id="preview" src="@Model.ImageUrl" alt="Ảnh danh mục" width="100" class="mt-2" />
-        }
-        else
-        {
-            <img id="preview" src="#" alt="Ảnh danh mục" width="100" class="mt-2" style="display: none;" />
-        }
-
-        <span class="text-danger" asp-validation-for="ImageUrl"></span>
-    </div>
-
-    <button type="submit" class="btn btn-success mt-2">Lưu</button>
-    <a asp-action="Index" class="btn btn-secondary mt-2">Quay lại</a>
-</form>
-<script>
-    function previewImage(event) {
-        var reader = new FileReader();
-        reader.onload = function(){
-            var output = document.getElementById('preview');
-            output.src = reader.result;
-            output.style.display = "block";
-        };
-        reader.readAsDataURL(event.target.files[0]);
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+<style>
+    /* General page styling */
+    body {
+        background-color: #000000; /* Black background */
+        color: #FFFFFF; /* White text */
+        font-family: 'Arial', sans-serif;
     }
-</script>
+
+    h2 {
+        color: #FFD700; /* Gold heading */
+        border-bottom: 2px solid #FFD700;
+        padding-bottom: 10px;
+        margin-bottom: 20px;
+        text-align: center;
+        text-transform: uppercase;
+        animation: fadeInDown 0.5s ease-in-out;
+    }
+
+    /* Form styling */
+    .form-container {
+        background-color: #FFFFFF; /* White form background */
+        color: #000000; /* Black text */
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        border: 1px solid #FFD700; /* Gold border */
+    }
+
+    .form-group {
+        margin-bottom: 15px;
+    }
+
+        .form-group label {
+            color: #000000; /* Black label text */
+            font-weight: 500;
+            margin-bottom: 5px;
+        }
+
+    .form-control {
+        background-color: #F5F5F5; /* Light gray input background */
+        border: 1px solid #000000; /* Black border */
+        color: #000000; /* Black text */
+        border-radius: 5px;
+        padding: 8px;
+    }
+
+        .form-control:focus {
+            border-color: #FFD700; /* Gold border on focus */
+            box-shadow: 0 0 5px rgba(255, 215, 0, 0.5);
+            background-color: #FFFFFF; /* White background on focus */
+        }
+
+    /* Image styling */
+    img#preview {
+        border-radius: 5px;
+        border: 1px solid #000000; /* Black border */
+        margin-top: 10px;
+    }
+
+    /* Button styling */
+    .btn-success {
+        background-color: #FFD700; /* Gold background */
+        border-color: #FFD700;
+        color: #000000; /* Black text */
+        font-weight: bold;
+        padding: 8px 16px;
+        border-radius: 5px;
+        transition: all 0.3s ease;
+    }
+
+        .btn-success:hover {
+            background-color: #E6C200; /* Darker gold on hover */
+            border-color: #E6C200;
+            color: #000000;
+            box-shadow: 0 4px 10px rgba(255, 215, 0, 0.3);
+        }
+
+    .btn-secondary {
+        background-color: #000000; /* Black background */
+        border-color: #FFD700; /* Gold border */
+        color: #FFD700; /* Gold text */
+        padding: 8px 16px;
+        border-radius: 5px;
+        transition: all 0.3s ease;
+    }
+
+        .btn-secondary:hover {
+            background-color: #333333; /* Darker black on hover */
+            border-color: #FFD700;
+            color: #FFD700;
+            box-shadow: 0 4px 10px rgba(255, 215, 0, 0.3);
+        }
+
+    /* Validation error styling */
+    .text-danger {
+        color: #FFD700 !important; /* Gold error text */
+        font-size: 0.85rem;
+    }
+
+    .field-validation-error {
+        display: block;
+        margin-top: 5px;
+    }
+
+    /* Animations */
+    @@keyframes fadeInDown {
+        from
+
+    {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    }
+
+    /* Responsive adjustments */
+    @@media (max-width: 768px) {
+        .form-container
+
+    {
+        padding: 15px;
+    }
+
+    .form-group label {
+        font-size: 0.9rem;
+    }
+
+    .form-control {
+        font-size: 0.9rem;
+        padding: 6px;
+    }
+
+    .btn-success, .btn-secondary {
+        padding: 6px 12px;
+        font-size: 0.9rem;
+    }
+
+    img#preview {
+        width: 80px;
+    }
+
+    }
+</style>
+
+<div class="container-fluid">
+    <h2>Thêm Danh Mục</h2>
+
+    <div class="row">
+        <div class="col-md-6 offset-md-3">
+            <div class="form-container">
+                <form asp-action="Create" method="post" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <label asp-for="Name" class="control-label">Tên Danh Mục</label>
+                        <input asp-for="Name" class="form-control" placeholder="Nhập tên danh mục" required />
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
+                    <div class="form-group mb-3">
+                        <label class="control-label">Hình ảnh danh mục</label>
+                        <input type="file" name="ImageFile" class="form-control" accept="image/*" id="imageInput" onchange="previewImage(event)" />
+                        @if (!string.IsNullOrEmpty(Model?.ImageUrl))
+                        {
+                            <img id="preview" src="@Model.ImageUrl" alt="Ảnh danh mục" style="width:100px; height:auto;" class="mt-2" />
+                        }
+                        else
+                        {
+                            <img id="preview" src="#" alt="Ảnh danh mục" style="width:100px; height:auto;" class="mt-2" style="display: none;" />
+                        }
+                        <span class="text-danger" asp-validation-for="ImageUrl"></span>
+                    </div>
+                    <div class="form-group text-center">
+                        <button type="submit" class="btn btn-success"><i class="fas fa-save"></i> Lưu</button>
+                        <a asp-action="Index" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Quay lại</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script>
+        function previewImage(event) {
+            var reader = new FileReader();
+            reader.onload = function () {
+                var output = document.getElementById('preview');
+                output.src = reader.result;
+                output.style.display = "block";
+            };
+            reader.readAsDataURL(event.target.files[0]);
+        }
+    </script>
+}

@@ -1,40 +1,162 @@
 ﻿@model DoAnLTW.Models.PetService
-
 @{
-    ViewData["Title"] = "Xóa dịch vụ thú cưng";
-    Layout = "~/Areas/Admin/Views/Shared/layoutAdmin.cshtml"; // Chỉ định layout
+    ViewData["Title"] = "Xóa Dịch Vụ Thú Cưng";
+    Layout = "~/Areas/Admin/Views/Shared/layoutAdmin.cshtml";
 }
 
-<h1>@ViewData["Title"]</h1>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+<style>
+    /* General page styling */
+    body {
+        background-color: #000000; /* Black background */
+        color: #FFFFFF; /* White text */
+        font-family: 'Arial', sans-serif;
+    }
 
-<div>
-    <h4>Xác nhận xóa dịch vụ</h4>
-    <hr />
-    <dl class="row">
-        <dt class="col-sm-2">ID</dt>
-        <dd class="col-sm-10">@Model.Id</dd>
+    h1, h4 {
+        color: #FFD700; /* Gold heading */
+        text-align: center;
+        text-transform: uppercase;
+        animation: fadeInDown 0.5s ease-in-out;
+    }
 
-        <dt class="col-sm-2">Thú cưng</dt>
-        <dd class="col-sm-10">@Model.Pet?.Name</dd>
+    h1 {
+        border-bottom: 2px solid #FFD700;
+        padding-bottom: 10px;
+        margin-bottom: 20px;
+    }
 
-        <dt class="col-sm-2">Dịch vụ</dt>
-        <dd class="col-sm-10">@Model.Service?.Name</dd>
+    hr {
+        border-color: #FFD700; /* Gold divider */
+        margin: 20px 0;
+    }
 
-        <dt class="col-sm-2">Ngày đặt</dt>
-        <dd class="col-sm-10">@Model.AppointmentDate.ToShortDateString()</dd>
+    /* Definition list styling */
+    .dl-horizontal {
+        background-color: #FFFFFF; /* White background */
+        color: #000000; /* Black text */
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        border: 1px solid #FFD700; /* Gold border */
+    }
 
-        <dt class="col-sm-2">Giờ đặt</dt>
-        <dd class="col-sm-10">@Model.AppointmentTime.ToShortTimeString()</dd>
+        .dl-horizontal dt {
+            font-weight: 500;
+            color: #000000; /* Black label text */
+            margin-bottom: 5px;
+        }
 
-        <dt class="col-sm-2">Trạng thái</dt>
-        <dd class="col-sm-10">@Model.Status.ToString()</dd>
-    </dl>
+        .dl-horizontal dd {
+            margin-bottom: 15px;
+            color: #000000; /* Black value text */
+        }
+
+    /* Button styling */
+    .btn-danger {
+        background-color: #000000; /* Black background */
+        border-color: #FFD700; /* Gold border */
+        color: #FFD700; /* Gold text */
+        font-weight: bold;
+        padding: 8px 16px;
+        border-radius: 5px;
+        transition: all 0.3s ease;
+    }
+
+        .btn-danger:hover {
+            background-color: #333333; /* Darker black */
+            border-color: #FFD700;
+            color: #FFD700;
+            box-shadow: 0 4px 10px rgba(255, 215, 0, 0.3);
+        }
+
+    .btn-secondary {
+        background-color: #000000; /* Black background */
+        border-color: #FFD700; /* Gold border */
+        color: #FFD700; /* Gold text */
+        padding: 8px 16px;
+        border-radius: 5px;
+        transition: all 0.3s ease;
+    }
+
+        .btn-secondary:hover {
+            background-color: #333333; /* Darker black */
+            border-color: #FFD700;
+            color: #FFD700;
+            box-shadow: 0 4px 10px rgba(255, 215, 0, 0.3);
+        }
+
+    /* Animations */
+    @@keyframes fadeInDown {
+        from
+
+    {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    }
+
+    /* Responsive adjustments */
+    @@media (max-width: 768px) {
+        .dl-horizontal
+
+    {
+        padding: 15px;
+    }
+
+    .dl-horizontal dt, .dl-horizontal dd {
+        font-size: 0.9rem;
+    }
+
+    .btn-danger, .btn-secondary {
+        padding: 6px 12px;
+        font-size: 0.9rem;
+    }
+
+    h1, h4 {
+        font-size: 1.2rem;
+    }
+
+    }
+</style>
+
+<div class="container-fluid">
+    <h1>Xóa Dịch Vụ Thú Cưng</h1>
+
+    <div class="row">
+        <div class="col-md-6 offset-md-3">
+            <div class="dl-horizontal">
+                <h4>Xác Nhận Xóa Dịch Vụ</h4>
+                <hr />
+                <dl class="row">
+                    <dt class="col-sm-3">ID</dt>
+                    <dd class="col-sm-9">@Model.Id</dd>
+                    <dt class="col-sm-3">Thú Cưng</dt>
+                    <dd class="col-sm-9">@Model.Pet?.Name</dd>
+                    <dt class="col-sm-3">Dịch Vụ</dt>
+                    <dd class="col-sm-9">@Model.Service?.Name</dd>
+                    <dt class="col-sm-3">Ngày Đặt</dt>
+                    <dd class="col-sm-9">@Model.AppointmentDate.ToString("dd/MM/yyyy")</dd>
+                    <dt class="col-sm-3">Giờ Đặt</dt>
+                    <dd class="col-sm-9">@Model.AppointmentTime.ToString("HH:mm")</dd>
+                    <dt class="col-sm-3">Trạng Thái</dt>
+                    <dd class="col-sm-9">@Model.Status</dd>
+                </dl>
+                <h4>Bạn có chắc chắn muốn xóa dịch vụ này không?</h4>
+                <form asp-action="DeleteConfirmed" method="post">
+                    <input type="hidden" asp-for="Id" />
+                    <div class="form-group text-center mt-3">
+                        <button type="submit" class="btn btn-danger"><i class="fas fa-trash"></i> Xóa</button>
+                        <a asp-action="Index" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Quay Lại</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 </div>
-
-<h4>Bạn có chắc chắn muốn xóa dịch vụ này không?</h4>
-
-<form asp-action="DeleteConfirmed" method="post">
-    <input type="hidden" asp-for="Id" />
-    <button type="submit" class="btn btn-danger">Xóa</button>
-    <a asp-action="Index" class="btn btn-secondary">Quay lại</a>
-</form>
