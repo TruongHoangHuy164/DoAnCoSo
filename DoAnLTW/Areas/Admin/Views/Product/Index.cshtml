@@ -1,28 +1,60 @@
-﻿@* @model List<DoAnLTW.Models.Product>
-
+﻿@model IEnumerable<DoAnLTW.Models.Product>
 @{
-    ViewData["Title"] = "Danh sách sản phẩm";
+    ViewData["Title"] = "Danh Sách Sản Phẩm";
     Layout = "~/Areas/Admin/Views/Shared/layoutAdmin.cshtml";
 }
 
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 <style>
-    /* Tùy chỉnh bảng */
+    /* General page styling */
+    body {
+        background-color: #000000; /* Black background */
+        color: #FFFFFF; /* White text */
+        font-family: 'Arial', sans-serif;
+    }
+
+    h2 {
+        color: #FFD700; /* Gold heading */
+        border-bottom: 2px solid #FFD700;
+        padding-bottom: 10px;
+        margin-bottom: 20px;
+        text-align: center;
+        text-transform: uppercase;
+        animation: fadeInDown 0.5s ease-in-out;
+    }
+
+    /* Card styling */
+    .card {
+        background-color: #FFFFFF; /* White card background */
+        color: #000000; /* Black text */
+        border: 1px solid #FFD700; /* Gold border */
+        border-radius: 10px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        margin-bottom: 20px;
+    }
+
+    .card-body {
+        padding: 20px;
+    }
+
+    /* Table styling */
     .table {
+        background-color: #FFFFFF; /* White table background */
+        color: #000000; /* Black text */
         border-collapse: separate;
         border-spacing: 0 10px;
-        background-color: #fff;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
         border-radius: 10px;
         overflow: hidden;
     }
 
         .table thead th {
-            background-color: #007bff;
-            color: white;
+            background-color: #FFD700; /* Gold header background */
+            color: #000000; /* Black header text */
             text-transform: uppercase;
             font-weight: bold;
             padding: 15px;
             border: none;
+            text-align: center;
         }
 
         .table tbody tr {
@@ -30,279 +62,252 @@
         }
 
             .table tbody tr:hover {
-                background-color: #f1f8ff;
-                transform: scale(1.02);
+                background-color: #FFD70033; /* Light gold hover effect */
                 box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
             }
 
         .table td {
             padding: 15px;
             vertical-align: middle;
+            border: 1px solid #000000; /* Black borders */
         }
 
-    /* Tùy chỉnh tiêu đề */
-    h2.text-center {
-        color: #007bff;
+        .table tbody tr:nth-child(even) {
+            background-color: #F5F5F5; /* Light gray for alternating rows */
+        }
+
+        /* Image styling */
+        .table img {
+            border-radius: 5px;
+            transition: transform 0.3s ease;
+            max-width: 100px;
+            height: auto;
+            object-fit: cover;
+        }
+
+            .table img:hover {
+                transform: scale(1.1);
+            }
+
+    /* Button styling */
+    .btn-primary {
+        background-color: #FFD700; /* Gold background */
+        border-color: #FFD700;
+        color: #000000; /* Black text */
         font-weight: bold;
-        text-transform: uppercase;
-        margin-bottom: 30px;
-        animation: fadeInDown 0.5s ease-in-out;
+        padding: 10px 20px;
+        border-radius: 5px;
+        transition: all 0.3s ease;
     }
 
-    /* Tùy chỉnh thông báo */
-    .alert {
+        .btn-primary:hover {
+            background-color: #E6C200; /* Darker gold */
+            border-color: #E6C200;
+            box-shadow: 0 4px 10px rgba(255, 215, 0, 0.3);
+        }
+
+    .btn-info {
+        background-color: #FFD700; /* Gold background */
+        border-color: #FFD700;
+        color: #000000; /* Black text */
+        padding: 6px 12px;
+        border-radius: 5px;
+        transition: all 0.3s ease;
+    }
+
+        .btn-info:hover {
+            background-color: #E6C200; /* Darker gold */
+            border-color: #E6C200;
+            box-shadow: 0 4px 10px rgba(255, 215, 0, 0.3);
+        }
+
+    .btn-warning {
+        background-color: #FFD700; /* Gold background */
+        border-color: #FFD700;
+        color: #000000; /* Black text */
+        padding: 6px 12px;
+        border-radius: 5px;
+        transition: all 0.3s ease;
+    }
+
+        .btn-warning:hover {
+            background-color: #E6C200; /* Darker gold */
+            border-color: #E6C200;
+            box-shadow: 0 4px 10px rgba(255, 215, 0, 0.3);
+        }
+
+    .btn-danger {
+        background-color: #000000; /* Black background */
+        border-color: #FFD700; /* Gold border */
+        color: #FFD700; /* Gold text */
+        padding: 6px 12px;
+        border-radius: 5px;
+        transition: all 0.3s ease;
+    }
+
+        .btn-danger:hover {
+            background-color: #333333; /* Darker black */
+            border-color: #FFD700;
+            color: #FFD700;
+            box-shadow: 0 4px 10px rgba(255, 215, 0, 0.3);
+        }
+
+    /* Alert styling */
+    .alert-success {
+        background-color: #FFD700; /* Gold background */
+        color: #000000; /* Black text */
+        border-color: #FFD700;
         border-radius: 8px;
         padding: 15px;
         margin-bottom: 20px;
         animation: fadeIn 0.5s ease-in-out;
     }
 
-    .alert-success {
-        background-color: #d4edda;
-        color: #155724;
-        border: 1px solid #c3e6cb;
-    }
-
     .alert-danger {
-        background-color: #f8d7da;
-        color: #721c24;
-        border: 1px solid #f5c6cb;
+        background-color: #000000; /* Black background */
+        color: #FFD700; /* Gold text */
+        border: 1px solid #FFD700; /* Gold border */
+        border-radius: 8px;
+        padding: 15px;
+        margin-bottom: 20px;
+        animation: fadeIn 0.5s ease-in-out;
     }
 
-    /* Tùy chỉnh nút Thêm sản phẩm */
-    .btn-success {
-        padding: 10px 20px;
-        background-color: #28a745;
-        border: none;
-        border-radius: 5px;
-        font-weight: bold;
-        transition: all 0.3s ease;
-    }
-
-        .btn-success:hover {
-            background-color: #218838;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 10px rgba(40, 167, 69, 0.3);
-        }
-
-    /* Tùy chỉnh nút Xem */
-    .btn-info {
-        padding: 8px 15px;
-        background-color: #17a2b8;
-        color: white;
-        border: none;
-        border-radius: 5px;
-        font-weight: bold;
-        transition: all 0.3s ease;
-    }
-
-        .btn-info:hover {
-            background-color: #138496;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 10px rgba(23, 162, 184, 0.3);
-        }
-
-    /* Tùy chỉnh nút Sửa */
-    .btn-warning {
-        padding: 8px 15px;
-        background-color: #ffc107;
-        color: #212529;
-        border: none;
-        border-radius: 5px;
-        font-weight: bold;
-        transition: all 0.3s ease;
-    }
-
-        .btn-warning:hover {
-            background-color: #e0a800;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 10px rgba(255, 193, 7, 0.3);
-        }
-
-    /* Tùy chỉnh nút Xóa */
-    .btn-danger {
-        padding: 8px 15px;
-        background-color: #dc3545;
-        border: none;
-        border-radius: 5px;
-        font-weight: bold;
-        transition: all 0.3s ease;
-    }
-
-        .btn-danger:hover {
-            background-color: #c82333;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 10px rgba(220, 53, 69, 0.3);
-        }
-
-    /* Tùy chỉnh hình ảnh */
-    .table img {
-        border-radius: 5px;
-        transition: transform 0.3s ease;
-    }
-
-        .table img:hover {
-            transform: scale(1.1);
-        }
-
-    /* Hiệu ứng animation */
+    /* Animations */
     @@keyframes fadeInDown {
-        from {
-            opacity: 0;
-            transform: translateY(-20px);
-        }
+        from
 
-        to {
-            opacity: 1;
-            transform: translateY(0);
-        }
+    {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
     }
 
     @@keyframes fadeIn {
-        from {
-            opacity: 0;
-            transform: translateY(-10px);
-        }
+        from
 
-        to {
-            opacity: 1;
-            transform: translateY(0);
-        }
+    {
+        opacity: 0;
+        transform: translateY(-10px);
     }
 
-    /* Tùy chỉnh cột kích thước và giá */
-    .size-price-cell {
-        max-width: 200px;
-        overflow: hidden;
-        text-overflow: ellipsis;
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    }
+
+    /* Responsive adjustments */
+    @@media (max-width: 768px) {
+        .table th, .table td
+
+    {
+        padding: 10px;
+        font-size: 0.9rem;
+    }
+
+    .table img {
+        max-width: 80px;
+    }
+
+    .btn-primary, .btn-info, .btn-warning, .btn-danger {
+        padding: 6px 12px;
+        font-size: 0.9rem;
+    }
+
+    h2 {
+        font-size: 1.5rem;
+    }
+
+    .card {
+        padding: 10px;
+    }
+
+    .alert-success, .alert-danger {
+        font-size: 0.9rem;
+        padding: 10px;
+    }
+
     }
 </style>
 
-<h2 class="text-center">Danh sách sản phẩm</h2>
-
-@if (TempData["SuccessMessage"] != null)
-{
-    <div class="alert alert-success">@TempData["SuccessMessage"]</div>
-}
-
-@if (TempData["ErrorMessage"] != null)
-{
-    <div class="alert alert-danger">@TempData["ErrorMessage"]</div>
-}
-
-<a asp-action="Create" asp-controller="Product" asp-area="Admin" class="btn btn-success mb-3">Thêm sản phẩm</a>
-
-<table class="table table-bordered">
-    <thead>
-        <tr>
-            <th>Tên</th>
-            <th>Kích thước & Giá</th>
-            <th>Thương hiệu</th>
-            <th>Danh mục</th>
-            <th>Chi tiết sản phẩm</th>
-            <th>Hình ảnh</th>
-            <th>Hành động</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>@item.Name</td>
-                <td class="size-price-cell">
-                    @if (item.ProductSizes != null && item.ProductSizes.Any())
-                    {
-                        <ul style="margin: 0; padding-left: 20px;">
-                            @foreach (var ps in item.ProductSizes)
-                            {
-                                <li>
-                                    @(ps.Size != null ? ps.Size.size : "Không xác định"):
-                                    @ps.Stock (kho),
-                                    @ps.Price.ToString("N0") VND
-                                </li>
-                            }
-                        </ul>
-                    }
-                    else
-                    {
-                        <span>Chưa có kích thước</span>
-                    }
-                </td>
-                <td>@(item.Brand != null ? item.Brand.Name : "Không xác định")</td>
-                <td>@(item.Category != null ? item.Category.Name : "Không xác định")</td>
-                <td style="white-space: pre-line;">@item.Description</td>
-                <td>
-                    @if (item.Images != null && item.Images.Any())
-                    {
-                        <img src="@item.Images.First().ImageUrl" alt="Ảnh sản phẩm" style="width: 60px; height: 60px; object-fit: cover;" />
-                    }
-                    else
-                    {
-                        <span>Chưa có ảnh</span>
-                    }
-                </td>
-                <td>
-                    <a asp-action="Details" asp-controller="Product" asp-area="Admin" asp-route-id="@item.ProductId" class="btn btn-info btn-sm">Xem</a>
-                    <a asp-action="Edit" asp-controller="Product" asp-area="Admin" asp-route-id="@item.ProductId" class="btn btn-warning btn-sm">Sửa</a>
-                    <a asp-action="Delete" asp-controller="Product" asp-area="Admin" asp-route-id="@item.ProductId" class="btn btn-danger btn-sm">Xóa</a>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table> *@
-
- @model IEnumerable<DoAnLTW.Models.Product>
-
-@{
-    ViewData["Title"] = "Danh sách sản phẩm";
-    Layout = "~/Areas/Admin/Views/Shared/layoutAdmin.cshtml";
-}
-
-<div class="container mt-4">
-    <h2>Danh sách sản phẩm</h2>
+<div class="container-fluid">
+    <h2>Danh Sách Sản Phẩm</h2>
 
     @if (TempData["SuccessMessage"] != null)
     {
-        <div class="alert alert-success">@TempData["SuccessMessage"]</div>
+        <div class="alert alert-success" role="alert">@TempData["SuccessMessage"]</div>
     }
     @if (TempData["ErrorMessage"] != null)
     {
-        <div class="alert alert-danger">@TempData["ErrorMessage"]</div>
+        <div class="alert alert-danger" role="alert">@TempData["ErrorMessage"]</div>
     }
 
-    <p>
-        <a asp-action="Create" class="btn btn-primary">Thêm sản phẩm mới</a>
-    </p>
+    <div class="row mb-3">
+        <div class="col-12 text-center">
+            <a asp-action="Create" asp-controller="Product" asp-area="Admin" class="btn btn-primary"><i class="fas fa-plus"></i> Thêm Sản Phẩm Mới</a>
+        </div>
+    </div>
 
-    <table class="table table-bordered table-striped">
-        <thead>
-            <tr>
-                <th>Hình ảnh</th>
-                <th>Tên sản phẩm</th>
-                <th>Thương hiệu</th>
-                <th>Danh mục</th>
-                <th>Tổng kho</th>
-                <th>Hành động</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var product in Model)
-            {
-                <tr>
-                    <td>
-                        <img src="@product.ImageUrl" alt="@product.Name" style="width: 100px; height: auto;" />
-                    </td>
-                    <td>@product.Name</td>
-                    <td>@product.Brand?.Name</td>
-                    <td>@product.Category?.Name</td>
-                    <td>@product.TotalStock</td>
-                    <td>
-                        <a asp-action="Details" asp-route-id="@product.ProductId" class="btn btn-info btn-sm">Chi tiết</a>
-                        <a asp-action="Edit" asp-route-id="@product.ProductId" class="btn btn-warning btn-sm">Sửa</a>
-                        <a asp-action="Delete" asp-route-id="@product.ProductId" class="btn btn-danger btn-sm">Xóa</a>
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
+    <div class="row">
+        <div class="col-lg-12 grid-margin stretch-card">
+            <div class="card">
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Hình Ảnh</th>
+                                    <th>Tên Sản Phẩm</th>
+                                    <th>Thương Hiệu</th>
+                                    <th>Danh Mục</th>
+                                    <th>Tổng Kho</th>
+                                    <th>Hành Động</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var product in Model)
+                                {
+                                    <tr>
+                                        <td>
+                                            @if (!string.IsNullOrEmpty(product.ImageUrl))
+                                            {
+                                                <img src="@product.ImageUrl" alt="@product.Name" />
+                                            }
+                                            else
+                                            {
+                                                <span>Chưa có ảnh</span>
+                                            }
+                                        </td>
+                                        <td>@product.Name</td>
+                                        <td>@(product.Brand?.Name ?? "Không xác định")</td>
+                                        <td>@(product.Category?.Name ?? "Không xác định")</td>
+                                        <td>@product.TotalStock</td>
+                                        <td>
+                                            <a asp-action="Details" asp-controller="Product" asp-area="Admin" asp-route-id="@product.ProductId" class="btn btn-info btn-sm">
+                                                <i class="fas fa-eye"></i> Chi tiết
+                                            </a>
+                                            <a asp-action="Edit" asp-controller="Product" asp-area="Admin" asp-route-id="@product.ProductId" class="btn btn-warning btn-sm">
+                                                <i class="fas fa-edit"></i> Sửa
+                                            </a>
+                                            <a asp-action="Delete" asp-controller="Product" asp-area="Admin" asp-route-id="@product.ProductId" class="btn btn-danger btn-sm">
+                                                <i class="fas fa-trash"></i> Xóa
+                                            </a>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

@@ -1,60 +1,195 @@
 ﻿@model DoAnLTW.Models.Service
-
 @{
-    Layout = "~/Areas/Admin/Views/Shared/layoutAdmin.cshtml"; // Chỉ định layout
+    ViewData["Title"] = "Sửa Dịch Vụ";
+    Layout = "~/Areas/Admin/Views/Shared/layoutAdmin.cshtml";
 }
 
-<!DOCTYPE html>
-<html lang="vi">
-<head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Sửa Dịch Vụ</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
-</head>
-<body>
-    <div class="container mt-5">
-        <h2>Sửa Dịch Vụ</h2>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+<style>
+    /* General page styling */
+    body {
+        background-color: #000000; /* Black background */
+        color: #FFFFFF; /* White text */
+        font-family: 'Arial', sans-serif;
+    }
 
-        <a href="@Url.Action("Index", "Service", new { area = "Admin" })" class="btn btn-secondary mb-3">
-            <i class="fa fa-arrow-left"></i> Quay lại
-        </a>
+    h2 {
+        color: #FFD700; /* Gold heading */
+        border-bottom: 2px solid #FFD700;
+        padding-bottom: 10px;
+        margin-bottom: 20px;
+        text-align: center;
+        text-transform: uppercase;
+        animation: fadeInDown 0.5s ease-in-out;
+    }
 
-        <form asp-action="Edit" method="post">
-            <input type="hidden" asp-for="ServiceId" />
+    /* Form styling */
+    .form-container {
+        background-color: #FFFFFF; /* White form background */
+        color: #000000; /* Black text */
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        border: 1px solid #FFD700; /* Gold border */
+    }
 
-            <div class="form-group">
-                <label asp-for="Name" class="control-label">Tên Dịch Vụ</label>
-                <input asp-for="Name" class="form-control" />
-                <span asp-validation-for="Name" class="text-danger"></span>
+    .form-group {
+        margin-bottom: 15px;
+    }
+
+        .form-group label {
+            color: #000000; /* Black label text */
+            font-weight: 500;
+            margin-bottom: 5px;
+        }
+
+    .form-control {
+        background-color: #F5F5F5; /* Light gray input background */
+        border: 1px solid #000000; /* Black border */
+        color: #000000; /* Black text */
+        border-radius: 5px;
+        padding: 8px;
+    }
+
+        .form-control:focus {
+            border-color: #FFD700; /* Gold border on focus */
+            box-shadow: 0 0 5px rgba(255, 215, 0, 0.5);
+            background-color: #FFFFFF; /* White background on focus */
+        }
+
+    textarea.form-control {
+        resize: vertical;
+    }
+
+    /* Button styling */
+    .btn-primary {
+        background-color: #FFD700; /* Gold background */
+        border-color: #FFD700;
+        color: #000000; /* Black text */
+        font-weight: bold;
+        padding: 8px 16px;
+        border-radius: 5px;
+        transition: all 0.3s ease;
+    }
+
+        .btn-primary:hover {
+            background-color: #E6C200; /* Darker gold */
+            border-color: #E6C200;
+            color: #000000;
+            box-shadow: 0 4px 10px rgba(255, 215, 0, 0.3);
+        }
+
+    .btn-secondary {
+        background-color: #000000; /* Black background */
+        border-color: #FFD700; /* Gold border */
+        color: #FFD700; /* Gold text */
+        padding: 8px 16px;
+        border-radius: 5px;
+        transition: all 0.3s ease;
+    }
+
+        .btn-secondary:hover {
+            background-color: #333333; /* Darker black */
+            border-color: #FFD700;
+            color: #FFD700;
+            box-shadow: 0 4px 10px rgba(255, 215, 0, 0.3);
+        }
+
+    /* Validation error styling */
+    .text-danger {
+        color: #FFD700 !important; /* Gold error text */
+        font-size: 0.85rem;
+    }
+
+    .field-validation-error {
+        display: block;
+        margin-top: 5px;
+    }
+
+    /* Animations */
+    @@keyframes fadeInDown {
+        from
+
+    {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    }
+
+    /* Responsive adjustments */
+    @@media (max-width: 768px) {
+        .form-container
+
+    {
+        padding: 15px;
+    }
+
+    .form-group label {
+        font-size: 0.9rem;
+    }
+
+    .form-control {
+        font-size: 0.9rem;
+        padding: 6px;
+    }
+
+    .btn-primary, .btn-secondary {
+        padding: 6px 12px;
+        font-size: 0.9rem;
+    }
+
+    h2 {
+        font-size: 1.5rem;
+    }
+
+    }
+</style>
+
+<div class="container-fluid">
+    <h2>Sửa Dịch Vụ</h2>
+
+    <div class="row">
+        <div class="col-md-6 offset-md-3">
+            <div class="form-container">
+                <form asp-action="Edit" method="post">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <input type="hidden" asp-for="ServiceId" />
+                    <div class="form-group">
+                        <label asp-for="Name" class="control-label">Tên Dịch Vụ</label>
+                        <input asp-for="Name" class="form-control" placeholder="Nhập tên dịch vụ" required />
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Description" class="control-label">Mô Tả</label>
+                        <textarea asp-for="Description" class="form-control" rows="4" placeholder="Nhập mô tả dịch vụ"></textarea>
+                        <span asp-validation-for="Description" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Price" class="control-label">Giá (VNĐ)</label>
+                        <input asp-for="Price" class="form-control" type="number" step="1000" min="0" placeholder="Nhập giá dịch vụ" required />
+                        <span asp-validation-for="Price" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Duration" class="control-label">Thời Gian Thực Hiện (phút)</label>
+                        <input asp-for="Duration" class="form-control" type="number" min="1" placeholder="Nhập thời gian thực hiện" required />
+                        <span asp-validation-for="Duration" class="text-danger"></span>
+                    </div>
+                    <div class="form-group text-center mt-3">
+                        <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> Cập Nhật Dịch Vụ</button>
+                        <a asp-action="Index" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Quay Lại</a>
+                    </div>
+                </form>
             </div>
-
-            <div class="form-group">
-                <label asp-for="Description" class="control-label">Mô Tả</label>
-                <textarea asp-for="Description" class="form-control"></textarea>
-                <span asp-validation-for="Description" class="text-danger"></span>
-            </div>
-
-            <div class="form-group">
-                <label asp-for="Price" class="control-label">Giá</label>
-                <input asp-for="Price" class="form-control" />
-                <span asp-validation-for="Price" class="text-danger"></span>
-            </div>
-
-            <div class="form-group">
-                <label asp-for="Duration" class="control-label">Thời Gian Thực Hiện (phút)</label>
-                <input asp-for="Duration" class="form-control" />
-                <span asp-validation-for="Duration" class="text-danger"></span>
-            </div>
-
-            <button type="submit" class="btn btn-primary">Cập Nhật Dịch Vụ</button>
-        </form>
+        </div>
     </div>
+</div>
 
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-  
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/3.2.11/jquery.validate.unobtrusive.min.js"></script>
-</body>
-</html>
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
