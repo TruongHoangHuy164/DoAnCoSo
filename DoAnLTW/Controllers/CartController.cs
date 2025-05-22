@@ -1,5 +1,6 @@
 ﻿using DoAnLTW.Models;
 using DoAnLTW.Models.Repositories;
+using Microsoft.AspNetCore.Authorization; // Thêm namespace này để sử dụng [Authorize]
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 
@@ -40,6 +41,7 @@ namespace DoAnLTW.Controllers
         }
 
         // Thêm sản phẩm vào giỏ hàng
+        [Authorize] // Yêu cầu đăng nhập
         public async Task<IActionResult> AddToCart(int productId, string size, int quantity)
         {
             // Chuyển đổi size từ string sang int (SizeId)
@@ -125,6 +127,7 @@ namespace DoAnLTW.Controllers
         }
 
         // Hiển thị giỏ hàng
+        [Authorize] // Yêu cầu đăng nhập
         public IActionResult Index()
         {
             var cart = GetCartItems();
@@ -132,6 +135,7 @@ namespace DoAnLTW.Controllers
             return View(cart);
         }
 
+        [Authorize] // Yêu cầu đăng nhập
         public async Task<IActionResult> IncreaseQuantity(int productId, string size)
         {
             // Chuyển đổi size từ string sang int (SizeId)
@@ -171,6 +175,7 @@ namespace DoAnLTW.Controllers
             return RedirectToAction("Index");
         }
 
+        [Authorize] // Yêu cầu đăng nhập
         public IActionResult DecreaseQuantity(int productId, string size)
         {
             var cart = GetCartItems();
@@ -190,6 +195,7 @@ namespace DoAnLTW.Controllers
             return RedirectToAction("Index");
         }
 
+        [Authorize] // Yêu cầu đăng nhập
         public IActionResult RemoveFromCart(int productId, string size)
         {
             var cart = GetCartItems();
