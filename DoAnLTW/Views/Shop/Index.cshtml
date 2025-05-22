@@ -8,334 +8,376 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 
 <style>
-    /* Giữ nguyên CSS hiện tại */
+    /* General container styling */
+    /* .container-fluid { */
+    /*     background: linear-gradient(135deg, #ffffff, #f5f5f5); */
+    /*     padding: 20px; */
+    /*     min-height: 100vh; */
+    /*     max-width: 100%; /* Ensure container spans full width */ */
+    /*     margin: 0 auto; /* Center container */ */
+    /*     box-sizing: border-box; /* Prevent padding issues */ */
+    /* } */
+
+    /* Sidebar styling with gold accent */
     .filter-sidebar {
-        background: #FFFFFF;
-        border-radius: 10px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        background: #fff;
         padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        border-left: 4px solid #ffc107;
     }
 
-        .filter-sidebar h4 {
-            color: #FFD700;
-            font-weight: 700;
-            margin-bottom: 20px;
-        }
-
-        .filter-sidebar h5 {
-            color: #000000;
+        .filter-sidebar h4, .filter-sidebar h5 {
+            color: #333;
             font-weight: 600;
+            border-bottom: 2px solid #ffc107;
+            padding-bottom: 8px;
             margin-bottom: 15px;
         }
-
-        .filter-sidebar .form-check {
-            margin-bottom: 10px;
-            transition: all 0.2s ease;
-        }
-
-        .filter-sidebar .form-check-input {
-            cursor: pointer;
-            border: 2px solid #000000;
-        }
-
-            .filter-sidebar .form-check-input:checked {
-                background-color: #FFD700;
-                border-color: #FFD700;
-            }
 
         .filter-sidebar .form-check-label {
-            color: #000000;
-            cursor: pointer;
+            color: #555;
+            font-size: 0.9rem;
         }
 
-        .filter-sidebar .form-check:hover {
-            background: #F0F0F0;
-            border-radius: 5px;
-            padding-left: 5px;
+        .filter-sidebar .form-check-input:checked {
+            background-color: #ffc107;
+            border-color: #ffc107;
         }
 
-        .filter-sidebar .btn-primary {
-            background-color: #FFD700;
-            border: none;
-            color: #000000;
-            width: 100%;
-            padding: 10px;
-            font-weight: 500;
-            transition: background-color 0.3s ease;
-        }
-
-            .filter-sidebar .btn-primary:hover {
-                background-color: #D4AF37;
-            }
-
-        .filter-sidebar .btn-reset {
-            background-color: #000000;
-            border: none;
-            color: #FFFFFF;
-            width: 100%;
-            padding: 10px;
-            font-weight: 500;
-            transition: background-color 0.3s ease;
-            margin-top: 10px;
-        }
-
-            .filter-sidebar .btn-reset:hover {
-                background-color: #333333;
-            }
-
-    .stock-status p {
-        margin: 5px 0;
-        font-weight: 500;
-    }
-
-    .stock-status .in-stock {
-        color: #FFD700;
-    }
-
-    .stock-status .out-stock {
-        color: #000000;
-    }
-
-    .card-body {
-        padding: 20px;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        height: 100%;
-    }
-
-        .card-body .card-title {
-            font-size: 18px;
-            font-weight: 600;
-            color: #000000;
-            margin-bottom: 10px;
-            text-align: center;
-        }
-
-        .card-body .card-text .text-danger {
-            font-size: 18px;
-            color: #FFD700 !important;
-            font-weight: 700;
-            text-align: center;
-            margin-bottom: 15px;
-        }
-
-        .card-body .card-text .rating {
-            display: flex;
-            justify-content: center;
-            gap: 5px;
-            margin-bottom: 15px;
-        }
-
-        .card-body .stock-status {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 14px;
-            font-weight: 500;
-            color: #000000;
-        }
-
-            .card-body .stock-status .in-stock {
-                color: #FFD700;
-            }
-
-            .card-body .stock-status .out-stock {
-                color: #000000;
-            }
-
-    .card {
-        background: #FFFFFF;
-        transition: transform 0.2s ease, box-shadow 0.2s ease;
-        cursor: pointer;
-    }
-
-        .card:hover {
-            transform: scale(1.05);
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-        }
-
-        .card .card-footer {
-            display: flex;
-            background: #FFFFFF;
-        }
-
-        .card .btn {
-            pointer-events: auto;
-        }
-
-    .card-title {
-        font-size: 23px;
-        color: #000000;
-    }
-
-    .card-text .text-danger {
-        font-size: 16px;
-        color: #FFD700 !important;
-    }
-
-    .card-footer .btn-primary {
-        background-color: #FFD700;
-        color: #000000;
-        border: none;
-    }
-
-        .card-footer .btn-primary:hover {
-            background-color: #D4AF37;
-        }
-
-    .card-footer .btn-outline-danger {
-        border-color: #000000;
-        color: #000000;
-    }
-
-        .card-footer .btn-outline-danger:hover {
-            background-color: #FFD700;
-            color: #000000;
-        }
-
-    .btn-outline-secondary {
-        border-color: burlywood;
-        color: #000000;
-    }
-
-        .btn-outline-secondary:hover {
-            background-color: #FFD700;
-            color: #000000;
-        }
-
-        .btn-outline-secondary.active {
-            background-color: #FFD700;
-            color: #000000;
-            border-color: #000000;
-        }
-
-    .btn-outline-primary {
-        border-color: #000000;
-        color: #000000;
-    }
-
-        .btn-outline-primary:hover {
-            background-color: #FFD700;
-            color: #000000;
-        }
-
-    .table {
-        background: #FFFFFF;
-        color: #000000;
-    }
-
-        .table th {
-            background: #000000;
-            color: #FFFFFF;
-        }
-
-        .table td {
-            border-color: #000000;
-        }
-
-    .table-hover tbody tr:hover {
-        background-color: #F0F0F0;
-    }
-
-    .table .text-danger {
-        color: #FFD700 !important;
-    }
-
-    .pagination .page-link {
-        color: #000000;
-        border-color: #000000;
-    }
-
-    .pagination .page-item.active .page-link {
-        background-color: #FFD700;
-        border-color: #000000;
-        color: #000000;
-    }
-
-    .pagination .page-link:hover {
-        background-color: #FFD700;
-        color: #000000;
-    }
-
-    .fa-star, .fa-heart {
-        color: #FFD700 !important;
-    }
-
-    #cardView {
-        display: flex;
-        flex-wrap: wrap;
-        width: 100%;
-        gap: 15px;
-    }
-
-    .product-item {
-        flex: 0 0 calc(25% - 15px);
-        box-sizing: border-box;
-        margin-bottom: 15px;
-    }
-
-    nav[aria-label="Page navigation"] {
-        display: flex;
-        justify-content: center;
-        width: 100%;
-    }
-
+    /* Search container */
     .search-container {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        margin-bottom: 15px;
+        position: relative;
+        margin-bottom: 20px;
     }
 
         .search-container input {
-            flex: 1;
-            padding: 8px;
-            border: 2px solid #000000;
-            border-radius: 5px;
-            font-size: 16px;
-            outline: none;
+            border: 1px solid #ccc;
+            border-radius: 20px;
+            padding: 8px 40px 8px 15px;
+            width: 100%;
+            font-size: 0.9rem;
+            box-sizing: border-box;
         }
 
-            .search-container input:focus {
-                border-color: #FFD700;
-            }
+        .search-container .btn-search, .search-container .btn-mic {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: #ffc107;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 50%;
+            color: #fff;
+            transition: background-color 0.3s;
+        }
 
         .search-container .btn-search {
-            background-color: #FFD700;
-            border: none;
-            color: #000000;
-            padding: 8px 12px;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
+            right: 40px;
         }
-
-            .search-container .btn-search:hover {
-                background-color: #D4AF37;
-            }
 
         .search-container .btn-mic {
-            background-color: #000000;
-            border: none;
-            color: #FFFFFF;
-            padding: 8px 12px;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
+            right: 5px;
         }
 
-            .search-container .btn-mic:hover {
-                background-color: #333333;
-            }
-
             .search-container .btn-mic.recording {
-                background-color: #FF0000;
+                background: #dc3545;
             }
 
-                .search-container .btn-mic.recording:hover {
-                    background-color: #CC0000;
-                }
+    /* Card view styling */
+    .product-item .card {
+        background: linear-gradient(145deg, #ffffff, #f8f9fa);
+        border: 1px solid #e0e0e0;
+        border-radius: 10px;
+        transition: transform 0.3s, box-shadow 0.3s;
+        overflow: hidden;
+        height: 100%;
+    }
+
+        .product-item .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+    .product-item .card-img-top {
+        background: #f5f5f5;
+        border-bottom: 1px solid #ddd;
+        height: 200px;
+        object-fit: cover;
+    }
+
+    .product-item .card-body {
+        padding: 15px;
+        background: linear-gradient(145deg, #ffffff, #f1f1f1);
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+
+    .product-item .card-title {
+        color: #333;
+        font-size: 1rem;
+        font-weight: 500;
+        margin-bottom: 10px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        text-align: center;
+    }
+
+    .product-item .card-text .text-danger {
+        font-size: 1.1rem;
+        font-weight: bold;
+        color: #ffc107 !important;
+        text-align: center;
+    }
+
+    .product-item .rating, .product-item .stock-status {
+        font-size: 0.85rem;
+        color: #555;
+        text-align: center;
+    }
+
+    .product-item .in-stock {
+        color: #28a745;
+    }
+
+    .product-item .out-stock {
+        color: #dc3545;
+    }
+
+    /* Center buttons in card footer */
+    .product-item .card-footer {
+        background: #fff;
+        border-top: 1px solid #ddd;
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+        padding: 10px;
+    }
+
+    .product-item .btn-icon {
+        padding: 6px 12px;
+        font-size: 0.9rem;
+        border-radius: 50px;
+        transition: background-color 0.3s, transform 0.2s;
+    }
+
+    .product-item .btn-primary {
+        background: #ffc107;
+        border-color: #ffc107;
+        color: #fff;
+    }
+
+        .product-item .btn-primary:hover {
+            background: #e0a800;
+            border-color: #e0a800;
+            transform: scale(1.1);
+        }
+
+    .product-item .btn-outline-danger {
+        border-color: #dc3545;
+        color: #dc3545;
+    }
+
+        .product-item .btn-outline-danger:hover {
+            background: #dc3545;
+            color: #fff;
+            transform: scale(1.1);
+        }
+
+    /* Table view styling */
+    #productTable {
+        background: #fff;
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+
+        #productTable thead {
+            background: linear-gradient(90deg, #ffc107, #e0a800);
+            color: #fff;
+        }
+
+        #productTable th, #productTable td {
+            vertical-align: middle;
+            font-size: 0.9rem;
+        }
+
+        #productTable tbody tr:hover {
+            background: #f8f9fa;
+        }
+
+        #productTable .btn-primary {
+            background: #ffc107;
+            border-color: #ffc107;
+            color: #fff;
+        }
+
+            #productTable .btn-primary:hover {
+                background: #e0a800;
+                border-color: #e0a800;
+            }
+
+        #productTable .btn-outline-danger {
+            border-color: #dc3545;
+            color: #dc3545;
+        }
+
+            #productTable .btn-outline-danger:hover {
+                background: #dc3545;
+                color: #fff;
+            }
+
+        #productTable .text-danger {
+            color: #ffc107 !important;
+        }
+
+    /* Pagination styling */
+    .pagination .page-link {
+        color: #ffc107;
+        border: 1px solid #ddd;
+        margin: 0 2px;
+        border-radius: 5px;
+    }
+
+    .pagination .page-item.active .page-link {
+        background: #ffc107;
+        border-color: #ffc107;
+        color: #fff;
+    }
+
+    .pagination .page-link:hover {
+        background: #e0a800;
+        border-color: #e0a800;
+        color: #fff;
+    }
+
+    /* Sort and view buttons */
+    .btn-group .btn-outline-secondary {
+        border-color: #ccc;
+        color: #555;
+    }
+
+        .btn-group .btn-outline-secondary.active,
+        .btn-group .btn-outline-secondary:hover {
+            background: #ffc107;
+            border-color: #ffc107;
+            color: #fff;
+        }
+
+    .btn-group .btn-outline-primary {
+        border-color: #ccc;
+        color: #555;
+    }
+
+        .btn-group .btn-outline-primary:hover {
+            background: #ffc107;
+            border-color: #ffc107;
+            color: #fff;
+        }
+
+    /* Filter and reset buttons */
+    .filter-sidebar .btn-primary {
+        background: #ffc107;
+        border-color: #ffc107;
+        color: #fff;
+        width: 100%;
+        padding: 10px;
+        border-radius: 5px;
+    }
+
+        .filter-sidebar .btn-primary:hover {
+            background: #e0a800;
+            border-color: #e0a800;
+        }
+
+    .filter-sidebar .btn-reset {
+        background: #dc3545;
+        border-color: #dc3545;
+        color: #fff;
+        width: 100%;
+        padding: 10px;
+        border-radius: 5px;
+    }
+
+        .filter-sidebar .btn-reset:hover {
+            background: #c82333;
+            border-color: #c82333;
+        }
+
+    /* Icons */
+    .fa-star, .fa-heart {
+        color: #ffc107 !important;
+    }
+
+    .far.fa-star, .far.fa-heart {
+        color: #555 !important;
+    }
+
+    /* Responsive adjustments */
+    @@media (max-width: 768px) {
+        .filter-sidebar
+
+    {
+        margin-bottom: 20px;
+    }
+
+    .product-item {
+        flex: 0 0 calc(50% - 15px);
+    }
+
+        .product-item .card-title {
+            font-size: 0.9rem;
+        }
+
+        .product-item .card-footer {
+            flex-direction: column;
+            align-items: center;
+        }
+
+    .row {
+        flex-direction: column;
+    }
+
+    .col-md-3, .col-md-9 {
+        width: 100%;
+        max-width: 100%;
+    }
+
+    }
+
+    @@media (max-width: 576px) {
+        .product-item
+
+    {
+        flex: 0 0 100%;
+    }
+
+    .search-container input,
+    .search-container .btn-search,
+    .search-container .btn-mic {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+
+    .search-container .btn-search,
+    .search-container .btn-mic {
+        position: static;
+        transform: none;
+    }
+
+    .btn-group {
+        flex-direction: column;
+        width: 100%;
+    }
+
+        .btn-group .btn {
+            width: 100%;
+            margin-bottom: 5px;
+        }
+
+    }
 </style>
 
 <div class="container-fluid">
@@ -344,11 +386,11 @@
         <div class="col-md-3">
             <div class="filter-sidebar">
                 <h4>LỌC SẢN PHẨM</h4>
-               @*  <div class="search-container mb-4">
+                <div class="search-container mb-4">
                     <input type="text" id="searchInput" placeholder="Tìm kiếm sản phẩm..." value="@ViewBag.SearchString" />
                     <button class="btn btn-search" onclick="applyFilters()"><i class="fas fa-search"></i></button>
                     <button class="btn btn-mic" id="micButton" title="Tìm kiếm bằng giọng nói"><i class="fas fa-microphone"></i></button>
-                </div> *@
+                </div>
                 <div class="mb-4">
                     <h5>DANH MỤC</h5>
                     @foreach (var category in ViewBag.Categories)
@@ -466,13 +508,13 @@
                     var minPrice = product.ProductSizes.Any() ? product.ProductSizes.Min(ps => ps.Price) : 0;
                     <div class="product-item col-md-3 mb-4">
                         <div class="card h-100" onclick="goToDetails(@product.ProductId)">
-                            <img src="@product.ImageUrl" class="card-img-top" alt="@product.Name" style="height: 200px; object-fit: cover;" />
+                            <img src="@product.ImageUrl" class="card-img-top" alt="@product.Name" style="height: 200px; object-fit: cover;" loading="lazy" />
                             <div class="card-body">
                                 <h6 class="card-title">@product.Name</h6>
                                 <p class="card-text">
                                     <span class="text-danger">@minPrice.ToString("N0")đ</span>
                                 </p>
-                                <p>
+                                <p class="rating">
                                     @for (int i = 1; i <= 5; i++)
                                     {
                                         if (i <= avgRating)
@@ -486,19 +528,18 @@
                                     }
                                     <span>(@product.Reviews.Count)</span>
                                 </p>
-                                <p>@(product.TotalStock > 0 ? "Còn hàng" : "Hết hàng")</p>
+                                <p class="stock-status">
+                                    <span class="@(product.TotalStock > 0 ? "in-stock" : "out-stock")">
+                                        @(product.TotalStock > 0 ? "Còn hàng" : "Hết hàng")
+                                    </span>
+                                </p>
                             </div>
                             <div class="card-footer">
-                                <a href="@Url.Action("Details", "Shop", new { id = product.ProductId })" class="btn btn-primary btn-sm" onclick="event.stopPropagation();">Xem chi tiết</a>
-                                <button class="btn btn-outline-danger btn-sm" onclick="event.stopPropagation(); toggleFavourite(@product.ProductId)">
-                                    @if (ViewBag.FavouriteProducts.Contains(product.ProductId))
-                                    {
-                                        <i class="fas fa-heart"></i>
-                                    }
-                                    else
-                                    {
-                                        <i class="far fa-heart"></i>
-                                    }
+                                <a href="@Url.Action("Details", "Shop", new { id = product.ProductId })" class="btn btn-icon btn-primary" onclick="event.stopPropagation();" aria-label="Xem chi tiết sản phẩm @product.Name">
+                                    <i class="fas fa-eye"></i>
+                                </a>
+                                <button class="btn btn-icon btn-outline-danger" onclick="event.stopPropagation(); toggleFavourite(@product.ProductId)" aria-label="@(ViewBag.FavouriteProducts.Contains(product.ProductId) ? "Bỏ yêu thích" : "Thêm vào yêu thích") sản phẩm @product.Name">
+                                    <i class="@(ViewBag.FavouriteProducts.Contains(product.ProductId) ? "fas fa-heart" : "far fa-heart")"></i>
                                 </button>
                             </div>
                         </div>
@@ -572,25 +613,27 @@
     <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
     <script>
         $(document).ready(function () {
+            // DataTable Initialization
             $('#productTable').DataTable({
-                "pageLength": 12,
-                "language": {
-                    "lengthMenu": "Hiển thị _MENU_ sản phẩm mỗi trang",
-                    "zeroRecords": "Không tìm thấy sản phẩm nào",
-                    "info": "Hiển thị trang _PAGE_ của _PAGES_",
-                    "infoEmpty": "Không có sản phẩm nào",
-                    "infoFiltered": "(lọc từ _MAX_ sản phẩm)",
-                    "paginate": {
-                        "first": "Đầu",
-                        "last": "Cuối",
-                        "next": "Tiếp",
-                        "previous": "Trước"
+                pageLength: 12,
+                language: {
+                    lengthMenu: "Hiển thị _MENU_ sản phẩm mỗi trang",
+                    zeroRecords: "Không tìm thấy sản phẩm nào",
+                    info: "Hiển thị trang _PAGE_ của _PAGES_",
+                    infoEmpty: "Không có sản phẩm nào",
+                    infoFiltered: "(lọc từ _MAX_ sản phẩm)",
+                    paginate: {
+                        first: "Đầu",
+                        last: "Cuối",
+                        next: "Tiếp",
+                        previous: "Trước"
                     },
-                    "search": "Tìm kiếm:"
+                    search: "Tìm kiếm:"
                 },
-                "ordering": false
+                ordering: false
             });
 
+            // Card Pagination
             const itemsPerPage = 12;
             const $products = $('.product-item');
             const totalItems = $products.length;
@@ -599,12 +642,14 @@
             function showPage(page) {
                 $products.hide();
                 $products.slice((page - 1) * itemsPerPage, page * itemsPerPage).show();
+                $('#cardPagination .page-item').removeClass('active');
+                $(`#cardPagination .page-item[data-page="${page}"]`).addClass('active');
             }
 
             function renderPagination() {
                 let paginationHtml = '';
                 for (let i = 1; i <= totalPages; i++) {
-                    paginationHtml += `<li class="page-item"><a class="page-link" href="#" data-page="${i}">${i}</a></li>`;
+                    paginationHtml += `<li class="page-item" data-page="${i}"><a class="page-link" href="#" data-page="${i}">${i}</a></li>`;
                 }
                 $('#cardPagination').html(paginationHtml);
 
@@ -612,68 +657,77 @@
                     e.preventDefault();
                     const page = $(this).data('page');
                     showPage(page);
-                    $('#cardPagination .page-item').removeClass('active');
-                    $(this).parent().addClass('active');
                 });
             }
 
             if (totalItems > 0) {
                 showPage(1);
                 renderPagination();
-                $('#cardPagination .page-item:first').addClass('active');
             }
 
+            // Persist View Mode
+            const savedView = localStorage.getItem('viewMode') || 'card';
+            toggleView(savedView);
+
+            // Debounce Function
+            function debounce(func, wait) {
+                let timeout;
+                return function (...args) {
+                    clearTimeout(timeout);
+                    timeout = setTimeout(() => func.apply(this, args), wait);
+                };
+            }
+
+            // Search with Debounce
+            $('#searchInput').on('input', debounce(function () {
+                applyFilters();
+            }, 300));
+
+            $('#searchInput').on('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    applyFilters();
+                }
+            });
+
+            // Speech Recognition
             function initializeSpeechRecognition() {
                 const micButton = document.getElementById('micButton');
                 const searchInput = document.getElementById('searchInput');
-                let recognition = null;
-
-                console.log('micButton:', micButton);
-                console.log('searchInput:', searchInput);
+                if (!micButton || !searchInput) return;
 
                 if ('SpeechRecognition' in window || 'webkitSpeechRecognition' in window) {
-                    recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+                    const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
                     recognition.lang = 'vi-VN';
                     recognition.interimResults = false;
                     recognition.maxAlternatives = 1;
-                    console.log('SpeechRecognition initialized:', recognition);
 
                     micButton.addEventListener('click', () => {
-                        console.log('Mic button clicked, recording:', micButton.classList.contains('recording'));
                         if (micButton.classList.contains('recording')) {
                             recognition.stop();
                         } else {
                             recognition.start();
                             micButton.classList.add('recording');
-                            micButton.querySelector('i').classList.remove('fa-microphone');
-                            micButton.querySelector('i').classList.add('fa-stop');
+                            micButton.querySelector('i').classList.replace('fa-microphone', 'fa-stop');
                         }
                     });
 
                     recognition.onresult = (event) => {
-                        console.log('Speech recognition result:', event.results);
                         const transcript = event.results[0][0].transcript;
-                        console.log('Transcript:', transcript);
                         searchInput.value = transcript;
                         applyFilters();
                     };
 
                     recognition.onend = () => {
-                        console.log('Speech recognition ended');
                         micButton.classList.remove('recording');
-                        micButton.querySelector('i').classList.remove('fa-stop');
-                        micButton.querySelector('i').classList.add('fa-microphone');
+                        micButton.querySelector('i').classList.replace('fa-stop', 'fa-microphone');
                     };
 
                     recognition.onerror = (event) => {
-                        console.error('Speech recognition error:', event.error);
-                        alert('Đã xảy ra lỗi khi nhận diện giọng nói: ' + event.error);
+                        alert(`Lỗi nhận diện giọng nói: ${event.error}. Vui lòng thử lại.`);
                         micButton.classList.remove('recording');
-                        micButton.querySelector('i').classList.remove('fa-stop');
-                        micButton.querySelector('i').classList.add('fa-microphone');
+                        micButton.querySelector('i').classList.replace('fa-stop', 'fa-microphone');
                     };
                 } else {
-                    console.log('SpeechRecognition not supported');
                     micButton.disabled = true;
                     micButton.title = 'Trình duyệt không hỗ trợ tìm kiếm bằng giọng nói';
                     micButton.style.opacity = '0.5';
@@ -682,12 +736,6 @@
             }
 
             initializeSpeechRecognition();
-
-            $('#searchInput').on('keypress', (e) => {
-                if (e.key === 'Enter') {
-                    applyFilters();
-                }
-            });
         });
 
         function setSortOrder(sortValue) {
@@ -703,34 +751,33 @@
                 $('#cardView').hide();
                 $('#tableView').show();
             }
+            localStorage.setItem('viewMode', view);
         }
 
         function applyFilters() {
-            console.log('applyFilters called');
-            var categoryId = $('input[name="categoryId"]:checked').val();
-            var brandId = $('input[name="brandId"]:checked').val();
-            var sizeId = $('input[name="sizeId"]:checked').val();
-            var priceRange = $('.price-filter:checked').val();
-            var minPrice = priceRange ? priceRange.split('-')[0] : '';
-            var maxPrice = priceRange ? priceRange.split('-')[1] : '';
-            var sortOrder = $('#sortOrder').val();
-            var searchString = $('#searchInput').val();
+            const categoryId = $('input[name="categoryId"]:checked').val() || '';
+            const brandId = $('input[name="brandId"]:checked').val() || '';
+            const sizeId = $('input[name="sizeId"]:checked').val() || '';
+            const priceRange = $('.price-filter:checked').val() || '';
+            const [minPrice, maxPrice] = priceRange ? priceRange.split('-') : ['', ''];
+            const sortOrder = $('#sortOrder').val();
+            let searchString = $('#searchInput').val();
 
-            console.log('sortOrder:', sortOrder, 'searchString:', searchString);
-
-            var url = '@Url.Action("Index", "Shop")' + '?';
-            if (categoryId) url += 'categoryId=' + categoryId + '&';
-            if (brandId) url += 'brandId=' + brandId + '&';
-            if (sizeId) url += 'sizeId=' + sizeId + '&';
-            if (minPrice) url += 'minPrice=' + minPrice + '&';
-            if (maxPrice) url += 'maxPrice=' + maxPrice + '&';
-            url += 'sortOrder=' + sortOrder;
-            if (searchString) url += '&searchString=' + encodeURIComponent(searchString);
             if (searchString) {
                 searchString = searchString.replace(/\.+$/, '').trim();
             }
-            console.log('Redirecting to:', url);
-            window.location.href = url;
+
+            const url = new URL('@Url.Action("Index", "Shop")', window.location.origin);
+            const params = new URLSearchParams();
+            if (categoryId) params.append('categoryId', categoryId);
+            if (brandId) params.append('brandId', brandId);
+            if (sizeId) params.append('sizeId', sizeId);
+            if (minPrice) params.append('minPrice', minPrice);
+            if (maxPrice) params.append('maxPrice', maxPrice);
+            params.append('sortOrder', sortOrder);
+            if (searchString) params.append('searchString', searchString);
+
+            window.location.href = `${url}?${params.toString()}`;
         }
 
         function resetFilters() {
@@ -740,28 +787,25 @@
             $('.price-filter').prop('checked', false);
             $('#sortOrder').val('name');
             $('#searchInput').val('');
-            var url = '@Url.Action("Index", "Shop")';
-            window.location.href = url;
+            window.location.href = '@Url.Action("Index", "Shop")';
         }
 
         function toggleFavourite(productId) {
             $.ajax({
                 url: '@Url.Action("ToggleFavourite", "Shop")',
                 type: 'POST',
-                data: { productId: productId },
+                data: { productId },
                 success: function (response) {
                     if (response.success) {
-                        let btn = $(`button[onclick*='toggleFavourite(${productId})']`);
-                        let icon = btn.find('i');
-                        if (icon.hasClass('far')) {
-                            icon.removeClass('far fa-heart').addClass('fas fa-heart');
-                        } else {
-                            icon.removeClass('fas fa-heart').addClass('far fa-heart');
-                        }
+                        const btn = $(`button[onclick*='toggleFavourite(${productId})']`);
+                        const icon = btn.find('i');
+                        icon.toggleClass('far fa-heart fas fa-heart');
+                    } else {
+                        alert('Không thể cập nhật danh sách yêu thích. Vui lòng thử lại.');
                     }
                 },
                 error: function () {
-                    alert('Có lỗi xảy ra khi cập nhật danh sách yêu thích.');
+                    alert('Lỗi kết nối. Vui lòng kiểm tra mạng và thử lại.');
                 }
             });
         }
