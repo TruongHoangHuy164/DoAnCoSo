@@ -146,6 +146,34 @@
         animation: fadeIn 0.5s ease-in-out;
     }
 
+    /* Search bar styling */
+    .search-container {
+        margin-bottom: 20px;
+        display: flex;
+        justify-content: flex-end;
+    }
+
+        .search-container input[type="text"] {
+            width: 300px;
+            padding: 8px 12px;
+            border: 1px solid #FFD700;
+            border-radius: 5px;
+            background-color: #FFFFFF;
+            color: #000000;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+            .search-container input[type="text"]:focus {
+                outline: none;
+                border-color: #E6C200;
+                box-shadow: 0 0 8px rgba(255, 215, 0, 0.3);
+            }
+
+            .search-container input[type="text"]::placeholder {
+                color: #666666;
+            }
+
     /* Animations */
     @@keyframes fadeInDown {
         from
@@ -201,6 +229,10 @@
         height: auto;
     }
 
+    .search-container input[type="text"] {
+        width: 100%;
+    }
+
     }
 </style>
 
@@ -219,8 +251,13 @@
 
     <a asp-action="Create" class="btn btn-success mb-3"><i class="fas fa-plus"></i> Thêm mới danh mục</a>
 
+    <!-- Search Bar -->
+    <div class="search-container">
+        <input type="text" id="searchInput" placeholder="Tìm kiếm danh mục..." />
+    </div>
+
     <div class="table-responsive">
-        <table class="table table-bordered">
+        <table class="table table-bordered" id="categoryTable">
             <thead>
                 <tr>
                     <th>ID</th>
@@ -260,3 +297,21 @@
         </table>
     </div>
 </div>
+
+@section Scripts {
+    <script>
+        document.getElementById('searchInput').addEventListener('input', function () {
+            const searchTerm = this.value.toLowerCase();
+            const rows = document.querySelectorAll('#categoryTable tbody tr');
+
+            rows.forEach(row => {
+                const categoryName = row.cells[1].textContent.toLowerCase();
+                if (categoryName.includes(searchTerm)) {
+                    row.style.display = '';
+                } else {
+                    row.style.display = 'none';
+                }
+            });
+        });
+    </script>
+}
