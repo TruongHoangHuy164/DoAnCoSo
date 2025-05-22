@@ -33,21 +33,24 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/6.0.0/signalr.min.js"></script>
 <script>
     let selectedCustomerId = null;
+    const employeeDisplayName = "Chăm Sóc Khách Hàng"; // Static display name for employee
+    const employeeId = "@ViewBag.EmployeeId"; // Keep EmployeeId for backend logic
     const connection = new signalR.HubConnectionBuilder()
         .withUrl("/chatHub")
         .withAutomaticReconnect([0, 2000, 10000, 30000])
         .build();
 
-    // Vô hiệu hóa input và nút Gửi ban đầu
+    // Disable input and send button initially
     document.getElementById("messageInput").disabled = true;
     document.getElementById("messageInput").nextElementSibling.disabled = true;
 
     connection.on("ReceiveMessage", (senderId, senderName, content, timestamp) => {
-        const isCurrentUser = senderId === "@ViewBag.EmployeeId";
+        const isCurrentUser = senderId === employeeId;
+        const displayName = isCurrentUser ? employeeDisplayName : senderName;
         const msg = `
             <div class="message ${isCurrentUser ? 'message-left' : 'message-right'}">
                 <div class="message-bubble">
-                    <strong>${senderName}</strong>
+                    <strong>${displayName}</strong>
                     <p>${content}</p>
                     <small>${new Date(timestamp).toLocaleString()}</small>
                 </div>
@@ -60,11 +63,12 @@
         const messageList = document.getElementById("messageList");
         messageList.innerHTML = "";
         messages.forEach(m => {
-            const isCurrentUser = m.senderId === "@ViewBag.EmployeeId";
+            const isCurrentUser = m.senderId === employeeId;
+            const displayName = isCurrentUser ? employeeDisplayName : m.senderName;
             const msg = `
                 <div class="message ${isCurrentUser ? 'message-left' : 'message-right'}">
                     <div class="message-bubble">
-                        <strong>${m.senderName}</strong>
+                        <strong>${displayName}</strong>
                         <p>${m.content}</p>
                         <small>${new Date(m.timestamp).toLocaleString()}</small>
                     </div>
@@ -77,7 +81,7 @@
     connection.start()
         .then(() => {
             console.log("SignalR Connected!");
-            connection.invoke("GetConversation", "@ViewBag.EmployeeId").catch(err => console.error(err));
+            connection.invoke("GetConversation", employeeId).catch(err => console.error(err));
             document.getElementById("messageInput").disabled = false;
             document.getElementById("messageInput").nextElementSibling.disabled = false;
         })
@@ -114,173 +118,127 @@
             alert("Không thể gửi tin nhắn vì kết nối chưa được thiết lập.");
             return;
         }
-        connection.invoke("SendMessage", "@ViewBag.EmployeeId", message)
+        connection.invoke("SendMessage", employeeId, message)
             .catch(err => console.error("Error sending message:", err));
         document.getElementById("messageInput").value = "";
     }
 </script>
-@* 
 <style>
     .chat-container {
-        max-width: 700px;
-        margin: 0 auto;
-        background: #f0f4f8;
-        border-radius: 15px;
-        padding: 20px;
-    }
-
-    .chat-box {
-        height: 500px;
-        overflow-y: auto;
-        background: #ffffff;
-        border-radius: 10px;
-        padding: 15px;
-        margin-bottom: 15px;
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    }
-
-    .chat-input .form-control {
-        border-radius: 20px;
-        border: 1px solid #ced4da;
-        padding: 10px 15px;
-    }
-
-    .chat-input .btn-primary {
-        border-radius: 20px;
-        background: #ff6f9c;
-        border: none;
-        padding: 10px 20px;
-        transition: background 0.3s;
-    }
-
-        .chat-input .btn-primary:hover {
-            background: #ff4d7d;
-        }
-
-    .message {
-        display: flex;
-        margin: 10px 0;
-    }
-
-    .message-left {
-        justify-content: flex-start;
-    }
-
-    .message-right {
-        justify-content: flex-end;
-    }
-
-    .message-bubble {
-        max-width: 70%;
-        padding: 10px 15px;
-        border-radius: 15px;
-        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-    }
-
-    .message-left .message-bubble {
-        background: #e0f7fa;
-        border-bottom-left-radius: 5px;
-    }
-
-    .message-right .message-bubble {
-        background: #ffcccb;
-        border-bottom-right-radius: 5px;
-    }
-
-    .message-bubble strong {
-        font-size: 14px;
-        color: #333;
-    }
-
-    .message-bubble p {
-        margin: 5px 0;
-        font-size: 16px;
-    }
-
-    .message-bubble small {
-        font-size: 12px;
-        color: #666;
-    }
-
-    /* Responsive */
-    @@media (max-width: 576px) {
-        .chat-container {
-            padding: 10px;
-        }
-
-        .chat-box {
-            height: 400px;
-        }
-    }
-</style> *@
-
-<style>
-    .chat-container {
-        max-width: 700px;
-        margin: 0 auto;
-        background: linear-gradient(135deg, #ffe6f0, #e6f3ff); /* Soft pink-to-blue gradient */
-        border-radius: 20px;
-        padding: 25px;
-        border: 2px solid #ffd1dc; /* Light pink border */
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    }
-
-    .chat-box {
-        height: 500px;
-        overflow-y: auto;
-        background: #fff7f9; /* Very light pink */
-        border-radius: 15px;
-        padding: 20px;
-        margin-bottom: 20px;
-        border: 1px dashed #ffccd5; /* Dashed border for playfulness */
-        background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30"><path fill="%23ffd1dc" d="M10 20a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm10 0a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm-5-5a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/></svg>'); /* Paw print pattern */
-        background-repeat: repeat;
-        background-size: 30px;
-    }
-
-    .chat-input .form-control {
-        border-radius: 25px;
-        border: 2px solid #ffd1dc;
-        padding: 12px 20px;
-        font-family: 'Comic Sans MS', 'Chalkboard SE', sans-serif; /* Playful font */
-        background: #fff;
-        transition: border-color 0.3s;
-    }
-
-        .chat-input .form-control:focus {
-            border-color: #ff99ac;
-            box-shadow: 0 0 5px rgba(255, 153, 172, 0.5);
-        }
-
-    .chat-input .btn-primary {
-        border-radius: 25px;
-        background: #ff99ac; /* Bright pink */
-        border: none;
-        padding: 12px 25px;
-        font-family: 'Comic Sans MS', 'Chalkboard SE', sans-serif;
-        color: #fff;
-        transition: background 0.3s, transform 0.2s;
+        max-width: 720px;
+        margin: 2rem auto;
+        background: linear-gradient(145deg, #1a1a1a, #2c2c2c); /* Deep black gradient */
+        border-radius: 16px;
+        padding: 24px;
+        border: 1px solid #d4af37; /* Rich gold border */
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4), inset 0 0 10px rgba(212, 175, 55, 0.1);
         position: relative;
         overflow: hidden;
     }
 
+        .chat-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at top left, rgba(212, 175, 55, 0.15), transparent 70%);
+            pointer-events: none;
+        }
+
+    .chat-box {
+        height: 520px;
+        overflow-y: auto;
+        background: #ffffff; /* Crisp white for contrast */
+        border-radius: 12px;
+        padding: 20px;
+        margin-bottom: 20px;
+        border: 1px solid rgba(212, 175, 55, 0.3);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        scrollbar-width: thin;
+        scrollbar-color: #d4af37 #2c2c2c;
+    }
+
+        .chat-box::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .chat-box::-webkit-scrollbar-track {
+            background: #2c2c2c;
+            border-radius: 8px;
+        }
+
+        .chat-box::-webkit-scrollbar-thumb {
+            background: #d4af37;
+            border-radius: 8px;
+            transition: background 0.3s ease;
+        }
+
+            .chat-box::-webkit-scrollbar-thumb:hover {
+                background: #b89b2f;
+            }
+
+    .chat-input .form-control {
+        border-radius: 12px;
+        border: 1px solid #d4af37;
+        padding: 12px 20px;
+        background: #f8f9fa;
+        color: #1a1a1a;
+        font-family: 'Merriweather', serif; /* Elegant serif font */
+        font-size: 15px;
+        transition: all 0.3s ease;
+    }
+
+        .chat-input .form-control:focus {
+            border-color: #b89b2f;
+            box-shadow: 0 0 8px rgba(212, 175, 55, 0.4);
+            background: #ffffff;
+        }
+
+    .chat-input .btn-primary {
+        border-radius: 12px;
+        background: linear-gradient(90deg, #d4af37, #e6c14b); /* Gold gradient button */
+        border: none;
+        padding: 12px 24px;
+        color: #1a1a1a;
+        font-family: 'Montserrat', sans-serif; /* Modern sans-serif for buttons */
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        position: relative;
+        overflow: hidden;
+        transition: all 0.3s ease;
+    }
+
         .chat-input .btn-primary:hover {
-            background: #ff8099;
-            transform: scale(1.05); /* Slight bounce effect */
+            background: linear-gradient(90deg, #b89b2f, #d4af37);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(212, 175, 55, 0.5);
         }
 
         .chat-input .btn-primary::after {
-            content: '🐾'; /* Paw emoji */
+            content: '';
             position: absolute;
-            right: 10px;
-            font-size: 14px;
-            opacity: 0.7;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: width 0.6s ease, height 0.6s ease;
+        }
+
+        .chat-input .btn-primary:hover::after {
+            width: 300px;
+            height: 300px;
         }
 
     .message {
         display: flex;
         margin: 12px 0;
-        animation: slideIn 0.3s ease; /* Subtle slide-in animation */
+        animation: glideIn 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     }
 
     .message-left {
@@ -293,98 +251,121 @@
 
     .message-bubble {
         max-width: 70%;
-        padding: 12px 18px;
-        border-radius: 18px;
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        padding: 14px 20px;
+        border-radius: 14px;
+        box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
         position: relative;
-        font-family: 'Comic Sans MS', 'Chalkboard SE', sans-serif;
+        font-family: 'Merriweather', serif;
+        font-size: 15px;
+        line-height: 1.5;
+        transition: transform 0.2s ease;
     }
 
+        .message-bubble:hover {
+            transform: scale(1.02);
+        }
+
     .message-left .message-bubble {
-        background: #d4f1ff; /* Light blue for left messages */
-        border-bottom-left-radius: 5px;
+        background: #e8ecef; /* Soft gray for left messages */
+        border-bottom-left-radius: 4px;
     }
 
     .message-right .message-bubble {
-        background: #ffe6e6; /* Light pink for right messages */
-        border-bottom-right-radius: 5px;
+        background: linear-gradient(135deg, #d4af37, #e6c14b); /* Gold gradient for right messages */
+        color: #1a1a1a;
+        border-bottom-right-radius: 4px;
     }
 
     .message-bubble::before {
-        content: '🐶'; /* Dog emoji for left, cat for right */
+        content: '';
         position: absolute;
-        top: -15px;
-        left: 10px;
-        font-size: 16px;
-        opacity: 0.6;
-    }
-
-    .message-right .message-bubble::before {
-        content: '🐱';
-        left: auto;
-        right: 10px;
+        top: -1px;
+        left: -1px;
+        right: -1px;
+        bottom: -1px;
+        border-radius: inherit;
+        background: linear-gradient(45deg, rgba(212, 175, 55, 0.2), transparent);
+        z-index: -1;
     }
 
     .message-bubble strong {
         font-size: 14px;
-        color: #4a4a4a;
+        font-weight: 700;
+        color: #1a1a1a;
         display: block;
+        margin-bottom: 4px;
+    }
+
+    .message-right .message-bubble strong {
+        color: #1a1a1a;
     }
 
     .message-bubble p {
         margin: 6px 0;
-        font-size: 16px;
+        font-size: 15px;
         color: #333;
+    }
+
+    .message-right .message-bubble p {
+        color: #1a1a1a;
     }
 
     .message-bubble small {
         font-size: 12px;
-        color: #888;
+        color: #6c757d; /* Bootstrap secondary text */
         display: block;
         text-align: right;
+        font-style: italic;
     }
 
-    /* Animation for messages */
-    @@keyframes slideIn {
+    /* Custom animation */
+    @@keyframes glideIn {
         from
 
     {
         opacity: 0;
-        transform: translateY(10px);
+        transform: translateY(15px) scale(0.98);
     }
 
     to {
         opacity: 1;
-        transform: translateY(0);
+        transform: translateY(0) scale(1);
     }
 
     }
 
-    /* Responsive */
+    /* Responsive adjustments */
     @@media (max-width: 576px) {
         .chat-container
 
     {
-        padding: 15px;
-        border-radius: 15px;
+        padding: 16px;
+        margin: 1rem;
     }
 
     .chat-box {
-        height: 400px;
-        padding: 15px;
+        height: 420px;
+        padding: 12px;
     }
 
     .chat-input .form-control {
-        padding: 10px 15px;
+        padding: 10px 14px;
+        font-size: 14px;
     }
 
     .chat-input .btn-primary {
-        padding: 10px 20px;
+        padding: 10px 18px;
+        font-size: 14px;
     }
 
     .message-bubble {
         max-width: 80%;
-        padding: 10px 15px;
+        padding: 12px 16px;
+        font-size: 14px;
     }
 
-    }</style>
+    }
+
+    /* Ensure fonts are loaded */
+    @@import url('https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&family=Montserrat:wght@500;600&display=swap');
+</style>

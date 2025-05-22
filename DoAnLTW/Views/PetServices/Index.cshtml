@@ -1,34 +1,107 @@
-﻿@model IEnumerable<DoAnLTW.Models.Service>
+﻿    @model IEnumerable<DoAnLTW.Models.Service>
 
-@{
-    ViewData["Title"] = "Dịch Vụ Thú Cưng";
-}
+    @{
+        ViewData["Title"] = "Dịch Vụ Thú Cưng";
+    }
 
-<h1>@ViewData["Title"]</h1>
+    <h1>@ViewData["Title"]</h1>
 
-@if (TempData["ErrorMessage"] != null)
-{
-    <div class="alert alert-danger">@TempData["ErrorMessage"]</div>
-}
-
-@if (TempData["SuccessMessage"] != null)
-{
-    <div class="alert alert-success">@TempData["SuccessMessage"]</div>
-}
-
-<div class="row">
-    @foreach (var service in Model)
+    @if (TempData["ErrorMessage"] != null)
     {
-        <div class="col-md-4 mb-4">
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title">@service.Name</h5>
-                    <p class="card-text">@service.Description</p>
-                    <p class="card-text"><strong>Giá:</strong> @service.Price.ToString("N0") VND</p>
+        <div class="alert alert-danger">@TempData["ErrorMessage"]</div>
+    }
 
-                    <a href="@Url.Action("Book", "PetServices", new { id = service.ServiceId })" class="btn btn-primary">Đặt Ngay</a>
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <div class="alert alert-success">@TempData["SuccessMessage"]</div>
+    }
+    <style>
+    /* General page styling */
+    body {
+        background-color: #ffffff; /* White background */
+        color: #000000; /* Black text for readability */
+        font-family: Arial, sans-serif;
+    }
+
+    /* Card styling */
+    .card {
+        background-color: #ffffff; /* White card background */
+        border: 2px solid #ffc107; /* Gold border */
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Subtle black shadow */
+        transition: transform 0.2s;
+    }
+
+        .card:hover {
+            transform: translateY(-5px); /* Slight lift effect on hover */
+        }
+
+    .card-title {
+        color: #000000; /* Black title */
+        font-weight: bold;
+    }
+
+    .card-text {
+        color: #333333; /* Dark gray for description text */
+    }
+
+    /* Button styling */
+    .btn-primary {
+        background-color: #ffc107; /* Gold background */
+        border-color: #ffc107; /* Gold border */
+        color: #000000; /* Black text for contrast */
+    }
+
+        .btn-primary:hover {
+            background-color: #e0a800; /* Darker gold on hover */
+            border-color: #e0a800;
+            color: #000000;
+        }
+
+    /* Alert styling */
+    .alert-success {
+        background-color: #ffffff; /* White background */
+        border-left: 5px solid #ffc107; /* Gold left border */
+        color: #000000; /* Black text */
+    }
+
+    .alert-danger {
+        background-color: #ffffff; /* White background */
+        border-left: 5px solid #000000; /* Black left border */
+        color: #000000; /* Black text */
+    }
+
+    /* Container and row styling */
+    .row {
+        margin-top: 20px;
+    }
+
+    h1 {
+        color: #000000; /* Black heading */
+        text-align: center;
+        margin-bottom: 30px;
+        border-bottom: 2px solid #ffc107; /* Gold underline */
+        padding-bottom: 10px;
+    }
+
+    /* Ensure card content spacing */
+    .card-body {
+        padding: 20px;
+    }
+    </style>
+    <div class="row">
+        @foreach (var service in Model)
+        {
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">@service.Name</h5>
+                        <p class="card-text">@service.Description</p>
+                        <p class="card-text"><strong>Giá:</strong> @service.Price.ToString("N0") VND</p>
+
+                        <a href="@Url.Action("Book", "PetServices", new { id = service.ServiceId })" class="btn btn-primary">Đặt Ngay</a>
+                    </div>
                 </div>
             </div>
-        </div>
-    }
-</div>
+        }
+    </div>
