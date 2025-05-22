@@ -6,77 +6,498 @@
     ViewData["Title"] = "Danh sách đặt phòng";
 }
 
-<h1>Danh sách đặt phòng</h1>
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 
-@if (TempData["Success"] != null)
-{
-    <div class="alert alert-success">@TempData["Success"]</div>
-}
-@if (TempData["Error"] != null)
-{
-    <div class="alert alert-danger">@TempData["Error"]</div>
-}
+<style>
+    :root {
+        --black: #000000;
+        --gold: #FFD700;
+        --dark-gold: #D4AF37;
+        --white: #FFFFFF;
+        --light-gray: #F5F5F5;
+        --frame-gray: #E0E0E0;
+    }
 
-<p>
-    <a asp-action="Create" class="btn btn-primary">Tạo đặt phòng mới</a>
-</p>
+    
 
-<!-- Danh sách đặt phòng -->
-<h2>Đặt phòng của bạn</h2>
-@if (Model.Bookings.Any())
-{
-    <table class="table table-striped">
-        <thead>
-            <tr>
-                <th>Thú cưng</th>
-                <th>Phòng</th>
-                <th>Ngày bắt đầu</th>
-                <th>Ngày kết thúc</th>
-                <th>Trạng thái</th>
-                <th>Tổng giá</th>
-                <th>Hành động</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var booking in Model.Bookings)
-            {
-                <tr>
-                    <td>@booking.Pet.Name</td>
-                    <td>@booking.Room.RoomNumber (@booking.Room.RoomType.Name)</td>
-                    <td>@booking.StartDate.ToString("dd/MM/yyyy")</td>
-                    <td>@booking.EndDate.ToString("dd/MM/yyyy")</td>
-                    <td>@booking.Status.GetDisplayName()</td>
-                    <td>@booking.TotalPrice.ToString("C")</td>
-                    <td>
-                        <a asp-action="Details" asp-route-id="@booking.BookingId" class="btn btn-info btn-sm">Chi tiết</a>
-                        @if (booking.Status == PetHotelBookingStatus.ChoXacNhan || booking.Status == PetHotelBookingStatus.DaXacNhan)
-                        {
-                            <a asp-action="Cancel" asp-route-id="@booking.BookingId" class="btn btn-danger btn-sm">Hủy</a>
-                        }
-                    </td>
-                </tr>
+    .content-frame {
+        
+        border: 2px solid #B0B0B0;
+        border-radius: 10px;
+        padding: 20px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        margin: 0 auto;
+        max-width: 100%;
+    }
+
+    .banner {
+        
+        border-radius: 10px;
+        
+        height: 100%;
+        min-height: 300px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        color: var(--black);
+        font-weight: 600;
+        font-size: 1.2rem;
+        position: relative;
+        overflow: hidden;
+        transition: transform 0.3s;
+    }
+
+        .banner:hover {
+            transform: scale(1.02);
+        }
+
+        .banner img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            position: absolute;
+            top: 0;
+            left: 0;
+           
+            z-index: 0;
+        }
+
+    .banner-text {
+        position: relative;
+        z-index: 1;
+        padding: 15px;
+       
+        border-radius: 5px;
+        color: var(--white);
+    }
+
+    h1, h2 {
+        color: var(--black);
+        font-weight: 600;
+        border-bottom: 2px solid var(--gold);
+        padding-bottom: 10px;
+        margin-bottom: 20px;
+    }
+
+    .alert-success {
+        background: var(--gold);
+        color: var(--black);
+        border-color: var(--dark-gold);
+    }
+
+    .alert-danger {
+        background: #dc3545;
+        color: var(--white);
+        border-color: #c82333;
+    }
+
+    .btn-primary {
+        background: var(--gold);
+        border-color: var(--gold);
+        color: var(--black);
+        border-radius: 5px;
+        transition: background-color 0.3s, transform 0.2s;
+    }
+
+        .btn-primary:hover {
+            background: var(--dark-gold);
+            border-color: var(--dark-gold);
+            transform: scale(1.05);
+        }
+
+    .btn-info {
+        background: var(--black);
+        border-color: var(--black);
+        color: var(--white);
+        border-radius: 5px;
+    }
+
+        .btn-info:hover {
+            background: #333333;
+            border-color: #333333;
+        }
+
+    .btn-danger {
+        background: #dc3545;
+        border-color: #dc3545;
+        color: var(--white);
+        border-radius: 5px;
+    }
+
+        .btn-danger:hover {
+            background: #c82333;
+            border-color: #c82333;
+        }
+
+    .table {
+        background: var(--white);
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+
+        .table thead {
+            background: linear-gradient(90deg, var(--gold), var(--dark-gold));
+            color: var(--black);
+        }
+
+        .table th, .table td {
+            vertical-align: middle;
+            font-size: 0.9rem;
+            border-color: var(--light-gray);
+        }
+
+        .table tbody tr:hover {
+            background: var(--light-gray);
+        }
+
+    .card {
+        background: linear-gradient(145deg, var(--white), var(--light-gray));
+        border: none;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s, box-shadow 0.3s;
+        overflow: hidden;
+    }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+
+    .card-header {
+        background: linear-gradient(90deg, var(--gold), var(--dark-gold));
+        color: var(--black);
+        font-weight: 600;
+        text-align: center;
+        padding: 10px;
+        border-bottom: 1px solid var(--dark-gold);
+    }
+
+    .card-body {
+        padding: 15px;
+        text-align: center;
+        background: var(--white);
+    }
+
+    .card-title {
+        color: var(--black);
+        font-size: 1.2rem;
+        font-weight: 600;
+        margin-bottom: 10px;
+    }
+
+    .card-text {
+        color: var(--black);
+        font-size: 0.95rem;
+        margin-bottom: 8px;
+    }
+
+        .card-text.price {
+            color: var(--gold);
+            font-weight: 500;
+            font-size: 1.1rem;
+        }
+
+        .card-text.status.available {
+            color: var(--gold);
+            font-weight: 500;
+        }
+
+        .card-text.status.booked {
+            color: #dc3545;
+            font-weight: 500;
+        }
+
+    .date-picker-container {
+        margin-bottom: 20px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        flex-wrap: wrap;
+    }
+
+        .date-picker-container label {
+            font-weight: 500;
+            color: var(--black);
+        }
+
+        .date-picker-container input[type="date"] {
+            padding: 8px;
+            border: 1px solid var(--black);
+            border-radius: 5px;
+            font-size: 0.9rem;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+            .date-picker-container input[type="date"]:focus {
+                border-color: var(--gold);
             }
-        </tbody>
-    </table>
-}
-else
-{
-    <p>Bạn chưa có đặt phòng nào.</p>
-}
 
-<!-- Sơ đồ phòng -->
-<h2>Sơ đồ phòng</h2>
-<div class="row">
-    @foreach (var room in Model.Rooms)
+        .date-picker-container .btn-primary {
+            padding: 8px 15px;
+        }
+
+    #roomGrid {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 15px;
+    }
+
+        #roomGrid .col-md-4 {
+            flex: 0 0 calc(33.333% - 10px);
+            max-width: calc(33.333% - 10px);
+        }
+
+    @@media (max-width: 992px) {
+        .banner
+
     {
-        <div class="col-md-4 mb-3">
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title">@room.RoomNumber (@room.RoomType.Name)</h5>
-                    <p class="card-text">Giá: @room.RoomType.PricePerNight.ToString("C")/đêm</p>
-                    <p class="card-text">Trạng thái: @(room.IsAvailable ? "Trống" : "Đã đặt")</p>
+        margin-bottom: 20px;
+    }
+
+    .content-frame {
+        margin-top: 20px;
+    }
+
+    }
+
+    @@media (max-width: 768px) {
+        #roomGrid .col-md-4
+
+    {
+        flex: 0 0 calc(50% - 10px);
+        max-width: calc(50% - 10px);
+    }
+
+    .date-picker-container {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .table th, .table td {
+        font-size: 0.85rem;
+    }
+
+    .content-frame {
+        padding: 15px;
+    }
+
+    .banner {
+        min-height: 200px;
+        font-size: 1rem;
+    }
+
+    }
+
+    @@media (max-width: 576px) {
+        #roomGrid .col-md-4
+
+    {
+        flex: 0 0 100%;
+        max-width: 100%;
+    }
+
+    .date-picker-container input[type="date"],
+    .date-picker-container .btn-primary {
+        width: 100%;
+    }
+
+    .btn-primary, .btn-info, .btn-danger {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+
+    .content-frame {
+        padding: 10px;
+    }
+
+    .banner {
+        min-height: 150px;
+        font-size: 0.9rem;
+    }
+
+    }
+</style>
+
+<div class="container-fluid">
+    <div class="row">
+        <!-- Left Banner -->
+        <div class="col-lg-2 col-md-12">
+            <div class="banner">
+                <img src="~/img/HotelMeo.png" alt="Left Banner" />
+                <div class="banner-text">Ưu đãi đặc biệt cho thú cưng!</div>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="col-lg-8 col-md-12">
+            <div class="content-frame">
+                <h1>@ViewData["Title"]</h1>
+
+                @if (TempData["Success"] != null)
+                {
+                    <div class="alert alert-success">@TempData["Success"]</div>
+                }
+                @if (TempData["Error"] != null)
+                {
+                    <div class="alert alert-danger">@TempData["Error"]</div>
+                }
+
+                <p>
+                    <a asp-action="Create" class="btn btn-primary">Tạo đặt phòng mới</a>
+                </p>
+
+                <!-- Date Range Picker for Room Availability -->
+                <div class="date-picker-container">
+                    <label for="startDate">Ngày bắt đầu:</label>
+                    <input type="date" id="startDate" value="@DateTime.Today.ToString("yyyy-MM-dd")" />
+                    <label for="endDate">Ngày kết thúc:</label>
+                    <input type="date" id="endDate" value="@DateTime.Today.AddDays(1).ToString("yyyy-MM-dd")" />
+                    <button class="btn btn-primary" onclick="filterRooms()">Xem phòng trống</button>
+                </div>
+
+                <!-- Danh sách đặt phòng -->
+                <h2>Đặt phòng của bạn</h2>
+                @if (Model.Bookings.Any())
+                {
+                    <table class="table table-striped" id="bookingTable">
+                        <thead>
+                            <tr>
+                                <th>Thú cưng</th>
+                                <th>Phòng</th>
+                                <th>Ngày bắt đầu</th>
+                                <th>Ngày kết thúc</th>
+                                <th>Trạng thái</th>
+                                <th>Tổng giá</th>
+                                <th>Hành động</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var booking in Model.Bookings)
+                            {
+                                <tr>
+                                    <td>@booking.Pet.Name</td>
+                                    <td>@booking.Room.RoomNumber (@booking.Room.RoomType.Name)</td>
+                                    <td>@booking.StartDate.ToString("dd/MM/yyyy")</td>
+                                    <td>@booking.EndDate.ToString("dd/MM/yyyy")</td>
+                                    <td>@booking.Status.GetDisplayName()</td>
+                                    <td>@booking.TotalPrice.ToString("N0") ₫</td>
+                                    <td>
+                                        <a asp-action="Details" asp-route-id="@booking.BookingId" class="btn btn-info btn-sm">Chi tiết</a>
+                                        @if (booking.Status == PetHotelBookingStatus.ChoXacNhan || booking.Status == PetHotelBookingStatus.DaXacNhan)
+                                        {
+                                            <a asp-action="Cancel" asp-route-id="@booking.BookingId" class="btn btn-danger btn-sm">Hủy</a>
+                                        }
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                }
+                else
+                {
+                    <p>Bạn chưa có đặt phòng nào.</p>
+                }
+
+                <!-- Sơ đồ phòng -->
+                <h2>Sơ đồ phòng</h2>
+                <div class="row" id="roomGrid">
+                    <!-- Phòng sẽ được cập nhật động qua AJAX -->
                 </div>
             </div>
         </div>
-    }
+
+        <!-- Right Banner -->
+        <div class="col-lg-2 col-md-12">
+            <div class="banner">
+                <img src="~/img/HotelMeo.png" alt="Right Banner" />
+                <div class="banner-text">Dịch vụ chăm sóc thú cưng 5 sao!</div>
+            </div>
+        </div>
+    </div>
 </div>
+
+@section Scripts {
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            // Initialize DataTable
+            $('#bookingTable').DataTable({
+                pageLength: 10,
+                language: {
+                    lengthMenu: "Hiển thị _MENU_ đặt phòng mỗi trang",
+                    zeroRecords: "Không tìm thấy đặt phòng nào",
+                    info: "Hiển thị trang _PAGE_ của _PAGES_",
+                    infoEmpty: "Không có đặt phòng nào",
+                    infoFiltered: "(lọc từ _MAX_ đặt phòng)",
+                    paginate: {
+                        first: "Đầu",
+                        last: "Cuối",
+                        next: "Tiếp",
+                        previous: "Trước"
+                    },
+                    search: "Tìm kiếm:"
+                },
+                ordering: false
+            });
+
+            // Load rooms on page load
+            filterRooms();
+        });
+
+        function filterRooms() {
+            const startDate = $('#startDate').val();
+            const endDate = $('#endDate').val();
+
+            if (!startDate || !endDate) {
+                alert("Vui lòng chọn cả ngày bắt đầu và ngày kết thúc.");
+                return;
+            }
+
+            if (new Date(startDate) > new Date(endDate)) {
+                alert("Ngày bắt đầu phải trước hoặc bằng ngày kết thúc.");
+                return;
+            }
+
+            $.ajax({
+                url: '@Url.Action("GetAvailableRooms", "CustomerPetHotelBooking")',
+                type: 'GET',
+                data: { startDate: startDate, endDate: endDate },
+                success: function (rooms) {
+                    const roomGrid = $('#roomGrid');
+                    roomGrid.empty();
+
+                    if (rooms.length === 0) {
+                        roomGrid.append('<p>Không có phòng trống trong khoảng thời gian này.</p>');
+                        return;
+                    }
+
+                    rooms.forEach(room => {
+                        const roomCard = `
+                            <div class="col-md-4 mb-3">
+                                <div class="card">
+                                    <div class="card-header">
+                                        ${room.roomNumber} (${room.roomTypeName})
+                                    </div>
+                                    <div class="card-body">
+                                        <p class="card-text price">${room.pricePerNight.toLocaleString('vi-VN')} ₫/đêm</p>
+                                        <p class="card-text status available">Trạng thái: Trống</p>
+                                    </div>
+                                </div>
+                            </div>`;
+                        roomGrid.append(roomCard);
+                    });
+                },
+                error: function (xhr) {
+                    alert('Lỗi khi lấy danh sách phòng trống: ' + xhr.responseText);
+                }
+            });
+        }
+    </script>
+}

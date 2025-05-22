@@ -7,56 +7,282 @@
     Layout = "~/Views/Shared/_LayoutHome.cshtml";
 }
 
-<h1>Chi tiết đặt phòng</h1>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 
-@if (Model == null)
-{
-    <p>Không tìm thấy đặt phòng.</p>
-}
-else
-{
-    <div class="card">
-        <div class="card-header">
-            <h3>Đặt phòng #@Model.BookingId</h3>
+<style>
+    /* Shared CSS from above */
+    :root {
+        --black: #000000;
+        --gold: #FFD700;
+        --dark-gold: #D4AF37;
+        --white: #FFFFFF;
+        --light-gray: #F5F5F5;
+        --frame-gray: #E0E0E0;
+    }
+
+    .container-fluid {
+        background: var(--white);
+        padding: 20px;
+        min-height: 100vh;
+        max-width: 100%;
+        margin: 0 auto;
+        box-sizing: border-box;
+    }
+
+    .content-frame {
+        background: var(--frame-gray);
+        border: 2px solid #B0B0B0;
+        border-radius: 10px;
+        padding: 20px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        margin: 0 auto;
+        max-width: 100%;
+    }
+
+    .banner {
+        background: linear-gradient(135deg, var(--gold), var(--dark-gold));
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        height: 100%;
+        min-height: 300px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        color: var(--black);
+        font-weight: 600;
+        font-size: 1.2rem;
+        position: relative;
+        overflow: hidden;
+        transition: transform 0.3s;
+    }
+
+        .banner:hover {
+            transform: scale(1.02);
+        }
+
+        .banner img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            position: absolute;
+            top: 0;
+            left: 0;
+            opacity: 0.3;
+            z-index: 0;
+        }
+
+    .banner-text {
+        position: relative;
+        z-index: 1;
+        padding: 15px;
+        background: rgba(0, 0, 0, 0.5);
+        border-radius: 5px;
+        color: var(--white);
+    }
+
+    h1, h2, h3 {
+        color: var(--black);
+        font-weight: 600;
+        border-bottom: 2px solid var(--gold);
+        padding-bottom: 10px;
+        margin-bottom: 20px;
+    }
+
+    .card {
+        background: linear-gradient(145deg, var(--white), var(--light-gray));
+        border: none;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+    }
+
+    .card-header {
+        background: linear-gradient(90deg, var(--gold), var(--dark-gold));
+        color: var(--black);
+        font-weight: 600;
+        padding: 10px;
+        border-bottom: 1px solid var(--dark-gold);
+    }
+
+    .card-body {
+        background: var(--white);
+        padding: 15px;
+    }
+
+    .card-footer {
+        background: var(--light-gray);
+        padding: 10px;
+        text-align: right;
+    }
+
+    .btn-secondary {
+        background: #6c757d;
+        border-color: #6c757d;
+        color: var(--white);
+        border-radius: 5px;
+    }
+
+        .btn-secondary:hover {
+            background: #5a6268;
+            border-color: #5a6268;
+        }
+
+    .btn-danger {
+        background: #dc3545;
+        border-color: #dc3545;
+        color: var(--white);
+        border-radius: 5px;
+    }
+
+        .btn-danger:hover {
+            background: #c82333;
+            border-color: #c82333;
+        }
+
+    .dl-horizontal dt {
+        font-weight: 500;
+        color: var(--black);
+    }
+
+    .dl-horizontal dd {
+        color: var(--black);
+    }
+
+    @@media (max-width: 992px) {
+        .banner
+
+    {
+        margin-bottom: 20px;
+    }
+
+    .content-frame {
+        margin-top: 20px;
+    }
+
+    }
+
+    @@media (max-width: 768px) {
+        .content-frame
+
+    {
+        padding: 15px;
+    }
+
+    .banner {
+        min-height: 200px;
+        font-size: 1rem;
+    }
+
+    .card-body, .card-footer {
+        padding: 10px;
+    }
+
+    .dl-horizontal dt, .dl-horizontal dd {
+        font-size: 0.85rem;
+    }
+
+    }
+
+    @@media (max-width: 576px) {
+        .content-frame
+
+    {
+        padding: 10px;
+    }
+
+    .banner {
+        min-height: 150px;
+        font-size: 0.9rem;
+    }
+
+    .btn {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+
+    .card-footer {
+        text-align: center;
+    }
+
+    }
+</style>
+
+<div class="container-fluid">
+    <div class="row">
+        <!-- Left Banner -->
+        <div class="col-lg-2 col-md-12">
+            <div class="banner">
+                <img src="https://via.placeholder.com/300x600?text=Pet+Hotel+Banner" alt="Left Banner" />
+                <div class="banner-text">Ưu đãi đặc biệt cho thú cưng!</div>
+            </div>
         </div>
-        <div class="card-body">
-            <dl class="row">
-                <dt class="col-sm-3">Thú cưng</dt>
-                <dd class="col-sm-9">@Model.Pet?.Name</dd>
 
-                <dt class="col-sm-3">Phòng</dt>
-                <dd class="col-sm-9">@Model.Room?.RoomNumber (@Model.Room?.RoomType?.Name)</dd>
+        <!-- Main Content -->
+        <div class="col-lg-8 col-md-12">
+            <div class="content-frame">
+                <h1>@ViewData["Title"]</h1>
 
-                <dt class="col-sm-3">Ngày bắt đầu</dt>
-                <dd class="col-sm-9">@Model.StartDate.ToString("dd/MM/yyyy")</dd>
+                @if (Model == null)
+                {
+                    <p>Không tìm thấy đặt phòng.</p>
+                }
+                else
+                {
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>Đặt phòng #@Model.BookingId</h3>
+                        </div>
+                        <div class="card-body">
+                            <dl class="row dl-horizontal">
+                                <dt class="col-sm-3">Thú cưng</dt>
+                                <dd class="col-sm-9">@Model.Pet?.Name</dd>
 
-                <dt class="col-sm-3">Ngày kết thúc</dt>
-                <dd class="col-sm-9">@Model.EndDate.ToString("dd/MM/yyyy")</dd>
+                                <dt class="col-sm-3">Phòng</dt>
+                                <dd class="col-sm-9">@Model.Room?.RoomNumber (@Model.Room?.RoomType?.Name)</dd>
 
-                <dt class="col-sm-3">Địa chỉ</dt>
-                <dd class="col-sm-9">@Model.Address</dd>
+                                <dt class="col-sm-3">Ngày bắt đầu</dt>
+                                <dd class="col-sm-9">@Model.StartDate.ToString("dd/MM/yyyy")</dd>
 
-                <dt class="col-sm-3">Ghi chú</dt>
-                <dd class="col-sm-9">@Model.Note</dd>
+                                <dt class="col-sm-3">Ngày kết thúc</dt>
+                                <dd class="col-sm-9">@Model.EndDate.ToString("dd/MM/yyyy")</dd>
 
-                <dt class="col-sm-3">Trạng thái</dt>
-                <dd class="col-sm-9">@Model.Status</dd>
+                                <dt class="col-sm-3">Địa chỉ</dt>
+                                <dd class="col-sm-9">@Model.Address</dd>
 
-                <dt class="col-sm-3">Tổng giá</dt>
-                <dd class="col-sm-9">@Model.TotalPrice.ToString("C")</dd>
+                                <dt class="col-sm-3">Ghi chú</dt>
+                                <dd class="col-sm-9">@Model.Note</dd>
 
-                <dt class="col-sm-3">Ngày đặt</dt>
-                <dd class="col-sm-9">@Model.BookingDate.ToString("dd/MM/yyyy HH:mm")</dd>
-            </dl>
+                                <dt class="col-sm-3">Trạng thái</dt>
+                                <dd class="col-sm-9">@Model.Status.GetDisplayName()</dd>
+
+                                <dt class="col-sm-3">Tổng giá</dt>
+                                <dd class="col-sm-9">@Model.TotalPrice.ToString("N0") ₫</dd>
+
+                                <dt class="col-sm-3">Ngày đặt</dt>
+                                <dd class="col-sm-9">@Model.BookingDate.ToString("dd/MM/yyyy HH:mm")</dd>
+                            </dl>
+                        </div>
+                        <div class="card-footer">
+                            <a asp-action="Index" class="btn btn-secondary">Quay lại</a>
+                            @if (Model.Status == PetHotelBookingStatus.ChoXacNhan || Model.Status == PetHotelBookingStatus.DaXacNhan)
+                            {
+                                <form asp-action="Cancel" asp-route-id="@Model.BookingId" method="post" style="display:inline;">
+                                    <button type="submit" class="btn btn-danger" onclick="return confirm('Bạn có chắc muốn hủy đặt phòng này?');">Hủy đặt phòng</button>
+                                </form>
+                            }
+                        </div>
+                    </div>
+                }
+            </div>
         </div>
-        <div class="card-footer">
-            <a asp-action="Index" class="btn btn-secondary">Quay lại</a>
-            @if (Model.Status == PetHotelBookingStatus.ChoXacNhan || Model.Status == PetHotelBookingStatus.DaXacNhan)
-            {
-                <form asp-action="Cancel" asp-route-id="@Model.BookingId" method="post" style="display:inline;">
-                    <button type="submit" class="btn btn-danger" onclick="return confirm('Bạn có chắc muốn hủy đặt phòng này?');">Hủy đặt phòng</button>
-                </form>
-            }
+
+        <!-- Right Banner -->
+        <div class="col-lg-2 col-md-12">
+            <div class="banner">
+                <img src="https://via.placeholder.com/300x600?text=Pet+Care+Banner" alt="Right Banner" />
+                <div class="banner-text">Dịch vụ chăm sóc thú cưng 5 sao!</div>
+            </div>
         </div>
     </div>
-}
+</div>

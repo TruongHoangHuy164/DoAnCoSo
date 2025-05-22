@@ -266,13 +266,19 @@ namespace DoAnLTW.Controllers
         {
             try
             {
+                // Validate dates
+                if (startDate > endDate)
+                {
+                    return BadRequest("Ngày bắt đầu phải trước hoặc bằng ngày kết thúc.");
+                }
+
                 var availableRooms = await _context.HotelRooms
                     .Include(r => r.RoomType)
-                    .Where(r => r.IsAvailable)
+                    .Where(r => r.IsAvailable) // Check if room is marked available
                     .Where(r => !_context.PetHotelBookings
                         .Any(b => b.RoomId == r.RoomId
                             && b.Status != PetHotelBookingStatus.DaHuy
-                            && (startDate <= b.EndDate && endDate >= b.StartDate)))
+                            && (startDate <= b.EndDate && endDate >= b.StartDate))) // No overlapping bookings
                     .Select(r => new
                     {
                         roomId = r.RoomId,
@@ -290,4 +296,4 @@ namespace DoAnLTW.Controllers
             }
         }
     }
-}
+    }

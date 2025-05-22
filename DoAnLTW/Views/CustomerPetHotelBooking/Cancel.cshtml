@@ -5,15 +5,217 @@
     ViewData["Title"] = "Hủy đặt phòng";
 }
 
-<h1>Hủy đặt phòng</h1>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 
-<div class="alert alert-warning">
-    Bạn có chắc chắn muốn hủy đặt phòng cho thú cưng <strong>@Model.Pet.Name</strong> tại phòng <strong>@Model.Room.RoomNumber</strong>
-    từ <strong>@Model.StartDate.ToString("dd/MM/yyyy")</strong> đến <strong>@Model.EndDate.ToString("dd/MM/yyyy")</strong>?
+<style>
+    /* Shared CSS from above */
+    :root {
+        --black: #000000;
+        --gold: #FFD700;
+        --dark-gold: #D4AF37;
+        --white: #FFFFFF;
+        --light-gray: #F5F5F5;
+        --frame-gray: #E0E0E0;
+    }
+
+    .container-fluid {
+        background: var(--white);
+        padding: 20px;
+        min-height: 100vh;
+        max-width: 100%;
+        margin: 0 auto;
+        box-sizing: border-box;
+    }
+
+    .content-frame {
+        background: var(--frame-gray);
+        border: 2px solid #B0B0B0;
+        border-radius: 10px;
+        padding: 20px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        margin: 0 auto;
+        max-width: 100%;
+    }
+
+    .banner {
+        background: linear-gradient(135deg, var(--gold), var(--dark-gold));
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        height: 100%;
+        min-height: 300px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        color: var(--black);
+        font-weight: 600;
+        font-size: 1.2rem;
+        position: relative;
+        overflow: hidden;
+        transition: transform 0.3s;
+    }
+
+        .banner:hover {
+            transform: scale(1.02);
+        }
+
+        .banner img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            position: absolute;
+            top: 0;
+            left: 0;
+            opacity: 0.3;
+            z-index: 0;
+        }
+
+    .banner-text {
+        position: relative;
+        z-index: 1;
+        padding: 15px;
+        background: rgba(0, 0, 0, 0.5);
+        border-radius: 5px;
+        color: var(--white);
+    }
+
+    h1, h2 {
+        color: var(--black);
+        font-weight: 600;
+        border-bottom: 2px solid var(--gold);
+        padding-bottom: 10px;
+        margin-bottom: 20px;
+    }
+
+    .alert-warning {
+        background: #dc3545;
+        color: var(--white);
+        border-color: #c82333;
+    }
+
+    .btn-primary {
+        background: var(--gold);
+        border-color: var(--gold);
+        color: var(--black);
+        border-radius: 5px;
+        transition: background-color 0.3s, transform 0.2s;
+    }
+
+        .btn-primary:hover {
+            background: var(--dark-gold);
+            border-color: var(--dark-gold);
+            transform: scale(1.05);
+        }
+
+    .btn-danger {
+        background: #dc3545;
+        border-color: #dc3545;
+        color: var(--white);
+        border-radius: 5px;
+    }
+
+        .btn-danger:hover {
+            background: #c82333;
+            border-color: #c82333;
+        }
+
+    .btn-secondary {
+        background: #6c757d;
+        border-color: #6c757d;
+        color: var(--white);
+        border-radius: 5px;
+    }
+
+        .btn-secondary:hover {
+            background: #5a6268;
+            border-color: #5a6268;
+        }
+
+    @@media (max-width: 992px) {
+        .banner
+
+    {
+        margin-bottom: 20px;
+    }
+
+    .content-frame {
+        margin-top: 20px;
+    }
+
+    }
+
+    @@media (max-width: 768px) {
+        .content-frame
+
+    {
+        padding: 15px;
+    }
+
+    .banner {
+        min-height: 200px;
+        font-size: 1rem;
+    }
+
+    .btn {
+        font-size: 0.85rem;
+    }
+
+    }
+
+    @@media (max-width: 576px) {
+        .content-frame
+
+    {
+        padding: 10px;
+    }
+
+    .banner {
+        min-height: 150px;
+        font-size: 0.9rem;
+    }
+
+    .btn {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+
+    }
+</style>
+
+<div class="container-fluid">
+    <div class="row">
+        <!-- Left Banner -->
+        <div class="col-lg-2 col-md-12">
+            <div class="banner">
+                <img src="https://via.placeholder.com/300x600?text=Pet+Hotel+Banner" alt="Left Banner" />
+                <div class="banner-text">Ưu đãi đặc biệt cho thú cưng!</div>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="col-lg-8 col-md-12">
+            <div class="content-frame">
+                <h1>@ViewData["Title"]</h1>
+
+                <div class="alert alert-warning">
+                    Bạn có chắc chắn muốn hủy đặt phòng cho thú cưng <strong>@Model.Pet.Name</strong> tại phòng <strong>@Model.Room.RoomNumber</strong>
+                    từ <strong>@Model.StartDate.ToString("dd/MM/yyyy")</strong> đến <strong>@Model.EndDate.ToString("dd/MM/yyyy")</strong>?
+                </div>
+
+                <form asp-action="CancelConfirmed" method="post">
+                    <input type="hidden" asp-for="BookingId" />
+                    <button type="submit" class="btn btn-danger">Xác nhận hủy</button>
+                    <a asp-action="Index" class="btn btn-secondary">Quay lại</a>
+                </form>
+            </div>
+        </div>
+
+        <!-- Right Banner -->
+        <div class="col-lg-2 col-md-12">
+            <div class="banner">
+                <img src="https://via.placeholder.com/300x600?text=Pet+Care+Banner" alt="Right Banner" />
+                <div class="banner-text">Dịch vụ chăm sóc thú cưng 5 sao!</div>
+            </div>
+        </div>
+    </div>
 </div>
-
-<form asp-action="CancelConfirmed" method="post">
-    <input type="hidden" asp-for="BookingId" />
-    <button type="submit" class="btn btn-danger">Xác nhận hủy</button>
-    <a asp-action="Index" class="btn btn-secondary">Quay lại</a>
-</form>
