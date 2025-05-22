@@ -91,8 +91,8 @@ builder.Services.AddSignalR(options =>
 });
 
 // Email
-builder.Services.Configure<EmailSettings>(builder.Configuration.GetSection("EmailSettings"));
-builder.Services.AddTransient<IEmailSender, EmailSender>();
+// Trong builder.Services
+builder.Services.AddTransient<IEmailSender, SendMail>();
 
 // Repository
 builder.Services.AddScoped<IProductRepository, EFProductRepository>();
