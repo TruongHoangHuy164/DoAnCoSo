@@ -137,6 +137,34 @@
         border: 1px solid #000000; /* Black border */
     }
 
+    /* Search bar styling */
+    .search-container {
+        margin-bottom: 20px;
+        display: flex;
+        justify-content: flex-end;
+    }
+
+        .search-container input[type="text"] {
+            width: 300px;
+            padding: 8px 12px;
+            border: 1px solid #FFD700;
+            border-radius: 5px;
+            background-color: #FFFFFF;
+            color: #000000;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+            .search-container input[type="text"]:focus {
+                outline: none;
+                border-color: #E6C200;
+                box-shadow: 0 0 8px rgba(255, 215, 0, 0.3);
+            }
+
+            .search-container input[type="text"]::placeholder {
+                color: #666666;
+            }
+
     /* Animations */
     @@keyframes fadeInDown {
         from
@@ -176,6 +204,10 @@
         width: 80px;
     }
 
+    .search-container input[type="text"] {
+        width: 100%;
+    }
+
     }
 </style>
 
@@ -185,6 +217,11 @@
     <p>
         <a asp-action="Create" class="btn btn-primary"><i class="fas fa-plus"></i> Thêm thương hiệu mới</a>
     </p>
+
+    <!-- Search Bar -->
+    <div class="search-container">
+        <input type="text" id="searchInput" placeholder="Tìm kiếm thương hiệu..." />
+    </div>
 
     @if (TempData["SuccessMessage"] != null)
     {
@@ -201,7 +238,7 @@
     }
 
     <div class="table-responsive">
-        <table class="table table-bordered">
+        <table class="table table-bordered" id="brandTable">
             <thead>
                 <tr>
                     <th>Tên thương hiệu</th>
@@ -238,3 +275,21 @@
         </table>
     </div>
 </div>
+
+@section Scripts {
+    <script>
+        document.getElementById('searchInput').addEventListener('input', function () {
+            const searchTerm = this.value.toLowerCase();
+            const rows = document.querySelectorAll('#brandTable tbody tr');
+
+            rows.forEach(row => {
+                const brandName = row.cells[0].textContent.toLowerCase();
+                if (brandName.includes(searchTerm)) {
+                    row.style.display = '';
+                } else {
+                    row.style.display = 'none';
+                }
+            });
+        });
+    </script>
+}
