@@ -79,13 +79,55 @@ namespace DoAnLTW.Areas.Admin.Controllers
                 return Json(new { success = false, message = "Không tìm thấy đơn hàng." });
             }
 
+            // Kiểm tra nếu trạng thái chuyển sang Đang giao hàng hoặc Đã giao hàng
+            // và đơn hàng chưa từng được giảm tồn kho
+            if ((status == OrderStatus.DangGiaoHang || status == OrderStatus.DaGiaoHang) &&
+                order.Status != OrderStatus.DangGiaoHang && order.Status != OrderStatus.DaGiaoHang)
+            {
+                foreach (var detail in order.OrderDetails)
+                {
+                    // Tìm ProductSize tương ứng
+                    var productSize = await _context.ProductSizes
+                        .FirstOrDefaultAsync(ps => ps.ProductId == detail.ProductId && ps.Size.size == detail.Size);
+
+                    if (productSize != null)
+                    {
+                        if (productSize.Stock >= detail.Quantity)
+                        {
+                            productSize.Stock -= detail.Quantity;
+                        }
+                        else
+                        {
+                            return Json(new { success = false, message = $"Không đủ tồn kho cho sản phẩm {detail.ProductName} (kích thước: {detail.Size})" });
+                        }
+                    }
+                    else
+                    {
+                        return Json(new { success = false, message = $"Không tìm thấy kích thước {detail.Size} cho sản phẩm {detail.ProductName}" });
+                    }
+                }
+            }
+
+            // Cập nhật trạng thái thanh toán cho COD
+            if (order.PaymentMethod == "COD")
+            {
+                if (status == OrderStatus.DaGiaoHang)
+                {
+                    order.IsPaid = true; // Đã giao hàng -> Đã thanh toán
+                }
+                else if (order.Status != OrderStatus.DaGiaoHang)
+                {
+                    order.IsPaid = false; // Các trạng thái khác -> Chưa thanh toán
+                }
+            }
+
             order.Status = status;
             await _context.SaveChangesAsync();
 
             // Gửi email thông báo cập nhật trạng thái
             await SendOrderStatusUpdateEmail(order);
 
-            return Json(new { success = true });
+            return Json(new { success = true, message = "Cập nhật trạng thái đơn hàng thành công" });
         }
 
         public class UpdateStatusModel

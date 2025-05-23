@@ -149,62 +149,53 @@
 
     /* Animations */
     @@keyframes fadeIn {
-        from
+        from {
+            opacity: 0;
+            transform: translateY(-10px);
+        }
 
-    {
-        opacity: 0;
-        transform: translateY(-10px);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
     }
 
     @@keyframes fadeInDown {
-        from
+        from {
+            opacity: 0;
+            transform: translateY(-20px);
+        }
 
-    {
-        opacity: 0;
-        transform: translateY(-20px);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
     }
 
     /* Responsive adjustments */
     @@media (max-width: 768px) {
-        .table th, .table td
+        .table th, .table td {
+            padding: 10px;
+            font-size: 0.9rem;
+        }
 
-    {
-        padding: 10px;
-        font-size: 0.9rem;
-    }
+        .btn-primary, .btn-success {
+            padding: 6px 15px;
+            font-size: 0.9rem;
+        }
 
-    .btn-primary, .btn-success {
-        padding: 6px 15px;
-        font-size: 0.9rem;
-    }
+        .status-select {
+            font-size: 0.85rem;
+            padding: 6px;
+        }
 
-    .status-select {
-        font-size: 0.85rem;
-        padding: 6px;
-    }
+        .order-detail {
+            padding: 10px;
+        }
 
-    .order-detail {
-        padding: 10px;
-    }
-
-    .table-responsive {
-        font-size: 0.85rem;
-    }
-
+        .table-responsive {
+            font-size: 0.85rem;
+        }
     }
 </style>
 
@@ -221,7 +212,8 @@
                     <th>Địa chỉ</th>
                     <th>Ngày đặt</th>
                     <th>Tổng tiền</th>
-                    <th>Thanh toán</th>
+                    <th>Phương thức thanh toán</th>
+                    <th>Trạng thái thanh toán</th>
                     <th>Trạng thái</th>
                     <th>Hành động</th>
                 </tr>
@@ -238,6 +230,7 @@
                         <td>@order.value.OrderDate.ToString("dd/MM/yyyy HH:mm")</td>
                         <td>@order.value.TotalAmount.ToString("N0") VNĐ</td>
                         <td>@order.value.PaymentMethod</td>
+                        <td>@(order.value.IsPaid ? "Đã thanh toán" : "Chưa thanh toán")</td>
                         <td>@order.value.Status</td>
                         <td>
                             <button class="btn btn-primary" onclick="toggleDetail('@orderId', this)">
@@ -247,7 +240,7 @@
                     </tr>
 
                     <tr id="@orderId" style="display:none;">
-                        <td colspan="9">
+                        <td colspan="10">
                             <div class="order-detail">
                                 <strong>Chi tiết đơn hàng:</strong>
                                 <table class="table table-striped">

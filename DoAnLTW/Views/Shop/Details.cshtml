@@ -89,7 +89,7 @@
                         @(Model.ProductSizes != null && Model.ProductSizes.Any() ? Model.ProductSizes.Min(ps => ps.Price).ToString("#,##0 VNĐ") : "0 VNĐ")
                     </span>
                 </h3>
-                
+
                 <div class="d-flex mb-3">
                     <strong class="text-dark mr-3">Kích thước:</strong>
                     <form>
@@ -111,6 +111,11 @@
                         }
                     </form>
                 </div>
+                <!-- Thêm hiển thị số lượng tồn kho -->
+                <div class="d-flex mb-3">
+                    <strong class="text-dark mr-3">Tồn kho:</strong>
+                    <span id="stockDisplay">@(Model.ProductSizes != null && Model.ProductSizes.Any() ? Model.ProductSizes.FirstOrDefault(ps => ps.SizeId == Model.ProductSizes.OrderBy(ps => ps.Size.size).First().SizeId)?.Stock.ToString() : "0")</span>
+                </div>
                 <div class="d-flex align-items-center mb-4 pt-2">
                     <div class="input-group quantity mr-3" style="width: 130px;">
                         <div class="input-group-btn">
@@ -119,7 +124,7 @@
                             </button>
                         </div>
                         <input type="text" id="quantityInput" class="form-control bg-secondary border-0 text-center" value="1">
-                        <div class="儿group-btn">
+                        <div class="input-group-btn">
                             <button class="btn btn-primary btn-plus" onclick="changeQuantity(1)">
                                 <i class="fa fa-plus"></i>
                             </button>
@@ -318,6 +323,7 @@
             selectedStock = parseInt(firstSizeRadio.getAttribute("data-stock")) || 0;
             const price = parseFloat(firstSizeRadio.getAttribute("data-price")) || 0;
             document.getElementById('productPrice').innerText = price.toLocaleString('vi-VN') + " VNĐ";
+            document.getElementById('stockDisplay').innerText = selectedStock; // Cập nhật hiển thị tồn kho
         }
 
         document.querySelectorAll('.size-radio').forEach(radio => {
@@ -327,6 +333,7 @@
                 const price = parseFloat(this.getAttribute("data-price")) || 0;
                 document.getElementById('quantityInput').value = 1;
                 document.getElementById('productPrice').innerText = price.toLocaleString('vi-VN') + " VNĐ";
+                document.getElementById('stockDisplay').innerText = selectedStock; // Cập nhật tồn kho khi đổi kích thước
             });
         });
 
@@ -368,7 +375,7 @@
     }
 
     // Xử lý thêm vào giỏ hàng
-        function addToCart() {
+    function addToCart() {
         if (!selectedSizeId) {
             alert("Vui lòng chọn kích thước trước khi thêm vào giỏ hàng!");
             return;
