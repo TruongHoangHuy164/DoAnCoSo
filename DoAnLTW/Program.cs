@@ -1,4 +1,3 @@
-
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.Google;
 using Microsoft.EntityFrameworkCore;
@@ -12,6 +11,7 @@ using DoAnLTW.Services.Momo;
 using DoAnLTW.Repositories;
 using DoAnLTW.Hubs;
 using Serilog;
+using Microsoft.AspNetCore.Http;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -52,7 +52,7 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowAll", builder =>
     {
-        builder.WithOrigins("http://localhost:5134", "https://localhost:5134") // Cập nhật với port thực tế
+        builder.WithOrigins("http://localhost:5134", "https://localhost:5134")
                .AllowAnyMethod()
                .AllowAnyHeader()
                .AllowCredentials();
@@ -91,7 +91,6 @@ builder.Services.AddSignalR(options =>
 });
 
 // Email
-// Trong builder.Services
 builder.Services.AddTransient<IEmailSender, SendMail>();
 
 // Repository
@@ -113,7 +112,7 @@ builder.Services.AddRazorPages();
 try
 {
     var app = builder.Build();
-   
+
     app.UseSerilogRequestLogging();
     app.UseStaticFiles();
     app.UseSession();
@@ -129,10 +128,38 @@ try
     app.UseCors("AllowAll");
     app.UseRouting();
     app.UseAuthentication();
+
+    // Middleware kiểm tra vai trò và chuyển hướng
+    app.Use(async (context, next) =>
+    {
+        var user = context.User;
+        if (user.Identity.IsAuthenticated)
+        {
+            var userManager = context.RequestServices.GetRequiredService<UserManager<IdentityUser>>();
+            var signInManager = context.RequestServices.GetRequiredService<SignInManager<IdentityUser>>();
+            var currentUser = await userManager.GetUserAsync(user);
+            if (currentUser != null)
+            {
+                var roles = await userManager.GetRolesAsync(currentUser);
+                if (roles.Contains("Admin") || roles.Contains("Employee"))
+                {
+                    // Nếu là Admin hoặc Employee và đang cố truy cập Home/Index, chuyển hướng
+                    var path = context.Request.Path.Value?.ToLower();
+                    if (path == "/" || path.StartsWith("/home") || path.StartsWith("/index"))
+                    {
+                        context.Response.Redirect("/Admin/Statistics");
+                        return;
+                    }
+                }
+            }
+        }
+        await next();
+    });
+
     app.UseAuthorization();
 
     app.MapRazorPages();
-    app.MapHub<ChatHub>("/chatHub"); // Đảm bảo chỉ có một mapping
+    app.MapHub<ChatHub>("/chatHub");
 
     app.MapControllerRoute(
         name: "areas",

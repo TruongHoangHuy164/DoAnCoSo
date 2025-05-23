@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace DoAnLTW.Controllers
 {
-    [Authorize] // Yêu cầu đăng nhập
+    [Authorize(Roles = "Customer")]
     public class PetServicesController : Controller
     {
         private readonly IPetServiceRepository _petServiceRepository;

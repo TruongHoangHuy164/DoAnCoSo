@@ -13,10 +13,12 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using DoAnLTW.Services;
 using Microsoft.Extensions.Logging;
-using Microsoft.AspNetCore.Identity; // Thêm namespace cho ILogger
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authorization; // Thêm namespace cho ILogger
 
 namespace DoAnLTW.Controllers
 {
+    [Authorize(Roles = "Customer")]
     public class CheckoutController : BaseController
     {
         private const string CART_KEY = "Cart";

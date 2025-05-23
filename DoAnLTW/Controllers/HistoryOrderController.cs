@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DoAnLTW.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Customer")]
     public class HistoryOrderController : Controller
     {
         private readonly UserManager<IdentityUser> _userManager;

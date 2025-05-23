@@ -147,12 +147,15 @@
                             </a>
                         </li>
                     }
-                    <li class="nav-item">
-                        <a class="nav-link" asp-area="Admin" asp-controller="EmployeeChat" asp-action="Index">
+                    @if (User.IsInRole("Employee"))
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="Admin" asp-controller="EmployeeChat" asp-action="Index">
                             <span class="menu-title">Quản lý Chat</span>
                             <i class="fa-solid fa-comment-dots menu-icon"></i> <!-- Icon hội thoại cho chat -->
                         </a>
                     </li>
+                    }
                 </ul>
             </nav>
             <!-- partial -->

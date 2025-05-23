@@ -5,77 +5,129 @@
     Layout = null; // Tắt layout để tránh hiển thị footer và header không mong muốn
 }
 
-<!DOCTYPE html>
-<html lang="vi">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewData["Title"]</title>
-    <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #ff6b6b, #ff8e53);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-            color: #fff;
-            overflow: hidden; /* Ngăn cuộn nếu layout gây tràn */
+<style>
+    body {
+        font-family: 'Poppins', sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        margin: 0;
+        background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+        text-align: center;
+        overflow: hidden;
+    }
+
+    .container {
+        max-width: 500px;
+        width: 90%;
+        padding: 30px;
+        background-color: #fff;
+        border-radius: 15px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+        animation: fadeIn 0.5s ease-in-out;
+    }
+
+    /* Hiệu ứng fadeIn */
+    @@keyframes fadeIn {
+        0% {
+            opacity: 0;
+            transform: translateY(20px);
         }
 
+        100% {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .lock-icon {
+        font-size: 60px;
+        color: #ff4d4f;
+        margin-bottom: 25px;
+        animation: pulse 1.5s infinite;
+    }
+
+    /* Hiệu ứng pulse cho biểu tượng khóa */
+    @@keyframes pulse {
+        0% {
+            transform: scale(1);
+        }
+
+        50% {
+            transform: scale(1.1);
+        }
+
+        100% {
+            transform: scale(1);
+        }
+    }
+
+    h1 {
+        font-size: 28px;
+        font-weight: 600;
+        color: #2c3e50;
+        margin-bottom: 15px;
+        letter-spacing: 0.5px;
+    }
+
+    p {
+        font-size: 16px;
+        color: #7f8c8d;
+        margin-bottom: 30px;
+        line-height: 1.6;
+    }
+
+    .btn {
+        display: inline-block;
+        padding: 12px 30px;
+        background: linear-gradient(90deg, #007bff 0%, #00c6ff 100%);
+        color: #fff;
+        text-decoration: none;
+        border-radius: 25px;
+        font-weight: 500;
+        font-size: 16px;
+        transition: all 0.3s ease;
+        box-shadow: 0 5px 15px rgba(0, 123, 255, 0.3);
+    }
+
+        .btn:hover {
+            background: linear-gradient(90deg, #0056b3 0%, #0096c7 100%);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 123, 255, 0.5);
+        }
+
+    /* Responsive design */
+    @@media (max-width: 480px) {
         .container {
-            text-align: center;
-            background: rgba(255, 255, 255, 0.1);
-            padding: 40px;
-            border-radius: 15px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
-            backdrop-filter: blur(10px);
-            max-width: 500px;
-            position: relative; /* Đảm bảo container không bị ảnh hưởng bởi layout */
+            padding: 20px;
         }
 
         h1 {
-            font-size: 2.5em;
-            margin-bottom: 20px;
-            color: #fff;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            font-size: 24px;
         }
 
         p {
-            font-size: 1.2em;
-            margin-bottom: 30px;
-            color: #f0f0f0;
+            font-size: 14px;
         }
 
-        a {
-            text-decoration: none;
-            color: #fff;
-            background: #ff4757;
-            padding: 12px 25px;
-            border-radius: 25px;
-            font-weight: bold;
-            transition: background 0.3s ease;
-            display: inline-block; /* Đảm bảo nút hiển thị đúng */
+        .btn {
+            padding: 10px 25px;
+            font-size: 14px;
         }
 
-            a:hover {
-                background: #e04050;
-            }
-
-        .icon {
-            font-size: 3em;
-            margin-bottom: 20px;
-            color: #fff;
+        .lock-icon {
+            font-size: 50px;
         }
-    </style>
-</head>
-<body>
-    <div class="container">
-        <div class="icon">🔒</div>
-        <h1>Truy Cập Bị Từ Chối</h1>
-        <p>Xin lỗi, bạn không có quyền truy cập vào trang web này. Vui lòng quay lại hoặc liên hệ quản trị viên để biết thêm chi tiết.</p>
-        <a href="/">Quay Lại Trang Chủ</a>
-    </div>
-</body>
-</html>
+    }
+</style>
+
+<!-- Thêm font Poppins từ Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+
+<div class="container">
+    <div class="lock-icon">🔒</div>
+    <h1>Truy Cập Bị Từ Chối</h1>
+    <p>Xin lỗi, bạn không có quyền truy cập vào trang web này. Vui lòng quay lại hoặc liên hệ quản trị viên để biết thêm chi tiết.</p>
+    <a href="@Model.RedirectUrl" class="btn">Quay Lại Trang Chủ</a>
+</div>

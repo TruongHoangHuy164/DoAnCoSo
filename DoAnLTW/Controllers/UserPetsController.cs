@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace DoAnLTW.Controllers
 {
-    [Authorize] // Chỉ cho phép người dùng đã đăng nhập
+    [Authorize(Roles = "Customer")]
     public class UserPetsController : Controller
     {
         private readonly IPetRepository _petRepository;

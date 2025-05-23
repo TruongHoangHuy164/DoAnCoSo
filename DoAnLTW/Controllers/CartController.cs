@@ -6,6 +6,7 @@ using Newtonsoft.Json;
 
 namespace DoAnLTW.Controllers
 {
+    [Authorize(Roles = "Customer")]
     public class CartController : BaseController
     {
         private const string CART_KEY = "Cart"; // Tên session giỏ hàng
