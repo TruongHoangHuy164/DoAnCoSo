@@ -232,7 +232,7 @@
                                     <tr>
                                         <td>@roomType.Name</td>
                                         <td>@roomType.Description</td>
-                                        <td>@roomType.PricePerNight.ToString("C")</td>
+                                        <td>@String.Format("{0:N0} VNĐ", roomType.PricePerNight)</td>
                                         <td>
                                             <a asp-action="RoomTypeEdit" asp-controller="PetHotelBooking" asp-area="Admin" asp-route-id="@roomType.RoomTypeId" class="btn btn-warning btn-sm"><i class="fas fa-edit"></i> Sửa</a>
                                             <a asp-action="RoomTypeDelete" asp-controller="PetHotelBooking" asp-area="Admin" asp-route-id="@roomType.RoomTypeId" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i> Xóa</a>

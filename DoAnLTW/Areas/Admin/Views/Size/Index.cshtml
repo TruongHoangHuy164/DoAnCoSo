@@ -147,62 +147,53 @@
 
     /* Animations */
     @@keyframes fadeInDown {
-        from
+        from {
+            opacity: 0;
+            transform: translateY(-20px);
+        }
 
-    {
-        opacity: 0;
-        transform: translateY(-20px);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
     }
 
     @@keyframes fadeIn {
-        from
+        from {
+            opacity: 0;
+            transform: translateY(-10px);
+        }
 
-    {
-        opacity: 0;
-        transform: translateY(-10px);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
     }
 
     /* Responsive adjustments */
     @@media (max-width: 768px) {
-        .table th, .table td
+        .table th, .table td {
+            padding: 10px;
+            font-size: 0.9rem;
+        }
 
-    {
-        padding: 10px;
-        font-size: 0.9rem;
-    }
+        .btn-primary, .btn-warning, .btn-danger {
+            padding: 6px 12px;
+            font-size: 0.9rem;
+        }
 
-    .btn-primary, .btn-warning, .btn-danger {
-        padding: 6px 12px;
-        font-size: 0.9rem;
-    }
+        h2 {
+            font-size: 1.5rem;
+        }
 
-    h2 {
-        font-size: 1.5rem;
-    }
+        .card {
+            padding: 10px;
+        }
 
-    .card {
-        padding: 10px;
-    }
-
-    .alert-success, .alert-danger {
-        font-size: 0.9rem;
-        padding: 10px;
-    }
-
+        .alert-success, .alert-danger {
+            font-size: 0.9rem;
+            padding: 10px;
+        }
     }
 </style>
 

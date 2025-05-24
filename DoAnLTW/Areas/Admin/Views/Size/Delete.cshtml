@@ -1,6 +1,6 @@
 ﻿@model DoAnLTW.Models.Size
 @{
-    ViewData["Title"] = "Xóa Kích Thước";
+    ViewData["Title"] = "Xóa kích thước";
     Layout = "~/Areas/Admin/Views/Shared/layoutAdmin.cshtml";
 }
 
@@ -13,14 +13,14 @@
         font-family: 'Arial', sans-serif;
     }
 
-    h2, h3 {
+    h1, h3, h4 {
         color: #FFD700; /* Gold heading */
         text-align: center;
         text-transform: uppercase;
         animation: fadeInDown 0.5s ease-in-out;
     }
 
-    h2 {
+    h1 {
         border-bottom: 2px solid #FFD700;
         padding-bottom: 10px;
         margin-bottom: 20px;
@@ -64,7 +64,7 @@
     }
 
         .btn-danger:hover {
-            background-color: #333333; /* Darker black */
+            background-color: #333333; /* Darker black on hover */
             border-color: #FFD700;
             color: #FFD700;
             box-shadow: 0 4px 10px rgba(255, 215, 0, 0.3);
@@ -80,7 +80,7 @@
     }
 
         .btn-secondary:hover {
-            background-color: #333333; /* Darker black */
+            background-color: #333333; /* Darker black on hover */
             border-color: #FFD700;
             color: #FFD700;
             box-shadow: 0 4px 10px rgba(255, 215, 0, 0.3);
@@ -88,63 +88,54 @@
 
     /* Animations */
     @@keyframes fadeInDown {
-        from
+        from {
+            opacity: 0;
+            transform: translateY(-20px);
+        }
 
-    {
-        opacity: 0;
-        transform: translateY(-20px);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
     }
 
     /* Responsive adjustments */
     @@media (max-width: 768px) {
-        .dl-horizontal
+        .dl-horizontal {
+            padding: 15px;
+        }
 
-    {
-        padding: 15px;
-    }
+            .dl-horizontal dt, .dl-horizontal dd {
+                font-size: 0.9rem;
+            }
 
-    .dl-horizontal dt, .dl-horizontal dd {
-        font-size: 0.9rem;
-    }
-
-    .btn-danger, .btn-secondary {
-        padding: 6px 12px;
-        font-size: 0.9rem;
-    }
-
-    h2, h3 {
-        font-size: 1.2rem;
-    }
-
+        .btn-danger, .btn-secondary {
+            padding: 6px 12px;
+            font-size: 0.9rem;
+        }
     }
 </style>
 
 <div class="container-fluid">
-    <h2>Xóa Kích Thước</h2>
+    <h1>Xóa kích thước</h1>
 
+    <h3>Bạn có chắc chắn muốn xóa kích thước này?</h3>
     <div class="row">
-        <div class="col-md-6 offset-md-3">
+        <div class="col-md-6">
             <div class="dl-horizontal">
-                <h3>Bạn có chắc muốn xóa kích thước "@(Model.size ?? "Không có tên")"?</h3>
+                <h4>Thông tin kích thước</h4>
                 <hr />
                 <dl class="row">
-                    <dt class="col-sm-3">ID</dt>
-                    <dd class="col-sm-9">@Model.SizeId</dd>
-                    <dt class="col-sm-3">Kích Thước</dt>
-                    <dd class="col-sm-9">@(Model.size ?? "Không có tên")</dd>
+                    <dt class="col-sm-3">Kích thước</dt>
+                    <dd class="col-sm-9">@Html.DisplayFor(model => model.size)</dd>
                 </dl>
+
                 <form asp-action="DeleteConfirmed" method="post">
-                    <input type="hidden" asp-for="SizeId" />
-                    <div class="form-group text-center mt-3">
-                        <button type="submit" class="btn btn-danger"><i class="fas fa-trash"></i> Xóa</button>
-                        <a asp-action="Index" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Hủy</a>
+                    <input type="hidden" name="id" value="@Model.SizeId" />
+                    @Html.AntiForgeryToken()
+                    <div class="form-group text-center">
+                        <input type="submit" value="Xóa" class="btn btn-danger" /> <i class="fas fa-trash"></i>
+                        <a asp-action="Index" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Quay lại</a>
                     </div>
                 </form>
             </div>

@@ -53,13 +53,13 @@ namespace DoAnLTW.Areas.Admin.Controllers
         // 4. Thêm kích thước - POST
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(Size size)
+        public async Task<IActionResult> Create(Size sizes)
         {
             if (ModelState.IsValid)
             {
                 try
                 {
-                    _context.Add(size);
+                    _context.Add(sizes);
                     await _context.SaveChangesAsync();
                     TempData["SuccessMessage"] = "Thêm kích thước thành công!";
                     return RedirectToAction(nameof(Index));
@@ -73,7 +73,7 @@ namespace DoAnLTW.Areas.Admin.Controllers
             {
                 TempData["ErrorMessage"] = "Dữ liệu không hợp lệ. Vui lòng kiểm tra lại.";
             }
-            return View(size);
+            return View(sizes);
         }
 
         // 5. Sửa kích thước - GET
@@ -95,9 +95,9 @@ namespace DoAnLTW.Areas.Admin.Controllers
         // 6. Sửa kích thước - POST
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, Size size)
+        public async Task<IActionResult> Edit(int id, Size sizes)
         {
-            if (id != size.SizeId)
+            if (id != sizes.SizeId)
             {
                 return NotFound("Kích thước không hợp lệ");
             }
@@ -106,14 +106,14 @@ namespace DoAnLTW.Areas.Admin.Controllers
             {
                 try
                 {
-                    _context.Update(size);
+                    _context.Update(sizes);
                     await _context.SaveChangesAsync();
                     TempData["SuccessMessage"] = "Cập nhật kích thước thành công!";
                     return RedirectToAction(nameof(Index));
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!await SizeExists(size.SizeId))
+                    if (!await SizeExists(sizes.SizeId))
                     {
                         return NotFound("Kích thước không tồn tại");
                     }
@@ -128,7 +128,7 @@ namespace DoAnLTW.Areas.Admin.Controllers
             {
                 TempData["ErrorMessage"] = "Dữ liệu không hợp lệ. Vui lòng kiểm tra lại.";
             }
-            return View(size);
+            return View(sizes);
         }
 
         // 7. Xóa kích thước - GET
@@ -136,7 +136,8 @@ namespace DoAnLTW.Areas.Admin.Controllers
         {
             if (id == null)
             {
-                return NotFound("Không tìm thấy kích thước");
+                TempData["ErrorMessage"] = "ID kích thước không hợp lệ.";
+                return NotFound();
             }
 
             var size = await _context.Sizes
@@ -145,15 +146,16 @@ namespace DoAnLTW.Areas.Admin.Controllers
 
             if (size == null)
             {
-                return NotFound("Không tìm thấy kích thước");
+                TempData["ErrorMessage"] = "Không tìm thấy kích thước.";
+                return NotFound();
             }
 
             return View(size);
         }
 
         // 8. Xóa kích thước - POST
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
+        [HttpPost]
+      
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var size = await _context.Sizes
@@ -162,12 +164,13 @@ namespace DoAnLTW.Areas.Admin.Controllers
 
             if (size == null)
             {
-                return NotFound("Không tìm thấy kích thước");
+                TempData["ErrorMessage"] = "Không tìm thấy kích thước để xóa.";
+                return NotFound();
             }
 
-            if (size.ProductSizes.Any())
+            if (size.ProductSizes != null && size.ProductSizes.Any())
             {
-                TempData["ErrorMessage"] = "Không thể xóa kích thước vì đang được sử dụng trong sản phẩm.";
+                TempData["ErrorMessage"] = "Không thể xóa kích thước vì nó đang được sử dụng trong các sản phẩm.";
                 return RedirectToAction(nameof(Index));
             }
 

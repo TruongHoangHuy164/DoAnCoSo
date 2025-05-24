@@ -79,68 +79,40 @@ namespace DoAnLTW.Areas.Admin.Controllers
         // GET: Admin/Service/Edit/5
         public async Task<IActionResult> Edit(int id)
         {
-            try
+            var service = await _serviceRepository.GetByIdAsync(id);
+            if (service == null)
             {
-                var service = await _serviceRepository.GetByIdAsync(id);
-                if (service == null)
-                {
-                    return NotFound();
-                }
-                return View(service);
+                return NotFound();
             }
-            catch (Exception ex)
-            {
-                TempData["ErrorMessage"] = "Có lỗi xảy ra khi tải dịch vụ để chỉnh sửa.";
-                return RedirectToAction(nameof(Index));
-            }
+            return View(service);  // Trả về Service model cho View sửa Service
         }
 
         // POST: Admin/Service/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, PetService updatedStatus)
+        public async Task<IActionResult> Edit(int id, Service service)
         {
+            if (id != service.ServiceId)
+            {
+
+                return NotFound();
+            }
+
+            if (!ModelState.IsValid)
+            {
+                return View(service);  // Trả về lại model Service để View hiển thị lỗi
+            }
+
             try
             {
-                // Debug: Kiểm tra dữ liệu nhận được
-                Console.WriteLine($"Received ID: {id}, Status: {updatedStatus?.Status}");
-
-                if (id != updatedStatus.Id)
-                {
-                    return NotFound("ID không khớp với đối tượng được gửi.");
-                }
-
-                if (!ModelState.IsValid)
-                {
-                    // Debug: Kiểm tra lỗi trong ModelState
-                    foreach (var error in ModelState.Values.SelectMany(v => v.Errors))
-                    {
-                        Console.WriteLine($"ModelState Error: {error.ErrorMessage}");
-                    }
-                    ViewBag.StatusList = new SelectList(Enum.GetValues(typeof(PetServiceStatus)), updatedStatus.Status);
-                    return View(updatedStatus);
-                }
-
-                // Lấy đối tượng hiện tại từ cơ sở dữ liệu
-                var existingPetService = await _petServiceRepository.GetByIdAsync(id);
-                if (existingPetService == null)
-                {
-                    return NotFound("Không tìm thấy dịch vụ.");
-                }
-
-                // Chỉ cập nhật trạng thái
-                existingPetService.Status = updatedStatus.Status;
-                await _petServiceRepository.UpdateAsync(existingPetService);
-
-                TempData["SuccessMessage"] = "Cập nhật trạng thái thành công!";
+                await _serviceRepository.UpdateAsync(service);
+                TempData["SuccessMessage"] = "Cập nhật dịch vụ thành công.";
                 return RedirectToAction(nameof(Index));
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error in Edit: {ex.Message}");
-                TempData["ErrorMessage"] = "Có lỗi xảy ra khi cập nhật dịch vụ: " + ex.Message;
-                ViewBag.StatusList = new SelectList(Enum.GetValues(typeof(PetServiceStatus)), updatedStatus.Status);
-                return View(updatedStatus);
+                TempData["ErrorMessage"] = "Có lỗi xảy ra khi cập nhật dịch vụ.";
+                return View(service);
             }
         }
         // GET: Admin/Service/Delete/5
