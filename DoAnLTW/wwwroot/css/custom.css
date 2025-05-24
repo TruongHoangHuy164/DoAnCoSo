@@ -63,7 +63,28 @@ a {
         color: #ffca2c; /* Lighter yellow on hover */
         text-decoration: underline;
     }
+<style >
+.sidebar {
+    height: auto; /* Chiều cao tự động theo nội dung */
+    min-height: auto; /* Bỏ min-height mặc định nếu có */
+    position: fixed; /* Giữ sidebar cố định */
+    top: 70px; /* Khoảng cách từ đỉnh, điều chỉnh theo chiều cao của navbar */
+    bottom: auto; /* Không kéo dài đến bottom */
+    overflow-y: auto; /* Thêm thanh cuộn nếu nội dung vượt quá */
+}
 
+/* Đảm bảo sidebar không vượt quá chiều cao của các nav-item */
+.sidebar .nav {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Tùy chỉnh nếu cần để đảm bảo sidebar không bị co lại quá nhỏ */
+.sidebar-offcanvas {
+    width: 250px; /* Đảm bảo chiều rộng cố định */
+}
+
+</style >
 .form-check-input:checked {
     background-color: #ffc107; /* Yellow checkbox */
     border-color: #ffc107;

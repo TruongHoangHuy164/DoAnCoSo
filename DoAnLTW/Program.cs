@@ -82,6 +82,14 @@ builder.Services.Configure<DataProtectionTokenProviderOptions>(options =>
 {
     options.TokenLifespan = TimeSpan.FromSeconds(30);
 });
+// Cấu hình Google Authentication
+builder.Services.AddAuthentication()
+    .AddGoogle(options =>
+    {
+        options.ClientId = builder.Configuration["GoogleKeys:ClientId"];
+        options.ClientSecret = builder.Configuration["GoogleKeys:ClientSecret"];
+        options.SignInScheme = IdentityConstants.ExternalScheme;
+    });
 
 // SignalR
 builder.Services.AddSignalR(options =>

@@ -86,8 +86,6 @@
         background-color: #000000; /* Black background */
         border-color: #FFD700; /* Gold border */
         color: #FFD700; /* Gold text */
-        padding: 8px 16px;
-        border-radius: 5px;
         transition: all 0.3s ease;
     }
 
@@ -111,46 +109,40 @@
 
     /* Animations */
     @@keyframes fadeInDown {
-        from
+        from {
+            opacity: 0;
+            transform: translateY(-20px);
+        }
 
-    {
-        opacity: 0;
-        transform: translateY(-20px);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
     }
 
     /* Responsive adjustments */
     @@media (max-width: 768px) {
-        .form-container
+        .form-container {
+            padding: 15px;
+        }
 
-    {
-        padding: 15px;
-    }
+        .form-group label {
+            font-size: 0.9rem;
+        }
 
-    .form-group label {
-        font-size: 0.9rem;
-    }
+        .form-control {
+            font-size: 0.9rem;
+            padding: 6px;
+        }
 
-    .form-control {
-        font-size: 0.9rem;
-        padding: 6px;
-    }
+        .btn-success, .btn-secondary {
+            padding: 6px 12px;
+            font-size: 0.9rem;
+        }
 
-    .btn-success, .btn-secondary {
-        padding: 6px 12px;
-        font-size: 0.9rem;
-    }
-
-    img#preview {
-        width: 80px;
-    }
-
+        img#preview {
+            width: 80px;
+        }
     }
 </style>
 
@@ -161,6 +153,7 @@
         <div class="col-md-6 offset-md-3">
             <div class="form-container">
                 <form asp-action="Create" method="post" enctype="multipart/form-data">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                     <div class="form-group">
                         <label asp-for="Name" class="control-label">Tên Danh Mục</label>
                         <input asp-for="Name" class="form-control" placeholder="Nhập tên danh mục" required />
@@ -168,7 +161,7 @@
                     </div>
                     <div class="form-group mb-3">
                         <label class="control-label">Hình ảnh danh mục</label>
-                        <input type="file" name="ImageFile" class="form-control" accept="image/*" id="imageInput" onchange="previewImage(event)" />
+                        <input type="file" name="ImageFile" class="form-control" accept="image/*" id="imageInput" onchange="previewImage(event)" required />
                         @if (!string.IsNullOrEmpty(Model?.ImageUrl))
                         {
                             <img id="preview" src="@Model.ImageUrl" alt="Ảnh danh mục" style="width:100px; height:auto;" class="mt-2" />

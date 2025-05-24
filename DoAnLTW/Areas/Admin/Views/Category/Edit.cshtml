@@ -20,8 +20,15 @@
         margin-bottom: 20px;
         text-align: center;
         text-transform: uppercase;
-        animation: fadeInDown 0.5s ease-in-out;
+        opacity: 0;
+        transform: translateY(-20px);
+        transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
     }
+
+        h2.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
 
     /* Form styling */
     .form-container {
@@ -62,6 +69,8 @@
         border-radius: 5px;
         border: 1px solid #000000; /* Black border */
         margin-bottom: 10px;
+        max-width: 100px;
+        height: auto;
     }
 
     /* Button styling */
@@ -109,29 +118,43 @@
         margin-top: 5px;
     }
 
-    /* Animations */
-    @@keyframes fadeInDown {
-        from
-
-    {
+    /* Alert styling */
+    .alert-success {
+        background-color: #FFD700; /* Gold background */
+        color: #000000; /* Black text */
+        border-color: #FFD700;
+        border-radius: 8px;
+        padding: 15px;
+        margin-bottom: 20px;
         opacity: 0;
-        transform: translateY(-20px);
+        transform: translateY(-10px);
+        transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
     }
 
-    to {
-        opacity: 1;
-        transform: translateY(0);
+        .alert-success.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+    .alert-danger {
+        background-color: #000000; /* Black background */
+        color: #FFD700; /* Gold text */
+        border: 1px solid #FFD700; /* Gold border */
+        border-radius: 8px;
+        padding: 15px;
+        margin-bottom: 20px;
+        opacity: 0;
+        transform: translateY(-10px);
+        transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
     }
 
-    }
+        .alert-danger.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
 
     /* Responsive adjustments */
-    @@media (max-width: 768px) {
-        .form-container
 
-    {
-        padding: 15px;
-    }
 
     .form-group label {
         font-size: 0.9rem;
@@ -148,25 +171,34 @@
     }
 
     img {
-        width: 80px;
-        height: auto;
+        max-width: 80px;
     }
 
     }
 </style>
 
 <div class="container-fluid">
-    <h2 class="text-center">Sửa Danh Mục</h2>
+    <h2 class="visible">Sửa Danh Mục</h2>
+
+    @if (TempData["Success"] != null)
+    {
+        <div class="alert alert-success visible" role="alert">@TempData["Success"]</div>
+    }
+    @if (TempData["Error"] != null)
+    {
+        <div class="alert alert-danger visible" role="alert">@TempData["Error"]</div>
+    }
 
     <div class="row">
         <div class="col-md-6 offset-md-3">
             <div class="form-container">
-                <form asp-action="Edit" asp-controller="Category" asp-area="Admin" method="post">
+                <form asp-action="Edit" asp-controller="Category" asp-area="Admin" method="post" enctype="multipart/form-data">
                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                     <input type="hidden" asp-for="CategoryId" />
+                    <input type="hidden" asp-for="ImageUrl" /> <!-- Giữ giá trị ImageUrl cũ -->
                     <div class="form-group mb-3">
                         <label asp-for="Name" class="control-label">Tên Danh Mục</label>
-                        <input asp-for="Name" class="form-control" placeholder="Nhập tên danh mục" />
+                        <input asp-for="Name" class="form-control" placeholder="Nhập tên danh mục" required />
                         <span asp-validation-for="Name" class="text-danger"></span>
                     </div>
                     <div class="form-group mb-3">
@@ -174,7 +206,7 @@
                         @if (!string.IsNullOrEmpty(Model?.ImageUrl))
                         {
                             <div>
-                                <img src="@Model.ImageUrl" alt="@Model.Name" style="width:100px; height:auto;" />
+                                <img src="@Model.ImageUrl" alt="@Model.Name" />
                             </div>
                         }
                         else
@@ -199,4 +231,12 @@
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const elements = document.querySelectorAll('.visible');
+            elements.forEach(element => {
+                element.classList.add('visible');
+            });
+        });
+    </script>
 }

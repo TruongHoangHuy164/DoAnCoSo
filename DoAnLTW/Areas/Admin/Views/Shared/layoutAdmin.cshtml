@@ -1,6 +1,7 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
 <head>
+
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -8,15 +9,18 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <!-- Font Awesome CSS (cho các icon) -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- plugins:css -->
     <link rel="stylesheet" href="~/LayoutAdmin/assets/vendors/mdi/css/materialdesignicons.min.css">
     <link rel="stylesheet" href="~/LayoutAdmin/assets/vendors/css/vendor.bundle.base.css">
     <!-- Layout styles -->
     <link rel="stylesheet" href="~/LayoutAdmin/assets/css/style.css">
+    <!-- Custom CSS for consistent yellow-black-white theme -->
+    <link rel="stylesheet" href="~/css/custom.css">
     <!-- End layout styles -->
     <link rel="shortcut icon" href="~/LayoutAdmin/assets/images/favicon.ico" />
 </head>
+   
 <body>
     <div class="container-scroller">
         <!-- partial:../../partials/_navbar.html -->
@@ -55,20 +59,21 @@
                     <li class="nav-item">
                         <a class="nav-link" asp-area="Admin" asp-controller="Statistics" asp-action="Index">
                             <span class="menu-title">Thống Kê</span>
-                            <i class="fa-solid fa-chart-line menu-icon"></i> <!-- Icon biểu đồ cho thống kê -->
+                            <i class="fa-solid fa-chart-line menu-icon"></i>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" asp-area="Admin" asp-controller="PromotionCode" asp-action="Index">
-                            <span class="menu-title">Quản Lý Mã Khuyến Mãi</span>
-                            <i class="fa-solid fa-ticket promotion-icon"></i> <!-- Icon vé cho mã khuyến mãi -->
+                            <span class="menu-title">Quản Lý Coupon</span>
+                            <i class="fa-solid fa-ticket menu-icon"></i>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" data-toggle="collapse" href="#petHotelSubMenu" aria-expanded="false" aria-controls="petHotelSubMenu">
                             <span class="menu-title">Quản Lý Hotel Pet</span>
-                            <i class="fa-solid fa-hotel menu-icon"></i> <!-- Giữ icon khách sạn -->
-                            <i class="mdi mdi-chevron-down ms-auto"></i>
+                            
+                            <i class="mdi mdi-chevron-down menu-arrow"></i>
+                            <i class="fa-solid fa-hotel menu-icon"></i>
                         </a>
                         <div class="collapse" id="petHotelSubMenu">
                             <ul class="nav flex-column sub-menu">
@@ -80,70 +85,64 @@
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" asp-area="Admin" asp-controller="PetHotelBooking" asp-action="HotelRoomIndex">Phòng</a>
-                                </li>                            
+                                </li>
                             </ul>
                         </div>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" asp-area="Admin" asp-controller="CustomerPoint" asp-action="Index">
-                            <span class="menu-title">Quản Lý Customer Point</span>
-                            <i class="fa-solid fa-star promotion-icon"></i> <!-- Icon ngôi sao cho điểm khách hàng -->
-                        </a>
-                    </li>
-                    <li class="nav-item">
                         <a class="nav-link" asp-area="Admin" asp-controller="Order" asp-action="Index">
                             <span class="menu-title">Quản Lý Đơn Hàng</span>
-                            <i class="fa-solid fa-shopping-cart menu-icon"></i> <!-- Icon giỏ hàng cho đơn hàng -->
+                            <i class="fa-solid fa-shopping-cart menu-icon"></i>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" asp-area="Admin" asp-controller="Product" asp-action="Index">
                             <span class="menu-title">Quản Lý Sản Phẩm</span>
-                            <i class="fa-solid fa-box-open menu-icon"></i> <!-- Icon hộp mở cho sản phẩm -->
+                            <i class="fa-solid fa-box-open menu-icon"></i>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" asp-area="Admin" asp-controller="Category" asp-action="Index">
                             <span class="menu-title">Quản Lý Danh Mục</span>
-                            <i class="fa-solid fa-folder-tree menu-icon"></i> <!-- Icon cây thư tosản phẩm -->
+                            <i class="fa-solid fa-folder-tree menu-icon"></i>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" asp-area="Admin" asp-controller="Brand" asp-action="Index">
                             <span class="menu-title">Quản Lý Brand</span>
-                            <i class="fa-solid fa-copyright menu-icon"></i> <!-- Icon bản quyền cho thương hiệu -->
+                            <i class="fa-solid fa-copyright menu-icon"></i>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" asp-area="Admin" asp-controller="Size" asp-action="Index">
-                            <span class="menu-title">Quản lý Size</span>
-                            <i class="fa-solid fa-ruler-horizontal menu-icon"></i> <!-- Icon thước đo cho kích thước -->
+                            <span class="menu-title">Quản Lý Size</span>
+                            <i class="fa-solid fa-ruler-horizontal menu-icon"></i>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" asp-area="Admin" asp-controller="PetServices" asp-action="Index">
                             <span class="menu-title">Quản Lý Đặt Lịch</span>
-                            <i class="fa-solid fa-calendar-alt menu-icon"></i> <!-- Icon lịch cho đặt lịch -->
+                            <i class="fa-solid fa-calendar-alt menu-icon"></i>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" asp-area="Admin" asp-controller="Service" asp-action="Index">
                             <span class="menu-title">Quản Lý Dịch Vụ</span>
-                            <i class="fa-solid fa-tools menu-icon"></i> <!-- Icon công cụ cho dịch vụ -->
+                            <i class="fa-solid fa-tools menu-icon"></i>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" asp-area="Admin" asp-controller="Pet" asp-action="Index">
                             <span class="menu-title">Quản Lý Thú Cưng</span>
-                            <i class="fa-solid fa-paw menu-icon"></i> <!-- Giữ icon bàn chân cho thú cưng -->
+                            <i class="fa-solid fa-paw menu-icon"></i>
                         </a>
                     </li>
                     @if (User.IsInRole("Admin"))
                     {
                         <li class="nav-item">
                             <a class="nav-link" asp-area="Admin" asp-controller="Admin" asp-action="PhanQuyen">
-                                <span class="menu-title">Quản lý phân quyền</span>
-                                <i class="fa-solid fa-user-shield menu-icon"></i> <!-- Icon người dùng với khiên cho phân quyền -->
+                                <span class="menu-title">Quản Lý Phân Quyền</span>
+                                <i class="fa-solid fa-user-shield menu-icon"></i>
                             </a>
                         </li>
                     }
@@ -151,10 +150,10 @@
                     {
                         <li class="nav-item">
                             <a class="nav-link" asp-area="Admin" asp-controller="EmployeeChat" asp-action="Index">
-                            <span class="menu-title">Quản lý Chat</span>
-                            <i class="fa-solid fa-comment-dots menu-icon"></i> <!-- Icon hội thoại cho chat -->
-                        </a>
-                    </li>
+                                <span class="menu-title">Quản Lý Chat</span>
+                                <i class="fa-solid fa-comment-dots menu-icon"></i>
+                            </a>
+                        </li>
                     }
                 </ul>
             </nav>
@@ -183,13 +182,11 @@
             $(".nav-item").click(function() {
                 // Loại bỏ lớp 'selected' khỏi tất cả các mục
                 $(".nav-item").removeClass("selected");
-
                 // Thêm lớp 'selected' vào mục mà người dùng vừa nhấn
                 $(this).addClass("selected");
             });
         });
     </script>
-
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
