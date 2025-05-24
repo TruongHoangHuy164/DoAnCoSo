@@ -1,0 +1,78 @@
+﻿/* Custom CSS for Bootstrap with yellow, black, and white theme */
+body {
+    background-color: #ffffff; /* White background */
+    color: #212529; /* Black text */
+}
+
+.card {
+    border: 1px solid #212529; /* Black border */
+    background-color: #ffffff; /* White background */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.form-control {
+    border: 1px solid #212529; /* Black border */
+    background-color: #ffffff; /* White background */
+    color: #212529; /* Black text */
+}
+
+    .form-control:focus {
+        border-color: #ffc107; /* Yellow border on focus */
+        box-shadow: 0 0 0 0.2rem rgba(255, 193, 7, 0.25); /* Yellow shadow */
+        background-color: #ffffff;
+        color: #212529;
+    }
+
+.btn-primary, .btn-success {
+    background-color: #ffc107; /* Yellow background */
+    border-color: #ffc107; /* Yellow border */
+    color: #212529; /* Black text */
+}
+
+    .btn-primary:hover, .btn-success:hover {
+        background-color: #ffca2c; /* Lighter yellow on hover */
+        border-color: #ffca2c;
+        color: #212529;
+    }
+
+.btn-light {
+    background-color: #ffffff; /* White background */
+    border-color: #212529; /* Black border */
+    color: #212529; /* Black text */
+    display: flex;
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    gap: 8px; /* Space between logo and text */
+}
+
+    .btn-light:hover {
+        background-color: #f8f9fa; /* Light gray on hover */
+        border-color: #212529;
+        color: #212529;
+    }
+
+.text-danger {
+    color: #dc3545 !important; /* Keep red for error messages */
+}
+
+a {
+    color: #ffc107; /* Yellow links */
+}
+
+    a:hover {
+        color: #ffca2c; /* Lighter yellow on hover */
+        text-decoration: underline;
+    }
+
+.form-check-input:checked {
+    background-color: #ffc107; /* Yellow checkbox */
+    border-color: #ffc107;
+}
+
+.form-label {
+    color: #212529; /* Black label text */
+}
+
+.text-center {
+    color: #212529; /* Black text for centered elements */
+}

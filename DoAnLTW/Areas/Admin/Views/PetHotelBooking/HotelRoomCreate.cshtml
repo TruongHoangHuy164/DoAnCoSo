@@ -8,26 +8,33 @@
 <style>
     /* General page styling */
     body {
-        background-color: #000000; /* Black background */
-        color: #FFFFFF; /* White text */
+        background-color: #000000;
+        color: #FFFFFF;
         font-family: 'Arial', sans-serif;
     }
 
     h2 {
-        color: #FFD700; /* Gold heading */
+        color: #FFD700;
         border-bottom: 2px solid #FFD700;
         padding-bottom: 10px;
         margin-bottom: 20px;
         text-align: center;
         text-transform: uppercase;
-        animation: fadeInDown 0.5s ease-in-out;
+        opacity: 0;
+        transform: translateY(-20px);
+        transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
     }
+
+        h2.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
 
     /* Card styling */
     .form-container {
-        background-color: #FFFFFF; /* White card background */
-        color: #000000; /* Black text */
-        border: 1px solid #FFD700; /* Gold border */
+        background-color: #FFFFFF;
+        color: #000000;
+        border: 1px solid #FFD700;
         border-radius: 10px;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
         padding: 20px;
@@ -39,30 +46,30 @@
     }
 
         .form-group label {
-            color: #000000; /* Black label text */
+            color: #000000;
             font-weight: 500;
             margin-bottom: 5px;
         }
 
     .form-control, .form-check-input {
-        background-color: #F5F5F5; /* Light gray input background */
-        border: 1px solid #000000; /* Black border */
-        color: #000000; /* Black text */
+        background-color: #F5F5F5;
+        border: 1px solid #000000;
+        color: #000000;
         border-radius: 5px;
         padding: 8px;
     }
 
         .form-control:focus, .form-check-input:focus {
-            border-color: #FFD700; /* Gold border on focus */
+            border-color: #FFD700;
             box-shadow: 0 0 5px rgba(255, 215, 0, 0.5);
-            background-color: #FFFFFF; /* White background on focus */
+            background-color: #FFFFFF;
         }
 
     /* Button styling */
     .btn-primary {
-        background-color: #FFD700; /* Gold background */
+        background-color: #FFD700;
         border-color: #FFD700;
-        color: #000000; /* Black text */
+        color: #000000;
         font-weight: bold;
         padding: 8px 16px;
         border-radius: 5px;
@@ -70,40 +77,47 @@
     }
 
         .btn-primary:hover {
-            background-color: #E6C200; /* Darker gold */
+            background-color: #E6C200;
             border-color: #E6C200;
             box-shadow: 0 4px 10px rgba(255, 215, 0, 0.3);
         }
 
     .btn-secondary {
-        background-color: #000000; /* Black background */
-        border-color: #FFD700; /* Gold border */
-        color: #FFD700; /* Gold text */
+        background-color: #000000;
+        border-color: #FFD700;
+        color: #FFD700;
         padding: 8px 16px;
         border-radius: 5px;
         transition: all 0.3s ease;
     }
 
         .btn-secondary:hover {
-            background-color: #333333; /* Darker black */
+            background-color: #333333;
             border-color: #FFD700;
             box-shadow: 0 4px 10px rgba(255, 215, 0, 0.3);
         }
 
     /* Alert styling */
     .alert-danger {
-        background-color: #000000; /* Black background */
-        color: #FFD700; /* Gold text */
-        border: 1px solid #FFD700; /* Gold border */
+        background-color: #000000;
+        color: #FFD700;
+        border: 1px solid #FFD700;
         border-radius: 8px;
         padding: 15px;
         margin-bottom: 20px;
-        animation: fadeIn 0.5s ease-in-out;
+        opacity: 0;
+        transform: translateY(-10px);
+        transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
     }
+
+        .alert-danger.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
 
     /* Validation error styling */
     .text-danger {
-        color: #FFD700 !important; /* Gold error text */
+        color: #FFD700 !important;
         font-size: 0.85rem;
     }
 
@@ -112,44 +126,29 @@
         margin-top: 5px;
     }
 
-    /* Animations */
-    @@keyframes fadeInDown {
-        from
-
-    {
-        opacity: 0;
-        transform: translateY(-20px);
+    /* Radio button styling */
+    .form-group.availability-group {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
     }
 
-    to {
-        opacity: 1;
-        transform: translateY(0);
+    .form-check-inline {
+        margin-right: 10px;
+        padding: 5px 10px;
+        border-radius: 5px;
+        transition: all 0.3s ease;
     }
 
-    }
+        .form-check-inline:hover {
+            background-color: #F5F5F5;
+        }
 
-    @@keyframes fadeIn {
-        from
-
-    {
-        opacity: 0;
-        transform: translateY(-10px);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-
+    .form-check-input {
+        margin-right: 5px;
     }
 
     /* Responsive adjustments */
-    @@media (max-width: 768px) {
-        .form-container
-
-    {
-        padding: 15px;
-    }
 
     .form-group label {
         font-size: 0.9rem;
@@ -174,34 +173,52 @@
         padding: 10px;
     }
 
+    .form-group.availability-group {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
     }
 </style>
 
 <div class="container-fluid">
-    <h2>Tạo Phòng Mới</h2>
+    <h2 class="visible">Tạo Phòng Mới</h2>
 
     <div class="row">
         <div class="col-md-6 offset-md-3">
             <div class="form-container">
-                <form asp-action="HotelRoomCreate" asp-controller="PetHotelBooking" asp-area="Admin">
+                <form asp-action="HotelRoomCreate" asp-controller="PetHotelBooking" asp-area="Admin" method="post">
                     <div asp-validation-summary="ModelOnly" class="alert alert-danger" style="@(ViewData.ModelState.IsValid ? "display:none;" : "")"></div>
+                   
+
                     <div class="form-group">
                         <label asp-for="RoomNumber" class="control-label">Số Phòng</label>
                         <input asp-for="RoomNumber" class="form-control" required />
                         <span asp-validation-for="RoomNumber" class="text-danger"></span>
                     </div>
+
                     <div class="form-group">
                         <label asp-for="RoomTypeId" class="control-label">Loại Phòng</label>
-                        <select asp-for="RoomTypeId" class="form-control" asp-items="ViewBag.RoomTypes" required>
+                        <select asp-for="RoomTypeId" class="form-control" asp-items="ViewBag.RoomTypes" id="RoomTypeId" name="RoomTypeId" required>
                             <option value="">-- Chọn loại phòng --</option>
                         </select>
                         <span asp-validation-for="RoomTypeId" class="text-danger"></span>
                     </div>
-                    <div class="form-group">
-                        <label asp-for="IsAvailable" class="control-label">Trạng Thái (Trống)</label>
-                        <input asp-for="IsAvailable" type="checkbox" class="form-check-input" />
-                        <span asp-validation-for="IsAvailable" class="text-danger"></span>
+
+                    <div class="form-group availability-group">
+                        <label asp-for="IsAvailable" class="control-label">Trạng Thái</label>
+                        <div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" asp-for="IsAvailable" value="true" id="availableTrue" checked />
+                                <label class="form-check-label" for="availableTrue">Trống</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" asp-for="IsAvailable" value="false" id="availableFalse" />
+                                <label class="form-check-label" for="availableFalse">Đã đặt</label>
+                            </div>
+                        </div>
                     </div>
+
                     <div class="form-group text-center">
                         <button type="submit" class="btn btn-primary"><i class="fas fa-plus"></i> Tạo</button>
                         <a asp-action="HotelRoomIndex" asp-controller="PetHotelBooking" asp-area="Admin" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Quay Lại</a>
@@ -213,5 +230,69 @@
 </div>
 
 @section Scripts {
-    @@await Html.RenderPartialAsync("_ValidationScriptsPartial")
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/4.0.0/jquery.validate.unobtrusive.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            // Validate form
+            $("form").validate({
+                rules: {
+                    RoomTypeId: {
+                        required: true,
+                        min: 1
+                    },
+                    RoomNumber: {
+                        required: true
+                    },
+                    IsAvailable: {
+                        required: true
+                    }
+                },
+                messages: {
+                    RoomTypeId: {
+                        required: "", // Xóa thông báo lỗi mặc định
+                        min: "Vui lòng chọn một loại phòng hợp lệ."
+                    },
+                    RoomNumber: {
+                        required: "Vui lòng nhập số phòng."
+                    },
+                    IsAvailable: {
+                        required: "Vui lòng chọn trạng thái phòng."
+                    }
+                },
+                errorElement: "span",
+                errorClass: "text-danger",
+                highlight: function (element) {
+                    $(element).addClass("border-danger");
+                },
+                unhighlight: function (element) {
+                    $(element).removeClass("border-danger");
+                }
+            });
+
+            // Log form data before submission
+            $("form").on("submit", function () {
+                var roomTypeId = $("#RoomTypeId").val();
+                var roomNumber = $("#RoomNumber").val();
+                var isAvailable = $("input[name='IsAvailable']:checked").val();
+                console.log("Form data:", {
+                    RoomTypeId: roomTypeId,
+                    RoomNumber: roomNumber,
+                    IsAvailable: isAvailable
+                });
+            });
+
+            // Ensure RoomTypeId is not empty
+            $("#RoomTypeId").on("change", function () {
+                console.log("RoomTypeId selected:", $(this).val());
+            });
+
+            // Ensure elements with class 'visible' are animated on page load
+            const elements = document.querySelectorAll('.visible');
+            elements.forEach(element => {
+                element.classList.add('visible');
+            });
+        });
+    </script>
 }

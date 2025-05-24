@@ -9,182 +9,249 @@
 
 <style>
     /* General container styling */
-    /* .container-fluid { */
-    /*     background: linear-gradient(135deg, #ffffff, #f5f5f5); */
-    /*     padding: 20px; */
-    /*     min-height: 100vh; */
-    /*     max-width: 100%; /* Ensure container spans full width */ */
-    /*     margin: 0 auto; /* Center container */ */
-    /*     box-sizing: border-box; /* Prevent padding issues */ */
-    /* } */
+   
 
-    /* Sidebar styling with gold accent */
+    /* Sidebar styling */
     .filter-sidebar {
-        background: #fff;
-        padding: 20px;
-        border-radius: 8px;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-        border-left: 4px solid #ffc107;
+        background: #f8f9fa;
+        padding: 1.5rem;
+        margin-bottom: 30px;
+        border-radius: 0;
     }
 
         .filter-sidebar h4, .filter-sidebar h5 {
-            color: #333;
-            font-weight: 600;
-            border-bottom: 2px solid #ffc107;
-            padding-bottom: 8px;
-            margin-bottom: 15px;
+            font-size: 1.25rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            margin-bottom: 0.75rem;
+            position: relative;
         }
 
-        .filter-sidebar .form-check-label {
-            color: #555;
-            font-size: 0.9rem;
-        }
-
-        .filter-sidebar .form-check-input:checked {
-            background-color: #ffc107;
-            border-color: #ffc107;
-        }
-
-    /* Search container */
-    .search-container {
-        position: relative;
-        margin-bottom: 20px;
-    }
-
-        .search-container input {
-            border: 1px solid #ccc;
-            border-radius: 20px;
-            padding: 8px 40px 8px 15px;
-            width: 100%;
-            font-size: 0.9rem;
-            box-sizing: border-box;
-        }
-
-        .search-container .btn-search, .search-container .btn-mic {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            background: #ffc107;
-            border: none;
-            padding: 6px 12px;
-            border-radius: 50%;
-            color: #fff;
-            transition: background-color 0.3s;
-        }
-
-        .search-container .btn-search {
-            right: 40px;
-        }
-
-        .search-container .btn-mic {
-            right: 5px;
-        }
-
-            .search-container .btn-mic.recording {
-                background: #dc3545;
+            .filter-sidebar h4 span, .filter-sidebar h5 span {
+                background: #6c757d;
+                padding-right: 1rem;
+                color: #ffffff;
             }
 
+        .filter-sidebar .custom-control {
+            margin-bottom: 1rem;
+        }
+
+        .filter-sidebar .custom-control-label {
+            color: #212529;
+            font-size: 1rem;
+            font-weight: normal;
+        }
+
+        .filter-sidebar .badge {
+            background: transparent;
+            border: 1px solid #dee2e6;
+            font-weight: normal;
+            padding: 0.25em 0.4em;
+            color: #212529;
+        }
+
+        .filter-sidebar .btn-primary,
+        .filter-sidebar .btn-reset {
+            width: 100%;
+            padding: 0.75rem;
+            font-size: 0.875rem;
+            border-radius: 0.25rem;
+            transition: background-color 0.3s ease;
+            margin-top: 0.75rem;
+        }
+
+        .filter-sidebar .btn-primary {
+            background: #007bff;
+            border-color: #007bff;
+            color: #ffffff;
+        }
+
+            .filter-sidebar .btn-primary:hover {
+                background: #0056b3;
+                border-color: #0056b3;
+            }
+
+        .filter-sidebar .btn-reset {
+            background: #6c757d;
+            border-color: #6c757d;
+            color: #ffffff;
+        }
+
+            .filter-sidebar .btn-reset:hover {
+                background: #5a6268;
+                border-color: #5a6268;
+            }
+
+        .filter-sidebar .stock-status p {
+            font-size: 1rem;
+            font-weight: normal;
+            margin-bottom: 0.5rem;
+            color: #212529;
+            display: flex;
+            align-items: center;
+        }
+
+        .filter-sidebar .stock-status i {
+            margin-right: 0.5rem;
+            font-size: 1rem;
+        }
+
     /* Card view styling */
-    .product-item .card {
-        background: linear-gradient(145deg, #ffffff, #f8f9fa);
-        border: 1px solid #e0e0e0;
-        border-radius: 10px;
-        transition: transform 0.3s, box-shadow 0.3s;
-        overflow: hidden;
-        height: 100%;
+    .product-item {
+        position: relative;
     }
 
-        .product-item .card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        .product-item .card {
+            background: linear-gradient(145deg, #ffffff, #f8f9fa);
+            border: 1px solid #e0e0e0;
+            border-radius: 10px;
+            transition: box-shadow 0.3s ease;
+            overflow: hidden;
+            height: 100%;
         }
 
-    .product-item .card-img-top {
-        background: #f5f5f5;
-        border-bottom: 1px solid #ddd;
-        height: 200px;
-        object-fit: cover;
-    }
-
-    .product-item .card-body {
-        padding: 15px;
-        background: linear-gradient(145deg, #ffffff, #f1f1f1);
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-    }
-
-    .product-item .card-title {
-        color: #333;
-        font-size: 1rem;
-        font-weight: 500;
-        margin-bottom: 10px;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        text-align: center;
-    }
-
-    .product-item .card-text .text-danger {
-        font-size: 1.1rem;
-        font-weight: bold;
-        color: #ffc107 !important;
-        text-align: center;
-    }
-
-    .product-item .rating, .product-item .stock-status {
-        font-size: 0.85rem;
-        color: #555;
-        text-align: center;
-    }
-
-    .product-item .in-stock {
-        color: #28a745;
-    }
-
-    .product-item .out-stock {
-        color: #dc3545;
-    }
-
-    /* Center buttons in card footer */
-    .product-item .card-footer {
-        background: #fff;
-        border-top: 1px solid #ddd;
-        display: flex;
-        justify-content: center;
-        gap: 10px;
-        padding: 10px;
-    }
-
-    .product-item .btn-icon {
-        padding: 6px 12px;
-        font-size: 0.9rem;
-        border-radius: 50px;
-        transition: background-color 0.3s, transform 0.2s;
-    }
-
-    .product-item .btn-primary {
-        background: #ffc107;
-        border-color: #ffc107;
-        color: #fff;
-    }
-
-        .product-item .btn-primary:hover {
-            background: #e0a800;
-            border-color: #e0a800;
-            transform: scale(1.1);
+        .product-item:hover .card {
+            box-shadow: 0 0 30px #DDDDDD; /* Hiệu ứng bóng đổ khi hover */
         }
 
-    .product-item .btn-outline-danger {
-        border-color: #dc3545;
-        color: #dc3545;
-    }
-
-        .product-item .btn-outline-danger:hover {
-            background: #dc3545;
-            color: #fff;
-            transform: scale(1.1);
+        .product-item .card-img-top {
+            background: #f5f5f5;
+            border-bottom: 1px solid #ddd;
+            height: 200px;
+            object-fit: cover;
+            transition: transform 0.5s ease; /* Hiệu ứng phóng to hình ảnh */
         }
+
+        .product-item:hover .card-img-top {
+            transform: scale(1.2); /* Phóng to hình ảnh khi hover */
+        }
+
+        .product-item .card-body {
+            padding: 15px;
+            background: linear-gradient(145deg, #ffffff, #f1f1f1);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            height: 100%;
+        }
+
+        .product-item .card-title {
+            color: #333;
+            font-size: 1rem;
+            font-weight: 500;
+            margin-bottom: 10px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            text-align: center;
+        }
+
+        .product-item .card-text {
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+            .product-item .card-text .text-danger {
+                font-size: 1.1rem;
+                font-weight: bold;
+                color: #ffc107 !important;
+                text-align: center;
+                display: block;
+            }
+
+        .product-item .rating,
+        .product-item .stock-status {
+            font-size: 0.85rem;
+            color: #555;
+            text-align: center;
+        }
+
+        .product-item .in-stock {
+            color: #28a745;
+        }
+
+        .product-item .out-stock {
+            color: #dc3545;
+        }
+
+        /* Buttons container */
+        .product-item .card-buttons {
+            display: flex;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            justify-content: center;
+            gap: 10px;
+            padding: 10px;
+            background: rgba(255, 255, 255, 0.7); /* Nền trong suốt khi hover */
+            border-radius: 5px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+            opacity: 0; /* Ẩn ban đầu */
+            transition: opacity 0.3s ease; /* Hiệu ứng fade */
+        }
+
+        .product-item:hover .card-buttons {
+            opacity: 1; /* Hiển thị khi hover */
+        }
+
+        .product-item .btn-outline-dark {
+            border-color: #343a40;
+            color: #343a40;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+        }
+
+            .product-item .btn-outline-dark:hover {
+                background: #343a40;
+                color: #fff;
+                transform: scale(1.1);
+            }
+        .product-item .btn-icon {
+            padding: 8px 14px;
+            font-size: 1rem;
+            border-radius: 50px;
+            opacity: 0; /* Ẩn ban đầu */
+            margin-top: 100px; /* Nằm thấp ban đầu */
+            transition: opacity 0.1s ease, margin-top 0.1s ease; /* Hiệu ứng mượt mà */
+        }
+
+        .product-item:hover .btn-icon:nth-child(1) {
+            opacity: 1;
+            margin-top: 0;
+            transition-delay: 0s;
+        }
+
+        .product-item:hover .btn-icon:nth-child(2) {
+            opacity: 1;
+            margin-top: 0;
+            transition-delay: 0.05s;
+        }
+
+        .product-item .btn-primary {
+            background: #ffca28;
+            border-color: #ffca28;
+            color: #212529;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+        }
+
+            .product-item .btn-primary:hover {
+                background: #ffd54f;
+                border-color: #ffd54f;
+                transform: scale(1.1);
+            }
+
+        .product-item .btn-outline-danger {
+            border-color: #e63946;
+            color: #e63946;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+        }
+
+            .product-item .btn-outline-danger:hover {
+                background: #e63946;
+                color: #fff;
+                transform: scale(1.1);
+            }
 
     /* Table view styling */
     #productTable {
@@ -195,11 +262,12 @@
     }
 
         #productTable thead {
-            background: linear-gradient(90deg, #ffc107, #e0a800);
-            color: #fff;
+            background: linear-gradient(90deg, #ffc107, #ffca2c);
+            color: #212529;
         }
 
-        #productTable th, #productTable td {
+        #productTable th,
+        #productTable td {
             vertical-align: middle;
             font-size: 0.9rem;
         }
@@ -211,12 +279,12 @@
         #productTable .btn-primary {
             background: #ffc107;
             border-color: #ffc107;
-            color: #fff;
+            color: #212529;
         }
 
             #productTable .btn-primary:hover {
-                background: #e0a800;
-                border-color: #e0a800;
+                background: #ffca2c;
+                border-color: #ffca2c;
             }
 
         #productTable .btn-outline-danger {
@@ -236,7 +304,7 @@
     /* Pagination styling */
     .pagination .page-link {
         color: #ffc107;
-        border: 1px solid #ddd;
+        border: 1px solid #e9ecef;
         margin: 0 2px;
         border-radius: 5px;
     }
@@ -244,75 +312,53 @@
     .pagination .page-item.active .page-link {
         background: #ffc107;
         border-color: #ffc107;
-        color: #fff;
+        color: #212529;
     }
 
     .pagination .page-link:hover {
-        background: #e0a800;
-        border-color: #e0a800;
-        color: #fff;
+        background: #ffca2c;
+        border-color: #ffca2c;
+        color: #212529;
     }
 
     /* Sort and view buttons */
     .btn-group .btn-outline-secondary {
-        border-color: #ccc;
-        color: #555;
+        border-color: #e9ecef;
+        color: #212529;
     }
 
         .btn-group .btn-outline-secondary.active,
         .btn-group .btn-outline-secondary:hover {
             background: #ffc107;
             border-color: #ffc107;
-            color: #fff;
+            color: #212529;
         }
 
+    .btn-primary {
+        background-color: #ffc107 !important;
+        color: black !important;
+        border: none !important;
+    }
+
     .btn-group .btn-outline-primary {
-        border-color: #ccc;
-        color: #555;
+        border-color: #e9ecef;
+        color: #212529;
     }
 
         .btn-group .btn-outline-primary:hover {
             background: #ffc107;
             border-color: #ffc107;
-            color: #fff;
+            color: #212529;
         }
 
-    /* Filter and reset buttons */
-    .filter-sidebar .btn-primary {
-        background: #ffc107;
-        border-color: #ffc107;
-        color: #fff;
-        width: 100%;
-        padding: 10px;
-        border-radius: 5px;
-    }
-
-        .filter-sidebar .btn-primary:hover {
-            background: #e0a800;
-            border-color: #e0a800;
-        }
-
-    .filter-sidebar .btn-reset {
-        background: #dc3545;
-        border-color: #dc3545;
-        color: #fff;
-        width: 100%;
-        padding: 10px;
-        border-radius: 5px;
-    }
-
-        .filter-sidebar .btn-reset:hover {
-            background: #c82333;
-            border-color: #c82333;
-        }
-
-    /* Icons */
-    .fa-star, .fa-heart {
+    .fa-star,
+    .fa-heart {
         color: #ffc107 !important;
     }
 
-    .far.fa-star, .far.fa-heart {
-        color: #555 !important;
+    .far.fa-star,
+    .far.fa-heart {
+        color: #6c757d !important;
     }
 
     /* Responsive adjustments */
@@ -320,7 +366,14 @@
         .filter-sidebar
 
     {
-        margin-bottom: 20px;
+        margin-bottom: 30px;
+        padding: 1.25rem;
+        background: #f8f9fa;
+    }
+
+    .filter-sidebar h4,
+    .filter-sidebar h5 {
+        font-size: 1.125rem;
     }
 
     .product-item {
@@ -331,16 +384,19 @@
             font-size: 0.9rem;
         }
 
-        .product-item .card-footer {
+        .product-item .card-buttons {
             flex-direction: column;
             align-items: center;
+            width: 80%;
+            padding: 5px;
         }
 
     .row {
         flex-direction: column;
     }
 
-    .col-md-3, .col-md-9 {
+    .col-md-3,
+    .col-md-9 {
         width: 100%;
         max-width: 100%;
     }
@@ -348,23 +404,21 @@
     }
 
     @@media (max-width: 576px) {
-        .product-item
+        .filter-sidebar
 
     {
+        padding: 1rem;
+        background: #f8f9fa;
+    }
+
+    .filter-sidebar .btn-primary,
+    .filter-sidebar .btn-reset {
+        padding: 0.625rem;
+        font-size: 0.8125rem;
+    }
+
+    .product-item {
         flex: 0 0 100%;
-    }
-
-    .search-container input,
-    .search-container .btn-search,
-    .search-container .btn-mic {
-        width: 100%;
-        margin-bottom: 10px;
-    }
-
-    .search-container .btn-search,
-    .search-container .btn-mic {
-        position: static;
-        transform: none;
     }
 
     .btn-group {
@@ -377,6 +431,13 @@
             margin-bottom: 5px;
         }
 
+    .product-item .card-buttons {
+        flex-direction: column;
+        align-items: center;
+        width: 90%;
+        padding: 5px;
+    }
+
     }
 </style>
 
@@ -385,84 +446,83 @@
         <!-- Sidebar: Bộ lọc -->
         <div class="col-md-3">
             <div class="filter-sidebar">
-                <h4>LỌC SẢN PHẨM</h4>
-                <div class="search-container mb-4">
-                    <input type="text" id="searchInput" placeholder="Tìm kiếm sản phẩm..." value="@ViewBag.SearchString" />
-                    <button class="btn btn-search" onclick="applyFilters()"><i class="fas fa-search"></i></button>
-                    <button class="btn btn-mic" id="micButton" title="Tìm kiếm bằng giọng nói"><i class="fas fa-microphone"></i></button>
-                </div>
+                <h4 class="section-title position-relative text-uppercase mb-3"><span class="bg-secondary pr-3" style="color: #212529; font-weight: 700;">LỌC SẢN PHẨM</span></h4>
                 <div class="mb-4">
-                    <h5>DANH MỤC</h5>
+                    <h5 class="section-title position-relative text-uppercase mb-3"><span class="bg-secondary pr-3" style="color: #212529; font-weight: 700;">DANH MỤC</span></h5>
                     @foreach (var category in ViewBag.Categories)
                     {
-                        <div class="form-check">
-                            <input type="checkbox" class="form-check-input"
+                        <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
+                            <input type="checkbox" class="custom-control-input"
                                    id="category_@category.CategoryId"
                                    name="categoryId"
                                    value="@category.CategoryId"
                             @(category.CategoryId == ViewBag.CategoryId ? "checked" : "")
                                    onchange="applyFilters()" />
-                            <label class="form-check-label" for="category_@category.CategoryId">
-                                @category.Name (@category.ProductCount)
+                            <label class="custom-control-label" for="category_@category.CategoryId">
+                                @category.Name
                             </label>
+                            <span class="badge border font-weight-normal">@category.ProductCount</span>
                         </div>
                     }
                 </div>
                 <div class="mb-4">
-                    <h5>THƯƠNG HIỆU</h5>
+                    <h5 class="section-title position-relative text-uppercase mb-3"><span class="bg-secondary pr-3" style="color: #212529; font-weight: 700;">THƯƠNG HIỆU</span></h5>
                     @foreach (var brand in ViewBag.Brands)
                     {
-                        <div class="form-check">
-                            <input type="checkbox" class="form-check-input"
+                        <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
+                            <input type="checkbox" class="custom-control-input"
                                    id="brand_@brand.BrandId"
                                    name="brandId"
                                    value="@brand.BrandId"
                             @(brand.BrandId == ViewBag.BrandId ? "checked" : "")
                                    onchange="applyFilters()" />
-                            <label class="form-check-label" for="brand_@brand.BrandId">
-                                @brand.Name (@brand.ProductCount)
+                            <label class="custom-control-label" for="brand_@brand.BrandId">
+                                @brand.Name
                             </label>
+                            <span class="badge border font-weight-normal">@brand.ProductCount</span>
                         </div>
                     }
                 </div>
                 <div class="mb-4">
-                    <h5>KÍCH THƯỚC</h5>
+                    <h5 class="section-title position-relative text-uppercase mb-3"><span class="bg-secondary pr-3" style="color: #212529; font-weight: 700;">KÍCH THƯỚC</span></h5>
                     @foreach (var size in ViewBag.Sizes)
                     {
-                        <div class="form-check">
-                            <input type="checkbox" class="form-check-input"
+                        <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
+                            <input type="checkbox" class="custom-control-input"
                                    id="size_@size.SizeId"
                                    name="sizeId"
                                    value="@size.SizeId"
                             @(size.SizeId == ViewBag.SizeId ? "checked" : "")
                                    onchange="applyFilters()" />
-                            <label class="form-check-label" for="size_@size.SizeId">
-                                @size.SizeDisplay (@size.ProductCount)
+                            <label class="custom-control-label" for="size_@size.SizeId">
+                                @size.SizeDisplay
                             </label>
+                            <span class="badge border font-weight-normal">@size.ProductCount</span>
                         </div>
                     }
                 </div>
                 <div class="mb-4">
-                    <h5>GIÁ</h5>
+                    <h5 class="section-title position-relative text-uppercase mb-3"><span class="bg-secondary pr-3" style="color: #212529; font-weight: 700;">GIÁ</span></h5>
                     @foreach (var priceRange in ViewBag.PriceRanges)
                     {
                         var rangeText = priceRange.Range.Max != null
                         ? $"{priceRange.Range.Min:N0} - {priceRange.Range.Max:N0} VNĐ"
                         : $"Trên {priceRange.Range.Min:N0} VNĐ";
-                        <div class="form-check">
-                            <input type="checkbox" class="form-check-input price-filter"
+                        <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
+                            <input type="checkbox" class="custom-control-input price-filter"
                                    id="price-@priceRange.Range.Min"
                                    value="@priceRange.Range.Min-@priceRange.Range.Max"
                                    onchange="applyFilters()"
                             @(priceRange.Range.Min == ViewBag.MinPrice && priceRange.Range.Max == ViewBag.MaxPrice ? "checked" : "") />
-                            <label class="form-check-label" for="price-@priceRange.Range.Min">
-                                @rangeText (@priceRange.Count)
+                            <label class="custom-control-label" for="price-@priceRange.Range.Min">
+                                @rangeText
                             </label>
+                            <span class="badge border font-weight-normal">@priceRange.Count</span>
                         </div>
                     }
                 </div>
                 <div class="mb-4 stock-status">
-                    <h5>TÌNH TRẠNG</h5>
+                    <h5 class="section-title position-relative text-uppercase mb-3"><span class="bg-secondary pr-3" style="color: #212529; font-weight: 700;">TÌNH TRẠNG</span></h5>
                     <p class="in-stock"><i class="fas fa-check-circle me-1"></i> Còn Hàng: @ViewBag.InStockCount</p>
                     <p class="out-stock"><i class="fas fa-times-circle me-1"></i> Hết Hàng: @ViewBag.OutOfStockCount</p>
                 </div>
@@ -533,14 +593,15 @@
                                         @(product.TotalStock > 0 ? "Còn hàng" : "Hết hàng")
                                     </span>
                                 </p>
-                            </div>
-                            <div class="card-footer">
-                                <a href="@Url.Action("Details", "Shop", new { id = product.ProductId })" class="btn btn-icon btn-primary" onclick="event.stopPropagation();" aria-label="Xem chi tiết sản phẩm @product.Name">
-                                    <i class="fas fa-eye"></i>
-                                </a>
-                                <button class="btn btn-icon btn-outline-danger" onclick="event.stopPropagation(); toggleFavourite(@product.ProductId)" aria-label="@(ViewBag.FavouriteProducts.Contains(product.ProductId) ? "Bỏ yêu thích" : "Thêm vào yêu thích") sản phẩm @product.Name">
-                                    <i class="@(ViewBag.FavouriteProducts.Contains(product.ProductId) ? "fas fa-heart" : "far fa-heart")"></i>
-                                </button>
+                                <div class="card-buttons">
+                                  
+                                    <button class="btn btn-outline-dark btn-square" onclick="event.stopPropagation(); toggleFavourite(@product.ProductId)" aria-label="@(ViewBag.FavouriteProducts.Contains(product.ProductId) ? "Bỏ yêu thích" : "Thêm vào yêu thích") sản phẩm @product.Name">
+                                        <i class="@(ViewBag.FavouriteProducts.Contains(product.ProductId) ? "fas fa-heart" : "far fa-heart")"></i>
+                                    </button>
+                                    <a href="@Url.Action("Finder", "Shop", new { id = product.ProductId })" class="btn btn-outline-dark btn-square" onclick="event.stopPropagation();" aria-label="Xem chi tiết sản phẩm @product.Name">
+                                        <i class="fa fa-search"></i>
+                                    </a>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -586,7 +647,7 @@
                                 </td>
                                 <td>@(product.TotalStock > 0 ? "Còn hàng" : "Hết hàng")</td>
                                 <td>
-                                    <a href="@Url.Action("Details", "Shop", new { id = product.ProductId })" class="btn btn-primary btn-sm">Chi tiết</a>
+                                    <a href="@Url.Action("Finder", "Shop", new { id = product.ProductId })" class="btn btn-primary btn-sm">Chi tiết</a>
                                     <button class="btn btn-outline-danger btn-sm" onclick="toggleFavourite(@product.ProductId)">
                                         @if (ViewBag.FavouriteProducts.Contains(product.ProductId))
                                         {
@@ -668,74 +729,6 @@
             // Persist View Mode
             const savedView = localStorage.getItem('viewMode') || 'card';
             toggleView(savedView);
-
-            // Debounce Function
-            function debounce(func, wait) {
-                let timeout;
-                return function (...args) {
-                    clearTimeout(timeout);
-                    timeout = setTimeout(() => func.apply(this, args), wait);
-                };
-            }
-
-            // Search with Debounce
-            $('#searchInput').on('input', debounce(function () {
-                applyFilters();
-            }, 300));
-
-            $('#searchInput').on('keypress', (e) => {
-                if (e.key === 'Enter') {
-                    applyFilters();
-                }
-            });
-
-            // Speech Recognition
-            function initializeSpeechRecognition() {
-                const micButton = document.getElementById('micButton');
-                const searchInput = document.getElementById('searchInput');
-                if (!micButton || !searchInput) return;
-
-                if ('SpeechRecognition' in window || 'webkitSpeechRecognition' in window) {
-                    const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
-                    recognition.lang = 'vi-VN';
-                    recognition.interimResults = false;
-                    recognition.maxAlternatives = 1;
-
-                    micButton.addEventListener('click', () => {
-                        if (micButton.classList.contains('recording')) {
-                            recognition.stop();
-                        } else {
-                            recognition.start();
-                            micButton.classList.add('recording');
-                            micButton.querySelector('i').classList.replace('fa-microphone', 'fa-stop');
-                        }
-                    });
-
-                    recognition.onresult = (event) => {
-                        const transcript = event.results[0][0].transcript;
-                        searchInput.value = transcript;
-                        applyFilters();
-                    };
-
-                    recognition.onend = () => {
-                        micButton.classList.remove('recording');
-                        micButton.querySelector('i').classList.replace('fa-stop', 'fa-microphone');
-                    };
-
-                    recognition.onerror = (event) => {
-                        alert(`Lỗi nhận diện giọng nói: ${event.error}. Vui lòng thử lại.`);
-                        micButton.classList.remove('recording');
-                        micButton.querySelector('i').classList.replace('fa-stop', 'fa-microphone');
-                    };
-                } else {
-                    micButton.disabled = true;
-                    micButton.title = 'Trình duyệt không hỗ trợ tìm kiếm bằng giọng nói';
-                    micButton.style.opacity = '0.5';
-                    micButton.style.cursor = 'not-allowed';
-                }
-            }
-
-            initializeSpeechRecognition();
         });
 
         function setSortOrder(sortValue) {
@@ -755,29 +748,62 @@
         }
 
         function applyFilters() {
-            const categoryId = $('input[name="categoryId"]:checked').val() || '';
-            const brandId = $('input[name="brandId"]:checked').val() || '';
-            const sizeId = $('input[name="sizeId"]:checked').val() || '';
-            const priceRange = $('.price-filter:checked').val() || '';
-            const [minPrice, maxPrice] = priceRange ? priceRange.split('-') : ['', ''];
-            const sortOrder = $('#sortOrder').val();
-            let searchString = $('#searchInput').val();
+            const categoryIds = $('input[name="categoryId"]:checked').map(function () {
+                return this.value;
+            }).get();
 
-            if (searchString) {
-                searchString = searchString.replace(/\.+$/, '').trim();
+            const brandIds = $('input[name="brandId"]:checked').map(function () {
+                return this.value;
+            }).get();
+
+            const sizeIds = $('input[name="sizeId"]:checked').map(function () {
+                return this.value;
+            }).get();
+
+            const priceRange = $('.price-filter:checked').val() || '';
+            let minPrice = '';
+            let maxPrice = '';
+            if (priceRange) {
+                [minPrice, maxPrice] = priceRange.split('-');
+                minPrice = minPrice || '';
+                maxPrice = maxPrice || '';
             }
+
+            const sortOrder = $('#sortOrder').val() || 'name';
+
+            console.log('Filter Values:', {
+                categoryIds,
+                brandIds,
+                sizeIds,
+                minPrice,
+                maxPrice,
+                sortOrder
+            });
 
             const url = new URL('@Url.Action("Index", "Shop")', window.location.origin);
             const params = new URLSearchParams();
-            if (categoryId) params.append('categoryId', categoryId);
-            if (brandId) params.append('brandId', brandId);
-            if (sizeId) params.append('sizeId', sizeId);
+
+            if (categoryIds.length > 0) {
+                categoryIds.forEach(id => params.append('categoryId', id));
+            }
+
+            if (brandIds.length > 0) {
+                brandIds.forEach(id => params.append('brandId', id));
+            }
+
+            if (sizeIds.length > 0) {
+                sizeIds.forEach(id => params.append('sizeId', id));
+            }
+
             if (minPrice) params.append('minPrice', minPrice);
             if (maxPrice) params.append('maxPrice', maxPrice);
-            params.append('sortOrder', sortOrder);
-            if (searchString) params.append('searchString', searchString);
 
-            window.location.href = `${url}?${params.toString()}`;
+            params.append('sortOrder', sortOrder);
+
+            const finalUrl = `${url}?${params.toString()}`;
+            console.log('Redirecting to URL:', finalUrl);
+
+            window.location.href = finalUrl;
         }
 
         function resetFilters() {
@@ -786,7 +812,6 @@
             $('input[name="sizeId"]').prop('checked', false);
             $('.price-filter').prop('checked', false);
             $('#sortOrder').val('name');
-            $('#searchInput').val('');
             window.location.href = '@Url.Action("Index", "Shop")';
         }
 
@@ -811,7 +836,7 @@
         }
 
         function goToDetails(productId) {
-            window.location.href = '@Url.Action("Details", "Shop")' + '/' + productId;
+            window.location.href = '@Url.Action("Finder", "Shop")' + '/' + productId;
         }
     </script>
 }

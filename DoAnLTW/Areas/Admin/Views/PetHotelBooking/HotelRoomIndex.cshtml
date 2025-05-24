@@ -20,8 +20,15 @@
         margin-bottom: 20px;
         text-align: center;
         text-transform: uppercase;
-        animation: fadeInDown 0.5s ease-in-out;
+        opacity: 0;
+        transform: translateY(-20px);
+        transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
     }
+
+        h2.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
 
     /* Card styling */
     .card {
@@ -124,8 +131,15 @@
         border-radius: 8px;
         padding: 15px;
         margin-bottom: 20px;
-        animation: fadeIn 0.5s ease-in-out;
+        opacity: 0;
+        transform: translateY(-10px);
+        transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
     }
+
+        .alert-success.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
 
     .alert-danger {
         background-color: #000000; /* Black background */
@@ -134,48 +148,17 @@
         border-radius: 8px;
         padding: 15px;
         margin-bottom: 20px;
-        animation: fadeIn 0.5s ease-in-out;
-    }
-
-    /* Animations */
-    @@keyframes fadeInDown {
-        from
-
-    {
-        opacity: 0;
-        transform: translateY(-20px);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-
-    }
-
-    @@keyframes fadeIn {
-        from
-
-    {
         opacity: 0;
         transform: translateY(-10px);
+        transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
     }
 
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+        .alert-danger.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
 
-    }
 
-    /* Responsive adjustments */
-    @@media (max-width: 768px) {
-        .table th, .table td
-
-    {
-        font-size: 12px;
-        padding: 8px;
-    }
 
     .btn-primary, .btn-warning, .btn-danger {
         padding: 6px 12px;
@@ -195,16 +178,13 @@
 </style>
 
 <div class="container-fluid">
-    <h2>Danh Sách Phòng</h2>
+    <h2 class="visible">Danh Sách Phòng</h2>
 
     @if (TempData["Success"] != null)
     {
-        <div class="alert alert-success" role="alert">@TempData["Success"]</div>
+        <div class="alert alert-success visible" role="alert">@TempData["Success"]</div>
     }
-    @if (TempData["Error"] != null)
-    {
-        <div class="alert alert-danger" role="alert">@TempData["Error"]</div>
-    }
+   
 
     <div class="row mb-4">
         <div class="col-12 text-center">
@@ -247,3 +227,15 @@
         </div>
     </div>
 </div>
+
+@section Scripts {
+    <script>
+        // Ensure elements with class 'visible' are animated on page load
+        document.addEventListener('DOMContentLoaded', function () {
+            const elements = document.querySelectorAll('.visible');
+            elements.forEach(element => {
+                element.classList.add('visible');
+            });
+        });
+    </script>
+}

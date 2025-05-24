@@ -60,7 +60,6 @@ namespace DoAnLTW.Areas.Admin.Controllers
             return View(model);
         }
 
-
         // GET: Admin/PetHotelBooking/Details/5
         public async Task<IActionResult> Details(int? id)
         {
@@ -192,6 +191,7 @@ namespace DoAnLTW.Areas.Admin.Controllers
             }
             return RedirectToAction(nameof(Index));
         }
+
         // GET: Admin/PetHotelBooking/UpdateBookingStatus/5
         public async Task<IActionResult> UpdateBookingStatus(int id)
         {
@@ -250,6 +250,7 @@ namespace DoAnLTW.Areas.Admin.Controllers
                 return RedirectToAction(nameof(Index));
             }
         }
+
         // GET: Admin/PetHotelBooking/RoomType
         public async Task<IActionResult> RoomTypeIndex()
         {
@@ -383,8 +384,14 @@ namespace DoAnLTW.Areas.Admin.Controllers
         // GET: Admin/PetHotelBooking/HotelRoom/Create
         public async Task<IActionResult> HotelRoomCreate()
         {
-            ViewBag.RoomTypes = new SelectList(await _context.RoomTypes.ToListAsync(), "RoomTypeId", "Name");
-            return View();
+            var roomTypes = await _context.RoomTypes.ToListAsync();
+            if (!roomTypes.Any())
+            {
+                TempData["Error"] = "Không có loại phòng nào. Vui lòng tạo loại phòng trước.";
+                return RedirectToAction(nameof(RoomTypeCreate));
+            }
+            ViewBag.RoomTypes = new SelectList(roomTypes, "RoomTypeId", "Name");
+            return View(new HotelRoom());
         }
 
         // POST: Admin/PetHotelBooking/HotelRoom/Create
@@ -392,14 +399,46 @@ namespace DoAnLTW.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> HotelRoomCreate([Bind("RoomTypeId,RoomNumber,IsAvailable")] HotelRoom hotelRoom)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-                _context.Add(hotelRoom);
-                await _context.SaveChangesAsync();
-                TempData["Success"] = "Tạo phòng thành công.";
-                return RedirectToAction(nameof(HotelRoomIndex));
+                TempData["Error"] = string.Join("; ", ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage));
             }
-            ViewBag.RoomTypes = new SelectList(await _context.RoomTypes.ToListAsync(), "RoomTypeId", "Name", hotelRoom.RoomTypeId);
+
+            // Kiểm tra RoomTypeId
+            if (hotelRoom.RoomTypeId <= 0)
+            {
+                ModelState.AddModelError("RoomTypeId", "Vui lòng chọn loại phòng.");
+                TempData["Error"] = "Vui lòng chọn loại phòng.";
+            }
+            else if (!await _context.RoomTypes.AnyAsync(rt => rt.RoomTypeId == hotelRoom.RoomTypeId))
+            {
+                ModelState.AddModelError("RoomTypeId", "Loại phòng không tồn tại.");
+                TempData["Error"] = "Loại phòng không tồn tại.";
+            }
+            // Kiểm tra RoomNumber trùng lặp
+            else if (await _context.HotelRooms.AnyAsync(r => r.RoomNumber == hotelRoom.RoomNumber))
+            {
+                ModelState.AddModelError("RoomNumber", "Số phòng đã tồn tại.");
+                TempData["Error"] = "Số phòng đã tồn tại.";
+            }
+            else
+            {
+                try
+                {
+                    _context.Add(hotelRoom);
+                    await _context.SaveChangesAsync();
+                    TempData["Success"] = "Tạo phòng thành công.";
+                    return RedirectToAction(nameof(HotelRoomIndex));
+                }
+                catch (Exception ex)
+                {
+                    TempData["Error"] = $"Lỗi khi tạo phòng: {ex.Message}";
+                }
+            }
+
+            // Nạp lại ViewBag.RoomTypes để dropdown không bị mất dữ liệu
+            var roomTypes = await _context.RoomTypes.ToListAsync();
+            ViewBag.RoomTypes = new SelectList(roomTypes, "RoomTypeId", "Name", hotelRoom.RoomTypeId);
             return View(hotelRoom);
         }
 
@@ -431,7 +470,29 @@ namespace DoAnLTW.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
+            {
+                TempData["Error"] = string.Join("; ", ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage));
+            }
+
+            // Kiểm tra RoomTypeId
+            if (hotelRoom.RoomTypeId <= 0)
+            {
+                ModelState.AddModelError("RoomTypeId", "Vui lòng chọn loại phòng.");
+                TempData["Error"] = "Vui lòng chọn loại phòng.";
+            }
+            else if (!await _context.RoomTypes.AnyAsync(rt => rt.RoomTypeId == hotelRoom.RoomTypeId))
+            {
+                ModelState.AddModelError("RoomTypeId", "Loại phòng không tồn tại.");
+                TempData["Error"] = "Loại phòng không tồn tại.";
+            }
+            // Kiểm tra RoomNumber trùng lặp (bỏ qua chính phòng đang chỉnh sửa)
+            else if (await _context.HotelRooms.AnyAsync(r => r.RoomNumber == hotelRoom.RoomNumber && r.RoomId != hotelRoom.RoomId))
+            {
+                ModelState.AddModelError("RoomNumber", "Số phòng đã tồn tại.");
+                TempData["Error"] = "Số phòng đã tồn tại.";
+            }
+            else
             {
                 try
                 {
@@ -448,7 +509,12 @@ namespace DoAnLTW.Areas.Admin.Controllers
                     }
                     throw;
                 }
+                catch (Exception ex)
+                {
+                    TempData["Error"] = $"Lỗi khi cập nhật phòng: {ex.Message}";
+                }
             }
+
             ViewBag.RoomTypes = new SelectList(await _context.RoomTypes.ToListAsync(), "RoomTypeId", "Name", hotelRoom.RoomTypeId);
             return View(hotelRoom);
         }

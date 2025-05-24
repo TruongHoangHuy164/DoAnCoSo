@@ -12,6 +12,7 @@ namespace DoAnLTW.Models
         [Required]
         public int RoomTypeId { get; set; }
 
+        [NotMapped]
         [ForeignKey("RoomTypeId")]
         public RoomType RoomType { get; set; }
 
