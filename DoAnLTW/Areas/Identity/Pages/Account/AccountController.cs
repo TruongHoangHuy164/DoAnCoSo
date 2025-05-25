@@ -1,13 +1,12 @@
-﻿using Microsoft.AspNetCore.Authentication;
+﻿using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.Google;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
-using System.Threading.Tasks;
 
-namespace DoAnLTW.Areas.Identity.Controllers
+namespace DoAnLTW.Areas.Identity.Pages.Account
 {
-    [Area("Identity")]
     public class AccountController : Controller
     {
         private readonly UserManager<IdentityUser> _userManager;
@@ -19,27 +18,25 @@ namespace DoAnLTW.Areas.Identity.Controllers
             _signInManager = signInManager;
         }
 
-        [HttpGet]
-        public async Task<IActionResult> LoginByGoogle()
+        // Đăng nhập với Google
+        public async Task LoginByGoogle()
         {
-            var properties = new AuthenticationProperties
-            {
-                RedirectUri = Url.Action("GoogleResponse"),
-                Items =
-                {
-                    { "prompt", "select_account" } // Buộc hiển thị giao diện chọn tài khoản
-                }
-            };
-            return Challenge(properties, GoogleDefaults.AuthenticationScheme);
+            await HttpContext.ChallengeAsync(GoogleDefaults.AuthenticationScheme,
+                new AuthenticationProperties { RedirectUri = Url.Action("GoogleResponse") });
         }
 
-        [HttpGet]
+        // Phản hồi từ Google
         public async Task<IActionResult> GoogleResponse()
         {
             var result = await HttpContext.AuthenticateAsync(GoogleDefaults.AuthenticationScheme);
 
             if (!result.Succeeded || result.Principal == null)
             {
+                Console.WriteLine("Authentication failed. Succeeded: " + result.Succeeded);
+                if (result.Failure != null)
+                {
+                    Console.WriteLine("Failure reason: " + result.Failure.Message);
+                }
                 return Redirect("/Identity/Account/Login");
             }
 
@@ -48,6 +45,7 @@ namespace DoAnLTW.Areas.Identity.Controllers
 
             if (string.IsNullOrEmpty(email))
             {
+                Console.WriteLine("Email not found in claims.");
                 return Redirect("/Identity/Account/Login");
             }
 
@@ -60,16 +58,29 @@ namespace DoAnLTW.Areas.Identity.Controllers
                     Email = email
                 };
 
-                var createUserResult = await _userManager.CreateAsync(user, "12345678");
+                var createUserResult = await _userManager.CreateAsync(user);
                 if (!createUserResult.Succeeded)
                 {
+                    Console.WriteLine("Failed to create user: " + string.Join(", ", createUserResult.Errors.Select(e => e.Description)));
                     return Redirect("/Identity/Account/Login");
                 }
             }
 
             await _signInManager.SignInAsync(user, isPersistent: false);
+            return RedirectToAction("Index", "Home");
+        }
 
-            return RedirectToAction("Index", "Home", new { area = "" });
+        // Đăng xuất
+        public async Task<IActionResult> Logout()
+        {
+            // Đăng xuất người dùng khỏi phiên Identity
+            await _signInManager.SignOutAsync();
+
+            // Xóa thêm các cookie xác thực (nếu cần thiết)
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+
+            // Chuyển hướng về trang đăng nhập hoặc trang chủ
+            return Redirect("/Identity/Account/Login");
         }
     }
 }

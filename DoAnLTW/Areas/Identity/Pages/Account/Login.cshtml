@@ -11,18 +11,18 @@
     <form method="post" class="card p-4 shadow">
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
         <div class="mb-3">
-            <label asp-for="Input.Email" class="form-label"></label>
+            <label asp-for="Input.Email" class="form-label">Email</label>
             <input asp-for="Input.Email" class="form-control" autocomplete="username" required />
             <span asp-validation-for="Input.Email" class="text-danger"></span>
         </div>
         <div class="mb-3">
-            <label asp-for="Input.Password" class="form-label"></label>
+            <label asp-for="Input.Password" class="form-label">Mật khẩu</label>
             <input asp-for="Input.Password" type="password" class="form-control" autocomplete="current-password" required />
             <span asp-validation-for="Input.Password" class="text-danger"></span>
         </div>
         <div class="mb-3 form-check">
             <input asp-for="Input.RememberMe" class="form-check-input" />
-            <label asp-for="Input.RememberMe" class="form-check-label"></label>
+            <label asp-for="Input.RememberMe" class="form-check-label">Ghi nhớ đăng nhập</label>
         </div>
         <button type="submit" class="btn btn-primary w-100">Đăng nhập</button>
         <div class="text-center mt-3">
@@ -32,7 +32,7 @@
             <span>Hoặc đăng nhập với</span>
         </div>
         <div class="d-flex justify-content-center mt-2">
-            <a asp-controller="Account" asp-action="LoginByGoogle" class="btn btn-light d-flex align-items-center justify-content-center w-50">
+            <a asp-area="" asp-controller="Account" asp-action="LoginByGoogle" asp-route-returnUrl="@Model.ReturnUrl" class="btn btn-light d-flex align-items-center justify-content-center w-50">
                 <img src="https://www.google.com/favicon.ico" width="20" class="me-2" /> Google
             </a>
         </div>

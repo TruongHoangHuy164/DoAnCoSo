@@ -30,7 +30,7 @@
             <span>Hoặc đăng nhập với</span>
         </div>
         <div class="d-flex justify-content-center mt-2">
-            <a href="/Account/GoogleSignIn" class="btn btn-light d-flex align-items-center justify-content-center w-50">
+            <a asp-area="" asp-controller="Account" asp-action="LoginByGoogle" asp-route-returnUrl="@Model.ReturnUrl" class="btn btn-light d-flex align-items-center justify-content-center w-50">
                 <img src="https://www.google.com/favicon.ico" width="20" class="me-2" /> Google
             </a>
         </div>

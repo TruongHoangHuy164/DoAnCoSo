@@ -36,6 +36,7 @@
 
   <ItemGroup>
     <Folder Include="Areas\Admin\Data\" />
+    <Folder Include="Areas\Identity\Controllers\" />
     <Folder Include="ViewComponents\" />
     <Folder Include="wwwroot\img\brands\" />
     <Folder Include="wwwroot\img\products\" />

@@ -47,6 +47,22 @@ builder.Services.ConfigureApplicationCookie(options =>
     options.SlidingExpiration = true;
 });
 
+// Thêm xác thực Google
+// Cấu hình login Google account
+builder.Services.AddAuthentication(options =>
+{
+    // options.DefaultAuthenticateScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+    // options.DefaultSignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+    // options.DefaultChallengeScheme = GoogleDefaults.AuthenticationScheme;
+})
+.AddCookie()
+.AddGoogle(GoogleDefaults.AuthenticationScheme, options =>
+{
+    options.ClientId = builder.Configuration["GoogleKeys:ClientId"];
+    options.ClientSecret = builder.Configuration["GoogleKeys:ClientSecret"];
+});
+
+
 // Cấu hình CORS
 builder.Services.AddCors(options =>
 {
@@ -82,14 +98,6 @@ builder.Services.Configure<DataProtectionTokenProviderOptions>(options =>
 {
     options.TokenLifespan = TimeSpan.FromSeconds(30);
 });
-// Cấu hình Google Authentication
-builder.Services.AddAuthentication()
-    .AddGoogle(options =>
-    {
-        options.ClientId = builder.Configuration["GoogleKeys:ClientId"];
-        options.ClientSecret = builder.Configuration["GoogleKeys:ClientSecret"];
-        options.SignInScheme = IdentityConstants.ExternalScheme;
-    });
 
 // SignalR
 builder.Services.AddSignalR(options =>
@@ -130,7 +138,7 @@ try
         app.UseExceptionHandler("/Home/Error");
         app.UseHsts();
     }
-
+    app.UseStaticFiles();
     app.UseCookiePolicy();
     app.UseHttpsRedirection();
     app.UseCors("AllowAll");
@@ -181,7 +189,7 @@ try
 }
 catch (Exception ex)
 {
-    Log.Fatal(ex, "Application failed to start.");
+    Log.Fatal(ex, "Ứng dụng không thể khởi động.");
     throw;
 }
 finally
