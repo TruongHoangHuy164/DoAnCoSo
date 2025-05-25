@@ -111,6 +111,10 @@
         color: #FFD700 !important;
     }
 
+    .fas.fa-heart {
+        color: #dc3545 !important;
+    }
+
     #cardView {
         display: flex;
         flex-wrap: wrap;
@@ -122,6 +126,7 @@
         flex: 0 0 calc(25% - 15px);
         box-sizing: border-box;
         margin-bottom: 15px;
+        transition: all 0.3s ease;
     }
 
     .empty-message {
@@ -138,12 +143,15 @@
         text-align: center;
     }
 
-
+    .favourite-count {
+        font-size: 16px;
+        color: #000000;
+        margin-left: 10px;
     }
 </style>
 
 <div class="container-fluid">
-    <h2>DANH SÁCH SẢN PHẨM YÊU THÍCH</h2>
+    <h2>DANH SÁCH SẢN PHẨM YÊU THÍCH <span class="favourite-count" id="favouriteCount">@(ViewBag.FavouriteProducts?.Count ?? 0)</span></h2>
 
     @if (!Model.Any())
     {
@@ -186,7 +194,7 @@
                         <div class="card-footer">
                             <a href="@Url.Action("Details", "Shop", new { id = product.ProductId })" class="btn btn-primary btn-sm" onclick="event.stopPropagation();">Xem chi tiết</a>
                             <button class="btn btn-outline-danger btn-sm" onclick="event.stopPropagation(); toggleFavourite(@product.ProductId)">
-                                <i class="fas fa-heart"></i>
+                                <i class="fas fa-heart text-danger"></i>
                             </button>
                         </div>
                     </div>
@@ -205,17 +213,28 @@
                 type: 'POST',
                 data: { productId: productId },
                 success: function (response) {
+                    if (!response.success && response.message) {
+                        alert(response.message); // Hiển thị thông báo nếu chưa đăng nhập
+                        return;
+                    }
                     if (response.success) {
-                        // Xóa sản phẩm khỏi danh sách yêu thích trên giao diện
-                        $(`.product-item:has(button[onclick*='toggleFavourite(${productId})'])`).remove();
-                        // Cập nhật giao diện nếu danh sách rỗng
-                        if ($('.product-item').length === 0) {
-                            $('#cardView').replaceWith('<p class="empty-message">Bạn chưa có sản phẩm yêu thích nào. <a href="@Url.Action("Index", "Shop")">Quay lại cửa hàng</a> để thêm sản phẩm.</p>');
-                        }
+                        // Hiệu ứng xóa mượt mà
+                        $(`.product-item:has(button[onclick*='toggleFavourite(${productId})'])`).fadeOut(300, function () {
+                            $(this).remove();
+                            // Cập nhật giao diện nếu danh sách rỗng
+                            if ($('.product-item').length === 0) {
+                                $('#cardView').replaceWith('<p class="empty-message">Bạn chưa có sản phẩm yêu thích nào. <a href="@Url.Action("Index", "Shop")">Quay lại cửa hàng</a> để thêm sản phẩm.</p>');
+                            }
+                            // Cập nhật số lượng yêu thích
+                            $('#favouriteCount').text(response.count);
+                            alert('Đã xóa khỏi danh sách yêu thích!');
+                        });
+                    } else {
+                        alert('Không thể cập nhật danh sách yêu thích. Vui lòng thử lại.');
                     }
                 },
                 error: function () {
-                    alert('Có lỗi xảy ra khi cập nhật danh sách yêu thích.');
+                    alert('Lỗi kết nối. Vui lòng kiểm tra mạng và thử lại.');
                 }
             });
         }

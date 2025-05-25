@@ -55,7 +55,8 @@ namespace DoAnLTW.Areas.Identity.Pages.Account
                 user = new IdentityUser
                 {
                     UserName = email,
-                    Email = email
+                    Email = email,
+                    EmailConfirmed = true // Đặt EmailConfirmed để tránh lỗi validation
                 };
 
                 var createUserResult = await _userManager.CreateAsync(user);
@@ -64,6 +65,16 @@ namespace DoAnLTW.Areas.Identity.Pages.Account
                     Console.WriteLine("Failed to create user: " + string.Join(", ", createUserResult.Errors.Select(e => e.Description)));
                     return Redirect("/Identity/Account/Login");
                 }
+
+                // Gán role "Customer" cho user mới
+                var roleResult = await _userManager.AddToRoleAsync(user, "Customer");
+                if (!roleResult.Succeeded)
+                {
+                    Console.WriteLine("Failed to assign Customer role: " + string.Join(", ", roleResult.Errors.Select(e => e.Description)));
+                    return Redirect("/Identity/Account/Login");
+                }
+
+                Console.WriteLine("User created and assigned Customer role successfully.");
             }
 
             await _signInManager.SignInAsync(user, isPersistent: false);

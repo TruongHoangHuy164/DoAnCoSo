@@ -365,28 +365,37 @@ namespace DoAnLTW.Controllers
 
         // Thêm hoặc xóa sản phẩm yêu thích (dùng Session)
         [HttpPost]
+     
         public IActionResult ToggleFavourite(int productId)
         {
+            var user = _userManager.GetUserAsync(User).Result;
+            if (user == null)
+            {
+                return Json(new { success = false, message = "Vui lòng đăng nhập để cập nhật danh sách yêu thích." });
+            }
+
             var favouriteProducts = HttpContext.Session.GetString("FavouriteProducts");
             var productIds = string.IsNullOrEmpty(favouriteProducts)
                 ? new List<int>()
                 : JsonConvert.DeserializeObject<List<int>>(favouriteProducts);
 
+            bool isAdded;
             if (productIds.Contains(productId))
             {
                 productIds.Remove(productId);
+                isAdded = false;
             }
             else
             {
                 productIds.Add(productId);
+                isAdded = true;
             }
 
             HttpContext.Session.SetString("FavouriteProducts", JsonConvert.SerializeObject(productIds));
             ViewBag.FavouriteCount = productIds.Count;
 
-            return Ok(new { success = true, count = productIds.Count });
+            return Json(new { success = true, count = productIds.Count, isAdded });
         }
-
         // Hiển thị danh sách sản phẩm yêu thích
         public async Task<IActionResult> FavouriteProducts()
         {

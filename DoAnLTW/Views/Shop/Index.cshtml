@@ -9,7 +9,9 @@
 
 <style>
     /* General container styling */
-   
+    .container-fluid {
+        padding: 20px;
+    }
 
     /* Sidebar styling */
     .filter-sidebar {
@@ -112,7 +114,7 @@
         }
 
         .product-item:hover .card {
-            box-shadow: 0 0 30px #DDDDDD; /* Hiệu ứng bóng đổ khi hover */
+            box-shadow: 0 0 30px #DDDDDD;
         }
 
         .product-item .card-img-top {
@@ -120,11 +122,11 @@
             border-bottom: 1px solid #ddd;
             height: 200px;
             object-fit: cover;
-            transition: transform 0.5s ease; /* Hiệu ứng phóng to hình ảnh */
+            transition: transform 0.5s ease;
         }
 
         .product-item:hover .card-img-top {
-            transform: scale(1.2); /* Phóng to hình ảnh khi hover */
+            transform: scale(1.2);
         }
 
         .product-item .card-body {
@@ -175,7 +177,6 @@
             color: #dc3545;
         }
 
-        /* Buttons container */
         .product-item .card-buttons {
             display: flex;
             position: absolute;
@@ -185,15 +186,15 @@
             justify-content: center;
             gap: 10px;
             padding: 10px;
-            background: rgba(255, 255, 255, 0.7); /* Nền trong suốt khi hover */
+            background: rgba(255, 255, 255, 0.7);
             border-radius: 5px;
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-            opacity: 0; /* Ẩn ban đầu */
-            transition: opacity 0.3s ease; /* Hiệu ứng fade */
+            opacity: 0;
+            transition: opacity 0.3s ease;
         }
 
         .product-item:hover .card-buttons {
-            opacity: 1; /* Hiển thị khi hover */
+            opacity: 1;
         }
 
         .product-item .btn-outline-dark {
@@ -207,13 +208,14 @@
                 color: #fff;
                 transform: scale(1.1);
             }
+
         .product-item .btn-icon {
             padding: 8px 14px;
             font-size: 1rem;
             border-radius: 50px;
-            opacity: 0; /* Ẩn ban đầu */
-            margin-top: 100px; /* Nằm thấp ban đầu */
-            transition: opacity 0.1s ease, margin-top 0.1s ease; /* Hiệu ứng mượt mà */
+            opacity: 0;
+            margin-top: 100px;
+            transition: opacity 0.1s ease, margin-top 0.1s ease;
         }
 
         .product-item:hover .btn-icon:nth-child(1) {
@@ -354,6 +356,10 @@
     .fa-star,
     .fa-heart {
         color: #ffc107 !important;
+    }
+
+    .fas.fa-heart {
+        color: #dc3545 !important;
     }
 
     .far.fa-star,
@@ -594,11 +600,10 @@
                                     </span>
                                 </p>
                                 <div class="card-buttons">
-                                  
-                                    <button class="btn btn-outline-dark btn-square" onclick="event.stopPropagation(); toggleFavourite(@product.ProductId)" aria-label="@(ViewBag.FavouriteProducts.Contains(product.ProductId) ? "Bỏ yêu thích" : "Thêm vào yêu thích") sản phẩm @product.Name">
-                                        <i class="@(ViewBag.FavouriteProducts.Contains(product.ProductId) ? "fas fa-heart" : "far fa-heart")"></i>
+                                    <button class="btn btn-outline-dark btn-square btn-icon" onclick="event.stopPropagation(); toggleFavourite(@product.ProductId)" aria-label="@(ViewBag.FavouriteProducts.Contains(product.ProductId) ? "Bỏ yêu thích" : "Thêm vào yêu thích") sản phẩm @product.Name">
+                                        <i class="@(ViewBag.FavouriteProducts.Contains(product.ProductId) ? "fas fa-heart text-danger" : "far fa-heart")"></i>
                                     </button>
-                                    <a href="@Url.Action("Finder", "Shop", new { id = product.ProductId })" class="btn btn-outline-dark btn-square" onclick="event.stopPropagation();" aria-label="Xem chi tiết sản phẩm @product.Name">
+                                    <a href="@Url.Action("Details", "Shop", new { id = product.ProductId })" class="btn btn-outline-dark btn-square btn-icon" onclick="event.stopPropagation();" aria-label="Xem chi tiết sản phẩm @product.Name">
                                         <i class="fa fa-search"></i>
                                     </a>
                                 </div>
@@ -647,16 +652,9 @@
                                 </td>
                                 <td>@(product.TotalStock > 0 ? "Còn hàng" : "Hết hàng")</td>
                                 <td>
-                                    <a href="@Url.Action("Finder", "Shop", new { id = product.ProductId })" class="btn btn-primary btn-sm">Chi tiết</a>
+                                    <a href="@Url.Action("Details", "Shop", new { id = product.ProductId })" class="btn btn-primary btn-sm">Chi tiết</a>
                                     <button class="btn btn-outline-danger btn-sm" onclick="toggleFavourite(@product.ProductId)">
-                                        @if (ViewBag.FavouriteProducts.Contains(product.ProductId))
-                                        {
-                                            <i class="fas fa-heart"></i>
-                                        }
-                                        else
-                                        {
-                                            <i class="far fa-heart"></i>
-                                        }
+                                        <i class="@(ViewBag.FavouriteProducts.Contains(product.ProductId) ? "fas fa-heart text-danger" : "far fa-heart")"></i>
                                     </button>
                                 </td>
                             </tr>
@@ -669,6 +667,7 @@
 </div>
 
 @section Scripts {
+    @Html.AntiForgeryToken()
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
@@ -771,15 +770,6 @@
 
             const sortOrder = $('#sortOrder').val() || 'name';
 
-            console.log('Filter Values:', {
-                categoryIds,
-                brandIds,
-                sizeIds,
-                minPrice,
-                maxPrice,
-                sortOrder
-            });
-
             const url = new URL('@Url.Action("Index", "Shop")', window.location.origin);
             const params = new URLSearchParams();
 
@@ -800,10 +790,7 @@
 
             params.append('sortOrder', sortOrder);
 
-            const finalUrl = `${url}?${params.toString()}`;
-            console.log('Redirecting to URL:', finalUrl);
-
-            window.location.href = finalUrl;
+            window.location.href = `${url}?${params.toString()}`;
         }
 
         function resetFilters() {
@@ -819,12 +806,21 @@
             $.ajax({
                 url: '@Url.Action("ToggleFavourite", "Shop")',
                 type: 'POST',
-                data: { productId },
+                data: {
+                    productId: productId,
+                    __RequestVerificationToken: $('input[name="__RequestVerificationToken"]').val()
+                },
                 success: function (response) {
+                    if (!response.success && response.message) {
+                        alert(response.message);
+                        return;
+                    }
                     if (response.success) {
                         const btn = $(`button[onclick*='toggleFavourite(${productId})']`);
                         const icon = btn.find('i');
-                        icon.toggleClass('far fa-heart fas fa-heart');
+                        icon.toggleClass('far fa-heart fas fa-heart text-danger');
+                        alert(response.isAdded ? 'Đã thêm vào danh sách yêu thích!' : 'Đã xóa khỏi danh sách yêu thích!');
+                        $('#favouriteCount').text(response.count); // Cập nhật số lượng yêu thích nếu có
                     } else {
                         alert('Không thể cập nhật danh sách yêu thích. Vui lòng thử lại.');
                     }
@@ -836,7 +832,7 @@
         }
 
         function goToDetails(productId) {
-            window.location.href = '@Url.Action("Finder", "Shop")' + '/' + productId;
+            window.location.href = '@Url.Action("Details", "Shop")' + '/' + productId;
         }
     </script>
 }
