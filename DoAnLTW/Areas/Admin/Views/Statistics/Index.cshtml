@@ -1,4 +1,5 @@
-﻿@model DoAnLTW.Areas.Admin.Models.StatisticsViewModel
+﻿
+@model DoAnLTW.Areas.Admin.Models.StatisticsViewModel
 
 @{
     ViewData["Title"] = "Thống kê doanh thu";
@@ -10,67 +11,193 @@
 }
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" />
 <style>
-    .h2 {
-        color: cornflowerblue;
+    body {
+        background-color: #fff;
+        color: #333;
+        font-family: Arial, sans-serif;
     }
 
-    .stats-card {
-        background: #fff;
-        border-radius: 10px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        padding: 20px;
-        text-align: center;
-        transition: transform 0.2s;
-    }
-
-        .stats-card:hover {
-            transform: scale(1.05);
-        }
-
-        .stats-card i {
-            font-size: 2rem;
-            color: #FFD700;
-        }
-
-        .stats-card h5 {
-            font-weight: 600;
-            margin: 10px 0;
-        }
-
-        .stats-card p {
-            font-size: 1.5rem;
-            color: #000;
-        }
-
-    .chart-container {
-        background: #fff;
-        border-radius: 10px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        padding: 20px;
+    h2 {
+        color: #FFC107;
+        border-bottom: 2px solid #FFC107;
+        padding-bottom: 10px;
         margin-bottom: 20px;
+        text-align: center;
+        text-transform: uppercase;
+        animation: fadeInDown 0.5s ease-in-out;
+    }
+
+    h5 {
+        color: #FFC107;
+        font-weight: 600;
+        margin-bottom: 15px;
+        text-align: center;
     }
 
     .filter-container {
-        margin-bottom: 20px;
-    }
-
-    .table-container {
-        background: #fff;
-        border-radius: 10px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        padding: 20px;
-        margin-bottom: 20px;
+        margin-bottom: 30px;
+        text-align: center;
     }
 
     .form-group {
         display: inline-block;
         margin-right: 15px;
     }
+
+    .form-control {
+        background-color: #F5F5F5;
+        border: 1px solid #000000;
+        color: #000000;
+        border-radius: 5px;
+        padding: 6px;
+    }
+
+        .form-control:focus {
+            border-color: #FFC107;
+            box-shadow: 0 0 5px rgba(255, 193, 7, 0.5);
+            background-color: #FFFFFF;
+        }
+
+    .stats-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 20px;
+        margin-bottom: 30px;
+    }
+
+    .stats-card {
+        background: linear-gradient(135deg, #FFC107, #E6B800);
+        border-radius: 15px;
+        padding: 20px;
+        text-align: center;
+        color: #FFFFFF;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        transition: transform 0.3s ease;
+    }
+
+        .stats-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .stats-card i {
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+
+        .stats-card h5 {
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            color: #FFFFFF;
+            margin-bottom: 5px;
+        }
+
+        .stats-card p {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+    .table-container {
+        background: #FFFFFF;
+        border-radius: 15px;
+        padding: 20px;
+        margin-bottom: 30px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+        .table-container table {
+            color: #000000;
+        }
+
+        .table-container th, .table-container td {
+            vertical-align: middle;
+            text-align: center;
+        }
+
+        .table-container th {
+            background-color: #FFC107;
+            color: #FFFFFF;
+        }
+
+        .table-container tr:last-child td {
+            font-weight: bold;
+            background-color: #F5F5F5;
+        }
+
+    .chart-container {
+        background: #FFFFFF;
+        border-radius: 15px;
+        padding: 20px;
+        margin-bottom: 30px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    .chart-row {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+        gap: 20px;
+    }
+
+    .table-row {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 20px;
+    }
+
+    .alert-danger {
+        background-color: #000000;
+        color: #FFC107;
+        border: 1px solid #FFC107;
+        border-radius: 8px;
+        padding: 15px;
+        margin-bottom: 20px;
+    }
+
+    @@keyframes fadeInDown {
+        from
+
+    {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    }
+
+    @@media (max-width: 768px) {
+        .stats-container
+
+    {
+        grid-template-columns: 1fr;
+    }
+
+    .stats-card p {
+        font-size: 1.2rem;
+    }
+
+    .stats-card i {
+        font-size: 1.5rem;
+    }
+
+    .form-control {
+        font-size: 0.9rem;
+        padding: 4px;
+    }
+
+    .chart-row, .table-row {
+        grid-template-columns: 1fr;
+    }
+
+    }
 </style>
 
 <div class="container-fluid">
-    <h2 class="mb-4">Thống kê doanh thu - @displayPeriod</h2>
+    <h2>Thống kê doanh thu - @displayPeriod</h2>
 
     @if (TempData["ErrorMessage"] != null)
     {
@@ -81,7 +208,7 @@
     <div class="filter-container">
         <form asp-action="Index" method="get" class="form-inline">
             <div class="form-group">
-                <label for="month">Tháng:</label>
+                <label for="month" style="color:black;">Tháng:</label>
                 <select name="month" id="month" class="form-control d-inline-block w-auto" onchange="this.form.submit()">
                     <option value="">Tất cả</option>
                     @foreach (var m in months)
@@ -91,7 +218,7 @@
                 </select>
             </div>
             <div class="form-group">
-                <label for="year">Năm:</label>
+                <label for="year" style="color:black">Năm:</label>
                 <select name="year" id="year" class="form-control d-inline-block w-auto" onchange="this.form.submit()">
                     @foreach (var y in Model.AvailableYears)
                     {
@@ -103,34 +230,26 @@
     </div>
 
     <!-- Tổng quan -->
-    <div class="row mb-4">
-        <div class="col-md-3">
-            <div class="stats-card">
-                <i class="fas fa-dollar-sign"></i>
-                <h5>Tổng doanh thu</h5>
-                <p>@Model.TotalRevenue.ToString("N0") VNĐ</p>
-            </div>
+    <div class="stats-container">
+        <div class="stats-card">
+            <i class="fas fa-dollar-sign"></i>
+            <h5>Tổng doanh thu</h5>
+            <p>@Model.TotalRevenue.ToString("N0") VNĐ</p>
         </div>
-        <div class="col-md-3">
-            <div class="stats-card">
-                <i class="fas fa-shopping-cart"></i>
-                <h5>Tổng đơn hàng</h5>
-                <p>@Model.TotalOrders</p>
-            </div>
+        <div class="stats-card">
+            <i class="fas fa-shopping-cart"></i>
+            <h5>Tổng đơn hàng</h5>
+            <p>@Model.TotalOrders</p>
         </div>
-        <div class="col-md-3">
-            <div class="stats-card">
-                <i class="fas fa-paw"></i>
-                <h5>Tổng dịch vụ thú cưng</h5>
-                <p>@Model.TotalPetServices</p>
-            </div>
+        <div class="stats-card">
+            <i class="fas fa-paw"></i>
+            <h5>Tổng dịch vụ thú cưng</h5>
+            <p>@Model.TotalPetServices</p>
         </div>
-        <div class="col-md-3">
-            <div class="stats-card">
-                <i class="fas fa-hotel"></i>
-                <h5>Tổng đặt phòng khách sạn</h5>
-                <p>@Model.TotalPetHotelBookings</p>
-            </div>
+        <div class="stats-card">
+            <i class="fas fa-hotel"></i>
+            <h5>Tổng đặt phòng khách sạn</h5>
+            <p>@Model.TotalPetHotelBookings</p>
         </div>
     </div>
 
@@ -171,185 +290,164 @@
     </div>
 
     <!-- Biểu đồ -->
-    <div class="row">
+    <div class="chart-row">
         <!-- Biểu đồ tròn: Doanh thu theo danh mục -->
-        <div class="col-md-6">
-            <div class="chart-container">
-                <h5>Doanh thu theo danh mục</h5>
-                <canvas id="revenueByCategoryChart"></canvas>
-            </div>
+        <div class="chart-container">
+            <h5>Doanh thu theo danh mục</h5>
+            <canvas id="revenueByCategoryChart"></canvas>
         </div>
         <!-- Biểu đồ tròn: Doanh thu theo thương hiệu -->
-        <div class="col-md-6">
-            <div class="chart-container">
-                <h5>Doanh thu theo thương hiệu</h5>
-                <canvas id="revenueByBrandChart"></canvas>
-            </div>
+        <div class="chart-container">
+            <h5>Doanh thu theo thương hiệu</h5>
+            <canvas id="revenueByBrandChart"></canvas>
         </div>
         <!-- Biểu đồ tròn: Doanh thu theo loại phòng -->
-        <div class="col-md-6">
-            <div class="chart-container">
-                <h5>Doanh thu theo loại phòng</h5>
-                <canvas id="revenueByRoomTypeChart"></canvas>
-            </div>
+        <div class="chart-container">
+            <h5>Doanh thu theo loại phòng</h5>
+            <canvas id="revenueByRoomTypeChart"></canvas>
         </div>
         <!-- Biểu đồ tròn: Đơn hàng theo trạng thái -->
-        <div class="col-md-6">
-            <div class="chart-container">
-                <h5>Đơn hàng theo trạng thái</h5>
-                <canvas id="ordersByStatusChart"></canvas>
-            </div>
+        <div class="chart-container">
+            <h5>Đơn hàng theo trạng thái</h5>
+            <canvas id="ordersByStatusChart"></canvas>
         </div>
         <!-- Biểu đồ tròn: Dịch vụ theo trạng thái -->
-        <div class="col-md-6">
-            <div class="chart-container">
-                <h5>Dịch vụ theo trạng thái</h5>
-                <canvas id="petServicesByStatusChart"></canvas>
-            </div>
+        <div class="chart-container">
+            <h5>Dịch vụ theo trạng thái</h5>
+            <canvas id="petServicesByStatusChart"></canvas>
         </div>
         <!-- Biểu đồ tròn: Đặt phòng theo trạng thái -->
-        <div class="col-md-6">
-            <div class="chart-container">
-                <h5>Đặt phòng theo trạng thái</h5>
-                <canvas id="petHotelBookingsByStatusChart"></canvas>
-            </div>
+        <div class="chart-container">
+            <h5>Đặt phòng theo trạng thái</h5>
+            <canvas id="petHotelBookingsByStatusChart"></canvas>
         </div>
-        <!-- Biểu đồ cột: Doanh thu theo tháng -->
-        <div class="col-md-6">
-            <div class="chart-container">
-                <h5>Doanh thu theo tháng</h5>
-                <canvas id="revenueByMonthChart"></canvas>
-            </div>
+        <!-- Biểu đồ kết hợp: Doanh thu và số đơn hàng theo tháng -->
+        <div class="chart-container">
+            <h5>Doanh thu và số đơn hàng theo tháng</h5>
+            <canvas id="revenueAndOrdersByMonthChart"></canvas>
+        </div>
+        <!-- Biểu đồ đường: Số đơn hàng theo tháng -->
+        <div class="chart-container">
+            <h5>Số đơn hàng theo tháng</h5>
+            <canvas id="ordersByMonthLineChart"></canvas>
         </div>
         <!-- Biểu đồ cột: Doanh thu theo quý -->
         @if (!Model.SelectedMonth.HasValue)
         {
-            <div class="col-md-6">
-                <div class="chart-container">
-                    <h5>Doanh thu theo quý</h5>
-                    <canvas id="revenueByQuarterChart"></canvas>
-                </div>
+            <div class="chart-container">
+                <h5>Doanh thu theo quý</h5>
+                <canvas id="revenueByQuarterChart"></canvas>
             </div>
         }
         <!-- Biểu đồ cột: Sản phẩm bán ra theo danh mục -->
-        <div class="col-md-6">
-            <div class="chart-container">
-                <h5>Sản phẩm bán ra theo danh mục</h5>
-                <canvas id="soldProductsByCategoryChart"></canvas>
-            </div>
+        <div class="chart-container">
+            <h5>Sản phẩm bán ra theo danh mục</h5>
+            <canvas id="soldProductsByCategoryChart"></canvas>
         </div>
         <!-- Biểu đồ cột: Dịch vụ theo loại dịch vụ -->
-        <div class="col-md-6">
-            <div class="chart-container">
-                <h5>Dịch vụ theo loại dịch vụ</h5>
-                <canvas id="petServicesByServiceTypeChart"></canvas>
-            </div>
+        <div class="chart-container">
+            <h5>Dịch vụ theo loại dịch vụ</h5>
+            <canvas id="petServicesByServiceTypeChart"></canvas>
         </div>
     </div>
 
     <!-- Top sản phẩm, dịch vụ và loại phòng -->
-    <div class="row">
+    <div class="table-row">
         <!-- Top 5 sản phẩm bán chạy -->
-        <div class="col-md-4">
-            <div class="table-container">
-                <h5>Top 5 sản phẩm bán chạy</h5>
-                <table class="table table-bordered">
-                    <thead>
-                        <tr>
-                            <th>Tên sản phẩm</th>
-                            <th>Số lượng bán</th>
-                            <th>Doanh thu (VNĐ)</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @if (Model.TopSellingProducts.Any())
-                        {
-                            foreach (var product in Model.TopSellingProducts)
-                            {
-                                <tr>
-                                    <td>@product.ProductName</td>
-                                    <td>@product.QuantitySold</td>
-                                    <td>@product.Revenue.ToString("N0")</td>
-                                </tr>
-                            }
-                        }
-                        else
+        <div class="table-container">
+            <h5>Top 5 sản phẩm bán chạy</h5>
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Tên sản phẩm</th>
+                        <th>Số lượng bán</th>
+                        <th>Doanh thu (VNĐ)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model.TopSellingProducts.Any())
+                    {
+                        foreach (var product in Model.TopSellingProducts)
                         {
                             <tr>
-                                <td colspan="3">Không có dữ liệu</td>
+                                <td>@product.ProductName</td>
+                                <td>@product.QuantitySold</td>
+                                <td>@product.Revenue.ToString("N0")</td>
                             </tr>
                         }
-                    </tbody>
-                </table>
-            </div>
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="3">Không có dữ liệu</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
         </div>
         <!-- Top 5 dịch vụ phổ biến -->
-        <div class="col-md-4">
-            <div class="table-container">
-                <h5>Top 5 dịch vụ phổ biến</h5>
-                <table class="table table-bordered">
-                    <thead>
-                        <tr>
-                            <th>Tên dịch vụ</th>
-                            <th>Số lần đặt</th>
-                            <th>Doanh thu (VNĐ)</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @if (Model.TopPopularServices.Any())
-                        {
-                            foreach (var service in Model.TopPopularServices)
-                            {
-                                <tr>
-                                    <td>@service.ServiceName</td>
-                                    <td>@service.BookingCount</td>
-                                    <td>@service.Revenue.ToString("N0")</td>
-                                </tr>
-                            }
-                        }
-                        else
+        <div class="table-container">
+            <h5>Top 5 dịch vụ phổ biến</h5>
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Tên dịch vụ</th>
+                        <th>Số lần đặt</th>
+                        <th>Doanh thu (VNĐ)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model.TopPopularServices.Any())
+                    {
+                        foreach (var service in Model.TopPopularServices)
                         {
                             <tr>
-                                <td colspan="3">Không có dữ liệu</td>
+                                <td>@service.ServiceName</td>
+                                <td>@service.BookingCount</td>
+                                <td>@service.Revenue.ToString("N0")</td>
                             </tr>
                         }
-                    </tbody>
-                </table>
-            </div>
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="3">Không có dữ liệu</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
         </div>
         <!-- Top 5 loại phòng phổ biến -->
-        <div class="col-md-4">
-            <div class="table-container">
-                <h5>Top 5 loại phòng phổ biến</h5>
-                <table class="table table-bordered">
-                    <thead>
-                        <tr>
-                            <th>Tên loại phòng</th>
-                            <th>Số lần đặt</th>
-                            <th>Doanh thu (VNĐ)</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @if (Model.TopPopularRoomTypes.Any())
-                        {
-                            foreach (var roomType in Model.TopPopularRoomTypes)
-                            {
-                                <tr>
-                                    <td>@roomType.RoomTypeName</td>
-                                    <td>@roomType.BookingCount</td>
-                                    <td>@roomType.Revenue.ToString("N0")</td>
-                                </tr>
-                            }
-                        }
-                        else
+        <div class="table-container">
+            <h5>Top 5 loại phòng phổ biến</h5>
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Tên loại phòng</th>
+                        <th>Số lần đặt</th>
+                        <th>Doanh thu (VNĐ)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model.TopPopularRoomTypes.Any())
+                    {
+                        foreach (var roomType in Model.TopPopularRoomTypes)
                         {
                             <tr>
-                                <td colspan="3">Không có dữ liệu</td>
+                                <td>@roomType.RoomTypeName</td>
+                                <td>@roomType.BookingCount</td>
+                                <td>@roomType.Revenue.ToString("N0")</td>
                             </tr>
                         }
-                    </tbody>
-                </table>
-            </div>
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="3">Không có dữ liệu</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
         </div>
     </div>
 </div>
@@ -357,16 +455,25 @@
 @section Scripts {
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.3.0/dist/chart.umd.min.js"></script>
     <script>
-        // Hàm tạo màu ngẫu nhiên cho biểu đồ
+        // Hàm tạo màu ngẫu nhiên cho biểu đồ tròn
         function getRandomColors(count) {
             const colors = [];
             for (let i = 0; i < count; i++) {
-                const r = Math.floor(Math.random() * 255);
-                const g = Math.floor(Math.random() * 255);
-                const b = Math.floor(Math.random() * 255);
+                const r = Math.floor(Math.random() * 256);
+                const g = Math.floor(Math.random() * 256);
+                const b = Math.floor(Math.random() * 256);
                 colors.push(`rgba(${r}, ${g}, ${b}, 0.7)`);
             }
             return colors;
+        }
+
+        // Hàm tạo gradient cho biểu đồ
+        function createGradient(ctx, colors) {
+            const gradient = ctx.createLinearGradient(0, 0, 0, 400);
+            colors.forEach((color, index) => {
+                gradient.addColorStop(index / (colors.length - 1), color);
+            });
+            return gradient;
         }
 
         // Biểu đồ tròn: Doanh thu theo danh mục
@@ -377,14 +484,20 @@
                 labels: [@Html.Raw(string.Join(",", Model.RevenueByCategory.Keys.Select(k => $"'{k}'")))],
                 datasets: [{
                     data: [@Html.Raw(string.Join(",", Model.RevenueByCategory.Values))],
-                    backgroundColor: getRandomColors(@Model.RevenueByCategory.Count)
+                    backgroundColor: getRandomColors(@Model.RevenueByCategory.Count),
+                    borderColor: '#FFFFFF',
+                    borderWidth: 1
                 }]
             },
             options: {
                 responsive: true,
                 plugins: {
-                    legend: { position: 'top' },
-                    title: { display: true, text: 'Doanh thu theo danh mục' }
+                    legend: { position: 'top', labels: { color: '#000000', font: { size: 12 } } },
+                    title: { display: false }
+                },
+                animation: {
+                    duration: 1000,
+                    easing: 'easeInOutQuad'
                 }
             }
         });
@@ -397,14 +510,20 @@
                 labels: [@Html.Raw(string.Join(",", Model.RevenueByBrand.Keys.Select(k => $"'{k}'")))],
                 datasets: [{
                     data: [@Html.Raw(string.Join(",", Model.RevenueByBrand.Values))],
-                    backgroundColor: getRandomColors(@Model.RevenueByBrand.Count)
+                    backgroundColor: getRandomColors(@Model.RevenueByBrand.Count),
+                    borderColor: '#FFFFFF',
+                    borderWidth: 1
                 }]
             },
             options: {
                 responsive: true,
                 plugins: {
-                    legend: { position: 'top' },
-                    title: { display: true, text: 'Doanh thu theo thương hiệu' }
+                    legend: { position: 'top', labels: { color: '#000000', font: { size: 12 } } },
+                    title: { display: false }
+                },
+                animation: {
+                    duration: 1000,
+                    easing: 'easeInOutQuad'
                 }
             }
         });
@@ -417,14 +536,20 @@
                 labels: [@Html.Raw(string.Join(",", Model.RevenueByRoomType.Keys.Select(k => $"'{k}'")))],
                 datasets: [{
                     data: [@Html.Raw(string.Join(",", Model.RevenueByRoomType.Values))],
-                    backgroundColor: getRandomColors(@Model.RevenueByRoomType.Count)
+                    backgroundColor: getRandomColors(@Model.RevenueByRoomType.Count),
+                    borderColor: '#FFFFFF',
+                    borderWidth: 1
                 }]
             },
             options: {
                 responsive: true,
                 plugins: {
-                    legend: { position: 'top' },
-                    title: { display: true, text: 'Doanh thu theo loại phòng' }
+                    legend: { position: 'top', labels: { color: '#000000', font: { size: 12 } } },
+                    title: { display: false }
+                },
+                animation: {
+                    duration: 1000,
+                    easing: 'easeInOutQuad'
                 }
             }
         });
@@ -437,14 +562,20 @@
                 labels: [@Html.Raw(string.Join(",", Model.OrdersByStatus.Keys.Select(k => $"'{k}'")))],
                 datasets: [{
                     data: [@Html.Raw(string.Join(",", Model.OrdersByStatus.Values))],
-                    backgroundColor: getRandomColors(@Model.OrdersByStatus.Count)
+                    backgroundColor: getRandomColors(@Model.OrdersByStatus.Count),
+                    borderColor: '#FFFFFF',
+                    borderWidth: 1
                 }]
             },
             options: {
                 responsive: true,
                 plugins: {
-                    legend: { position: 'top' },
-                    title: { display: true, text: 'Đơn hàng theo trạng thái' }
+                    legend: { position: 'top', labels: { color: '#000000', font: { size: 12 } } },
+                    title: { display: false }
+                },
+                animation: {
+                    duration: 1000,
+                    easing: 'easeInOutQuad'
                 }
             }
         });
@@ -457,14 +588,20 @@
                 labels: [@Html.Raw(string.Join(",", Model.PetServicesByStatus.Keys.Select(k => $"'{k}'")))],
                 datasets: [{
                     data: [@Html.Raw(string.Join(",", Model.PetServicesByStatus.Values))],
-                    backgroundColor: getRandomColors(@Model.PetServicesByStatus.Count)
+                    backgroundColor: getRandomColors(@Model.PetServicesByStatus.Count),
+                    borderColor: '#FFFFFF',
+                    borderWidth: 1
                 }]
             },
             options: {
                 responsive: true,
                 plugins: {
-                    legend: { position: 'top' },
-                    title: { display: true, text: 'Dịch vụ theo trạng thái' }
+                    legend: { position: 'top', labels: { color: '#000000', font: { size: 12 } } },
+                    title: { display: false }
+                },
+                animation: {
+                    duration: 1000,
+                    easing: 'easeInOutQuad'
                 }
             }
         });
@@ -477,79 +614,187 @@
                 labels: [@Html.Raw(string.Join(",", Model.PetHotelBookingsByStatus.Keys.Select(k => $"'{k}'")))],
                 datasets: [{
                     data: [@Html.Raw(string.Join(",", Model.PetHotelBookingsByStatus.Values))],
-                    backgroundColor: getRandomColors(@Model.PetHotelBookingsByStatus.Count)
-                }]
-            },
-            options: {
-                responsive: true,
-                plugins: {
-                    legend: { position: 'top' },
-                    title: { display: true, text: 'Đặt phòng theo trạng thái' }
-                }
-            }
-        });
-
-        // Biểu đồ cột: Doanh thu theo tháng
-        const revenueByMonthCtx = document.getElementById('revenueByMonthChart').getContext('2d');
-        new Chart(revenueByMonthCtx, {
-            type: 'bar',
-            data: {
-                labels: [@Html.Raw(string.Join(",", Model.RevenueByMonth.Keys.Select(k => $"'{k}'")))],
-                datasets: [{
-                    label: 'Doanh thu (VNĐ)',
-                    data: [@Html.Raw(string.Join(",", Model.RevenueByMonth.Values))],
-                    backgroundColor: 'rgba(255, 215, 0, 0.7)',
-                    borderColor: 'rgba(255, 215, 0, 1)',
+                    backgroundColor: getRandomColors(@Model.PetHotelBookingsByStatus.Count),
+                    borderColor: '#FFFFFF',
                     borderWidth: 1
                 }]
             },
             options: {
                 responsive: true,
-                scales: {
-                    y: { beginAtZero: true, title: { display: true, text: 'Doanh thu (VNĐ)' } },
-                    x: { title: { display: true, text: 'Tháng' } }
-                },
                 plugins: {
-                    legend: { display: false },
-                    title: { display: true, text: 'Doanh thu theo tháng' }
+                    legend: { position: 'top', labels: { color: '#000000', font: { size: 12 } } },
+                    title: { display: false }
+                },
+                animation: {
+                    duration: 1000,
+                    easing: 'easeInOutQuad'
                 }
             }
         });
 
+        // Biểu đồ kết hợp: Doanh thu và số đơn hàng theo tháng
+        const revenueAndOrdersByMonthCtx = document.getElementById('revenueAndOrdersByMonthChart').getContext('2d');
+        const revenueGradient = createGradient(revenueAndOrdersByMonthCtx, ['#FF6384', '#36A2EB', '#FFCE56']);
+        new Chart(revenueAndOrdersByMonthCtx, {
+            type: 'bar',
+            data: {
+                labels: [@Html.Raw(string.Join(",", Model.RevenueByMonth.Keys.Select(k => $"'{k}'")))],
+                datasets: [
+                    {
+                        type: 'bar',
+                        label: 'Doanh thu (VNĐ)',
+                        data: [@Html.Raw(string.Join(",", Model.RevenueByMonth.Values))],
+                        backgroundColor: revenueGradient,
+                        borderColor: '#000000',
+                        borderWidth: 1,
+                        borderRadius: 5,
+                        barPercentage: 0.4,
+                        order: 2
+                    },
+                    {
+                        type: 'line',
+                        label: 'Số đơn hàng',
+                        data: [@Html.Raw(string.Join(",", Model.OrdersByMonth.Values))],
+                        borderColor: '#FF0000',
+                        backgroundColor: 'rgba(255, 0, 0, 0.2)',
+                        fill: true,
+                        tension: 0.4,
+                        borderWidth: 2,
+                        pointRadius: 4,
+                        pointBackgroundColor: '#FF0000',
+                        order: 1
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: { color: '#000000', font: { size: 12 } },
+                        grid: { color: 'rgba(0, 0, 0, 0.1)' },
+                        title: { display: true, text: 'Doanh thu (VNĐ)', color: '#000000' }
+                    },
+                    y1: {
+                        position: 'right',
+                        beginAtZero: true,
+                        ticks: { color: '#000000', font: { size: 12 } },
+                        grid: { display: false },
+                        title: { display: true, text: 'Số đơn hàng', color: '#000000' }
+                    },
+                    x: {
+                        ticks: { color: '#000000', font: { size: 12 } },
+                        grid: { display: false },
+                        title: { display: true, text: 'Tháng', color: '#000000' }
+                    }
+                },
+                plugins: {
+                    legend: { position: 'top', labels: { color: '#000000', font: { size: 12 } } },
+                    title: { display: false }
+                },
+                animation: {
+                    duration: 1000,
+                    easing: 'easeInOutQuad'
+                }
+            }
+        });
+
+        // Biểu đồ đường: Số đơn hàng theo tháng
+        const ordersByMonthLineCtx = document.getElementById('ordersByMonthLineChart').getContext('2d');
+        const ordersLineGradient = createGradient(ordersByMonthLineCtx, ['#36A2EB', '#FFCE56']);
+        new Chart(ordersByMonthLineCtx, {
+            type: 'line',
+            data: {
+                labels: [@Html.Raw(string.Join(",", Model.OrdersByMonth.Keys.Select(k => $"'{k}'")))],
+                datasets: [{
+                    label: 'Số đơn hàng',
+                    data: [@Html.Raw(string.Join(",", Model.OrdersByMonth.Values))],
+                    borderColor: ordersLineGradient,
+                    backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                    fill: true,
+                    tension: 0.4,
+                    borderWidth: 2,
+                    pointRadius: 4,
+                    pointBackgroundColor: '#36A2EB'
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: { color: '#000000', font: { size: 12 } },
+                        grid: { color: 'rgba(0, 0, 0, 0.1)' },
+                        title: { display: true, text: 'Số đơn hàng', color: '#000000' }
+                    },
+                    x: {
+                        ticks: { color: '#000000', font: { size: 12 } },
+                        grid: { display: false },
+                        title: { display: true, text: 'Tháng', color: '#000000' }
+                    }
+                },
+                plugins: {
+                    legend: { position: 'top', labels: { color: '#000000', font: { size: 12 } } },
+                    title: { display: false }
+                },
+                animation: {
+                    duration: 1000,
+                    easing: 'easeInOutQuad'
+                }
+            }
+        });
+
+        // Biểu đồ cột: Doanh thu theo quý
         @if (!Model.SelectedMonth.HasValue)
         {
             <text>
-            // Biểu đồ cột: Doanh thu theo quý
-            const revenueByQuarterCtx = document.getElementById('revenueByQuarterChart').getContext('2d');
-            new Chart(revenueByQuarterCtx, {
-                type: 'bar',
-                data: {
-                    labels: [@Html.Raw(string.Join(",", Model.RevenueByQuarter.Keys.Select(k => $"'{k}'")))],
-                    datasets: [{
-                        label: 'Doanh thu (VNĐ)',
-                        data: [@Html.Raw(string.Join(",", Model.RevenueByQuarter.Values))],
-                        backgroundColor: 'rgba(0, 255, 127, 0.7)',
-                        borderColor: 'rgba(0, 255, 127, 1)',
-                        borderWidth: 1
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    scales: {
-                        y: { beginAtZero: true, title: { display: true, text: 'Doanh thu (VNĐ)' } },
-                        x: { title: { display: true, text: 'Quý' } }
-                    },
-                    plugins: {
-                        legend: { display: false },
-                        title: { display: true, text: 'Doanh thu theo quý' }
-                    }
-                }
-            });
+                    const revenueByQuarterCtx = document.getElementById('revenueByQuarterChart').getContext('2d');
+                    const revenueByQuarterGradient = createGradient(revenueByQuarterCtx, ['#FF6384', '#36A2EB', '#FFCE56']);
+                    new Chart(revenueByQuarterCtx, {
+                        type: 'bar',
+                        data: {
+                            labels: [@Html.Raw(string.Join(",", Model.RevenueByQuarter.Keys.Select(k => $"'{k}'")))],
+                            datasets: [{
+                                label: 'Doanh thu (VNĐ)',
+                                data: [@Html.Raw(string.Join(",", Model.RevenueByQuarter.Values))],
+                                backgroundColor: revenueByQuarterGradient,
+                                borderColor: '#000000',
+                                borderWidth: 1,
+                                borderRadius: 5,
+                                barPercentage: 0.8
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            scales: {
+                                y: {
+                                    beginAtZero: true,
+                                    ticks: { color: '#000000', font: { size: 12 } },
+                                    grid: { color: 'rgba(0, 0, 0, 0.1)' },
+                                    title: { display: true, text: 'Doanh thu (VNĐ)', color: '#000000' }
+                                },
+                                x: {
+                                    ticks: { color: '#000000', font: { size: 12 } },
+                                    grid: { display: false },
+                                    title: { display: true, text: 'Quý', color: '#000000' }
+                                }
+                            },
+                            plugins: {
+                                legend: { display: false },
+                                title: { display: false }
+                            },
+                            animation: {
+                                duration: 1000,
+                                easing: 'easeInOutQuad'
+                            }
+                        }
+                    });
             </text>
         }
 
         // Biểu đồ cột: Sản phẩm bán ra theo danh mục
         const soldProductsByCategoryCtx = document.getElementById('soldProductsByCategoryChart').getContext('2d');
+        const soldProductsGradient = createGradient(soldProductsByCategoryCtx, ['#FF6384', '#36A2EB', '#FFCE56']);
         new Chart(soldProductsByCategoryCtx, {
             type: 'bar',
             data: {
@@ -557,26 +802,42 @@
                 datasets: [{
                     label: 'Số lượng bán',
                     data: [@Html.Raw(string.Join(",", Model.SoldProductsByCategory.Values))],
-                    backgroundColor: 'rgba(0, 123, 255, 0.7)',
-                    borderColor: 'rgba(0, 123, 255, 1)',
-                    borderWidth: 1
+                    backgroundColor: soldProductsGradient,
+                    borderColor: '#000000',
+                    borderWidth: 1,
+                    borderRadius: 5,
+                    barPercentage: 0.8
                 }]
             },
             options: {
                 responsive: true,
                 scales: {
-                    y: { beginAtZero: true, title: { display: true, text: 'Số lượng bán' } },
-                    x: { title: { display: true, text: 'Danh mục' } }
+                    y: {
+                        beginAtZero: true,
+                        ticks: { color: '#000000', font: { size: 12 } },
+                        grid: { color: 'rgba(0, 0, 0, 0.1)' },
+                        title: { display: true, text: 'Số lượng bán', color: '#000000' }
+                    },
+                    x: {
+                        ticks: { color: '#000000', font: { size: 12 } },
+                        grid: { display: false },
+                        title: { display: true, text: 'Danh mục', color: '#000000' }
+                    }
                 },
                 plugins: {
                     legend: { display: false },
-                    title: { display: true, text: 'Sản phẩm bán ra theo danh mục' }
+                    title: { display: false }
+                },
+                animation: {
+                    duration: 1000,
+                    easing: 'easeInOutQuad'
                 }
             }
         });
 
         // Biểu đồ cột: Dịch vụ theo loại dịch vụ
         const petServicesByServiceTypeCtx = document.getElementById('petServicesByServiceTypeChart').getContext('2d');
+        const petServicesGradient = createGradient(petServicesByServiceTypeCtx, ['#FF6384', '#36A2EB', '#FFCE56']);
         new Chart(petServicesByServiceTypeCtx, {
             type: 'bar',
             data: {
@@ -584,22 +845,48 @@
                 datasets: [{
                     label: 'Số lần đặt',
                     data: [@Html.Raw(string.Join(",", Model.PetServicesByServiceType.Values))],
-                    backgroundColor: 'rgba(255, 99, 132, 0.7)',
-                    borderColor: 'rgba(255, 99, 132, 1)',
-                    borderWidth: 1
+                    backgroundColor: petServicesGradient,
+                    borderColor: '#000000',
+                    borderWidth: 1,
+                    borderRadius: 5,
+                    barPercentage: 0.8
                 }]
             },
             options: {
                 responsive: true,
                 scales: {
-                    y: { beginAtZero: true, title: { display: true, text: 'Số lần đặt' } },
-                    x: { title: { display: true, text: 'Loại dịch vụ' } }
+                    y: {
+                        beginAtZero: true,
+                        ticks: { color: '#000000', font: { size: 12 } },
+                        grid: { color: 'rgba(0, 0, 0, 0.1)' },
+                        title: { display: true, text: 'Số lần đặt', color: '#000000' }
+                    },
+                    x: {
+                        ticks: { color: '#000000', font: { size: 12 } },
+                        grid: { display: false },
+                        title: { display: true, text: 'Loại dịch vụ', color: '#000000' }
+                    }
                 },
                 plugins: {
                     legend: { display: false },
-                    title: { display: true, text: 'Dịch vụ theo loại dịch vụ' }
+                    title: { display: false }
+                },
+                animation: {
+                    duration: 1000,
+                    easing: 'easeInOutQuad'
                 }
             }
         });
+
+        // Hiệu ứng loading khi thay đổi bộ lọc
+        document.querySelectorAll('#month, #year').forEach(select => {
+            select.addEventListener('change', function() {
+                document.body.style.opacity = '0.5';
+                this.form.submit();
+            });
+        });
+        window.onload = function() {
+            document.body.style.opacity = '1';
+        };
     </script>
 }

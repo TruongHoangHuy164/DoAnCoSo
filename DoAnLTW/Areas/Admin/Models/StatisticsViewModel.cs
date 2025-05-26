@@ -1,94 +1,39 @@
-﻿/*namespace DoAnLTW.Areas.Admin.Models
-{
-    public class StatisticsViewModel
-    {
-        // Tổng quan
-        public decimal TotalRevenue { get; set; }                 // Tổng doanh thu
-        public decimal OrderRevenue { get; set; }                 // Doanh thu từ đơn hàng
-        public decimal PetServiceRevenue { get; set; }            // Doanh thu từ dịch vụ thú cưng
-        public int TotalOrders { get; set; }                      // Tổng số đơn hàng
-        public int TotalPetServices { get; set; }                 // Tổng số dịch vụ thú cưng
-        public int TotalProducts { get; set; }                    // Tổng số sản phẩm
-
-        // Dữ liệu cho biểu đồ
-        public Dictionary<string, decimal> RevenueByCategory { get; set; }          // Doanh thu theo danh mục
-        public Dictionary<string, decimal> RevenueByBrand { get; set; }             // Doanh thu theo thương hiệu
-        public Dictionary<string, int> OrdersByStatus { get; set; }                 // Số đơn hàng theo trạng thái
-        public Dictionary<string, int> PetServicesByStatus { get; set; }            // Số dịch vụ theo trạng thái
-        public Dictionary<string, int> ProductsByBrand { get; set; }                // Số sản phẩm theo thương hiệu
-        public Dictionary<string, decimal> RevenueByMonth { get; set; }             // Doanh thu theo tháng
-        public Dictionary<string, decimal> RevenueByQuarter { get; set; }           // Doanh thu theo quý
-        public Dictionary<string, int> SoldProductsByCategory { get; set; }         // Số lượng sản phẩm bán ra theo danh mục
-        public Dictionary<string, int> PetServicesByServiceType { get; set; }       // Số lượng dịch vụ theo loại dịch vụ
-        public List<ProductSalesModel> TopSellingProducts { get; set; }             // Top 5 sản phẩm bán chạy
-        public List<ServicePopularityModel> TopPopularServices { get; set; }        // Top 5 dịch vụ phổ biến
-
-        // Bộ lọc
-        public int? SelectedYear { get; set; }
-        public List<int> AvailableYears { get; set; }
-    }
-
-    public class ProductSalesModel
-    {
-        public int ProductId { get; set; }
-        public string ProductName { get; set; }
-        public int QuantitySold { get; set; }
-        public decimal Revenue { get; set; }
-    }
-
-    public class ServicePopularityModel
-    {
-        public int ServiceId { get; set; }
-        public string ServiceName { get; set; }
-        public int BookingCount { get; set; }
-        public decimal Revenue { get; set; }
-    }
-}
-*/
+﻿using System.Collections.Generic;
 
 namespace DoAnLTW.Areas.Admin.Models
 {
     public class StatisticsViewModel
     {
-        // Tổng quan
-        public decimal TotalRevenue { get; set; }
-        // Tổng doanh thu
-        public decimal OrderRevenue { get; set; }
-        // Doanh thu từ đơn hàng
-        public decimal PetServiceRevenue { get; set; }
-        // Doanh thu từ dịch vụ thú cưng
-        public decimal PetHotelBookingRevenue { get; set; }
-        // Doanh thu từ đặt phòng khách sạn thú cưng
-        public int TotalOrders { get; set; }
-        // Tổng số đơn hàng
-        public int TotalPetServices { get; set; }
-        // Tổng số dịch vụ thú cưng
-        public int TotalPetHotelBookings { get; set; }
-        // Tổng số đặt phòng khách sạn thú cưng
-        public int TotalProducts { get; set; }
-        // Tổng số sản phẩm
-        // Dữ liệu cho biểu đồ
-        public Dictionary<string, decimal> RevenueByCategory { get; set; }          // Doanh thu theo danh mục
-        public Dictionary<string, decimal> RevenueByBrand { get; set; }             // Doanh thu theo thương hiệu
-        public Dictionary<string, decimal> RevenueByRoomType { get; set; }          // Doanh thu theo loại phòng
-        public Dictionary<string, int> OrdersByStatus { get; set; }                 // Số đơn hàng theo trạng thái
-        public Dictionary<string, int> PetServicesByStatus { get; set; }            // Số dịch vụ theo trạng thái
-        public Dictionary<string, int> PetHotelBookingsByStatus { get; set; }       // Số đặt phòng theo trạng thái
-        public Dictionary<string, int> ProductsByBrand { get; set; }                // Số sản phẩm theo thương hiệu
-        public Dictionary<string, decimal> RevenueByMonth { get; set; }             // Doanh thu theo tháng
-        public Dictionary<string, decimal> RevenueByQuarter { get; set; }           // Doanh thu theo quý
-        public Dictionary<string, int> SoldProductsByCategory { get; set; }         // Số lượng sản phẩm bán ra theo danh mục
-        public Dictionary<string, int> PetServicesByServiceType { get; set; }       // Số lượng dịch vụ theo loại dịch vụ
-        public List<ProductSalesModel> TopSellingProducts { get; set; }             // Top 5 sản phẩm bán chạy
-        public List<ServicePopularityModel> TopPopularServices { get; set; }        // Top 5 dịch vụ phổ biến
-        public List<RoomTypePopularityModel> TopPopularRoomTypes { get; set; }      // Top 5 loại phòng phổ biến
-
-        // Bộ lọc
         public int? SelectedYear { get; set; }
         public int? SelectedMonth { get; set; }
         public List<int> AvailableYears { get; set; }
+        public decimal TotalRevenue { get; set; }
+        public decimal OrderRevenue { get; set; }
+        public decimal PetServiceRevenue { get; set; }
+        public decimal PetHotelBookingRevenue { get; set; }
+        public int TotalOrders { get; set; }
+        public int TotalPetServices { get; set; }
+        public int TotalPetHotelBookings { get; set; }
+        public int TotalProducts { get; set; }
+        public Dictionary<string, decimal> RevenueByCategory { get; set; }
+        public Dictionary<string, decimal> RevenueByBrand { get; set; }
+        public Dictionary<string, decimal> RevenueByRoomType { get; set; }
+        public Dictionary<string, int> OrdersByStatus { get; set; }
+        public Dictionary<string, int> PetServicesByStatus { get; set; }
+        public Dictionary<string, int> PetHotelBookingsByStatus { get; set; }
+        public Dictionary<string, int> ProductsByBrand { get; set; }
+        public Dictionary<string, int> SoldProductsByCategory { get; set; }
+        public Dictionary<string, int> PetServicesByServiceType { get; set; }
+        public Dictionary<string, decimal> RevenueByMonth { get; set; }
+        public Dictionary<string, decimal> RevenueByQuarter { get; set; }
+        // New property for order counts by month
+        public Dictionary<string, int> OrdersByMonth { get; set; }
+        public List<ProductSalesModel> TopSellingProducts { get; set; }
+        public List<ServicePopularityModel> TopPopularServices { get; set; }
+        public List<RoomTypePopularityModel> TopPopularRoomTypes { get; set; }
     }
 
+    // Supporting models (assumed based on controller usage)
     public class ProductSalesModel
     {
         public int ProductId { get; set; }
