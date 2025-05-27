@@ -2,7 +2,170 @@
 @{
     ViewData["Title"] = "Lịch đặt của tôi";
 }
+<style>
+    /* Custom styles for gold (#FFD700), black, and white theme */
+    body {
+        background-color: #f8f9fa; /* Light gray background for contrast */
+        color: #333; /* Dark text for readability */
+        font-family: 'Arial', sans-serif;
+    }
 
+    .container {
+        background-color: #fff; /* White background for the main container */
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        padding: 2rem;
+    }
+
+    /* Header styling */
+    h2 {
+        color: #FFD700; /* Gold color for headers */
+        font-weight: bold;
+    }
+
+    /* Button styling */
+    .btn-primary {
+        background-color: #FFD700; /* Gold background */
+        border-color: #FFD700;
+        color: #000; /* Black text for contrast */
+    }
+
+        .btn-primary:hover {
+            background-color: #e6c200; /* Darker gold on hover */
+            border-color: #e6c200;
+        }
+
+    .btn-info {
+        background-color: #333; /* Black background for info buttons */
+        border-color: #333;
+        color: #fff; /* White text */
+    }
+
+        .btn-info:hover {
+            background-color: #555; /* Lighter black on hover */
+            border-color: #555;
+        }
+
+    .btn-danger {
+        background-color: #dc3545; /* Keep Bootstrap's danger color for cancel button */
+        border-color: #dc3545;
+        color: #fff;
+    }
+
+        .btn-danger:hover {
+            background-color: #c82333; /* Darker red on hover */
+            border-color: #c82333;
+        }
+
+    /* Table styling */
+    .table {
+        background-color: #fff; /* White table background */
+        border: 1px solid #dee2e6;
+    }
+
+    .table-striped tbody tr:nth-of-type(odd) {
+        background-color: #f8f9fa; /* Light gray for odd rows */
+    }
+
+    .table-bordered th,
+    .table-bordered td {
+        border: 1px solid #dee2e6; /* Light gray borders */
+    }
+
+    .thead-dark {
+        background-color: #333; /* Black header background */
+        color: #fff; /* White text */
+    }
+
+        .thead-dark th {
+            border-color: #444; /* Slightly lighter black for borders */
+        }
+
+    /* Badge styling */
+    .badge {
+        font-size: 0.9em;
+        padding: 0.5em 1em;
+    }
+
+    .badge-warning {
+        background-color: #FFD700; /* Gold for warning (Chờ xác nhận) */
+        color: #000;
+    }
+
+    .badge-primary {
+        background-color: #333; /* Black for primary (Đã xác nhận) */
+        color: #fff;
+    }
+
+    .badge-info {
+        background-color: #555; /* Darker gray for info (Đang thực hiện) */
+        color: #fff;
+    }
+
+    .badge-success {
+        background-color: #28a745; /* Keep green for success (Hoàn thành) */
+        color: #fff;
+    }
+
+    .badge-danger {
+        background-color: #dc3545; /* Keep red for danger (Đã hủy) */
+        color: #fff;
+    }
+
+    .badge-secondary {
+        background-color: #6c757d; /* Gray for undefined status */
+        color: #fff;
+    }
+
+    /* Alert styling */
+    .alert-success {
+        background-color: #e6f3e6; /* Light green background for success */
+        color: #28a745;
+        border-color: #28a745;
+    }
+
+    .alert-danger {
+        background-color: #f8d7da; /* Light red background for error */
+        color: #dc3545;
+        border-color: #dc3545;
+    }
+
+    .alert-info {
+        background-color: #e9ecef; /* Light gray for info */
+        color: #333;
+        border-color: #dee2e6;
+    }
+
+    .alert .close {
+        color: #333; /* Black close button */
+        opacity: 0.7;
+    }
+
+        .alert .close:hover {
+            opacity: 1;
+        }
+
+    /* Link styling in alerts */
+    .alert a {
+        color: #FFD700; /* Gold for links */
+        text-decoration: underline;
+    }
+
+        .alert a:hover {
+            color: #e6c200; /* Darker gold on hover */
+        }
+
+    /* Responsive table */
+    .table-responsive {
+        border-radius: 8px;
+        overflow-x: auto;
+    }
+
+    /* Icon styling */
+    .fas {
+        margin-right: 5px; /* Space between icon and text */
+    }
+</style>
 <div class="container py-5">
     <div class="row mb-4">
         <div class="col-md-8">

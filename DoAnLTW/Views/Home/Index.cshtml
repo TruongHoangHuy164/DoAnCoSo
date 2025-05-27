@@ -1,916 +1,451 @@
-﻿@model DoAnLTW.ViewModels.HomeViewModel
-@{
-    ViewData["Title"] = "PetLove Store - Trang Chủ";
+﻿@{
+    ViewData["Title"] = "Home Page";
 }
 
-<!-- Dependencies -->
-<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
-<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap" rel="stylesheet">
-<link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet">
-<link href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/8.4.7/swiper-bundle.min.css" rel="stylesheet">
+<!-- AOS CSS -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" integrity="sha512-1cK78a1o+ht2JcaW6g8OXYwqpev9+6GqOkz9xmBN9iUUhIndKtxwILGWYOSibOKjLsEdGeHiw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
+<!-- Floating Button -->
 <style>
-    :root {
-        --primary-color: #FF6B8A;
-        --secondary-color: #4ECDC4;
-        --accent-color: #45B7D1;
-        --warm-orange: #FFB84D;
-        --soft-purple: #9B59B6;
-        --text-dark: #2C3E50;
-        --text-light: #7F8C8D;
-        --bg-light: #F8F9FA;
-        --white: #FFFFFF;
-        --shadow-light: 0 5px 15px rgba(0,0,0,0.08);
-        --shadow-medium: 0 10px 30px rgba(0,0,0,0.15);
-        --gradient-primary: linear-gradient(135deg, #FF6B8A, #FFB84D);
-        --gradient-secondary: linear-gradient(135deg, #4ECDC4, #45B7D1);
-        --gradient-accent: linear-gradient(135deg, #9B59B6, #FF6B8A);
-    }
-
-    * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-    }
+    @@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
 
     body {
-        font-family: 'Nunito', sans-serif;
-        line-height: 1.6;
-        color: var(--text-dark);
-        overflow-x: hidden;
+        font-family: 'Poppins', sans-serif;
     }
 
-    /* Floating Promo Button */
     .floating-promo-btn {
         position: fixed;
         bottom: 30px;
         left: 30px;
         z-index: 1000;
-        background: var(--gradient-primary);
+        background: linear-gradient(135deg, #00C9FF, #92FE9D);
         color: white;
-        padding: 15px 25px;
-        border-radius: 50px;
+        padding: 12px 24px;
+        border-radius: 30px;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
         text-decoration: none;
-        font-weight: 700;
-        font-size: 0.9rem;
-        box-shadow: var(--shadow-medium);
-        transition: all 0.4s ease;
-        animation: pulse 2s infinite;
-    }
-
-    .floating-promo-btn:hover {
-        transform: translateY(-5px) scale(1.05);
-        box-shadow: 0 15px 35px rgba(255, 107, 138, 0.4);
-        color: white;
-    }
-
-    @@keyframes pulse {
-        0%, 100% { transform: scale(1); }
-        50% { transform: scale(1.05); }
-    }
-
-    /* Hero Carousel */
-    .hero-section {
-        height: 70vh;
-        min-height: 500px;
-        position: relative;
-        overflow: hidden;
-    }
-
-    .hero-slide {
-        height: 100%;
-        background-size: cover;
-        background-position: center;
-        display: flex;
-        align-items: center;
-        position: relative;
-    }
-
-    .hero-slide::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background: linear-gradient(45deg, rgba(0,0,0,0.4), rgba(0,0,0,0.1));
-    }
-
-    .hero-content {
-        position: relative;
-        z-index: 2;
-        text-align: center;
-        color: white;
-    }
-
-    .hero-title {
-        font-size: 3.5rem;
-        font-weight: 800;
-        margin-bottom: 1rem;
-        text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
-    }
-
-    .hero-subtitle {
-        font-size: 1.3rem;
-        margin-bottom: 2rem;
-        font-weight: 400;
-        opacity: 0.95;
-    }
-
-    .btn-hero {
-        background: var(--gradient-primary);
-        border: none;
-        padding: 15px 35px;
-        border-radius: 50px;
-        color: white;
         font-weight: 600;
-        font-size: 1.1rem;
-        text-decoration: none;
-        display: inline-block;
+        font-size: 1rem;
         transition: all 0.3s ease;
-        box-shadow: var(--shadow-medium);
     }
 
-    .btn-hero:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 15px 30px rgba(255, 107, 138, 0.4);
-        color: white;
-    }
-
-    /* Offers Section */
-    .offers-section {
-        margin-top: -100px;
-        position: relative;
-        z-index: 3;
-    }
-
-    .offer-card {
-        background: white;
-        border-radius: 20px;
-        overflow: hidden;
-        box-shadow: var(--shadow-light);
-        transition: all 0.3s ease;
-        height: 200px;
-        position: relative;
-    }
-
-    .offer-card:hover {
-        transform: translateY(-10px);
-        box-shadow: var(--shadow-medium);
-    }
-
-    .offer-card img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-    }
-
-    .offer-overlay {
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background: var(--gradient-accent);
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        opacity: 0.9;
-    }
-
-    .offer-text {
-        color: white;
-        text-align: center;
-    }
-
-    .offer-badge {
-        background: rgba(255,255,255,0.2);
-        padding: 5px 15px;
-        border-radius: 20px;
-        font-size: 0.9rem;
-        margin-bottom: 10px;
-    }
-
-    .offer-title {
-        font-size: 1.5rem;
-        font-weight: 700;
-        margin-bottom: 15px;
-    }
-
-    /* Features Section */
-    .features-section {
-        background: var(--bg-light);
-        padding: 80px 0;
-    }
-
-    .feature-card {
-        background: white;
-        padding: 40px 30px;
-        border-radius: 20px;
-        text-align: center;
-        box-shadow: var(--shadow-light);
-        transition: all 0.3s ease;
-        height: 100%;
-    }
-
-    .feature-card:hover {
-        transform: translateY(-5px);
-        box-shadow: var(--shadow-medium);
-    }
-
-    .feature-icon {
-        width: 80px;
-        height: 80px;
-        margin: 0 auto 20px;
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 2rem;
-        color: white;
-        background: var(--gradient-secondary);
-    }
-
-    .feature-title {
-        font-size: 1.2rem;
-        font-weight: 700;
-        color: var(--text-dark);
-    }
-
-    /* Section Headers */
-    .section-header {
-        text-align: center;
-        margin-bottom: 60px;
-    }
-
-    .section-title {
-        font-size: 2.5rem;
-        font-weight: 800;
-        color: var(--text-dark);
-        margin-bottom: 15px;
-        position: relative;
-    }
-
-    .section-title::after {
-        content: '';
-        position: absolute;
-        bottom: -10px;
-        left: 50%;
-        transform: translateX(-50%);
-        width: 80px;
-        height: 4px;
-        background: var(--gradient-primary);
-        border-radius: 2px;
-    }
-
-    .section-subtitle {
-        font-size: 1.1rem;
-        color: var(--text-light);
-        max-width: 600px;
-        margin: 0 auto;
-    }
-
-    /* Promo Codes */
-    .promo-section {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        padding: 80px 0;
-        color: white;
-    }
+        .floating-promo-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        }
 
     .promo-card {
-        background: rgba(255,255,255,0.15);
-        backdrop-filter: blur(10px);
-        border: 1px solid rgba(255,255,255,0.2);
-        border-radius: 20px;
-        padding: 30px 20px;
+        background: #ffffff;
+        border-radius: 16px;
+        box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+        padding: 20px;
         text-align: center;
-        transition: all 0.3s ease;
-        height: 100%;
+        margin: 15px;
+        transition: transform 0.3s ease;
     }
 
-    .promo-card:hover {
-        background: rgba(255,255,255,0.25);
-        transform: translateY(-5px);
-    }
+        .promo-card:hover {
+            transform: scale(1.02);
+        }
 
     .promo-code {
-        font-size: 1.8rem;
-        font-weight: 800;
-        margin-bottom: 15px;
-        color: var(--warm-orange);
+        font-size: 1.6rem;
+        font-weight: 600;
+        color: #4CAF50;
+        margin-bottom: 12px;
     }
 
     .promo-description {
-        font-size: 1.1rem;
-        opacity: 0.9;
+        font-size: 1rem;
+        color: #444;
+        margin-bottom: 8px;
     }
 
-    /* Categories */
-    .categories-section {
-        padding: 80px 0;
+    .promo-expiry {
+        font-size: 0.9rem;
+        color: #999;
     }
 
-    .category-card {
-        background: white;
-        border-radius: 20px;
-        overflow: hidden;
-        box-shadow: var(--shadow-light);
-        transition: all 0.3s ease;
-        text-decoration: none;
-        color: inherit;
-    }
-
-    .category-card:hover {
-        transform: translateY(-10px);
-        box-shadow: var(--shadow-medium);
-        color: inherit;
-    }
-
-    .category-image {
-        height: 150px;
-        background: var(--bg-light);
+    .vendor-carousel .bg-light {
         display: flex;
         align-items: center;
         justify-content: center;
+        height: 120px;
     }
 
-    .category-image img {
+    .vendor-carousel img {
         max-width: 100%;
         max-height: 100%;
         object-fit: contain;
     }
 
-    .category-name {
-        padding: 20px;
-        text-align: center;
-        font-weight: 700;
-        font-size: 1.1rem;
+    .product-carousel .product-item {
+        background: #FFFFFF;
+        margin: 0 10px;
+        padding: 15px;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        transition: transform 0.2s ease;
     }
 
-    /* Products */
-    .products-section {
-        background: var(--bg-light);
-        padding: 80px 0;
-    }
+        .product-carousel .product-item:hover {
+            transform: scale(1.05);
+        }
 
-    .product-card {
-        background: white;
-        border-radius: 20px;
-        overflow: hidden;
-        box-shadow: var(--shadow-light);
-        transition: all 0.3s ease;
-        position: relative;
-    }
-
-    .product-card:hover {
-        transform: translateY(-5px);
-        box-shadow: var(--shadow-medium);
-    }
-
-    .product-image {
-        height: 250px;
-        background: var(--bg-light);
-        position: relative;
-        overflow: hidden;
-    }
-
-    .product-image img {
+    .product-carousel .product-img {
         width: 100%;
-        height: 100%;
-        object-fit: cover;
-        transition: transform 0.3s ease;
+        height: auto;
+        aspect-ratio: 1 / 1;
+        overflow: hidden;
     }
 
-    .product-card:hover .product-image img {
-        transform: scale(1.1);
-    }
+        .product-carousel .product-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
 
-    .product-actions {
-        position: absolute;
-        top: 15px;
-        right: 15px;
-        display: flex;
-        flex-direction: column;
-        gap: 10px;
+    .product-carousel .product-action {
         opacity: 0;
         transition: opacity 0.3s ease;
     }
 
-    .product-card:hover .product-actions {
+    .product-carousel .product-item:hover .product-action {
         opacity: 1;
     }
 
-    .product-action-btn {
-        width: 40px;
-        height: 40px;
-        border-radius: 50%;
-        background: white;
-        border: none;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        box-shadow: var(--shadow-light);
-        transition: all 0.3s ease;
-        color: var(--text-dark);
-    }
-
-    .product-action-btn:hover {
-        background: var(--primary-color);
-        color: white;
-        transform: scale(1.1);
-    }
-
-    .product-info {
-        padding: 25px 20px;
-    }
-
-    .product-name {
-        font-size: 1.1rem;
-        font-weight: 700;
-        margin-bottom: 10px;
-        color: var(--text-dark);
-    }
-
-    .product-price {
-        font-size: 1.3rem;
-        font-weight: 800;
-        color: var(--primary-color);
-    }
-
-    /* Brands */
-    .brands-section {
-        padding: 80px 0;
-        background: white;
-    }
-
-    .brand-logo {
-        height: 100px;
-        background: var(--bg-light);
-        border-radius: 15px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        transition: all 0.3s ease;
-        opacity: 0.7;
-    }
-
-    .brand-logo:hover {
-        opacity: 1;
-        transform: scale(1.05);
-    }
-
-    .brand-logo img {
-        max-width: 100%;
-        max-height: 100%;
-        object-fit: contain;
-    }
-
-    /* Responsive */
-    @@media (max-width: 768px) {
-        .hero-title { font-size: 2.5rem; }
-        .hero-subtitle { font-size: 1.1rem; }
-        .section-title { font-size: 2rem; }
-        .floating-promo-btn {
-            bottom: 20px;
-            left: 20px;
-            padding: 12px 20px;
-            font-size: 0.8rem;
-        }
-    }
-
-    /* Custom Swiper Styles */
-    .swiper-pagination-bullet {
-        background: white;
-        opacity: 0.5;
-    }
-
-    .swiper-pagination-bullet-active {
-        background: var(--primary-color);
-        opacity: 1;
-    }
-
-    .swiper-button-next,
-    .swiper-button-prev {
-        color: white;
-        background: rgba(0,0,0,0.3);
-        width: 50px;
-        height: 50px;
-        border-radius: 50%;
-    }
-
-    /* Ripple Effect */
-    .ripple {
-        position: absolute;
-        border-radius: 50%;
-        transform: scale(0);
-        animation: ripple 600ms linear;
-        background-color: rgba(255, 255, 255, 0.6);
-    }
-
-    @@keyframes ripple {
-        to {
-            transform: scale(4);
-            opacity: 0;
-        }
+    .promo-carousel .promo-card {
+        background: #fff;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        padding: 15px;
+        text-align: center;
+        margin: 10px;
     }
 </style>
 
-<!-- Floating Promo Button -->
-<a href="#promo-section" class="floating-promo-btn">
-    <i class="fas fa-gift me-2"></i>Mã Khuyến Mãi!
-</a>
+<!-- Floating Button with AOS -->
+<a href="#promo-section" class="floating-promo-btn" data-aos="fade-up" data-aos-delay="100" data-aos-once="true">!Mã Khuyến Mãi!</a>
 
-<!-- Hero Carousel -->
-<section class="hero-section">
-    <div class="swiper hero-swiper">
-        <div class="swiper-wrapper">
-            <div class="swiper-slide hero-slide" style="background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.2)), url('/img/slider1.jpg')">
-                <div class="container">
-                    <div class="hero-content" data-aos="fade-up">
-                        <h1 class="hero-title">Yêu Boss Hết Mình</h1>
-                        <p class="hero-subtitle">Từ thức ăn đến đồ chơi, mọi thứ boss cần đều có tại shop! 🐶🐱<br>Phục vụ boss chuẩn chỉnh – làm sen chuẩn gu!</p>
-                        <a asp-controller="Shop" asp-action="Index" class="btn-hero">Khám Phá Ngay</a>
-                    </div>
-                </div>
-            </div>
-            <div class="swiper-slide hero-slide" style="background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.2)), url('/img/slider2.jpg')">
-                <div class="container">
-                    <div class="hero-content" data-aos="fade-up">
-                        <h1 class="hero-title">Sống Chất Cùng Boss</h1>
-                        <p class="hero-subtitle">Thời trang, phong cách, đậm cá tính<br>Boss ra đường phải nổi bật nhất khu luôn nha! 🐾✨</p>
-                        <a asp-controller="Shop" asp-action="Index" class="btn-hero">Xem Ngay</a>
-                    </div>
-                </div>
-            </div>
-            <div class="swiper-slide hero-slide" style="background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.2)), url('/img/slider3.jpg')">
-                <div class="container">
-                    <div class="hero-content" data-aos="fade-up">
-                        <h1 class="hero-title">Boss Vui, Sen Mới Chill</h1>
-                        <p class="hero-subtitle">Giúp boss khỏe mạnh, vui vẻ mỗi ngày với sản phẩm chất lượng<br>Yêu thương từ những điều nhỏ nhất 🐕💖</p>
-                        <a asp-controller="Shop" asp-action="Index" class="btn-hero">Mua Ngay</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="swiper-pagination"></div>
-        <div class="swiper-button-next"></div>
-        <div class="swiper-button-prev"></div>
-    </div>
-</section>
-
-<!-- Special Offers -->
-<section class="offers-section">
-    <div class="container">
-        <div class="row g-4">
-            <div class="col-lg-6" data-aos="fade-up" data-aos-delay="100">
-                <div class="offer-card">
-                    <img src="/img/giamgia1.jpg" alt="Special Offer 1">
-                    <div class="offer-overlay">
-                        <div class="offer-text">
-                            <div class="offer-badge">GIẢM GIÁ</div>
-                            <h3 class="offer-title">Save 20%</h3>
-                            <a asp-controller="Shop" asp-action="Index" class="btn btn-light btn-sm">Mua Ngay</a>
+<!-- Carousel Start -->
+<div class="container-fluid mb-3" data-aos="fade-in" data-aos-delay="200" data-aos-once="true">
+    <div class="row px-xl-5">
+        <div class="col-lg-8">
+            <div id="header-carousel" class="carousel slide carousel-fade mb-30 mb-lg-0" data-ride="carousel">
+                <ol class="carousel-indicators">
+                    <li data-target="#header-carousel" data-slide-to="0" class="active"></li>
+                    <li data-target="#header-carousel" data-slide-to="1"></li>
+                    <li data-target="#header-carousel" data-slide-to="2"></li>
+                </ol>
+                <div class="carousel-inner">
+                    <div class="carousel-item position-relative active" style="height: 430px;">
+                        <img class="position-absolute w-100 h-100" src="~/img/slider1.jpg" style="object-fit: cover;" alt="Slider 1">
+                        <div class="carousel-caption d-flex flex-column align-items-center justify-content-center" data-aos="fade-up" data-aos-delay="300" data-aos-once="true">
+                            <div class="p-3" style="max-width: 700px;">
+                                <h1 class="display-4 text-white mb-3 animate__animated animate__fadeInDown">Yêu Boss Hết Mình</h1>
+                                <p class="mx-md-5 px-5 animate__animated animate__bounceIn">Từ thức ăn đến đồ chơi, mọi thứ boss cần đều có tại shop! 🐶🐱 Phục vụ boss chuẩn chỉnh – làm sen chuẩn gu!</p>
+                                <a asp-controller="Shop" asp-action="Index" class="btn btn-outline-light py-2 px-4 mt-3 animate__animated animate__fadeInUp">Khám Phá Ngay</a>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </div>
-            <div class="col-lg-6" data-aos="fade-up" data-aos-delay="200">
-                <div class="offer-card">
-                    <img src="/img/giamgia2.jpg" alt="Special Offer 2">
-                    <div class="offer-overlay">
-                        <div class="offer-text">
-                            <div class="offer-badge">ĐẶC BIỆT</div>
-                            <h3 class="offer-title">Save 20%</h3>
-                            <a asp-controller="Shop" asp-action="Index" class="btn btn-light btn-sm">Xem Thêm</a>
+                    <div class="carousel-item position-relative" style="height: 430px;">
+                        <img class="position-absolute w-100 h-100" src="~/img/slider2.jpg" style="object-fit: cover;" alt="Slider 2">
+                        <div class="carousel-caption d-flex flex-column align-items-center justify-content-center" data-aos="fade-up" data-aos-delay="300" data-aos-once="true">
+                            <div class="p-3" style="max-width: 700px;">
+                                <h1 class="display-4 text-white mb-3 animate__animated animate__fadeInDown">Sống Chất Cùng Boss</h1>
+                                <p class="mx-md-5 px-5 animate__animated animate__bounceIn">Thời trang, phong cách, đậm cá tính – boss ra đường phải nổi bật nhất khu luôn nha! 🐾✨</p>
+                                <a asp-controller="Shop" asp-action="Index" class="btn btn-outline-light py-2 px-4 mt-3 animate__animated animate__fadeInUp">Xem Ngay</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-item position-relative" style="height: 430px;">
+                        <img class="position-absolute w-100 h-100" src="~/img/slider3.jpg" style="object-fit: cover;" alt="Slider 3">
+                        <div class="carousel-caption d-flex flex-column align-items-center justify-content-center" data-aos="fade-up" data-aos-delay="300" data-aos-once="true">
+                            <div class="p-3" style="max-width: 700px;">
+                                <h1 class="display-4 text-white mb-3 animate__animated animate__fadeInDown">Boss Vui, Sen Mới Chill</h1>
+                                <p class="mx-md-5 px-5 animate__animated animate__bounceIn">Giúp boss khỏe mạnh, vui vẻ mỗi ngày với sản phẩm chất lượng – yêu thương từ những điều nhỏ nhất 🐕💖</p>
+                                <a asp-controller="Shop" asp-action="Index" class="btn btn-outline-light py-2 px-4 mt-3 animate__animated animate__fadeInUp">Mua Ngay</a>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-</section>
 
-<!-- Features -->
-<section class="features-section">
-    <div class="container">
-        <div class="row g-4">
-            <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="100">
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-medal"></i>
-                    </div>
-                    <h5 class="feature-title">Sản phẩm chất lượng</h5>
+        <!-- Giảm giá -->
+        <div class="col-lg-4">
+            <div class="product-offer mb-30" style="height: 200px;" data-aos="zoom-in" data-aos-delay="400" data-aos-once="true">
+                <img class="img-fluid" src="~/img/giamgia1.jpg" alt="Giảm giá 1">
+                <div class="offer-text">
+                    <h6 class="text-white text-uppercase">Save 20%</h6>
+                    <h3 class="text-white mb-3">Special Offer</h3>
+                    <a asp-controller="Shop" asp-action="Index" class="btn btn-primary">Shop Now</a>
                 </div>
             </div>
-            <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="200">
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-shipping-fast"></i>
-                    </div>
-                    <h5 class="feature-title">Giao hàng miễn phí</h5>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="300">
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-sync-alt"></i>
-                    </div>
-                    <h5 class="feature-title">1 đổi 1 trong 14 ngày</h5>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="400">
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-headset"></i>
-                    </div>
-                    <h5 class="feature-title">Hỗ trợ 24/7</h5>
+            <div class="product-offer mb-30" style="height: 200px;" data-aos="zoom-in" data-aos-delay="500" data-aos-once="true">
+                <img class="img-fluid" src="~/img/giamgia2.jpg" alt="Giảm giá 2">
+                <div class="offer-text">
+                    <h6 class="text-white text-uppercase">Save 20%</h6>
+                    <h3 class="text-white mb-3">Special Offer</h3>
+                    <a asp-controller="Shop" asp-action="Index" class="btn btn-primary">Shop Now</a>
                 </div>
             </div>
         </div>
     </div>
-</section>
-
-<!-- Promotion Codes -->
-<section id="promo-section" class="promo-section">
-    <div class="container">
-        <div class="section-header" data-aos="fade-up">
-            <h2 class="section-title" style="color: white;">Mã Khuyến Mãi</h2>
-            <p class="section-subtitle" style="color: rgba(255,255,255,0.9);">Săn ngay những ưu đãi hấp dẫn dành riêng cho boss yêu!</p>
+</div>
+<!-- Carousel End -->
+<!-- Tiêu chí Start -->
+<div class="container-fluid pt-5" data-aos="fade-up" data-aos-delay="600" data-aos-once="true">
+    <div class="row px-xl-5 pb-3">
+        <div class="col-lg-3 col-md-6 col-sm-12 pb-1" data-aos="fade-up" data-aos-delay="700" data-aos-once="true">
+            <div class="d-flex align-items-center bg-light mb-4" style="padding: 30px;">
+                <h1 class="fa fa-check text-primary m-0 mr-3"></h1>
+                <h5 class="font-weight-semi-bold m-0">Sản phẩm chất lượng</h5>
+            </div>
         </div>
-        <div class="row g-4">
-            @foreach (var promo in Model.PromotionCodes)
-            {
-                <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="@(100 * (Model.PromotionCodes.IndexOf(promo) + 1))">
-                    <div class="promo-card">
+        <div class="col-lg-3 col-md-6 col-sm-12 pb-1" data-aos="fade-up" data-aos-delay="800" data-aos-once="true">
+            <div class="d-flex align-items-center bg-light mb-4" style="padding: 30px;">
+                <h1 class="fa fa-shipping-fast text-primary m-0 mr-2"></h1>
+                <h5 class="font-weight-semi-bold m-0">Giao hàng miễn phí</h5>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-6 col-sm-12 pb-1" data-aos="fade-up" data-aos-delay="900" data-aos-once="true">
+            <div class="d-flex align-items-center bg-light mb-4" style="padding: 30px;">
+                <h1 class="fas fa-exchange-alt text-primary m-0 mr-3"></h1>
+                <h5 class="font-weight-semi-bold m-0">1 đổi 1 trong 14 ngày</h5>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-6 col-sm-12 pb-1" data-aos="fade-up" data-aos-delay="1000" data-aos-once="true">
+            <div class="d-flex align-items-center bg-light mb-4" style="padding: 30px;">
+                <h1 class="fa fa-phone-volume text-primary m-0 mr-3"></h1>
+                <h5 class="font-weight-semi-bold m-0">Hỗ trợ 24/7</h5>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Tiêu chí End -->
+<!-- Promotion Codes Start -->
+<div id="promo-section" class="container-fluid pt-5 pb-3" data-aos="fade-in" data-aos-delay="1100" data-aos-once="true">
+    <h2 class="section-title position-relative text-uppercase mx-xl-5 mb-4" data-aos="fade-up" data-aos-delay="1200" data-aos-once="true">
+        <span class="bg-secondary pr-3">Mã Khuyến Mãi</span>
+    </h2>
+    <div class="row px-xl-5">
+        <div class="col">
+            <div class="owl-carousel promo-carousel">
+                @foreach (var promo in Model.PromotionCodes)
+                {
+                    <div class="promo-card" data-aos="zoom-in" data-aos-delay="1300" data-aos-once="true">
                         <div class="promo-code">@promo.Code</div>
                         <div class="promo-description">
                             @(promo.DiscountPercentage > 0 ? $"Giảm {promo.DiscountPercentage}%" : $"Giảm {promo.DiscountAmount.ToString("#,##0 VNĐ")}")
                         </div>
                     </div>
-                </div>
-            }
+                }
+            </div>
         </div>
     </div>
-</section>
-
-<!-- Categories -->
-<section class="categories-section">
-    <div class="container">
-        <div class="section-header" data-aos="fade-up">
-            <h2 class="section-title">Danh Mục Sản Phẩm</h2>
-            <p class="section-subtitle">Khám phá các danh mục sản phẩm đa dạng cho thú cưng yêu của bạn</p>
-        </div>
-        <div class="row g-4">
-            @foreach (var category in Model.Categories)
-            {
-                <div class="col-lg-2 col-md-4 col-6" data-aos="fade-up" data-aos-delay="@(100 * (Model.Categories.IndexOf(category) + 1))">
-                    <a asp-controller="Shop" asp-action="Index" asp-route-categoryId="@category.CategoryId" class="category-card">
-                        <div class="category-image">
-                            <img src="@category.ImageUrl" alt="@category.Name">
-                        </div>
-                        <div class="category-name">@category.Name</div>
-                    </a>
-                </div>
-            }
+</div>
+<!-- Promotion Codes End -->
+<!-- Vendor Start Category -->
+<div class="container-fluid py-5" data-aos="fade-in" data-aos-delay="1400" data-aos-once="true">
+    <h2 class="section-title position-relative text-uppercase mx-xl-5 mb-4" data-aos="fade-up" data-aos-delay="1500" data-aos-once="true">
+        <span class="bg-secondary pr-3">Danh Mục Sản Phẩm</span>
+    </h2>
+    <div class="row px-xl-5">
+        <div class="col">
+            <div class="owl-carousel vendor-carousel">
+                @foreach (var category in Model.Categories)
+                {
+                    <div class="bg-light p-4" data-aos="zoom-in" data-aos-delay="1600" data-aos-once="true">
+                        <img src="@category.ImageUrl" alt="@category.Name" loading="lazy">
+                    </div>
+                }
+            </div>
         </div>
     </div>
-</section>
+</div>
 
-<!-- Featured Products -->
-<section class="products-section">
-    <div class="container">
-        <div class="section-header" data-aos="fade-up">
-            <h2 class="section-title">Sản Phẩm Nổi Bật</h2>
-            <p class="section-subtitle">Những sản phẩm được yêu thích nhất dành cho boss nhà bạn</p>
-        </div>
-        <div class="row g-4">
-            @foreach (var productWithMinPrice in Model.ProductsWithMinPrice)
-            {
-                <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="@(100 * (Model.ProductsWithMinPrice.IndexOf(productWithMinPrice) + 1))">
-                    <div class="product-card">
-                        <div class="product-image">
-                            <img src="@productWithMinPrice.Product.ImageUrl" alt="@productWithMinPrice.Product.Name">
-                            <div class="product-actions">
-                                <button class="product-action-btn" onclick="toggleFavourite(@productWithMinPrice.Product.ProductId)">
-                                    <i class="far fa-heart"></i>
-                                </button>
-                                <a asp-controller="Shop" asp-action="Details" asp-route-id="@productWithMinPrice.Product.ProductId" class="product-action-btn">
-                                    <i class="fas fa-search"></i>
-                                </a>
+<!-- Sản phẩm nổi bật Start -->
+<div class="container-fluid pt-5 pb-3" data-aos="fade-in" data-aos-delay="1700" data-aos-once="true">
+    <h2 class="section-title position-relative text-uppercase mx-xl-5 mb-4" data-aos="fade-up" data-aos-delay="1800" data-aos-once="true">
+        <span class="bg-secondary pr-3">Sản phẩm nổi bật</span>
+    </h2>
+    <div class="row px-xl-5">
+        <div class="col">
+            <div class="owl-carousel product-carousel">
+                @foreach (var productWithMinPrice in Model.ProductsWithMinPrice)
+                {
+                    <div class="product-item bg-light mb-4" data-aos="zoom-in" data-aos-delay="1900" data-aos-once="true">
+                        <div class="product-img position-relative overflow-hidden">
+                            <img class="img-fluid w-100" src="@productWithMinPrice.Product.ImageUrl" alt="@productWithMinPrice.Product.Name">
+                            <div class="product-action">
+                                <a class="btn btn-outline-dark btn-square" href="#" onclick="toggleFavourite(@productWithMinPrice.Product.ProductId); return false;"><i class="far fa-heart"></i></a>
+                                <a asp-controller="Shop" asp-action="Details" asp-route-id="@productWithMinPrice.Product.ProductId" class="btn btn-outline-dark btn-square"><i class="fa fa-search"></i></a>
                             </div>
                         </div>
-                        <div class="product-info">
-                            <h5 class="product-name">
-                                <a asp-controller="Shop" asp-action="Details" asp-route-id="@productWithMinPrice.Product.ProductId" class="text-decoration-none text-dark">@productWithMinPrice.Product.Name</a>
-                            </h5>
-                            <div class="product-price">@productWithMinPrice.MinPrice.ToString("#,##0 VNĐ")</div>
+                        <div class="text-center py-4">
+                            <a class="h6 text-decoration-none text-truncate" asp-controller="Shop" asp-action="Details" asp-route-id="@productWithMinPrice.Product.ProductId">@productWithMinPrice.Product.Name</a>
+                            <div class="d-flex align-items-center justify-content-center mt-2">
+                                <h5>@productWithMinPrice.MinPrice.ToString("#,##0 VNĐ")</h5>
+                            </div>
                         </div>
                     </div>
-                </div>
-            }
-        </div>
-        <div class="text-center mt-5" data-aos="fade-up">
-            <a asp-controller="Shop" asp-action="Index" class="btn-hero">Xem Tất Cả Sản Phẩm</a>
+                }
+            </div>
         </div>
     </div>
-</section>
-
-<!-- Sale Section -->
-<section class="offers-section" style="margin-top: 0; background: var(--bg-light); padding: 80px 0;">
-    <div class="container">
-        <div class="section-header" data-aos="fade-up">
-            <h2 class="section-title">Sản Phẩm Giảm Giá</h2>
-            <p class="section-subtitle">Những deal hot không thể bỏ lỡ cho boss nhà bạn</p>
-        </div>
-        <div class="row g-4">
-            <div class="col-lg-6" data-aos="fade-right" data-aos-delay="100">
-                <div class="offer-card" style="height: 300px;">
-                    <img src="/img/giamgia1.jpg" alt="Sale 1">
-                    <div class="offer-overlay">
-                        <div class="offer-text">
-                            <div class="offer-badge">FLASH SALE</div>
-                            <h3 class="offer-title">Giảm đến 20%</h3>
-                            <p style="margin-bottom: 20px; opacity: 0.9;">Thức ăn và phụ kiện cho chó mèo</p>
-                            <a asp-controller="Shop" asp-action="Index" class="btn btn-light">Mua Ngay</a>
-                        </div>
-                    </div>
+</div>
+<!-- Sản phẩm nổi bật End -->
+<!-- Giảm giá Start -->
+<div class="container-fluid pt-5 pb-3" data-aos="fade-in" data-aos-delay="2000" data-aos-once="true">
+    <h2 class="section-title position-relative text-uppercase mx-xl-5 mb-4" data-aos="fade-up" data-aos-delay="2100" data-aos-once="true">
+        <span class="bg-secondary pr-3">Sản phẩm Giảm giá</span>
+    </h2>
+    <div class="row px-xl-5">
+        <div class="col-md-6" data-aos="zoom-in" data-aos-delay="2200" data-aos-once="true">
+            <div class="product-offer mb-30" style="height: 300px;">
+                <img class="img-fluid" src="~/img/giamgia1.jpg" alt="Giảm giá 1">
+                <div class="offer-text">
+                    <h6 class="text-white text-uppercase">Save 20%</h6>
+                    <h3 class="text-white mb-3">Special Offer</h3>
+                    <a asp-controller="Shop" asp-action="Index" class="btn btn-primary">Shop Now</a>
                 </div>
             </div>
-            <div class="col-lg-6" data-aos="fade-left" data-aos-delay="200">
-                <div class="offer-card" style="height: 300px;">
-                    <img src="/img/giamgia2.jpg" alt="Sale 2">
-                    <div class="offer-overlay">
-                        <div class="offer-text">
-                            <div class="offer-badge">COMBO HOT</div>
-                            <h3 class="offer-title">Giảm đến 20%</h3>
-                            <p style="margin-bottom: 20px; opacity: 0.9;">Combo chăm sóc toàn diện</p>
-                            <a asp-controller="Shop" asp-action="Index" class="btn btn-light">Khám Phá</a>
-                        </div>
-                    </div>
+        </div>
+        <div class="col-md-6" data-aos="zoom-in" data-aos-delay="2300" data-aos-once="true">
+            <div class="product-offer mb-30" style="height: 300px;">
+                <img class="img-fluid" src="~/img/giamgia2.jpg" alt="Giảm giá 2">
+                <div class="offer-text">
+                    <h6 class="text-white text-uppercase">Save 20%</h6>
+                    <h3 class="text-white mb-3">Special Offer</h3>
+                    <a asp-controller="Shop" asp-action="Index" class="btn btn-primary">Shop Now</a>
                 </div>
             </div>
         </div>
     </div>
-</section>
-
-<!-- Brands -->
-<section class="brands-section">
-    <div class="container">
-        <div class="section-header" data-aos="fade-up">
-            <h2 class="section-title">Thương Hiệu Hợp Tác</h2>
-            <p class="section-subtitle">Những thương hiệu uy tín được chúng tôi tin tưởng hợp tác</p>
-        </div>
-        <div class="row g-4">
-            @foreach (var brand in Model.Brands)
-            {
-                <div class="col-lg-2 col-md-3 col-4" data-aos="fade-up" data-aos-delay="@(100 * (Model.Brands.IndexOf(brand) + 1))">
-                    <div class="brand-logo">
+</div>
+<!-- Giảm giá End -->
+<!-- Vendor Start (for Brands) -->
+<div class="container-fluid py-5" data-aos="fade-in" data-aos-delay="2400" data-aos-once="true">
+    <h2 class="section-title position-relative text-uppercase mx-xl-5 mb-4" data-aos="fade-up" data-aos-delay="2500" data-aos-once="true">
+        <span class="bg-secondary pr-3">Thương Hiệu Hợp tác</span>
+    </h2>
+    <div class="row px-xl-5">
+        <div class="col">
+            <div class="owl-carousel vendor-carousel">
+                @foreach (var brand in Model.Brands)
+                {
+                    <div class="bg-light p-4" data-aos="zoom-in" data-aos-delay="2600" data-aos-once="true">
                         <img src="@brand.ImageUrl" alt="@brand.Name" loading="lazy">
                     </div>
-                </div>
-            }
-        </div>
-    </div>
-</section>
-
-<!-- Footer CTA -->
-<section style="background: var(--gradient-primary); padding: 80px 0; color: white;">
-    <div class="container text-center">
-        <div data-aos="fade-up">
-            <h2 style="font-size: 2.5rem; font-weight: 800; margin-bottom: 20px;">
-                Sẵn sàng chăm sóc boss của bạn?
-            </h2>
-            <p style="font-size: 1.2rem; margin-bottom: 30px; opacity: 0.9;">
-                Tham gia cộng đồng yêu thú cưng và nhận những ưu đãi độc quyền
-            </p>
-            <div class="d-flex gap-3 justify-content-center flex-wrap">
-                <a asp-controller="Shop" asp-action="Index" class="btn btn-light btn-lg" style="border-radius: 50px; padding: 15px 30px; font-weight: 600;">
-                    <i class="fas fa-shopping-cart me-2"></i>Mua Sắm Ngay
-                </a>
-                <a href="#" class="btn btn-outline-light btn-lg" style="border-radius: 50px; padding: 15px 30px; font-weight: 600;">
-                    <i class="fas fa-phone me-2"></i>Liên Hệ Tư Vấn
-                </a>
+                }
             </div>
         </div>
     </div>
-</section>
-
+</div>
+<!-- Vendor End -->
+<!-- Scripts Section -->
 @section Scripts {
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/8.4.7/swiper-bundle.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js" integrity="sha512-A7AYk1fGKX6S2SsHywmPkrnzTZHrgiVT7GcQkLGDe2ev0aWb8zejytzS8wjo7PGEXKqJOrjQ4oORtnimIRZBtw==" crossorigin="anonymous" referrerpolicy="no-referrer" defer></script>
 
     <script>
-        // Initialize AOS
-        AOS.init({
-            duration: 800,
-            easing: 'ease-in-out',
-            once: true,
-            offset: 100
-        });
+        $(document).ready(function () {
+            // Initialize AOS
+            AOS.init({
+                duration: 800, // Animation duration in milliseconds
+                easing: 'ease-in-out', // Smooth easing for animations
+                once: true // Animations happen only once
+            });
 
-        // Initialize Hero Swiper
-        const heroSwiper = new Swiper('.hero-swiper', {
-            loop: true,
-            autoplay: {
-                delay: 5000,
-                disableOnInteraction: false,
-            },
-            pagination: {
-                el: '.swiper-pagination',
-                clickable: true,
-            },
-            navigation: {
-                nextEl: '.swiper-button-next',
-                prevEl: '.swiper-button-prev',
-            },
-            effect: 'fade',
-            fadeEffect: {
-                crossFade: true
-            },
-        });
+            // Initialize Owl Carousel for Categories
+            $('.vendor-carousel').owlCarousel({
+                loop: true,
+                margin: 10,
+                nav: false,
+                autoplay: true,
+                autoplayTimeout: 3000,
+                autoplayHoverPause: true,
+                responsive: {
+                    0: { items: 1 },
+                    600: { items: 3 },
+                    1000: { items: 5 }
+                }
+            });
 
-        // Smooth scroll for floating button
-        document.querySelector('.floating-promo-btn').addEventListener('click', function (e) {
-            e.preventDefault();
-            document.querySelector('#promo-section').scrollIntoView({
-                behavior: 'smooth'
+            // Initialize Owl Carousel for Featured Products
+            $('.product-carousel').owlCarousel({
+                loop: true,
+                margin: 10,
+                nav: false,
+                autoplay: true,
+                autoplayTimeout: 4000,
+                autoplayHoverPause: true,
+                responsive: {
+                    0: { items: 1 },
+                    600: { items: 2 },
+                    1000: { items: 4 }
+                }
+            });
+
+            // Initialize Owl Carousel for Promotions
+            $('.promo-carousel').owlCarousel({
+                loop: true,
+                margin: 10,
+                nav: false,
+                autoplay: true,
+                autoplayTimeout: 3500,
+                autoplayHoverPause: true,
+                responsive: {
+                    0: { items: 1 },
+                    600: { items: 2 },
+                    1000: { items: 4 }
+                }
+            });
+
+            // Smooth scroll to promo section
+            $('.floating-promo-btn').click(function (e) {
+                e.preventDefault();
+                $('html, body').animate({
+                    scrollTop: $('#promo-section').offset().top
+                }, 800);
             });
         });
+
         // Xử lý thêm/xóa yêu thích
-                function toggleFavourite(productId) {
-                    $.ajax({
-                        url: '/Shop/ToggleFavourite',
-                        type: 'POST',
-                        data: {
-                            productId: productId,
-                            __RequestVerificationToken: $('input[name="__RequestVerificationToken"]').val()
-                        },
-                        success: function (response) {
-                            if (!response.success && response.message) {
-                                alert(response.message);
-                                return;
-                            }
-                            if (response.success) {
-                                let heartIcon = $(`[onclick='toggleFavourite(${productId})'] i`);
-                                if (response.isAdded) {
-                                    heartIcon.removeClass('far').addClass('fas text-danger');
-                                    alert("Đã thêm vào danh sách yêu thích!");
-                                } else {
-                                    heartIcon.removeClass('fas text-danger').addClass('far');
-                                    alert("Đã xóa khỏi danh sách yêu thích!");
-                                }
-                                $('#favouriteCount').text(response.count); // Cập nhật số lượng yêu thích nếu có
-                            } else {
-                                alert("Không thể cập nhật danh sách yêu thích!");
-                            }
-                        },
-                        error: function () {
-                            alert("Lỗi kết nối. Vui lòng kiểm tra mạng và thử lại.");
+        function toggleFavourite(productId) {
+            $.ajax({
+                url: '/Shop/ToggleFavourite',
+                type: 'POST',
+                data: {
+                    productId: productId,
+                    __RequestVerificationToken: $('input[name="__RequestVerificationToken"]').val()
+                },
+                success: function (response) {
+                    if (!response.success && response.message) {
+                        alert(response.message);
+                        return;
+                    }
+                    if (response.success) {
+                        let heartIcon = $(`[onclick='toggleFavourite(${productId})'] i`);
+                        if (response.isAdded) {
+                            heartIcon.removeClass('far').addClass('fas text-danger');
+                            alert("Đã thêm vào danh sách yêu thích!");
+                        } else {
+                            heartIcon.removeClass('fas text-danger').addClass('far');
+                            alert("Đã xóa khỏi danh sách yêu thích!");
                         }
-                    });
+                        $('#favouriteCount').text(response.count); // Cập nhật số lượng yêu thích nếu có
+                    } else {
+                        alert("Không thể cập nhật danh sách yêu thích!");
+                    }
+                },
+                error: function () {
+                    alert("Lỗi kết nối. Vui lòng kiểm tra mạng và thử lại.");
                 }
-
-        // Parallax effect for hero section
-        window.addEventListener('scroll', function () {
-            const scrolled = window.pageYOffset;
-            const parallax = document.querySelector('.hero-section');
-            const speed = scrolled * 0.5;
-            if (parallax) {
-                parallax.style.transform = `translateY(${speed}px)`;
-            }
-        });
-
-        // Dynamic background colors for category cards
-        const categories = document.querySelectorAll('.category-image');
-        const colors = ['var(--primary-color)', 'var(--secondary-color)', 'var(--accent-color)', 'var(--warm-orange)', 'var(--soft-purple)'];
-        categories.forEach((category, index) => {
-            category.style.background = `linear-gradient(135deg, ${colors[index % colors.length]}, ${colors[(index + 1) % colors.length]})`;
-        });
-
-        // Ripple effect
-        function createRipple(event) {
-            const button = event.currentTarget;
-            const circle = document.createElement("span");
-            const diameter = Math.max(button.clientWidth, button.clientHeight);
-            const radius = diameter / 2;
-            circle.style.width = circle.style.height = `${diameter}px`;
-            circle.style.left = `${event.clientX - button.offsetLeft - radius}px`;
-            circle.style.top = `${event.clientY - button.offsetTop - radius}px`;
-            circle.classList.add("ripple");
-            const ripple = button.getElementsByClassName("ripple")[0];
-            if (ripple) {
-                ripple.remove();
-            }
-            button.appendChild(circle);
+            });
         }
-
-        document.querySelectorAll('.btn-hero, .btn').forEach(btn => {
-            btn.addEventListener('click', createRipple);
-        });
     </script>
 }
-```
