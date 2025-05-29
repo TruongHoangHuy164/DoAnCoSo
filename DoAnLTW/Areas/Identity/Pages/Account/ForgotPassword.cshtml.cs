@@ -1,14 +1,12 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
-using System.Text.Encodings.Web;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.AspNetCore.WebUtilities;
 
 namespace DoAnLTW.Areas.Identity.Pages.Account
 {
@@ -41,29 +39,25 @@ namespace DoAnLTW.Areas.Identity.Pages.Account
                 var user = await _userManager.FindByEmailAsync(Input.Email);
                 if (user == null)
                 {
-                    // Don't reveal that the user does not exist or is not confirmed
+                    // Không tiết lộ rằng người dùng không tồn tại
                     return RedirectToPage("./ForgotPasswordConfirmation");
                 }
 
-                // For more information on how to enable account confirmation and password reset please 
-                // visit https://go.microsoft.com/fwlink/?LinkID=532713
-                // Note: Token is valid for 1 minute and can only be used once
+                // Tạo mã OTP (6 chữ số ngẫu nhiên)
+                var otp = new Random().Next(100000, 999999).ToString();
+                var otpExpiration = DateTime.Now.AddSeconds(30); // OTP hết hạn sau 30 giây
 
-                var code = await _userManager.GeneratePasswordResetTokenAsync(user);
-                code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
-                var callbackUrl = Url.Page(
-                    "/Account/ResetPassword",
-                    pageHandler: null,
-                    values: new { area = "Identity", code },
-                    protocol: Request.Scheme);
-                
-                string now = DateTime.Now.ToString();
+                // Lưu OTP và thời gian hết hạn (ví dụ: vào TempData hoặc database)
+                // Ở đây sử dụng TempData để đơn giản, nhưng trong thực tế nên dùng database hoặc Redis
+                TempData["OTP"] = otp;
+                TempData["OTPExpiration"] = otpExpiration.ToString();
+                TempData["OTPEmail"] = Input.Email;
 
+                // Gửi email chứa OTP
                 await _emailSender.SendEmailAsync(
                     Input.Email,
-                    "Đặt lại mật khẩu",
-                    @$"Vui lòng đặt lại mật khẩu của bạn bằng cách <a href='{HtmlEncoder.Default.Encode(callbackUrl)}?expire={now}'>nhấn vào đây</a>. <br/><br/><strong>Lưu ý:</strong> Liên kết này chỉ có hiệu lực trong vòng 30 giây và chỉ có thể sử dụng một lần duy nhất.");
-                    
+                    "Mã OTP Đặt lại mật khẩu",
+                    $@"Mã OTP của bạn là: <strong>{otp}</strong>. <br/><br/><strong>Lưu ý:</strong> Mã này chỉ có hiệu lực trong vòng 200 giây và chỉ có thể sử dụng một lần.");
 
                 return RedirectToPage("./ForgotPasswordConfirmation");
             }

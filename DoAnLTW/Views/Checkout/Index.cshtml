@@ -20,8 +20,8 @@
 <!-- Breadcrumb End -->
 <!-- Checkout Start -->
 <div class="container-fluid">
-    <div class="row px-xl-5">
-        <form asp-action="ProcessCheckout" method="post">
+    <form asp-action="ProcessCheckout" method="post">
+        <div class="row px-xl-5">
             <!-- Billing Address Section -->
             <div class="col-lg-8">
                 <h5 class="section-title position-relative text-uppercase mb-3"><span class="bg-secondary pr-3">Thông tin thanh toán</span></h5>
@@ -86,7 +86,6 @@
                                 <p>@Model.CartItems[i].ProductName (Size: @Model.CartItems[i].Size)</p>
                                 <p>@((Model.CartItems[i].Price * Model.CartItems[i].Quantity).ToString("#,##0 VNĐ"))</p>
                             </div>
-                            <!-- Hidden fields để truyền CartItems -->
                             <input type="hidden" name="CartItems[@i].ProductId" value="@Model.CartItems[i].ProductId" />
                             <input type="hidden" name="CartItems[@i].ProductName" value="@Model.CartItems[i].ProductName" />
                             <input type="hidden" name="CartItems[@i].Size" value="@Model.CartItems[i].Size" />
@@ -99,22 +98,32 @@
                             <h6>Tạm tính</h6>
                             <h6>@(Model.CartItems.Sum(item => item.Price * item.Quantity).ToString("#,##0 VNĐ"))</h6>
                         </div>
-                        <div class="d-flex justify-content-between">
+                        <div class="d-flex justify-content-between mb-3">
                             <h6 class="font-weight-medium">Phí vận chuyển</h6>
                             <h6 class="font-weight-medium">@Model.ShippingFee.ToString("#,##0 VNĐ")</h6>
                         </div>
-                        @if (ViewBag.Discount != null && ViewBag.Discount > 0)
+                        @if (!string.IsNullOrEmpty(Model.PromotionCode))
                         {
-                            <div class="d-flex justify-content-between">
-                                <h6 class="font-weight-medium">Giảm giá (@Model.PromotionCode)</h6>
-                                <h6 class="font-weight-medium">-@((decimal)ViewBag.Discount).ToString("#,##0 VNĐ")</h6>
-                            </div>
+                            @if (ViewBag.Discount is decimal discount && discount > 0)
+                            {
+                                <div class="d-flex justify-content-between mb-3">
+                                    <h6 class="font-weight-medium text-success">Giảm giá (@Model.PromotionCode):</h6>
+                                    <h6 class="font-weight-medium text-success">-@discount.ToString("#,##0 VNĐ")</h6>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="d-flex justify-content-between mb-3">
+                                    <h6 class="font-weight-medium text-danger">Giảm giá (@Model.PromotionCode):</h6>
+                                    <h6 class="font-weight-medium text-danger">Mã không hợp lệ</h6>
+                                </div>
+                            }
                         }
                     </div>
                     <div class="pt-2">
                         <div class="d-flex justify-content-between mt-2">
                             <h5>Tổng cộng</h5>
-                            <h5>@((Model.CartItems.Sum(item => item.Price * item.Quantity) + Model.ShippingFee - (ViewBag.Discount != null ? (decimal)ViewBag.Discount : 0)).ToString("#,##0 VNĐ"))</h5>
+                            <h5>@((Model.CartItems.Sum(item => item.Price * item.Quantity) + Model.ShippingFee - (ViewBag.Discount is decimal totalDiscount ? totalDiscount : 0)).ToString("#,##0 VNĐ"))</h5>
                         </div>
                     </div>
                 </div>
@@ -150,8 +159,8 @@
                     <button type="submit" class="btn btn-block btn-primary font-weight-bold py-3">Tiếp tục</button>
                 </div>
             </div>
-        </form>
-    </div>
+        </div>
+    </form>
 </div>
 <!-- Checkout End -->
 @section Scripts {

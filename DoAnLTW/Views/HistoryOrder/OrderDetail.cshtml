@@ -2,72 +2,248 @@
 
 @{
     ViewData["Title"] = "Chi tiết đơn hàng #" + Model.Id;
+
+    // Define the steps and their order
+    var statusSteps = new List<(OrderStatus Status, string Label)>
+    {
+        (OrderStatus.ChoXuLy, "Chờ xử lý"),
+        (OrderStatus.DangGiaoHang, "Đang giao hàng"),
+        (OrderStatus.DaGiaoHang, "Đã giao hàng")
+    };
+
+    // Determine the current step index
+    int currentStepIndex = statusSteps.FindIndex(s => s.Status == Model.Status);
+    bool isCanceled = Model.Status == OrderStatus.DaHuy;
+    if (isCanceled)
+    {
+        currentStepIndex = -1; // Không hiển thị tiến trình nếu đơn bị hủy
+    }
+
+    // Define statusClass for the badge
+    string statusClass = Model.Status switch
+    {
+        OrderStatus.ChoXuLy => "status-cho-xu-ly",
+        OrderStatus.DangGiaoHang => "status-dang-giao-hang",
+        OrderStatus.DaGiaoHang => "status-da-giao-hang",
+        OrderStatus.DaHuy => "status-da-huy",
+        _ => ""
+    };
 }
 
-<h3>Chi tiết đơn hàng #@Model.Id</h3>
+<style>
+    /* Timeline Styling */
+    .order-status-timeline {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        position: relative;
+        margin: 20px 0;
+        padding: 10px 0;
+    }
 
-<table class="table table-bordered">
-    <tr>
-        <th>Họ tên</th>
-        <td>@Model.LastName @Model.FirstName</td>
-    </tr>
-    <tr>
-        <th>Email</th>
-        <td>@Model.Email</td>
-    </tr>
-    <tr>
-        <th>SĐT</th>
-        <td>@Model.PhoneNumber</td>
-    </tr>
-    <tr>
-        <th>Địa chỉ</th>
-        <td>@Model.Address</td>
-    </tr>
-    <tr>
-        <th>Ngày đặt</th>
-        <td>@Model.OrderDate.ToString("dd/MM/yyyy HH:mm")</td>
-    </tr>
-    <tr>
-        <th>Phương thức thanh toán</th>
-        <td>@Model.PaymentMethod</td>
-    </tr>
-    <tr>
-        <th>Đã thanh toán</th>
-        <td>@(Model.IsPaid ? "✔️ Đã thanh toán" : "❌ Chưa thanh toán")</td>
-    </tr>
-    <tr>
-        <th>Trạng thái</th>
-        <td>@Model.Status.ToString()</td>
-    </tr>
-</table>
+    .status-step {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        position: relative;
+        z-index: 1;
+        flex: 1;
+    }
 
-<h4>Danh sách sản phẩm</h4>
-<table class="table table-striped">
-    <thead>
-        <tr>
-            <th>Sản phẩm</th>
-            <th>Size</th>
-            <th>Số lượng</th>
-            <th>Đơn giá</th>
-            <th>Thành tiền</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model.OrderDetails)
-        {
-            <tr>
-                <td>@item.ProductName</td>
-                <td>@item.Size</td>
-                <td>@item.Quantity</td>
-                <td>@item.Price.ToString("N0") đ</td>
-                <td>@item.TotalPrice.ToString("N0") đ</td>
-            </tr>
+    .status-dot {
+        width: 24px;
+        height: 24px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: #d3d3d3; /* Màu xám cho trạng thái chưa hoàn thành */
+        margin-bottom: 8px;
+    }
+
+        .status-dot.active {
+            background-color: #28A745; /* Màu xanh lá cho trạng thái hiện tại hoặc đã hoàn thành */
         }
-    </tbody>
-</table>
 
-<div class="text-right">
-    <h5>Tổng tiền: <strong>@Model.TotalAmount.ToString("N0") đ</strong></h5>
+    .status-label {
+        font-size: 14px;
+        color: #666;
+        text-align: center;
+    }
+
+        .status-label.active {
+            color: #28A745; /* Màu xanh lá cho nhãn của trạng thái hiện tại */
+            font-weight: bold;
+        }
+
+    /* Đường nối giữa các bước */
+    .order-status-timeline::before {
+        content: '';
+        position: absolute;
+        top: 18px;
+        left: 15%;
+        right: 15%;
+        height: 2px;
+        background-color: #d3d3d3; /* Màu xám cho đường nối */
+        z-index: 0;
+    }
+
+    .status-step.completed ~ .status-step::before {
+        background-color: #28A745; /* Màu xanh lá cho phần đường nối đã hoàn thành */
+    }
+
+    /* Status Badge Styling (Shopee-like) */
+    .status-badge {
+        padding: 5px 10px;
+        border-radius: 12px;
+        color: #FFFFFF;
+        font-weight: bold;
+        display: inline-block;
+        text-align: center;
+        min-width: 100px;
+    }
+
+    .status-cho-xu-ly {
+        background-color: #007BFF; /* Blue for Pending */
+    }
+
+    .status-dang-giao-hang {
+        background-color: #FFA500; /* Orange for Shipping */
+    }
+
+    .status-da-giao-hang {
+        background-color: #28A745; /* Green for Delivered */
+    }
+
+    .status-da-huy {
+        background-color: #DC3545; /* Red for Canceled */
+    }
+
+    /* Responsive adjustments */
+    @@media (max-width: 768px) {
+        .status-label {
+            font-size: 12px;
+        }
+
+        .status-dot {
+            width: 20px;
+            height: 20px;
+        }
+
+        .order-status-timeline::before {
+            top: 16px;
+        }
+
+        .status-badge {
+            min-width: 80px;
+            font-size: 12px;
+        }
+    }
+</style>
+
+<div class="container-fluid py-4">
+    <h3 class="mb-4" style="color: #000000;">Chi tiết đơn hàng #@Model.Id</h3>
+   
+
+    <!-- Shopee-like Order Status Timeline -->
+    <div class="order-status-timeline">
+        @for (int i = 0; i < statusSteps.Count; i++)
+        {
+            var step = statusSteps[i];
+            bool isActive = i == currentStepIndex;
+            bool isCompleted = i <= currentStepIndex && !isCanceled;
+
+            <div class="status-step @(isCompleted ? "completed" : "")">
+                <div class="status-dot @(isActive || isCompleted ? "active" : "")">
+                    @if (step.Status == OrderStatus.ChoXuLy)
+                    {
+                        <i class="fas fa-box" style="color: @(isActive || isCompleted ? "#fff" : "#666");"></i> <!-- Icon Đã vận chuyển -->
+                    }
+                    else if (step.Status == OrderStatus.DangGiaoHang)
+                    {
+                        <i class="fas fa-truck" style="color: @(isActive || isCompleted ? "#fff" : "#666");"></i> <!-- Icon Đang giao hàng -->
+                    }
+                    else if (step.Status == OrderStatus.DaGiaoHang)
+                    {
+                        <i class="fas fa-check-circle" style="color: @(isActive || isCompleted ? "#fff" : "#666");"></i> <!-- Icon Đã giao hàng -->
+                    }
+                </div>
+                <div class="status-label @(isActive ? "active" : "")">
+                    @step.Label
+                </div>
+            </div>
+        }
+    </div>
+
+    <div class="card mb-4" style="border: 1px solid #000000;">
+        <div class="card-body">
+            <table class="table table-bordered">
+                <tr>
+                    <th>Họ tên</th>
+                    <td>@Model.LastName @Model.FirstName</td>
+                </tr>
+                <tr>
+                    <th>Email</th>
+                    <td>@Model.Email</td>
+                </tr>
+                <tr>
+                    <th>SĐT</th>
+                    <td>@Model.PhoneNumber</td>
+                </tr>
+                <tr>
+                    <th>Địa chỉ</th>
+                    <td>@Model.Address</td>
+                </tr>
+                <tr>
+                    <th>Ngày đặt</th>
+                    <td>@Model.OrderDate.ToString("dd/MM/yyyy HH:mm")</td>
+                </tr>
+                <tr>
+                    <th>Phương thức thanh toán</th>
+                    <td>@Model.PaymentMethod</td>
+                </tr>
+                <tr>
+                    <th>Đã thanh toán</th>
+                    <td>@(Model.IsPaid ? "✔️ Đã thanh toán" : "❌ Chưa thanh toán")</td>
+                </tr>
+                <tr>
+                    <th>Trạng thái</th>
+                    <td>
+                        <span class="status-badge @statusClass">@Model.Status</span>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+    <h4 class="mb-3">Danh sách sản phẩm</h4>
+    <table class="table table-striped table-bordered">
+        <thead>
+            <tr>
+                <th>Sản phẩm</th>
+                <th>Size</th>
+                <th>Số lượng</th>
+                <th>Đơn giá</th>
+                <th>Thành tiền</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.OrderDetails)
+            {
+                <tr>
+                    <td>@item.ProductName</td>
+                    <td>@item.Size</td>
+                    <td>@item.Quantity</td>
+                    <td>@item.Price.ToString("N0") đ</td>
+                    <td>@item.TotalPrice.ToString("N0") đ</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <div class="text-right mb-4">
+        <h5>Tổng tiền: <strong>@Model.TotalAmount.ToString("N0") đ</strong></h5>
+    </div>
+
+    <a asp-action="OrderHistory" class="btn btn-gold">← Quay lại lịch sử</a>
 </div>
-
-<a asp-action="OrderHistory" class="btn btn-secondary">← Quay lại lịch sử</a>

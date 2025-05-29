@@ -42,28 +42,32 @@
                     <tbody class="align-middle">
                         @foreach (var item in Model)
                         {
-                            <tr>
+                            <tr data-product-id="@item.ProductId" data-size="@item.Size">
                                 <td class="align-middle">@item.ProductName</td>
                                 <td class="align-middle">@item.Price.ToString("#,##0 VNĐ")</td>
                                 <td class="align-middle">@item.Size</td>
                                 <td class="align-middle">
                                     <div class="input-group quantity mx-auto" style="width: 100px;">
                                         <div class="input-group-btn">
-                                            <a asp-controller="Cart" asp-action="DecreaseQuantity" asp-route-productId="@item.ProductId" asp-route-size="@item.Size" class="btn btn-sm btn-primary btn-minus">
+                                            <a href="javascript:void(0);" class="btn btn-sm btn-primary btn-minus"
+                                               data-url="@Url.Action("DecreaseQuantity", "Cart", new { productId = item.ProductId, size = item.Size })">
                                                 <i class="fa fa-minus"></i>
                                             </a>
                                         </div>
-                                        <input type="text" class="form-control form-control-sm bg-secondary border-0 text-center" value="@item.Quantity" readonly>
+                                        <input type="text" class="form-control form-control-sm bg-secondary border-0 text-center quantity-display"
+                                               data-product-id="@item.ProductId" data-size="@item.Size" value="@item.Quantity" readonly>
                                         <div class="input-group-btn">
-                                            <a asp-controller="Cart" asp-action="IncreaseQuantity" asp-route-productId="@item.ProductId" asp-route-size="@item.Size" class="btn btn-sm btn-primary btn-plus">
+                                            <a href="javascript:void(0);" class="btn btn-sm btn-primary btn-plus"
+                                               data-url="@Url.Action("IncreaseQuantity", "Cart", new { productId = item.ProductId, size = item.Size })">
                                                 <i class="fa fa-plus"></i>
                                             </a>
                                         </div>
                                     </div>
                                 </td>
-                                <td class="align-middle">@((item.Price * item.Quantity).ToString("#,##0 VNĐ"))</td>
+                                <td class="align-middle total-price">@((item.Price * item.Quantity).ToString("#,##0 VNĐ"))</td>
                                 <td class="align-middle">
-                                    <a asp-controller="Cart" asp-action="RemoveFromCart" asp-route-productId="@item.ProductId" asp-route-size="@item.Size" class="btn btn-sm btn-danger">
+                                    <a href="javascript:void(0);" class="btn btn-sm btn-danger btn-remove"
+                                       data-url="@Url.Action("RemoveFromCart", "Cart", new { productId = item.ProductId, size = item.Size })">
                                         <i class="fa fa-times"></i>
                                     </a>
                                 </td>
@@ -100,7 +104,7 @@
                 <div class="pt-2">
                     <div class="d-flex justify-content-between mt-2">
                         <h5>Tổng tiền</h5>
-                        <h5>@((Model.Sum(item => item.Price * item.Quantity) + 10000).ToString("#,##0 VNĐ"))</h5>
+                        <h5 class="cart-total">@((Model.Sum(item => item.Price * item.Quantity) + 10000).ToString("#,##0 VNĐ"))</h5>
                     </div>
                     @if (User.Identity.IsAuthenticated)
                     {
@@ -110,7 +114,8 @@
                     }
                     else
                     {
-                        <a href="javascript:void(0);" class="btn btn-block btn-primary font-weight-bold my-3 py-3" onclick="alert('Vui lòng đăng nhập để tiếp tục thanh toán.'); window.location.href='@Url.Action("Login", "Account", new { returnUrl = Url.Action("Index", "Checkout") })';">
+                        <a href="javascript:void(0);" class="btn btn-block btn-primary font-weight-bold my-3 py-3"
+                           onclick="alert('Vui lòng đăng nhập để tiếp tục thanh toán.'); window.location.href='@Url.Action("Login", "Account", new { returnUrl = Url.Action("Index", "Checkout") })';">
                             Đăng nhập để thanh toán
                         </a>
                     }
@@ -123,13 +128,101 @@
 @section Scripts {
     <script>
         $(document).ready(function () {
-            // Xử lý thông báo nếu giỏ hàng trống khi nhấn thanh toán
+            // Xử lý tăng số lượng
+            $('.btn-plus').on('click', function (e) {
+                e.preventDefault();
+                var $this = $(this);
+                var url = $this.data('url');
+                var $row = $this.closest('tr');
+                var $quantityInput = $row.find('.quantity-display');
+                var $totalPrice = $row.find('.total-price');
+
+                $.ajax({
+                    url: url,
+                    type: 'GET',
+                    success: function (response) {
+                        if (response.success) {
+                            $quantityInput.val(response.newQuantity);
+                            $totalPrice.text(response.newTotal);
+                            $('.cart-total').text(response.cartTotal);
+                        } else {
+                            alert(response.message);
+                        }
+                    },
+                    error: function () {
+                        alert('Đã có lỗi xảy ra khi tăng số lượng.');
+                    }
+                });
+            });
+
+            // Xử lý giảm số lượng
+            $('.btn-minus').on('click', function (e) {
+                e.preventDefault();
+                var $this = $(this);
+                var url = $this.data('url');
+                var $row = $this.closest('tr');
+                var $quantityInput = $row.find('.quantity-display');
+                var $totalPrice = $row.find('.total-price');
+
+                $.ajax({
+                    url: url,
+                    type: 'GET',
+                    success: function (response) {
+                        if (response.success) {
+                            if (response.newQuantity === 0) {
+                                $row.remove();
+                                if ($('.table tbody tr').length === 0) {
+                                    $('.table').replaceWith('<p class="text-center">Giỏ hàng của bạn đang trống!</p>');
+                                }
+                            } else {
+                                $quantityInput.val(response.newQuantity);
+                                $totalPrice.text(response.newTotal);
+                            }
+                            $('.cart-total').text(response.cartTotal);
+                        } else {
+                            alert(response.message);
+                        }
+                    },
+                    error: function () {
+                        alert('Đã có lỗi xảy ra khi giảm số lượng.');
+                    }
+                });
+            });
+
+            // Xử lý xóa sản phẩm
+            $('.btn-remove').on('click', function (e) {
+                e.preventDefault();
+                var $this = $(this);
+                var url = $this.data('url');
+                var $row = $this.closest('tr');
+
+                $.ajax({
+                    url: url,
+                    type: 'GET',
+                    success: function (response) {
+                        if (response.success) {
+                            $row.remove();
+                            $('.cart-total').text(response.cartTotal);
+                            if ($('.table tbody tr').length === 0) {
+                                $('.table').replaceWith('<p class="text-center">Giỏ hàng của bạn đang trống!</p>');
+                            }
+                        } else {
+                            alert(response.message);
+                        }
+                    },
+                    error: function () {
+                        alert('Đã có lỗi xảy ra khi xóa sản phẩm.');
+                    }
+                });
+            });
+
+            // Xử lý giỏ hàng trống khi nhấn thanh toán
             $('.btn-primary:contains("Thanh toán")').on('click', function (e) {
         @if (!Model.Any())
         {
             <text>
-                        e.preventDefault();
-                        alert('Giỏ hàng của bạn đang trống! Vui lòng thêm sản phẩm trước khi thanh toán.');
+                                e.preventDefault();
+                                alert('Giỏ hàng của bạn đang trống! Vui lòng thêm sản phẩm trước khi thanh toán.');
             </text>
         }
             });

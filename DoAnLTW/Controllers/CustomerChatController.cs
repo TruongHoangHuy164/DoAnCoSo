@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿/*using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Linq;
@@ -49,6 +49,42 @@ namespace DoAnLTW.Controllers
                 ViewBag.ErrorMessage = "Đã xảy ra lỗi khi tải giao diện chat. Vui lòng thử lại sau.";
                 return View();
             }
+        }
+    }
+}*/
+
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using DoAnLTW.Models;
+
+namespace DoAnLTW.Controllers
+{
+    [Route("CustomerChat")]
+    public class CustomerChatController : Controller
+    {
+        private readonly ApplicationDbContext _context;
+
+        public CustomerChatController(ApplicationDbContext context)
+        {
+            _context = context;
+        }
+
+        [HttpGet("Index")]
+        public async Task<IActionResult> Index()
+        {
+            var employee = await _context.Users
+                .Join(_context.UserRoles, u => u.Id, ur => ur.UserId, (u, ur) => new { User = u, UserRole = ur })
+                .Join(_context.Roles, ur => ur.UserRole.RoleId, r => r.Id, (ur, r) => new { ur.User, RoleName = r.Name })
+                .Where(ur => ur.RoleName == "Employee")
+                .Select(ur => new { ur.User.Id, ur.User.UserName })
+                .FirstOrDefaultAsync();
+
+            if (employee == null)
+            {
+                return Json(new { errorMessage = "Không có nhân viên trực tuyến." });
+            }
+
+            return Json(new { employeeId = employee.Id, employeeName = employee.UserName });
         }
     }
 }

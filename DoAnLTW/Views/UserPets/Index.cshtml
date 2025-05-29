@@ -4,6 +4,132 @@
     ViewData["Title"] = "Thú cưng của tôi";
 }
 
+<style>
+    /* Custom CSS for Gold, Black, and White Theme */
+
+
+    h2 {
+        color: #ffd700;
+        text-decoration-line: 1px black;
+        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+    }
+
+    .card {
+        background-color: #2b2b2b;
+        border: none;
+        border-radius: 15px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(255, 215, 0, 0.2);
+        }
+
+    .card-img-top {
+        border-top-left-radius: 15px;
+        border-top-right-radius: 15px;
+        height: 200px;
+        object-fit: cover;
+    }
+
+    .card-header {
+        background-color: #ffd700;
+        color: #000000;
+        border-bottom: 1px solid #000000;
+        font-weight: bold;
+    }
+
+    .card-body {
+        color: #ffffff;
+    }
+
+        .card-body p {
+            margin-bottom: 0.5rem;
+        }
+
+    .card-footer {
+        background-color: #2b2b2b;
+        border-top: 1px solid #ffd700;
+    }
+
+    .btn-outline-info {
+        color: #ffd700;
+        border-color: #ffd700;
+        transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+        .btn-outline-info:hover {
+            background-color: #ffd700;
+            color: #000000;
+        }
+
+    .btn-outline-primary {
+        color: #ffffff;
+        border-color: #ffd700;
+        transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+        .btn-outline-primary:hover {
+            background-color: #ffd700;
+            color: #000000;
+        }
+
+    .btn-outline-danger {
+        color: #ffffff;
+        border-color: #ff4d4d;
+        transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+        .btn-outline-danger:hover {
+            background-color: #ff4d4d;
+            color: #ffffff;
+        }
+
+    .alert-info {
+        background-color: #2b2b2b;
+        color: #ffd700;
+        border-color: #ffd700;
+        border-radius: 10px;
+    }
+
+    .btn-primary {
+        background-color: #ffd700;
+        border-color: #ffd700;
+        color: #000000;
+        transition: background-color 0.3s ease, transform 0.2s ease;
+    }
+
+        .btn-primary:hover {
+            background-color: #e6c200;
+            transform: scale(1.05);
+        }
+
+    .btn-group .btn {
+        margin: 0 5px;
+        border-radius: 8px;
+    }
+
+    i.fas {
+        margin-right: 0.5rem;
+    }
+
+    @@media (max-width: 768px) {
+        .card
+
+    {
+        margin-bottom: 1.5rem;
+    }
+
+    .btn-group .btn {
+        font-size: 0.9rem;
+        padding: 0.5rem;
+    }
+
+    }
+</style>
+
 <div class="container-fluid pt-5">
     <div class="row px-xl-5">
         <div class="col-12">
@@ -65,4 +191,5 @@
 
 @section Scripts {
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script> <!-- Font Awesome for icons -->
 }

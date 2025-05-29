@@ -1,13 +1,10 @@
 using System;
 using System.ComponentModel.DataAnnotations;
-using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.AspNetCore.WebUtilities;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace DoAnLTW.Areas.Identity.Pages.Account
 {
@@ -30,6 +27,10 @@ namespace DoAnLTW.Areas.Identity.Pages.Account
             [EmailAddress(ErrorMessage = "Email không hợp lệ")]
             public string Email { get; set; }
 
+            [Required(ErrorMessage = "Vui lòng nhập mã OTP")]
+            [StringLength(6, ErrorMessage = "Mã OTP phải có 6 chữ số.", MinimumLength = 6)]
+            public string OTP { get; set; }
+
             [Required(ErrorMessage = "Vui lòng nhập mật khẩu")]
             [StringLength(100, ErrorMessage = "{0} phải có ít nhất {2} và tối đa {1} ký tự.", MinimumLength = 6)]
             [DataType(DataType.Password)]
@@ -40,31 +41,11 @@ namespace DoAnLTW.Areas.Identity.Pages.Account
             [Display(Name = "Xác nhận mật khẩu")]
             [Compare("Password", ErrorMessage = "Mật khẩu và xác nhận mật khẩu không khớp.")]
             public string ConfirmPassword { get; set; }
-
-            public string Code { get; set; }
-            public DateTime? Expired { get; set; }
         }
 
-        public async Task<IActionResult> OnGet(string code = null)
+        public IActionResult OnGet()
         {
-            if (code == null)
-            {
-                return BadRequest("Mã đặt lại mật khẩu là cần thiết.");
-            }
-            else
-            {
-                //NDYyMzg4?expire=3/25/2025 9:53:44 PM
-                string[] parts = code.Split("?expire=");
-                string expired = parts[1];
-                 code = parts[0];
-
-                Input = new InputModel
-                {
-                    Code = Encoding.UTF8.GetString(WebEncoders.Base64UrlDecode(code)),
-                    Expired = DateTime.Parse(expired)
-                };
-                return Page();
-            }
+            return Page();
         }
 
         public async Task<IActionResult> OnPostAsync()
@@ -77,32 +58,30 @@ namespace DoAnLTW.Areas.Identity.Pages.Account
             var user = await _userManager.FindByEmailAsync(Input.Email);
             if (user == null)
             {
-                // Don't reveal that the user does not exist
+                // Không tiết lộ rằng người dùng không tồn tại
                 return RedirectToPage("./ResetPasswordConfirmation");
             }
 
-                if (DateTime.Now.Subtract(Input.Expired.Value).TotalSeconds > 90)
-                {
-                    ModelState.AddModelError(string.Empty, "Mã đặt lại mật khẩu đã hết hạn.");
-                    return Page();
-                }
+            // Kiểm tra OTP
+            var storedOTP = TempData["OTP"]?.ToString();
+            var storedEmail = TempData["OTPEmail"]?.ToString();
+            var otpExpiration = DateTime.Parse(TempData["OTPExpiration"]?.ToString() ?? DateTime.Now.ToString());
 
-            // Check if the token is valid
-            bool isTokenValid = await _userManager.VerifyUserTokenAsync(
-                user, 
-                _userManager.Options.Tokens.PasswordResetTokenProvider, 
-                "ResetPassword", 
-                Input.Code);
-                
-            if (!isTokenValid)
+            if (storedOTP != Input.OTP || storedEmail != Input.Email || DateTime.Now.Subtract(otpExpiration).TotalSeconds > 200)
             {
-                ModelState.AddModelError(string.Empty, "Mã đặt lại mật khẩu đã hết hạn.");
+                ModelState.AddModelError(string.Empty, "Mã OTP không hợp lệ hoặc đã hết hạn.");
                 return Page();
             }
 
-            var result = await _userManager.ResetPasswordAsync(user, Input.Code, Input.Password);
+            // Tạo token để đặt lại mật khẩu
+            var token = await _userManager.GeneratePasswordResetTokenAsync(user);
+            var result = await _userManager.ResetPasswordAsync(user, token, Input.Password);
             if (result.Succeeded)
             {
+                // Xóa OTP sau khi sử dụng thành công
+                TempData.Remove("OTP");
+                TempData.Remove("OTPExpiration");
+                TempData.Remove("OTPEmail");
                 return RedirectToPage("./ResetPasswordConfirmation");
             }
 

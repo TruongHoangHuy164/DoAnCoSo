@@ -1,0 +1,201 @@
+﻿@model DoAnLTW.Models.PromotionCode
+@{
+    ViewData["Title"] = "Chỉnh Sửa Mã Khuyến Mãi";
+    Layout = "~/Areas/Admin/Views/Shared/layoutAdmin.cshtml";
+}
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+<style>
+    /* General page styling */
+    body {
+        background-color: #000000; /* Black background */
+        color: #FFFFFF; /* White text */
+        font-family: 'Arial', sans-serif;
+    }
+
+    h2 {
+        color: #FFD700; /* Gold heading */
+        border-bottom: 2px solid #FFD700;
+        padding-bottom: 10px;
+        margin-bottom: 20px;
+    }
+
+    /* Form styling */
+    .form-container {
+        background-color: #FFFFFF; /* White form background */
+        color: #000000; /* Black text */
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        border: 1px solid #FFD700; /* Gold border */
+        max-width: 600px; /* Constrain form width */
+        margin: 0 auto; /* Center form */
+    }
+
+    .form-group {
+        margin-bottom: 15px;
+    }
+
+        .form-group label {
+            color: #000000; /* Black label text */
+            font-weight: 500;
+            margin-bottom: 5px;
+        }
+
+    .form-control {
+        background-color: #F5F5F5; /* Light gray input background */
+        border: 1px solid #000000; /* Black border */
+        color: #000000; /* Black text */
+        border-radius: 5px;
+        padding: 8px;
+    }
+
+        .form-control:focus {
+            border-color: #FFD700; /* Gold border on focus */
+            box-shadow: 0 0 5px rgba(255, 215, 0, 0.5);
+            background-color: #FFFFFF; /* White background on focus */
+        }
+
+    /* Checkbox styling */
+    .form-group input[type="checkbox"] {
+        margin-right: 10px;
+        accent-color: #FFD700; /* Gold checkbox */
+    }
+
+    /* Button styling */
+    .btn-primary {
+        background-color: #FFD700; /* Gold background */
+        border-color: #FFD700;
+        color: #000000; /* Black text */
+        font-weight: 600;
+        padding: 8px 16px;
+        border-radius: 5px;
+    }
+
+        .btn-primary:hover {
+            background-color: #E6C200; /* Darker gold on hover */
+            border-color: #E6C200;
+            color: #000000;
+        }
+
+    .btn-secondary {
+        background-color: #000000; /* Black background */
+        border-color: #FFD700; /* Gold border */
+        color: #FFD700; /* Gold text */
+        padding: 8px 16px;
+        border-radius: 5px;
+    }
+
+        .btn-secondary:hover {
+            background-color: #333333; /* Darker black on hover */
+            border-color: #FFD700;
+            color: #FFD700;
+        }
+
+    /* Validation error styling */
+    .text-danger {
+        color: #FFD700 !important; /* Gold error text */
+        font-size: 0.85rem;
+    }
+
+    .field-validation-error {
+        display: block;
+        margin-top: 5px;
+    }
+
+    /* Responsive adjustments */
+    @@media (max-width: 768px) {
+        .form-container {
+            padding: 15px;
+            margin: 10px;
+        }
+
+        .form-group label {
+            font-size: 0.9rem;
+        }
+
+        .form-control {
+            font-size: 0.9rem;
+            padding: 6px;
+        }
+
+        .btn-primary, .btn-secondary {
+            padding: 6px 12px;
+            font-size: 0.9rem;
+        }
+    }
+</style>
+
+<div class="container-fluid">
+    <h2>Chỉnh sửa mã khuyến mãi</h2>
+
+    <div class="form-container">
+        <form asp-action="Edit" method="post">
+            @* Dùng hidden field để giữ id *@
+            <input type="hidden" asp-for="Id" />
+
+            <div class="row">
+                <div class="col-md-12 form-group">
+                    <label asp-for="Code">Mã khuyến mãi</label>
+                    <input asp-for="Code" class="form-control" placeholder="Nhập mã khuyến mãi" />
+                    <span asp-validation-for="Code" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6 form-group">
+                    <label asp-for="DiscountAmount">Số tiền giảm (VND)</label>
+                    <input asp-for="DiscountAmount" class="form-control" type="number" step="1000" placeholder="Nhập số tiền giảm" />
+                    <span asp-validation-for="DiscountAmount" class="text-danger"></span>
+                </div>
+                <div class="col-md-6 form-group">
+                    <label asp-for="DiscountPercentage">Phần trăm giảm (%)</label>
+                    <input asp-for="DiscountPercentage" class="form-control" type="number" step="1" placeholder="Nhập phần trăm giảm" />
+                    <span asp-validation-for="DiscountPercentage" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6 form-group">
+                    <label asp-for="StartDate">Ngày bắt đầu</label>
+                    <input asp-for="StartDate" class="form-control" type="date" />
+                    <span asp-validation-for="StartDate" class="text-danger"></span>
+                </div>
+                <div class="col-md-6 form-group">
+                    <label asp-for="EndDate">Ngày kết thúc</label>
+                    <input asp-for="EndDate" class="form-control" type="date" />
+                    <span asp-validation-for="EndDate" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12 form-group">
+                    <label asp-for="MaxUsage">Số lần sử dụng tối đa (0 = không giới hạn)</label>
+                    <input asp-for="MaxUsage" class="form-control" type="number" placeholder="Nhập số lần sử dụng tối đa" />
+                    <span asp-validation-for="MaxUsage" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12 form-group">
+                    <div class="form-check">
+                        <input asp-for="IsActive" class="form-check-input" type="checkbox" />
+                        <label asp-for="IsActive" class="form-check-label">Kích hoạt</label>
+                        <span asp-validation-for="IsActive" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12 form-group text-center">
+                    <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> Lưu</button>
+                    <a asp-action="Index" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Quay lại</a>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

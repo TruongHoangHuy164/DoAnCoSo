@@ -102,6 +102,16 @@ namespace DoAnLTW.Areas.Admin.Controllers
                 return View(pet);
             }
         }
+        // GET: Admin/Pet/Delete/5
+        public async Task<IActionResult> Delete(int id)
+        {
+            var pet = await _petRepository.GetByIdAsync(id);
+            if (pet == null)
+            {
+                return NotFound();
+            }
+            return View(pet); // Trả về view Delete.cshtml để hiện xác nhận xóa
+        }
 
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]

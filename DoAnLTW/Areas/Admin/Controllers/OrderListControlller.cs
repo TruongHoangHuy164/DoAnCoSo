@@ -44,6 +44,12 @@ namespace DoAnLTW.Areas.Admin.Controllers
         {
             try
             {
+                if (string.IsNullOrEmpty(order.Email))
+                {
+                    _logger.LogWarning("Email rỗng cho đơn hàng #{OrderId}", order.Id);
+                    return;
+                }
+
                 _logger.LogInformation("Bắt đầu gửi email cập nhật trạng thái cho đơn hàng #{OrderId} tới {Email}", order.Id, order.Email);
 
                 var viewPath = "Emails/OrderConfirmationEmail";
@@ -66,68 +72,89 @@ namespace DoAnLTW.Areas.Admin.Controllers
         [HttpPost]
         public async Task<IActionResult> UpdateStatus([FromBody] UpdateStatusModel model)
         {
-            if (model == null || !Enum.TryParse<OrderStatus>(model.Status, out var status))
+            _logger.LogInformation("Nhận yêu cầu UpdateStatus: Id={Id}, Status={Status}", model?.Id, model?.Status);
+
+            // Kiểm tra dữ liệu đầu vào
+            if (model == null || !Enum.TryParse<OrderStatus>(model.Status, true, out var status))
             {
+                _logger.LogWarning("Model hoặc trạng thái không hợp lệ: Model={Model}, Status={Status}", model, model?.Status);
                 return Json(new { success = false, message = "Trạng thái không hợp lệ." });
             }
 
+            // Tìm đơn hàng
             var order = await _context.Orders
                 .Include(o => o.OrderDetails)
                 .FirstOrDefaultAsync(o => o.Id == model.Id);
             if (order == null)
             {
+                _logger.LogWarning("Không tìm thấy đơn hàng: Id={Id}", model.Id);
                 return Json(new { success = false, message = "Không tìm thấy đơn hàng." });
             }
 
-            // Kiểm tra nếu trạng thái chuyển sang Đang giao hàng hoặc Đã giao hàng
-            // và đơn hàng chưa từng được giảm tồn kho
-            if ((status == OrderStatus.DangGiaoHang || status == OrderStatus.DaGiaoHang) &&
-                order.Status != OrderStatus.DangGiaoHang && order.Status != OrderStatus.DaGiaoHang)
-            {
-                foreach (var detail in order.OrderDetails)
-                {
-                    // Tìm ProductSize tương ứng
-                    var productSize = await _context.ProductSizes
-                        .FirstOrDefaultAsync(ps => ps.ProductId == detail.ProductId && ps.Size.size == detail.Size);
+            // Lưu trạng thái hiện tại của đơn hàng
+            var previousStatus = order.Status;
 
-                    if (productSize != null)
+            // Bắt đầu giao dịch
+            using var transaction = await _context.Database.BeginTransactionAsync();
+            try
+            {
+                // Cập nhật trạng thái thanh toán cho COD
+                if (order.PaymentMethod == "COD")
+                {
+                    order.IsPaid = status == OrderStatus.DaGiaoHang;
+                }
+
+                // Cập nhật trạng thái đơn hàng
+                order.Status = status;
+                await _context.SaveChangesAsync(); // Lưu trạng thái trước
+
+                // Gửi email thông báo
+                await SendOrderStatusUpdateEmail(order);
+
+                // Xử lý trừ tồn kho khi trạng thái là DangGiaoHang và trạng thái trước đó không phải DangGiaoHang
+                if (status == OrderStatus.DangGiaoHang && previousStatus != OrderStatus.DangGiaoHang)
+                {
+                    foreach (var detail in order.OrderDetails)
                     {
-                        if (productSize.Stock >= detail.Quantity)
+                        var productSize = await _context.ProductSizes
+                            .FirstOrDefaultAsync(ps => ps.ProductId == detail.ProductId && ps.Size.size == detail.Size);
+
+                        if (productSize == null)
                         {
-                            productSize.Stock -= detail.Quantity;
+                            _logger.LogWarning("Không tìm thấy kích thước: ProductId={ProductId}, Size={Size}", detail.ProductId, detail.Size);
+                            await transaction.RollbackAsync();
+                            return Json(new { success = false, message = $"Không tìm thấy kích thước {detail.Size} cho sản phẩm {detail.ProductName}" });
                         }
-                        else
+
+                        if (productSize.Stock < detail.Quantity)
                         {
+                            _logger.LogWarning("Không đủ tồn kho: Product={ProductName}, Size={Size}, Stock={Stock}, Requested={Quantity}",
+                                detail.ProductName, detail.Size, productSize.Stock, detail.Quantity);
+                            await transaction.RollbackAsync();
                             return Json(new { success = false, message = $"Không đủ tồn kho cho sản phẩm {detail.ProductName} (kích thước: {detail.Size})" });
                         }
-                    }
-                    else
-                    {
-                        return Json(new { success = false, message = $"Không tìm thấy kích thước {detail.Size} cho sản phẩm {detail.ProductName}" });
-                    }
-                }
-            }
 
-            // Cập nhật trạng thái thanh toán cho COD
-            if (order.PaymentMethod == "COD")
+                        productSize.Stock -= detail.Quantity;
+                    }
+                    await _context.SaveChangesAsync(); // Lưu thay đổi tồn kho
+                }
+
+                await transaction.CommitAsync(); // Hoàn tất giao dịch
+            }
+            catch (DbUpdateException ex)
             {
-                if (status == OrderStatus.DaGiaoHang)
-                {
-                    order.IsPaid = true; // Đã giao hàng -> Đã thanh toán
-                }
-                else if (order.Status != OrderStatus.DaGiaoHang)
-                {
-                    order.IsPaid = false; // Các trạng thái khác -> Chưa thanh toán
-                }
+                await transaction.RollbackAsync();
+                _logger.LogError(ex, "Lỗi khi lưu trạng thái hoặc tồn kho cho đơn hàng #{OrderId}: {Message}", model.Id, ex.Message);
+                return Json(new { success = false, message = "Lỗi khi lưu trạng thái hoặc tồn kho đơn hàng." });
+            }
+            catch (Exception ex)
+            {
+                await transaction.RollbackAsync();
+                _logger.LogError(ex, "Lỗi không xác định khi xử lý đơn hàng #{OrderId}: {Message}", model.Id, ex.Message);
+                return Json(new { success = false, message = "Lỗi không xác định khi xử lý đơn hàng." });
             }
 
-            order.Status = status;
-            await _context.SaveChangesAsync();
-
-            // Gửi email thông báo cập nhật trạng thái
-            await SendOrderStatusUpdateEmail(order);
-
-            return Json(new { success = true, message = "Cập nhật trạng thái đơn hàng thành công" });
+            return Json(new { success = true, message = "Cập nhật trạng thái đơn hàng và tồn kho thành công" });
         }
 
         public class UpdateStatusModel

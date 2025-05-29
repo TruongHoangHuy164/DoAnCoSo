@@ -2,37 +2,168 @@
 @{
     ViewData["Title"] = "Lịch sử đơn hàng";
 }
+<style>
+    /* Gold, Black, White Theme */
+    body {
+        background-color: #FFFFFF;
+        color: #000000;
+        font-family: Arial, sans-serif;
+    }
 
-<table class="table table-bordered">
-    <thead>
-        <tr>
-            <th>Mã đơn</th>
-            <th>Ngày đặt</th>
-            <th>Tổng tiền</th>
-            <th>Trạng thái</th>
-            <th>Hành động</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var order in Model)
-        {
-            <tr>
-                <td>@order.Id</td>
-                <td>@order.OrderDate.ToString("dd/MM/yyyy")</td>
-                <td>@order.TotalAmount.ToString("N0") đ</td>
-                <td>@order.Status</td>
-                <td>
-                    <a asp-action="OrderDetail" asp-route-id="@order.Id" class="btn btn-sm btn-info">Chi tiết</a>
+    .table {
+        background-color: #FFFFFF;
+        border: 1px solid #000000;
+    }
 
-                    @if (order.Status == DoAnLTW.Models.OrderStatus.ChoXuLy)
-                    {
-                        <button class="btn btn-sm btn-danger cancel-order" data-id="@order.Id">Hủy</button>
-                    }
-                </td>
-            </tr>
+        .table th {
+            background-color: #FFD700;
+            color: #000000;
+            border: 1px solid #000000;
         }
-    </tbody>
-</table>
+
+        .table td {
+            border: 1px solid #000000;
+        }
+
+    .btn-gold {
+        background-color: #FFD700;
+        color: #000000;
+        border: 1px solid #000000;
+    }
+
+        .btn-gold:hover {
+            background-color: #E6C200;
+            color: #000000;
+        }
+
+    /* Status Badge Styling (Shopee-like) */
+    .status-badge {
+        padding: 5px 10px;
+        border-radius: 12px;
+        color: #FFFFFF;
+        font-weight: bold;
+        display: inline-block;
+        text-align: center;
+        min-width: 100px;
+    }
+
+    .status-cho-xu-ly {
+        background-color: #007BFF; /* Blue for Pending */
+    }
+
+    .status-da-giao-hang-hang {
+        background-color: #28A745; /* Green for Confirmed */
+    }
+
+    .status-da-giao-hang {
+        background-color: #FFA500; /* Orange for Shipping */
+    }
+
+    .status-da-huy {
+        background-color: #DC3545; /* Red for Canceled */
+    }
+
+    /* Hover effects for buttons */
+    .btn-info, .btn-danger {
+        border: 1px solid #000000;
+    }
+
+        .btn-info:hover {
+            background-color: #0056b3;
+        }
+
+        .btn-danger:hover {
+            background-color: #c82333;
+        }
+
+    /* Responsive adjustments */
+    @@media (max-width: 768px) {
+        .table
+
+    {
+        font-size: 14px;
+    }
+
+    .status-badge {
+        min-width: 80px;
+        font-size: 12px;
+    }
+
+    }</style>
+<div class="container-fluid py-4">
+    <h2 class="text-center mb-4" style="color: #000000;">Lịch sử đơn hàng</h2>
+    <table class="table table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>Mã đơn</th>
+                <th>Ngày đặt</th>
+                <th>Tổng tiền</th>
+                <th>Trạng thái</th>
+                <th>Hành động</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var order in Model)
+            {
+                <tr>
+                    <td>@order.Id</td>
+                    <td>@order.OrderDate.ToString("dd/MM/yyyy")</td>
+                    <td>@order.TotalAmount.ToString("N0") đ</td>
+                    <td>
+                        @{
+                            string statusClass = order.Status switch
+                            {
+                                OrderStatus.ChoXuLy => "status-cho-xu-ly",
+                                OrderStatus.DangGiaoHang => "status-da-giao-hang-hang",
+                                OrderStatus.DaGiaoHang => "status-da-giao-hang",
+                                OrderStatus.DaHuy => "status-da-huy",
+                                _ => ""
+                            };
+                        }
+                        <span class="status-badge @statusClass">@order.Status</span>
+                    </td>
+                    <td>
+                        <a asp-action="OrderDetail" asp-route-id="@order.Id" class="btn btn-sm btn-info">Chi tiết</a>
+                        @if (order.Status == OrderStatus.ChoXuLy)
+                        {
+                            <button class="btn btn-sm btn-danger cancel-order" data-id="@order.Id">Hủy</button>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <!-- Pagination -->
+    <div class="d-flex justify-content-center mt-4">
+        <nav aria-label="Page navigation">
+            <ul class="pagination">
+                @if (ViewBag.Page > 1)
+                {
+                    <li class="page-item">
+                        <a class="page-link" href="@Url.Action("OrderHistory", new { page = ViewBag.Page - 1 })" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                }
+                @for (int i = 1; i <= ViewBag.TotalPages; i++)
+                {
+                    <li class="page-item @(i == ViewBag.Page ? "active" : "")">
+                        <a class="page-link" href="@Url.Action("OrderHistory", new { page = i })">@i</a>
+                    </li>
+                }
+                @if (ViewBag.Page < ViewBag.TotalPages)
+                {
+                    <li class="page-item">
+                        <a class="page-link" href="@Url.Action("OrderHistory", new { page = ViewBag.Page + 1 })" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                }
+            </ul>
+        </nav>
+    </div>
+</div>
 
 @section Scripts {
     <script>

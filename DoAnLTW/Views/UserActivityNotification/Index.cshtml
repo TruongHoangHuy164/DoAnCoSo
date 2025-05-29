@@ -1,0 +1,50 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Thông báo hoạt động</title>
+    <style>
+        .notification {
+            background-color: #f8f9fa;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 5px;
+        }
+
+            .notification h3 {
+                margin-top: 0;
+                font-size: 14px;
+                color: #333;
+            }
+
+            .notification p {
+                margin: 0;
+                font-size: 12px;
+                color: #666;
+            }
+    </style>
+</head>
+<body>
+    <h1>Thông báo hoạt động của bạn</h1>
+
+    <div id="notificationContent">
+        <div class="notification">
+            <h3>Thời gian kể từ lần mua hàng gần nhấtttttt</h3>
+            <p id="timeSinceLastOrder">@ViewBag.TimeSinceLastOrder</p>
+        </div>
+        <div class="notification">
+            <h3>Thời gian kể từ lần sử dụng dịch vụ gần nhất</h3>
+            <p id="timeSinceLastBooking">@ViewBag.TimeSinceLastBooking</p>
+        </div>
+        <div class="notification">
+            <h3>Thời gian kể từ lần đặt khách sạn thú cưng gần nhất</h3>
+            <p id="timeSinceLastHotelBooking">@ViewBag.TimeSinceLastHotelBooking</p>
+        </div>
+    </div>
+
+    <div class="notification-links">
+        <a href="@Url.Action("Index", "HistoryOrder")">Xem lịch sử đơn hàng</a> |
+        <a href="@Url.Action("MyBookings", "PetServices")">Xem lịch sử đặt dịch vụ</a> |
+        <a href="@Url.Action("Index", "CustomerPetHotelBooking")">Xem lịch sử đặt khách sạn thú cưng</a>
+    </div>
+</body>
+</html>

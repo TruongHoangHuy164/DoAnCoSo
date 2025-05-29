@@ -1,0 +1,195 @@
+2025-05-29 21:45:28.282 +07:00 [INF] User profile is available. Using 'C:\Users\admin\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2025-05-29 21:45:29.044 +07:00 [INF] Now listening on: https://localhost:5134
+2025-05-29 21:45:29.077 +07:00 [INF] Application started. Press Ctrl+C to shut down.
+2025-05-29 21:45:29.080 +07:00 [INF] Hosting environment: Development
+2025-05-29 21:45:29.081 +07:00 [INF] Content root path: H:\DoAnCoSo\DoAnLTW
+2025-05-29 21:45:29.748 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/ - null null
+2025-05-29 21:45:29.912 +07:00 [INF] Executing endpoint 'DoAnLTW.Controllers.HomeController.Index (DoAnLTW)'
+2025-05-29 21:45:29.928 +07:00 [INF] Route matched with {action = "Index", controller = "Home", area = "", page = ""}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Index() on controller DoAnLTW.Controllers.HomeController (DoAnLTW).
+2025-05-29 21:45:32.125 +07:00 [INF] Executed DbCommand (37ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [c].[CategoryId], [c].[ImageUrl], [c].[Name]
+FROM [Categories] AS [c]
+2025-05-29 21:45:32.178 +07:00 [INF] Executed DbCommand (4ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [b].[BrandId], [b].[ImageUrl], [b].[Name]
+FROM [Brands] AS [b]
+2025-05-29 21:45:32.296 +07:00 [WRN] Compiling a query which loads related collections for more than one collection navigation, either via 'Include' or through projection, but no 'QuerySplittingBehavior' has been configured. By default, Entity Framework will use 'QuerySplittingBehavior.SingleQuery', which can potentially result in slow query performance. See https://go.microsoft.com/fwlink/?linkid=2134277 for more information. To identify the query that's triggering this warning call 'ConfigureWarnings(w => w.Throw(RelationalEventId.MultipleCollectionIncludeWarning))'.
+2025-05-29 21:45:32.346 +07:00 [INF] Executed DbCommand (32ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [p].[ProductId], [p].[BrandId], [p].[CategoryId], [p].[Description], [p].[Name], [c].[CategoryId], [c].[ImageUrl], [c].[Name], [b].[BrandId], [b].[ImageUrl], [b].[Name], [s0].[ProductId], [s0].[SizeId], [s0].[Price], [s0].[Stock], [s0].[SizeId0], [s0].[size], [p1].[Product_ImagesId], [p1].[ImageUrl], [p1].[ProductId]
+FROM [Products] AS [p]
+INNER JOIN [Categories] AS [c] ON [p].[CategoryId] = [c].[CategoryId]
+INNER JOIN [Brands] AS [b] ON [p].[BrandId] = [b].[BrandId]
+LEFT JOIN (
+    SELECT [p0].[ProductId], [p0].[SizeId], [p0].[Price], [p0].[Stock], [s].[SizeId] AS [SizeId0], [s].[size]
+    FROM [ProductSizes] AS [p0]
+    INNER JOIN [Sizes] AS [s] ON [p0].[SizeId] = [s].[SizeId]
+) AS [s0] ON [p].[ProductId] = [s0].[ProductId]
+LEFT JOIN [ProductImages] AS [p1] ON [p].[ProductId] = [p1].[ProductId]
+ORDER BY [p].[ProductId], [c].[CategoryId], [b].[BrandId], [s0].[ProductId], [s0].[SizeId], [s0].[SizeId0]
+2025-05-29 21:45:32.458 +07:00 [INF] Executed DbCommand (38ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [p].[Id], [p].[Code], [p].[DiscountAmount], [p].[DiscountPercentage], [p].[EndDate], [p].[IsActive], [p].[MaxUsage], [p].[StartDate], [p].[UsageCount]
+FROM [PromotionCodes] AS [p]
+WHERE [p].[IsActive] = CAST(1 AS bit) AND ([p].[StartDate] IS NULL OR [p].[StartDate] <= GETDATE()) AND ([p].[EndDate] IS NULL OR [p].[EndDate] >= GETDATE()) AND ([p].[MaxUsage] = 0 OR [p].[UsageCount] < [p].[MaxUsage])
+2025-05-29 21:45:32.483 +07:00 [INF] Executing ViewResult, running view Index.
+2025-05-29 21:45:32.602 +07:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [b].[BrandId], [b].[ImageUrl], [b].[Name]
+FROM [Brands] AS [b]
+2025-05-29 21:45:32.608 +07:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [c].[CategoryId], [c].[ImageUrl], [c].[Name]
+FROM [Categories] AS [c]
+2025-05-29 21:45:32.638 +07:00 [INF] Executed ViewResult - view Index executed in 156.8675ms.
+2025-05-29 21:45:32.645 +07:00 [INF] Executed action DoAnLTW.Controllers.HomeController.Index (DoAnLTW) in 2712.7516ms
+2025-05-29 21:45:32.646 +07:00 [INF] Executed endpoint 'DoAnLTW.Controllers.HomeController.Index (DoAnLTW)'
+2025-05-29 21:45:32.651 +07:00 [INF] HTTP GET / responded 200 in 2787.5324 ms
+2025-05-29 21:45:32.663 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/lib/animate/animate.min.css - null null
+2025-05-29 21:45:32.666 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/css/style.css - null null
+2025-05-29 21:45:32.708 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/img/slider1.jpg - null null
+2025-05-29 21:45:32.666 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/ - 200 null text/html; charset=utf-8 2923.6676ms
+2025-05-29 21:45:33.098 +07:00 [INF] The file /lib/animate/animate.min.css was not modified
+2025-05-29 21:45:33.140 +07:00 [INF] The file /img/slider1.jpg was not modified
+2025-05-29 21:45:32.829 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/img/slider2.jpg - null null
+2025-05-29 21:45:32.763 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/lib/owlcarousel/assets/owl.carousel.min.css - null null
+2025-05-29 21:45:32.793 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/_framework/aspnetcore-browser-refresh.js - null null
+2025-05-29 21:45:32.832 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/img/slider3.jpg - null null
+2025-05-29 21:45:32.837 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/img/giamgia2.jpg - null null
+2025-05-29 21:45:32.877 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/img/giamgia1.jpg - null null
+2025-05-29 21:45:32.881 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/lib/owlcarousel/owl.carousel.min.js - null null
+2025-05-29 21:45:32.887 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/lib/easing/easing.min.js - null null
+2025-05-29 21:45:32.985 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/mail/jqBootstrapValidation.min.js - null null
+2025-05-29 21:45:32.988 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/mail/contact.js - null null
+2025-05-29 21:45:33.035 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/img/products/60d73f54-c3c3-443b-86a9-f2c19ce0d0b7.jpg - null null
+2025-05-29 21:45:33.043 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/img/products/69001358-13af-48c1-9cf0-26056c765bdb.jpg - null null
+2025-05-29 21:45:33.052 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/img/products/f37e33fb-809a-4240-990d-9344cdc138e1.jpg - null null
+2025-05-29 21:45:33.062 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/img/products/37ba7691-6e2c-49de-b6ca-b3348230ed5b.jpg - null null
+2025-05-29 21:45:33.203 +07:00 [INF] The file /img/products/37ba7691-6e2c-49de-b6ca-b3348230ed5b.jpg was not modified
+2025-05-29 21:45:33.141 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/img/products/c50d7835-aa10-4ef4-958f-7ee6a778c99c.jpg - null null
+2025-05-29 21:45:33.151 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/img/products/1d193407-aba9-4e91-baa0-2ff2d21ab364.jpg - null null
+2025-05-29 21:45:33.157 +07:00 [INF] HTTP GET /lib/animate/animate.min.css responded 304 in 322.6688 ms
+2025-05-29 21:45:33.158 +07:00 [INF] HTTP GET /img/slider1.jpg responded 304 in 17.8241 ms
+2025-05-29 21:45:33.158 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/img/products/3345ee56-9133-4e14-a6a3-06560acd6403.jpg - null null
+2025-05-29 21:45:33.161 +07:00 [INF] The file /img/slider2.jpg was not modified
+2025-05-29 21:45:33.165 +07:00 [INF] The file /lib/owlcarousel/assets/owl.carousel.min.css was not modified
+2025-05-29 21:45:33.224 +07:00 [INF] HTTP GET /lib/owlcarousel/assets/owl.carousel.min.css responded 304 in 59.6550 ms
+2025-05-29 21:45:33.173 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/img/products/b21035a7-0ca3-49d3-94af-4dc2cff6c2f8.jpg - null null
+2025-05-29 21:45:33.175 +07:00 [INF] The file /img/giamgia2.jpg was not modified
+2025-05-29 21:45:33.178 +07:00 [INF] The file /img/giamgia1.jpg was not modified
+2025-05-29 21:45:33.182 +07:00 [INF] The file /lib/owlcarousel/owl.carousel.min.js was not modified
+2025-05-29 21:45:33.237 +07:00 [INF] HTTP GET /lib/owlcarousel/owl.carousel.min.js responded 304 in 55.3708 ms
+2025-05-29 21:45:33.240 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/lib/owlcarousel/owl.carousel.min.js - 304 null text/javascript 358.5624ms
+2025-05-29 21:45:33.188 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/img/products/7eb073ea-ed48-4420-9379-d183c6d54941.jpg - null null
+2025-05-29 21:45:33.190 +07:00 [INF] The file /mail/contact.js was not modified
+2025-05-29 21:45:33.193 +07:00 [INF] The file /img/products/60d73f54-c3c3-443b-86a9-f2c19ce0d0b7.jpg was not modified
+2025-05-29 21:45:33.196 +07:00 [INF] The file /img/products/69001358-13af-48c1-9cf0-26056c765bdb.jpg was not modified
+2025-05-29 21:45:33.252 +07:00 [INF] HTTP GET /img/products/69001358-13af-48c1-9cf0-26056c765bdb.jpg responded 304 in 55.9262 ms
+2025-05-29 21:45:33.098 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/img/products/89668607-d553-4501-8eed-ac8772806da6.jpg - null null
+2025-05-29 21:45:33.205 +07:00 [INF] HTTP GET /img/products/37ba7691-6e2c-49de-b6ca-b3348230ed5b.jpg responded 304 in 1.9217 ms
+2025-05-29 21:45:33.208 +07:00 [INF] The file /img/products/c50d7835-aa10-4ef4-958f-7ee6a778c99c.jpg was not modified
+2025-05-29 21:45:33.212 +07:00 [INF] The file /img/products/1d193407-aba9-4e91-baa0-2ff2d21ab364.jpg was not modified
+2025-05-29 21:45:33.215 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/lib/animate/animate.min.css - 304 null text/css 552.2273ms
+2025-05-29 21:45:33.218 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/img/slider1.jpg - 304 null image/jpeg 510.1184ms
+2025-05-29 21:45:33.221 +07:00 [INF] The file /img/products/3345ee56-9133-4e14-a6a3-06560acd6403.jpg was not modified
+2025-05-29 21:45:33.271 +07:00 [INF] HTTP GET /img/products/3345ee56-9133-4e14-a6a3-06560acd6403.jpg responded 304 in 50.2399 ms
+2025-05-29 21:45:33.172 +07:00 [INF] The file /img/slider3.jpg was not modified
+2025-05-29 21:45:33.228 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/lib/owlcarousel/assets/owl.carousel.min.css - 304 null text/css 464.5613ms
+2025-05-29 21:45:33.232 +07:00 [INF] The file /img/products/b21035a7-0ca3-49d3-94af-4dc2cff6c2f8.jpg was not modified
+2025-05-29 21:45:33.284 +07:00 [INF] HTTP GET /img/products/b21035a7-0ca3-49d3-94af-4dc2cff6c2f8.jpg responded 304 in 52.2983 ms
+2025-05-29 21:45:33.235 +07:00 [INF] HTTP GET /img/giamgia1.jpg responded 304 in 57.0258 ms
+2025-05-29 21:45:33.185 +07:00 [INF] The file /lib/easing/easing.min.js was not modified
+2025-05-29 21:45:33.293 +07:00 [INF] HTTP GET /lib/easing/easing.min.js responded 304 in 107.3139 ms
+2025-05-29 21:45:33.244 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/img/products/ae973fc3-8baa-4514-9fac-b0576c1e4437.jpg - null null
+2025-05-29 21:45:33.248 +07:00 [INF] The file /img/products/7eb073ea-ed48-4420-9379-d183c6d54941.jpg was not modified
+2025-05-29 21:45:33.249 +07:00 [INF] HTTP GET /mail/contact.js responded 304 in 59.2248 ms
+2025-05-29 21:45:33.251 +07:00 [INF] HTTP GET /img/products/60d73f54-c3c3-443b-86a9-f2c19ce0d0b7.jpg responded 304 in 57.6833 ms
+2025-05-29 21:45:33.306 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/img/products/60d73f54-c3c3-443b-86a9-f2c19ce0d0b7.jpg - 304 null image/jpeg 271.392ms
+2025-05-29 21:45:33.255 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/img/products/69001358-13af-48c1-9cf0-26056c765bdb.jpg - 304 null image/jpeg 212.092ms
+2025-05-29 21:45:33.314 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/img/products/857b0254-999d-4823-b856-fb74e7d09b0f.jpg - null null
+2025-05-29 21:45:33.262 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/img/products/37ba7691-6e2c-49de-b6ca-b3348230ed5b.jpg - 304 null image/jpeg 200.6568ms
+2025-05-29 21:45:33.263 +07:00 [INF] HTTP GET /img/products/c50d7835-aa10-4ef4-958f-7ee6a778c99c.jpg responded 304 in 55.5963 ms
+2025-05-29 21:45:33.325 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/img/products/c50d7835-aa10-4ef4-958f-7ee6a778c99c.jpg - 304 null image/jpeg 184.0337ms
+2025-05-29 21:45:33.329 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/img/payments.png - null null
+2025-05-29 21:45:33.270 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/img/products/331246df-2e4d-4049-805a-a554185766d1.jpg - null null
+2025-05-29 21:45:33.223 +07:00 [INF] HTTP GET /img/slider2.jpg responded 304 in 61.7875 ms
+2025-05-29 21:45:33.275 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/img/products/3345ee56-9133-4e14-a6a3-06560acd6403.jpg - 304 null image/jpeg 116.8311ms
+2025-05-29 21:45:33.277 +07:00 [INF] HTTP GET /img/slider3.jpg responded 304 in 105.1491 ms
+2025-05-29 21:45:33.347 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/img/slider3.jpg - 304 null image/jpeg 515.2521ms
+2025-05-29 21:45:33.233 +07:00 [INF] HTTP GET /img/giamgia2.jpg responded 304 in 58.0886 ms
+2025-05-29 21:45:33.286 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/img/products/b21035a7-0ca3-49d3-94af-4dc2cff6c2f8.jpg - 304 null image/jpeg 113.5362ms
+2025-05-29 21:45:33.290 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/img/giamgia1.jpg - 304 null image/jpeg 413.0384ms
+2025-05-29 21:45:33.188 +07:00 [INF] The file /mail/jqBootstrapValidation.min.js was not modified
+2025-05-29 21:45:33.296 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/lib/easing/easing.min.js - 304 null text/javascript 409.3561ms
+2025-05-29 21:45:33.299 +07:00 [INF] The file /img/products/ae973fc3-8baa-4514-9fac-b0576c1e4437.jpg was not modified
+2025-05-29 21:45:33.300 +07:00 [INF] HTTP GET /img/products/7eb073ea-ed48-4420-9379-d183c6d54941.jpg responded 304 in 52.7090 ms
+2025-05-29 21:45:33.304 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/mail/contact.js - 304 null text/javascript 316.341ms
+2025-05-29 21:45:33.200 +07:00 [INF] The file /img/products/f37e33fb-809a-4240-990d-9344cdc138e1.jpg was not modified
+2025-05-29 21:45:33.311 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/img/products/a7c410d5-8508-4474-81ac-c7293536acbf.jpg - null null
+2025-05-29 21:45:33.259 +07:00 [INF] The file /img/products/89668607-d553-4501-8eed-ac8772806da6.jpg was not modified
+2025-05-29 21:45:33.318 +07:00 [INF] The file /img/products/857b0254-999d-4823-b856-fb74e7d09b0f.jpg was not modified
+2025-05-29 21:45:33.395 +07:00 [INF] HTTP GET /img/products/857b0254-999d-4823-b856-fb74e7d09b0f.jpg responded 304 in 76.9726 ms
+2025-05-29 21:45:33.264 +07:00 [INF] HTTP GET /img/products/1d193407-aba9-4e91-baa0-2ff2d21ab364.jpg responded 304 in 52.0898 ms
+2025-05-29 21:45:33.266 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/img/products/3fee581e-1506-4ae5-8503-06cbab130d12.jpg - null null
+2025-05-29 21:45:33.336 +07:00 [INF] HTTP GET /img/payments.png responded 404 in 3.4800 ms
+2025-05-29 21:45:33.339 +07:00 [INF] The file /img/products/331246df-2e4d-4049-805a-a554185766d1.jpg was not modified
+2025-05-29 21:45:33.340 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/img/slider2.jpg - 304 null image/jpeg 511.5138ms
+2025-05-29 21:45:33.345 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/img/Wikas.png - null null
+2025-05-29 21:45:33.283 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/img/products/bfc876ad-6aac-45e0-8b18-42473db4e447.jpg - null null
+2025-05-29 21:45:33.353 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/_vs/browserLink - null null
+2025-05-29 21:45:33.355 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/img/giamgia2.jpg - 304 null image/jpeg 518.6107ms
+2025-05-29 21:45:33.405 +07:00 [INF] The file /img/products/3fee581e-1506-4ae5-8503-06cbab130d12.jpg was not modified
+2025-05-29 21:45:33.381 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/img/products/7eb073ea-ed48-4420-9379-d183c6d54941.jpg - 304 null image/jpeg 192.266ms
+2025-05-29 21:45:33.410 +07:00 [INF] HTTP GET /img/products/331246df-2e4d-4049-805a-a554185766d1.jpg responded 304 in 70.9055 ms
+2025-05-29 21:45:33.417 +07:00 [INF] The file /img/Wikas.png was not modified
+2025-05-29 21:45:33.421 +07:00 [INF] The file /img/products/bfc876ad-6aac-45e0-8b18-42473db4e447.jpg was not modified
+2025-05-29 21:45:33.363 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/_framework/aspnetcore-browser-refresh.js - 200 16499 application/javascript; charset=utf-8 570.1229ms
+2025-05-29 21:45:33.378 +07:00 [INF] HTTP GET /img/products/ae973fc3-8baa-4514-9fac-b0576c1e4437.jpg responded 304 in 78.3702 ms
+2025-05-29 21:45:33.382 +07:00 [INF] Sending file. Request path: '/css/style.css'. Physical path: 'H:\DoAnCoSo\DoAnLTW\wwwroot\css\style.css'
+2025-05-29 21:45:33.371 +07:00 [INF] HTTP GET /mail/jqBootstrapValidation.min.js responded 304 in 183.1652 ms
+2025-05-29 21:45:33.390 +07:00 [INF] The file /img/products/a7c410d5-8508-4474-81ac-c7293536acbf.jpg was not modified
+2025-05-29 21:45:33.398 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/img/products/857b0254-999d-4823-b856-fb74e7d09b0f.jpg - 304 null image/jpeg 83.5424ms
+2025-05-29 21:45:33.386 +07:00 [INF] HTTP GET /img/products/f37e33fb-809a-4240-990d-9344cdc138e1.jpg responded 304 in 185.4625 ms
+2025-05-29 21:45:33.322 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/img/zalo_icon.png - null null
+2025-05-29 21:45:33.392 +07:00 [INF] HTTP GET /img/products/89668607-d553-4501-8eed-ac8772806da6.jpg responded 304 in 133.0156 ms
+2025-05-29 21:45:33.408 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/img/payments.png - 404 0 null 79.3207ms
+2025-05-29 21:45:33.402 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/img/products/1d193407-aba9-4e91-baa0-2ff2d21ab364.jpg - 304 null image/jpeg 250.8071ms
+2025-05-29 21:45:33.435 +07:00 [INF] HTTP GET /img/products/3fee581e-1506-4ae5-8503-06cbab130d12.jpg responded 304 in 29.5040 ms
+2025-05-29 21:45:33.441 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/img/products/331246df-2e4d-4049-805a-a554185766d1.jpg - 304 null image/jpeg 170.4456ms
+2025-05-29 21:45:33.442 +07:00 [INF] HTTP GET /img/Wikas.png responded 304 in 24.7953 ms
+2025-05-29 21:45:33.443 +07:00 [INF] HTTP GET /img/products/bfc876ad-6aac-45e0-8b18-42473db4e447.jpg responded 304 in 22.8239 ms
+2025-05-29 21:45:33.449 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/img/products/ae973fc3-8baa-4514-9fac-b0576c1e4437.jpg - 304 null image/jpeg 204.6228ms
+2025-05-29 21:45:33.451 +07:00 [INF] HTTP GET /css/style.css responded 200 in 563.9499 ms
+2025-05-29 21:45:33.452 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/_vs/browserLink - 200 null text/javascript; charset=UTF-8 99.4898ms
+2025-05-29 21:45:33.453 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/mail/jqBootstrapValidation.min.js - 304 null text/javascript 498.7403ms
+2025-05-29 21:45:33.454 +07:00 [INF] HTTP GET /img/products/a7c410d5-8508-4474-81ac-c7293536acbf.jpg responded 304 in 63.3990 ms
+2025-05-29 21:45:33.460 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/img/products/f37e33fb-809a-4240-990d-9344cdc138e1.jpg - 304 null image/jpeg 407.9576ms
+2025-05-29 21:45:33.463 +07:00 [INF] The file /img/zalo_icon.png was not modified
+2025-05-29 21:45:33.465 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/img/products/89668607-d553-4501-8eed-ac8772806da6.jpg - 304 null image/jpeg 367.1707ms
+2025-05-29 21:45:33.470 +07:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET https://localhost:5134/img/payments.png, Response status code: 404
+2025-05-29 21:45:33.476 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/img/products/3fee581e-1506-4ae5-8503-06cbab130d12.jpg - 304 null image/jpeg 209.1422ms
+2025-05-29 21:45:33.483 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/img/Wikas.png - 304 null image/png 137.5997ms
+2025-05-29 21:45:33.486 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/img/products/bfc876ad-6aac-45e0-8b18-42473db4e447.jpg - 304 null image/jpeg 202.9626ms
+2025-05-29 21:45:33.492 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/css/style.css - 200 185772 text/css 826.4672ms
+2025-05-29 21:45:33.501 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/img/products/a7c410d5-8508-4474-81ac-c7293536acbf.jpg - 304 null image/jpeg 190.7771ms
+2025-05-29 21:45:33.506 +07:00 [INF] HTTP GET /img/zalo_icon.png responded 304 in 42.5763 ms
+2025-05-29 21:45:33.535 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/img/zalo_icon.png - 304 null image/png 212.0496ms
+2025-05-29 21:45:33.848 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/img/95b53008-83ed-40cf-9f5b-1c874ab7ef98.jpg - null null
+2025-05-29 21:45:33.848 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/img/50fe1b42-8cce-4c36-a350-48fa86723e58.jpg - null null
+2025-05-29 21:45:33.848 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/img/0409374e-ef4c-4670-87f2-6c692feb0542.jpg - null null
+2025-05-29 21:45:33.848 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/img/c4627a56-a309-4e02-9629-a9e7b8aff5cb.jpg - null null
+2025-05-29 21:45:33.848 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/img/d9234015-3d2a-4d1b-86da-cea3a347cdf6.jpg - null null
+2025-05-29 21:45:33.848 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/img/01bd8faa-dd00-4fb5-bb0f-8fa12088f3a6.jpg - null null
+2025-05-29 21:45:33.857 +07:00 [INF] The file /img/95b53008-83ed-40cf-9f5b-1c874ab7ef98.jpg was not modified
+2025-05-29 21:45:33.867 +07:00 [INF] The file /img/50fe1b42-8cce-4c36-a350-48fa86723e58.jpg was not modified
+2025-05-29 21:45:33.869 +07:00 [INF] The file /img/0409374e-ef4c-4670-87f2-6c692feb0542.jpg was not modified
+2025-05-29 21:45:33.872 +07:00 [INF] The file /img/c4627a56-a309-4e02-9629-a9e7b8aff5cb.jpg was not modified
+2025-05-29 21:45:33.882 +07:00 [INF] HTTP GET /img/c4627a56-a309-4e02-9629-a9e7b8aff5cb.jpg responded 304 in 10.1440 ms
+2025-05-29 21:45:33.877 +07:00 [INF] The file /img/01bd8faa-dd00-4fb5-bb0f-8fa12088f3a6.jpg was not modified
+2025-05-29 21:45:33.878 +07:00 [INF] HTTP GET /img/95b53008-83ed-40cf-9f5b-1c874ab7ef98.jpg responded 304 in 21.5921 ms
+2025-05-29 21:45:33.880 +07:00 [INF] HTTP GET /img/50fe1b42-8cce-4c36-a350-48fa86723e58.jpg responded 304 in 12.9392 ms
+2025-05-29 21:45:33.881 +07:00 [INF] HTTP GET /img/0409374e-ef4c-4670-87f2-6c692feb0542.jpg responded 304 in 11.8718 ms
+2025-05-29 21:45:33.875 +07:00 [INF] The file /img/d9234015-3d2a-4d1b-86da-cea3a347cdf6.jpg was not modified
+2025-05-29 21:45:33.884 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/img/c4627a56-a309-4e02-9629-a9e7b8aff5cb.jpg - 304 null image/jpeg 35.6784ms
+2025-05-29 21:45:33.885 +07:00 [INF] HTTP GET /img/01bd8faa-dd00-4fb5-bb0f-8fa12088f3a6.jpg responded 304 in 8.4403 ms
+2025-05-29 21:45:33.887 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/img/95b53008-83ed-40cf-9f5b-1c874ab7ef98.jpg - 304 null image/jpeg 39.0217ms
+2025-05-29 21:45:33.889 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/img/50fe1b42-8cce-4c36-a350-48fa86723e58.jpg - 304 null image/jpeg 41.1654ms
+2025-05-29 21:45:33.891 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/img/0409374e-ef4c-4670-87f2-6c692feb0542.jpg - 304 null image/jpeg 43.3201ms
+2025-05-29 21:45:33.892 +07:00 [INF] HTTP GET /img/d9234015-3d2a-4d1b-86da-cea3a347cdf6.jpg responded 304 in 17.9747 ms
+2025-05-29 21:45:33.899 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/img/01bd8faa-dd00-4fb5-bb0f-8fa12088f3a6.jpg - 304 null image/jpeg 50.5462ms
+2025-05-29 21:45:33.913 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/img/d9234015-3d2a-4d1b-86da-cea3a347cdf6.jpg - 304 null image/jpeg 64.4109ms

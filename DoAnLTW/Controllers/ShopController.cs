@@ -239,6 +239,20 @@ namespace DoAnLTW.Controllers
             // Truyền danh sách sản phẩm liên quan vào ViewBag
             ViewBag.RelatedProducts = relatedProducts;
 
+            // Kiểm tra xem người dùng có đơn hàng chứa sản phẩm này không
+            var user = await _userManager.GetUserAsync(User);
+            bool canReview = false;
+            if (user != null)
+            {
+                canReview = await _context.Orders
+                    .Include(o => o.OrderDetails)
+                    .AnyAsync(o => o.Email == user.Email &&
+                                   o.Status != OrderStatus.DaHuy &&
+                                   o.Status != OrderStatus.ChoXuLy &&
+                                   o.OrderDetails.Any(od => od.ProductId == id));
+            }
+            ViewBag.CanReview = canReview;
+
             // Lấy danh sách sản phẩm yêu thích từ session
             var favouriteProducts = HttpContext.Session.GetString("FavouriteProducts");
             ViewBag.FavouriteProducts = string.IsNullOrEmpty(favouriteProducts)
@@ -347,6 +361,19 @@ namespace DoAnLTW.Controllers
                 return BadRequest("Điểm đánh giá phải từ 1 đến 5.");
             }
 
+            // Kiểm tra xem người dùng đã mua sản phẩm chưa
+            var hasPurchased = await _context.Orders
+                .Include(o => o.OrderDetails)
+                .AnyAsync(o => o.Email ==  user.Email &&
+                               o.Status != OrderStatus.DaHuy &&
+                               o.Status != OrderStatus.ChoXuLy &&
+                               o.OrderDetails.Any(od => od.ProductId == productId));
+
+            if (!hasPurchased)
+            {
+                return BadRequest("Bạn chỉ có thể đánh giá sản phẩm sau khi mua hàng.");
+            }
+
             // Thêm đánh giá
             var review = new Review
             {
@@ -365,7 +392,6 @@ namespace DoAnLTW.Controllers
 
         // Thêm hoặc xóa sản phẩm yêu thích (dùng Session)
         [HttpPost]
-     
         public IActionResult ToggleFavourite(int productId)
         {
             var user = _userManager.GetUserAsync(User).Result;
@@ -396,6 +422,7 @@ namespace DoAnLTW.Controllers
 
             return Json(new { success = true, count = productIds.Count, isAdded });
         }
+
         // Hiển thị danh sách sản phẩm yêu thích
         public async Task<IActionResult> FavouriteProducts()
         {

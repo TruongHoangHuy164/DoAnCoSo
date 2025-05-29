@@ -1,4 +1,5 @@
-﻿@model IEnumerable<DoAnLTW.Models.PetService>
+﻿
+@model IEnumerable<DoAnLTW.Models.PetService>
 @{
     ViewData["Title"] = "Quản Lý Đặt Dịch Vụ";
     Layout = "~/Areas/Admin/Views/Shared/layoutAdmin.cshtml";
@@ -164,6 +165,23 @@
             box-shadow: 0 4px 10px rgba(255, 215, 0, 0.3);
         }
 
+    .btn-reminder {
+        background-color: #FFD700; /* Gold background */
+        border-color: #FFD700;
+        color: #000000; /* Black text */
+        font-weight: bold;
+        padding: 8px 16px;
+        border-radius: 5px;
+        transition: all 0.3s ease;
+    }
+
+        .btn-reminder:hover {
+            background-color: #E6C200; /* Darker gold */
+            border-color: #E6C200;
+            color: #000000;
+            box-shadow: 0 4px 10px rgba(255, 215, 0, 0.3);
+        }
+
     /* Breadcrumb styling */
     .breadcrumb {
         background-color: transparent; /* Transparent background */
@@ -178,44 +196,56 @@
         color: #FFFFFF; /* White for active item */
     }
 
+    /* Alert styling */
+    .alert {
+        border-radius: 5px;
+        margin-bottom: 20px;
+    }
+
+    .alert-success {
+        background-color: #FFD700; /* Gold */
+        color: #000000;
+        border-color: #FFD700;
+    }
+
+    .alert-danger {
+        background-color: #000000;
+        color: #FFD700;
+        border-color: #FFD700;
+    }
+
     /* Animations */
     @@keyframes fadeInDown {
-        from
+        from {
+            opacity: 0;
+            transform: translateY(-20px);
+        }
 
-    {
-        opacity: 0;
-        transform: translateY(-20px);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
     }
 
     /* Responsive adjustments */
     @@media (max-width: 768px) {
-        .table th, .table td
+        .table th, .table td {
+            padding: 10px;
+            font-size: 0.9rem;
+        }
 
-    {
-        padding: 10px;
-        font-size: 0.9rem;
-    }
+        .btn-outline-info, .btn-outline-warning, .btn-outline-danger, .btn-reminder {
+            padding: 5px 10px;
+            font-size: 0.9rem;
+        }
 
-    .btn-outline-info, .btn-outline-warning, .btn-outline-danger {
-        padding: 5px 10px;
-        font-size: 0.9rem;
-    }
+        h3 {
+            font-size: 1.5rem;
+        }
 
-    h3 {
-        font-size: 1.5rem;
-    }
-
-    .card {
-        padding: 10px;
-    }
-
+        .card {
+            padding: 10px;
+        }
     }
 </style>
 
@@ -233,6 +263,31 @@
                 </li>
             </ul>
         </nav>
+    </div>
+
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <div class="alert alert-success" role="alert">
+            @TempData["SuccessMessage"]
+        </div>
+    }
+
+    @if (TempData["ErrorMessage"] != null)
+    {
+        <div class="alert alert-danger" role="alert">
+            @TempData["ErrorMessage"]
+        </div>
+    }
+
+    <div class="row mb-3">
+        <div class="col-lg-12">
+            <form asp-action="SendServiceReminders" method="post">
+                <input type="hidden" name="__RequestVerificationToken" value="@Html.AntiForgeryToken()" />
+                <button type="submit" class="btn btn-reminder">
+                    <i class="fas fa-envelope"></i> Gửi Email Nhắc Nhở
+                </button>
+            </form>
+        </div>
     </div>
 
     <div class="row">
@@ -301,3 +356,13 @@
         </div>
     </div>
 </div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $('form[action="SendServiceReminders"]').on('submit', function (e) {
+                return confirm('Bạn có chắc chắn muốn gửi email nhắc nhở tới tất cả người dùng?');
+            });
+        });
+    </script>
+}

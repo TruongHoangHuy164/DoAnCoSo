@@ -1,0 +1,60 @@
+﻿@model List<DoAnLTW.Models.PetForumPost>
+@using DoAnLTW.Extensions
+@{
+    ViewData["Title"] = "Bài viết từ diễn đàn thú cưng";
+    var keyword = ViewBag.Keyword as string;
+    var rssUrl = ViewBag.RssUrl as string;
+}
+
+<h1>Bài viết từ diễn đàn thú cưng</h1>
+
+<!-- Form tìm kiếm và nhập RSS -->
+<form asp-action="Index" method="get" class="mb-4">
+    <div class="input-group mb-2">
+        <input type="text" name="keyword" class="form-control" placeholder="Tìm bài viết (ví dụ: chó, mèo, sức khỏe)" value="@keyword">
+        <button type="submit" class="btn btn-primary">Tìm kiếm</button>
+    </div>
+    <div class="input-group">
+        <input type="text" name="rssUrl" class="form-control" placeholder="Nhập địa chỉ RSS (vd: https://petid247.com/feed)" value="@rssUrl">
+        <button type="submit" class="btn btn-secondary">Tải RSS</button>
+    </div>
+</form>
+
+<!-- Danh sách bài viết -->
+@if (Model.Any())
+{
+    <div class="row">
+        @foreach (var post in Model)
+        {
+            <div class="col-md-6 mb-3">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">
+                            <a href="@post.FeedItem.Link" target="_blank">@post.FeedItem.Title</a>
+                        </h5>
+                        <p class="card-text">@post.FeedItem.Description?.Truncate(200)</p>
+                        <p class="text-muted">
+                            Ngày đăng: @post.FeedItem.PublishingDate?.ToString("dd MMM, yyyy") |
+                            Nguồn: @post.FeedTitle
+                        </p>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+}
+else
+{
+    <p>Không tìm thấy bài viết nào. Vui lòng kiểm tra lại địa chỉ RSS hoặc thử từ khóa khác.</p>
+}
+
+<!-- CSS tùy chỉnh -->
+<style>
+    .card-text {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+    }
+</style>

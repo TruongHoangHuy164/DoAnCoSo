@@ -148,7 +148,8 @@ namespace DoAnLTW.Controllers
             }
         }
 
-        public IActionResult Index()
+        [HttpGet]
+        public async Task<IActionResult> Index(string promotionCode = null)
         {
             SetCartCount();
             var cart = GetCartItems();
@@ -158,13 +159,38 @@ namespace DoAnLTW.Controllers
                 return RedirectToAction("Index", "Cart");
             }
 
+            decimal discount = 0;
+            if (!string.IsNullOrEmpty(promotionCode))
+            {
+                var promotion = await _context.PromotionCodes
+                    .FirstOrDefaultAsync(p => p.Code == promotionCode && p.IsActive &&
+                                              (p.StartDate == null || p.StartDate <= DateTime.Now) &&
+                                              (p.EndDate == null || p.EndDate >= DateTime.Now) &&
+                                              (p.MaxUsage == 0 || p.UsageCount < p.MaxUsage));
+                if (promotion != null)
+                {
+                    var subtotal = cart.Sum(item => item.Price * item.Quantity);
+                    if (promotion.DiscountPercentage > 0)
+                    {
+                        discount = subtotal * (promotion.DiscountPercentage / 100);
+                    }
+                    else if (promotion.DiscountAmount > 0)
+                    {
+                        discount = promotion.DiscountAmount;
+                    }
+                }
+            }
+
             var viewModel = new CheckoutViewModel
             {
                 CartItems = cart,
-                ShippingFee = SHIPPING_FEE
+                ShippingFee = SHIPPING_FEE,
+                PromotionCode = promotionCode
             };
+            ViewBag.Discount = discount;
             return View(viewModel);
         }
+
 
         [HttpPost]
         public async Task<IActionResult> ProcessCheckout(CheckoutViewModel viewModel)
@@ -176,7 +202,6 @@ namespace DoAnLTW.Controllers
                 return RedirectToAction("Index", "Cart");
             }
 
-            // Xác thực mã khuyến mãi
             PromotionCode promotion = null;
             decimal discount = 0;
             if (!string.IsNullOrEmpty(viewModel.PromotionCode))
@@ -192,10 +217,10 @@ namespace DoAnLTW.Controllers
                     TempData["Error"] = "Mã khuyến mãi không hợp lệ hoặc đã hết hạn.";
                     viewModel.CartItems = cart;
                     viewModel.ShippingFee = SHIPPING_FEE;
+                    ViewBag.Discount = 0;
                     return View("Index", viewModel);
                 }
 
-                // Tính giảm giá
                 var subtotal = cart.Sum(item => item.Price * item.Quantity);
                 if (promotion.DiscountPercentage > 0)
                 {
@@ -207,7 +232,6 @@ namespace DoAnLTW.Controllers
                 }
             }
 
-            // Tạo đơn hàng
             var order = new Order
             {
                 FirstName = viewModel.Order.FirstName ?? string.Empty,
@@ -221,7 +245,7 @@ namespace DoAnLTW.Controllers
                 OrderDate = DateTime.Now,
                 IsPaid = viewModel.PaymentMethod == "COD" ? false : true,
                 PromotionCodeId = promotion?.Id,
-                PointsEarned = (int)(cart.Sum(item => item.Price * item.Quantity) / 100000) // 1 điểm mỗi 100,000 VND
+                PointsEarned = (int)(cart.Sum(item => item.Price * item.Quantity) / 100000)
             };
 
             order.OrderDetails = cart.Select(item => new OrderDetail
@@ -235,10 +259,8 @@ namespace DoAnLTW.Controllers
 
             try
             {
-                // Lưu đơn hàng
                 await _orderRepository.AddAsync(order);
 
-                // Cập nhật số lần sử dụng mã khuyến mãi
                 if (promotion != null)
                 {
                     promotion.UsageCount++;
@@ -246,25 +268,6 @@ namespace DoAnLTW.Controllers
                     await _context.SaveChangesAsync();
                 }
 
-              /*  // Lưu điểm khách hàng
-                if (order.PointsEarned > 0)
-                {
-                    var user = await _userManager.GetUserAsync(User);
-                    if (user != null)
-                    {
-                        var customerPoint = new CustomerPoint
-                        {
-                            UserId = user.Id,
-                            Points = order.PointsEarned,
-                            OrderId = order.Id,
-                            EarnedDate = DateTime.Now
-                        };
-                        _context.CustomerPoints.Add(customerPoint);
-                        await _context.SaveChangesAsync();
-                    }
-                }*/
-
-                // Xử lý thanh toán MoMo
                 if (viewModel.PaymentMethod == "Momo")
                 {
                     try
@@ -279,6 +282,7 @@ namespace DoAnLTW.Controllers
                             await _orderRepository.DeleteAsync(order.Id);
                             viewModel.CartItems = cart;
                             viewModel.ShippingFee = SHIPPING_FEE;
+                            ViewBag.Discount = discount;
                             TempData["Error"] = "Không thể tạo thanh toán MoMo. Vui lòng thử lại.";
                             return View("Index", viewModel);
                         }
@@ -289,12 +293,12 @@ namespace DoAnLTW.Controllers
                         await _orderRepository.DeleteAsync(order.Id);
                         viewModel.CartItems = cart;
                         viewModel.ShippingFee = SHIPPING_FEE;
+                        ViewBag.Discount = discount;
                         TempData["Error"] = "Có lỗi xảy ra khi xử lý thanh toán MoMo. Vui lòng thử lại.";
                         return View("Index", viewModel);
                     }
                 }
 
-                // Xử lý thanh toán VNPay
                 if (viewModel.PaymentMethod == "VNPay")
                 {
                     try
@@ -320,15 +324,13 @@ namespace DoAnLTW.Controllers
                         await _orderRepository.DeleteAsync(order.Id);
                         viewModel.CartItems = cart;
                         viewModel.ShippingFee = SHIPPING_FEE;
+                        ViewBag.Discount = discount;
                         TempData["Error"] = "Có lỗi xảy ra khi xử lý thanh toán VNPay. Vui lòng thử lại.";
                         return View("Index", viewModel);
                     }
                 }
 
-                // Gửi email xác nhận cho COD
                 await SendOrderConfirmationEmail(order);
-
-                // Xóa giỏ hàng
                 HttpContext.Session.Remove(CART_KEY);
                 return RedirectToAction("OrderSuccess", new { orderId = order.Id });
             }
@@ -337,10 +339,12 @@ namespace DoAnLTW.Controllers
                 _logger.LogError(ex, "Lỗi khi lưu đơn hàng: {Message}", ex.Message);
                 viewModel.CartItems = cart;
                 viewModel.ShippingFee = SHIPPING_FEE;
+                ViewBag.Discount = discount;
                 TempData["Error"] = "Có lỗi xảy ra khi lưu đơn hàng. Vui lòng thử lại.";
                 return View("Index", viewModel);
             }
         }
+
         public ActionResult<string> Callback()
         {
             if (Request.QueryString.HasValue)
@@ -375,6 +379,28 @@ namespace DoAnLTW.Controllers
             }
 
             ViewBag.ShippingFee = SHIPPING_FEE;
+
+            // Tính toán giá trị giảm giá
+            decimal discount = 0;
+            if (order.PromotionCodeId != null)
+            {
+                var promotion = await _context.PromotionCodes
+                    .FirstOrDefaultAsync(p => p.Id == order.PromotionCodeId);
+                if (promotion != null)
+                {
+                    var subtotal = order.OrderDetails.Sum(item => item.Price * item.Quantity);
+                    if (promotion.DiscountPercentage > 0)
+                    {
+                        discount = subtotal * (promotion.DiscountPercentage / 100);
+                    }
+                    else if (promotion.DiscountAmount > 0)
+                    {
+                        discount = promotion.DiscountAmount;
+                    }
+                }
+            }
+            ViewBag.Discount = discount;
+
             return View(order);
         }
 

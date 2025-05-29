@@ -1,184 +1,132 @@
 ﻿using DoAnLTW.Models;
 using DoAnLTW.Models.Repositories;
-using Microsoft.AspNetCore.Authorization; // Thêm namespace này để sử dụng [Authorize]
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.Extensions.Logging;
 
 namespace DoAnLTW.Controllers
 {
     [Authorize(Roles = "Customer")]
     public class CartController : BaseController
     {
-        private const string CART_KEY = "Cart"; // Tên session giỏ hàng
+        private const string CART_KEY = "Cart";
         private readonly IProductRepository _productRepository;
+        private readonly ApplicationDbContext _context;
+        private readonly ILogger<CartController> _logger;
 
-        public CartController(IProductRepository productRepository)
+        public CartController(IProductRepository productRepository, ApplicationDbContext context, ILogger<CartController> logger)
         {
             _productRepository = productRepository;
+            _context = context;
+            _logger = logger;
         }
 
         // Lấy danh sách sản phẩm trong giỏ hàng từ Session
         private List<CartItem> GetCartItems()
         {
-            var session = HttpContext.Session;
-            string jsonCart = session.GetString(CART_KEY);
-
-            if (!string.IsNullOrEmpty(jsonCart))
-            {
-                Console.WriteLine("🛒 Dữ liệu trong Session: " + jsonCart);
-                return JsonConvert.DeserializeObject<List<CartItem>>(jsonCart);
-            }
-
-            Console.WriteLine("🚨 Giỏ hàng rỗng!");
-            return new List<CartItem>();
+            var cart = HttpContext.Session.GetObjectFromJson<List<CartItem>>(CART_KEY) ?? new List<CartItem>();
+            _logger.LogInformation("🛒 Dữ liệu trong Session: {JsonCart}", JsonConvert.SerializeObject(cart));
+            return cart;
         }
 
         // Lưu giỏ hàng vào Session
         private void SaveCartSession(List<CartItem> cart)
         {
-            var session = HttpContext.Session;
-            string jsonCart = JsonConvert.SerializeObject(cart);
-            session.SetString(CART_KEY, jsonCart);
+            HttpContext.Session.SetObjectAsJson(CART_KEY, cart);
+            _logger.LogInformation("Đã lưu giỏ hàng vào session: {JsonCart}", JsonConvert.SerializeObject(cart));
         }
 
-        // Thêm sản phẩm vào giỏ hàng
-        [Authorize] // Yêu cầu đăng nhập
-        public async Task<IActionResult> AddToCart(int productId, string size, int quantity)
+        // Cập nhật số lượng giỏ hàng
+        private void SetCartCount()
         {
-            // Chuyển đổi size từ string sang int (SizeId)
-            if (!int.TryParse(size, out int sizeId))
-            {
-                return Json(new { success = false, message = "Size không hợp lệ. Vui lòng chọn một size hợp lệ." });
-            }
-
-            // Kiểm tra quantity hợp lệ
-            if (quantity < 1)
-            {
-                return Json(new { success = false, message = "Số lượng phải lớn hơn hoặc bằng 1." });
-            }
-
             var cart = GetCartItems();
-            var productInCart = cart.FirstOrDefault(p => p.ProductId == productId && p.Size == size);
-
-            if (productInCart != null)
-            {
-                // Kiểm tra số lượng tồn kho trước khi tăng
-                var product = await _productRepository.GetByIdAsync(productId);
-                if (product == null)
-                {
-                    return Json(new { success = false, message = "Sản phẩm không tồn tại." });
-                }
-
-                var productSize = product.ProductSizes.FirstOrDefault(ps => ps.SizeId == sizeId);
-                if (productSize == null)
-                {
-                    return Json(new { success = false, message = "Size không hợp lệ." });
-                }
-
-                if (productInCart.Quantity + quantity > productSize.Stock)
-                {
-                    return Json(new { success = false, message = "Số lượng trong giỏ hàng vượt quá số lượng tồn kho." });
-                }
-
-                productInCart.Quantity += quantity; // Tăng số lượng theo quantity
-            }
-            else
-            {
-                // Lấy thông tin sản phẩm từ cơ sở dữ liệu
-                var product = await _productRepository.GetByIdAsync(productId);
-                if (product == null)
-                {
-                    return Json(new { success = false, message = "Sản phẩm không tồn tại." });
-                }
-
-                // Kiểm tra size và số lượng tồn kho
-                var productSize = product.ProductSizes.FirstOrDefault(ps => ps.SizeId == sizeId);
-                if (productSize == null)
-                {
-                    return Json(new { success = false, message = "Size không hợp lệ." });
-                }
-
-                if (productSize.Stock <= 0)
-                {
-                    return Json(new { success = false, message = "Sản phẩm đã hết hàng." });
-                }
-
-                if (quantity > productSize.Stock)
-                {
-                    return Json(new { success = false, message = "Số lượng vượt quá số lượng tồn kho." });
-                }
-
-                // Tạo CartItem mới
-                var cartItem = new CartItem
-                {
-                    ProductId = product.ProductId,
-                    ProductName = product.Name,
-                    Price = productSize.Price, // Lấy giá từ ProductSize
-                    Size = size, // Lưu size dưới dạng string (SizeId) để hiển thị
-                    Quantity = quantity // Sử dụng quantity từ người dùng
-                };
-
-                cart.Add(cartItem); // Thêm vào giỏ hàng
-            }
-
-            SaveCartSession(cart); // Lưu lại session
-            SetCartCount(); // Cập nhật số lượng giỏ hàng
-
-            return Json(new { success = true, count = cart.Sum(item => item.Quantity) });
+            int count = cart.Sum(item => item.Quantity);
+            HttpContext.Session.SetInt32("CartCount", count);
+            _logger.LogInformation("Cập nhật số lượng giỏ hàng: {Count}", count);
         }
 
         // Hiển thị giỏ hàng
-        [Authorize] // Yêu cầu đăng nhập
+        [Authorize]
         public IActionResult Index()
         {
             var cart = GetCartItems();
             SetCartCount();
+            _logger.LogInformation("Hiển thị giỏ hàng: Số lượng sản phẩm={Count}", cart.Count);
             return View(cart);
         }
 
-        [Authorize] // Yêu cầu đăng nhập
+        // Tăng số lượng
+        [Authorize]
         public async Task<IActionResult> IncreaseQuantity(int productId, string size)
         {
-            // Chuyển đổi size từ string sang int (SizeId)
-            if (!int.TryParse(size, out int sizeId))
-            {
-                return BadRequest("Size không hợp lệ. Vui lòng chọn một size hợp lệ.");
-            }
+            _logger.LogInformation("Nhận yêu cầu IncreaseQuantity: ProductId={ProductId}, Size={Size}", productId, size);
 
+            // Tìm SizeId từ chuỗi size
+            var sizeEntity = await _context.Sizes.FirstOrDefaultAsync(s => s.size == size);
+            if (sizeEntity == null)
+            {
+                _logger.LogWarning("Size không hợp lệ: Size={Size}", size);
+                return Json(new { success = false, message = $"Size {size} không hợp lệ." });
+            }
+            int sizeId = sizeEntity.SizeId; // Giả định SizeId là khóa chính của Size
+
+            // Lấy giỏ hàng từ Session
             var cart = GetCartItems();
-            var productInCart = cart.FirstOrDefault(p => p.ProductId == productId && p.Size == size);
+            var productInCart = cart.FirstOrDefault(c => c.ProductId == productId && c.Size == size);
 
-            if (productInCart != null)
+            if (productInCart == null)
             {
-                // Kiểm tra số lượng tồn kho
-                var product = await _productRepository.GetByIdAsync(productId);
-                if (product == null)
-                {
-                    return NotFound("Sản phẩm không tồn tại.");
-                }
-
-                var productSize = product.ProductSizes.FirstOrDefault(ps => ps.SizeId == sizeId);
-                if (productSize == null)
-                {
-                    return BadRequest("Size không hợp lệ.");
-                }
-
-                if (productInCart.Quantity + 1 > productSize.Stock)
-                {
-                    return BadRequest("Số lượng trong giỏ hàng vượt quá số lượng tồn kho.");
-                }
-
-                productInCart.Quantity++;
-                SaveCartSession(cart);
-                SetCartCount();
+                _logger.LogWarning("Không tìm thấy sản phẩm trong giỏ hàng: ProductId={ProductId}, Size={Size}, UserId={UserId}",
+                    productId, size, User.Identity.Name);
+                return Json(new { success = false, message = "Sản phẩm không có trong giỏ hàng." });
             }
 
-            return RedirectToAction("Index");
+            // Kiểm tra sản phẩm và kích thước
+            var productSize = await _context.ProductSizes
+                .Include(ps => ps.Product)
+                .Include(ps => ps.Size)
+                .FirstOrDefaultAsync(ps => ps.ProductId == productId && ps.SizeId == sizeId);
+
+            if (productSize == null)
+            {
+                _logger.LogWarning("Không tìm thấy kích thước: ProductId={ProductId}, SizeId={SizeId}", productId, sizeId);
+                return Json(new { success = false, message = $"Size {size} không hợp lệ." });
+            }
+
+            if (productInCart.Quantity + 1 > productSize.Stock)
+            {
+                _logger.LogWarning("Không đủ tồn kho: ProductId={ProductId}, Size={Size}, Stock={Stock}, Requested={Requested}",
+                    productId, size, productSize.Stock, productInCart.Quantity + 1);
+                return Json(new { success = false, message = $"Không đủ tồn kho cho sản phẩm (kích thước: {size})." });
+            }
+
+            // Tăng số lượng
+            productInCart.Quantity++;
+            SaveCartSession(cart);
+            SetCartCount();
+
+            _logger.LogInformation("Tăng số lượng thành công: ProductId={ProductId}, Size={Size}, NewQuantity={Quantity}",
+                productId, size, productInCart.Quantity);
+
+            return Json(new
+            {
+                success = true,
+                newQuantity = productInCart.Quantity,
+                newTotal = (productInCart.Price * productInCart.Quantity).ToString("#,##0 VNĐ"),
+                cartTotal = (cart.Sum(item => item.Price * item.Quantity) + 10000).ToString("#,##0 VNĐ")
+            });
         }
 
-        [Authorize] // Yêu cầu đăng nhập
+        // Giảm số lượng
+        [Authorize]
         public IActionResult DecreaseQuantity(int productId, string size)
         {
+            _logger.LogInformation("Nhận yêu cầu DecreaseQuantity: ProductId={ProductId}, Size={Size}", productId, size);
+
             var cart = GetCartItems();
             var productInCart = cart.FirstOrDefault(p => p.ProductId == productId && p.Size == size);
 
@@ -187,18 +135,31 @@ namespace DoAnLTW.Controllers
                 productInCart.Quantity--;
                 if (productInCart.Quantity <= 0)
                 {
-                    cart.Remove(productInCart); // Xóa sản phẩm nếu số lượng <= 0
+                    cart.Remove(productInCart);
+                    _logger.LogInformation("Xóa sản phẩm khỏi giỏ hàng: ProductId={ProductId}, Size={Size}", productId, size);
                 }
                 SaveCartSession(cart);
                 SetCartCount();
             }
 
-            return RedirectToAction("Index");
+            _logger.LogInformation("Giảm số lượng thành công: ProductId={ProductId}, Size={Size}, NewQuantity={Quantity}",
+                productId, size, productInCart?.Quantity ?? 0);
+
+            return Json(new
+            {
+                success = true,
+                newQuantity = productInCart?.Quantity ?? 0,
+                newTotal = productInCart != null ? (productInCart.Price * productInCart.Quantity).ToString("#,##0 VNĐ") : "0 VNĐ",
+                cartTotal = (cart.Sum(item => item.Price * item.Quantity) + 10000).ToString("#,##0 VNĐ")
+            });
         }
 
-        [Authorize] // Yêu cầu đăng nhập
+        // Xóa sản phẩm khỏi giỏ hàng
+        [Authorize]
         public IActionResult RemoveFromCart(int productId, string size)
         {
+            _logger.LogInformation("Nhận yêu cầu RemoveFromCart: ProductId={ProductId}, Size={Size}", productId, size);
+
             var cart = GetCartItems();
             var productInCart = cart.FirstOrDefault(p => p.ProductId == productId && p.Size == size);
 
@@ -207,9 +168,29 @@ namespace DoAnLTW.Controllers
                 cart.Remove(productInCart);
                 SaveCartSession(cart);
                 SetCartCount();
+                _logger.LogInformation("Xóa sản phẩm khỏi giỏ hàng: ProductId={ProductId}, Size={Size}", productId, size);
             }
 
-            return RedirectToAction("Index");
+            return Json(new
+            {
+                success = true,
+                cartTotal = (cart.Sum(item => item.Price * item.Quantity) + 10000).ToString("#,##0 VNĐ")
+            });
+        }
+    }
+
+    // Extension methods for session
+    public static class SessionExtensions
+    {
+        public static T GetObjectFromJson<T>(this ISession session, string key)
+        {
+            var value = session.GetString(key);
+            return value == null ? default : JsonConvert.DeserializeObject<T>(value);
+        }
+
+        public static void SetObjectAsJson(this ISession session, string key, object value)
+        {
+            session.SetString(key, JsonConvert.SerializeObject(value));
         }
     }
 }

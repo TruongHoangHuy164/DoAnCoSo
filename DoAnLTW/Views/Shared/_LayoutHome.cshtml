@@ -10,450 +10,816 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta name="viewport" content="width=device-width" />
-    <title>@ViewBag.Title</title>
-    <meta charset="utf-8">
+	<meta name="viewport" content="width=device-width" />
+	<title>@ViewBag.Title</title>
+	<meta charset="utf-8">
 
-    @{
-        var isAuthenticated = HttpContextAccessor.HttpContext.User.Identity.IsAuthenticated;
-    }
-    <meta content="Free HTML Templates" name="keywords">
-    <meta content="Free HTML Templates" name="description">
+	@{
+		var isAuthenticated = HttpContextAccessor.HttpContext.User.Identity.IsAuthenticated;
+	}
+	<meta content="Free HTML Templates" name="keywords">
+	<meta content="Free HTML Templates" name="description">
 
-    <!-- Favicon -->
-    <link href="img/favicon.ico" rel="icon">
+	<!-- Favicon -->
+	<link href="img/favicon.ico" rel="icon">
 
-    <!-- Google Web Fonts -->
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+	<!-- Google Web Fonts -->
+	<link rel="preconnect" href="https://fonts.gstatic.com">
+	<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
 
-    <!-- Font Awesome -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+	<!-- Font Awesome -->
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+	<!-- Libraries Stylesheet -->
+	<link href="~/lib/animate/animate.min.css" rel="stylesheet">
+	<link href="~/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
 
-    <!-- Libraries Stylesheet -->
-    <link href="~/lib/animate/animate.min.css" rel="stylesheet">
-    <link href="~/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+	<!-- Customized Bootstrap Stylesheet -->
+	<link href="~/css/style.css" rel="stylesheet">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
-    <!-- Customized Bootstrap Stylesheet -->
-    <link href="~/css/style.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+	<!-- CSS cho thanh tìm kiếm và gợi ý -->
+	<style>
+		.search-container {
+			position: relative;
+			width: 300px; /* Điều chỉnh kích thước theo thiết kế */
+			display: flex;
+			align-items: center;
+			gap: 10px;
+		}
 
-    <!-- CSS cho thanh tìm kiếm và gợi ý -->
-    <style>
-        .search-container {
-            position: relative;
-            width: 300px; /* Điều chỉnh kích thước theo thiết kế */
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
+		.search-suggestions {
+			position: absolute;
+			top: 100%;
+			left: 0;
+			right: 0;
+			background: white;
+			border: 1px solid #ddd;
+			box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+			z-index: 1000;
+			max-height: 300px;
+			overflow-y: auto;
+		}
 
-        .search-suggestions {
-            position: absolute;
-            top: 100%;
-            left: 0;
-            right: 0;
-            background: white;
-            border: 1px solid #ddd;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            z-index: 1000;
-            max-height: 300px;
-            overflow-y: auto;
-        }
+		.search-suggestion-item {
+			display: flex;
+			align-items: center;
+			padding: 10px;
+			border-bottom: 1px solid #eee;
+		}
 
-        .search-suggestion-item {
-            display: flex;
-            align-items: center;
-            padding: 10px;
-            border-bottom: 1px solid #eee;
-        }
+			.search-suggestion-item img {
+				width: 50px;
+				height: 50px;
+				object-fit: cover;
+				margin-right: 10px;
+			}
 
-            .search-suggestion-item img {
-                width: 50px;
-                height: 50px;
-                object-fit: cover;
-                margin-right: 10px;
-            }
+			.search-suggestion-item:hover {
+				background-color: #f8f8f8;
+				cursor: pointer;
+			}
 
-            .search-suggestion-item:hover {
-                background-color: #f8f8f8;
-                cursor: pointer;
-            }
+		.search-container .btn-mic {
+			background-color: #000000;
+			border: none;
+			color: #FFFFFF;
+			padding: 8px 12px;
+			border-radius: 5px;
+			cursor: pointer;
+			transition: background-color 0.3s ease;
+		}
 
-        .search-container .btn-mic {
-            background-color: #000000;
-            border: none;
-            color: #FFFFFF;
-            padding: 8px 12px;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
+			.search-container .btn-mic:hover {
+				background-color: #333333;
+			}
 
-            .search-container .btn-mic:hover {
-                background-color: #333333;
-            }
+			.search-container .btn-mic.recording {
+				background-color: #FF0000;
+			}
 
-            .search-container .btn-mic.recording {
-                background-color: #FF0000;
-            }
+				.search-container .btn-mic.recording:hover {
+					background-color: #CC0000;
+				}
 
-                .search-container .btn-mic.recording:hover {
-                    background-color: #CC0000;
-                }
+			.search-container .btn-mic:disabled {
+				opacity: 0.5;
+				cursor: not-allowed;
+			}
 
-            .search-container .btn-mic:disabled {
-                opacity: 0.5;
-                cursor: not-allowed;
-            }
-    </style>
+		.chat-dialog {
+			position: fixed;
+			bottom: 80px;
+			right: 20px;
+			width: 300px;
+			background: #fff;
+			border: 1px solid #ccc;
+			border-radius: 8px;
+			box-shadow: 0 0 10px rgba(0,0,0,0.2);
+			z-index: 9999;
+			display: none;
+			flex-direction: column;
+		}
+
+		.chat-header {
+			background: #FFD700;
+			color: #fff;
+			padding: 10px;
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			border-top-left-radius: 8px;
+			border-top-right-radius: 8px;
+		}
+
+		.chat-messages {
+			padding: 10px;
+			height: 200px;
+			overflow-y: auto;
+			background: #f9f9f9;
+		}
+
+		.chat-input {
+			display: flex;
+			padding: 10px;
+			border-top: 1px solid #ccc;
+		}
+
+			.chat-input input {
+				flex: 1;
+				padding: 5px;
+				border: 1px solid #ccc;
+				border-radius: 4px;
+			}
+
+			.chat-input button {
+				margin-left: 5px;
+				padding: 5px 10px;
+			}
+
+		.chat-error {
+			color: red;
+			padding: 5px;
+			text-align: center;
+		}
+
+		.chat-close-btn {
+			background: none;
+			border: none;
+			color: #fff;
+			font-size: 18px;
+			cursor: pointer;
+		}
+
+	</style>
 </head>
 <body>
-    <!-- Topbar Start -->
-    <div class="container-fluid">
-        <div class="row bg-secondary py-1 px-xl-5">
-            <div class="col-lg-6 d-none d-lg-block">
-                <div class="d-inline-flex align-items-center h-100">
-                    <a class="text-body mr-3" href="">About</a>
-                    <a class="text-body mr-3" href="">Contact</a>
-                    <a class="text-body mr-3" href="">Help</a>
-                    <a class="text-body mr-3" href="">FAQs</a>
-                </div>
-            </div>
-            <div class="col-lg-6 text-center text-lg-right">
-                <div class="d-inline-flex align-items-center">
-                    <div class="btn-group">
-                        @if (SignInManager.IsSignedIn(User))
-                        {
-                            <button type="button" class="btn btn-sm btn-light dropdown-toggle" data-toggle="dropdown">
-                                <i class="fas fa-user"></i> @User.Identity.Name
-                            </button>
-                        }
-                        else
-                        {
-                            <button type="button" class="btn btn-sm btn-light dropdown-toggle" data-toggle="dropdown">Tài khoản</button>
-                        }
-                        <div class="dropdown-menu dropdown-menu-right">
-                            @if (SignInManager.IsSignedIn(User))
-                            {
-                                <h6 class="dropdown-header">Xin chào, @User.Identity.Name!</h6>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" form asp-area="Identity" asp-page="/Account/Manage">
-                                    <i class="fas fa-user-circle mr-2"></i>Thông tin tài khoản
-                                </a>
-                                <a class="dropdown-item" asp-controller="HistoryOrder" asp-action="OrderHistory">
-                                    <i class="fas fa-shopping-bag mr-2"></i>Đơn hàng của tôi
-                                </a>
-                                <div class="dropdown-divider"></div>
-                                <form asp-controller="Account" asp-action="Logout" method="post">
-                                    <button type="submit" class="dropdown-item text-danger">
-                                        <i class="fas fa-sign-out-alt mr-2"></i>Đăng xuất
-                                    </button>
-                                </form>
-                            }
-                            else
-                            {
-                                <a class="dropdown-item" asp-area="Identity" asp-page="/Account/Login">
-                                    <i class="fas fa-sign-in-alt mr-2"></i>Đăng nhập
-                                </a>
-                                <a class="dropdown-item" asp-area="Identity" asp-page="/Account/Register">
-                                    <i class="fas fa-user-plus mr-2"></i>Đăng ký
-                                </a>
-                                <div class="dropdown-divider"></div>
-                                <a asp-area="" asp-controller="Account" asp-action="LoginByGoogle" asp-route-returnUrl="@Url.Content("~/")" class="dropdown-item">
-                                    <i class="fab fa-google mr-2"></i> Đăng nhập bằng Google
-                                </a>
-                            }
-                        </div>
-                    </div>
-                    <div class="btn-group mx-2">
-                        <button type="button" class="btn btn-sm btn-light dropdown-toggle" data-toggle="dropdown">VNĐ</button>
-                        <div class="dropdown-menu dropdown-menu-right">
-                            <button class="dropdown-item" type="button">USA</button>
-                        </div>
-                    </div>
-                    <div class="btn-group">
-                        <button type="button" class="btn btn-sm btn-light dropdown-toggle" data-toggle="dropdown">VN</button>
-                        <div class="dropdown-menu dropdown-menu-right">
-                            <button class="dropdown-item" type="button">ENG</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="d-inline-flex align-items-center d-block d-lg-none">
-                    <a href="" class="btn px-0 ml-2">
-                        <i class="fas fa-heart text-dark"></i>
-                        <span class="badge text-dark border border-dark rounded-circle" style="padding-bottom: 2px;">0</span>
-                    </a>
-                    <a href="" class="btn px-0 ml-2">
-                        <i class="fas fa-shopping-cart text-dark"></i>
-                        <span class="badge text-dark border border-dark rounded-circle" style="padding-bottom: 2px;">0</span>
-                    </a>
-                </div>
-            </div>
-        </div>
-        <div class="row align-items-center bg-light py-3 px-xl-5 d-none d-lg-flex">
-            <div class="col-lg-4">
-                <a href="" class="text-decoration-none">
-                    <span class="h1 text-uppercase text-primary bg-dark px-2">PET</span>
-                    <span class="h1 text-uppercase text-dark bg-primary px-2 ml-n1">LOVER</span>
-                </a>
-            </div>
-            <div class="col-lg-4 col-6 text-left">
-                <form asp-controller="Shop" asp-action="Index" method="get" class="search-container">
-                    <div class="input-group">
-                        <input type="text" class="form-control" name="searchTerm" id="searchInput" placeholder="Tìm kiếm sản phẩm..." value="@Context.Request.Query["searchTerm"]" autocomplete="off">
-                        <div id="searchSuggestions" class="search-suggestions" style="display: none;"></div>
-                        <div class="input-group-append">
-                            <button class="btn btn-primary" type="submit">
-                                <i class="fa fa-search"></i>
-                            </button>
-                            <button type="button" class="btn btn-mic" id="micButton" title="Tìm kiếm bằng giọng nói">
-                                <i class="fas fa-microphone"></i>
-                            </button>
-                        </div>
-                    </div>
-                </form>
-            </div>
-            <div class="col-lg-4 col-6 text-right">
-                <p class="m-0">Chăm sóc khách hàng</p>
-                <h5 class="m-0">(+84)339542115</h5>
-            </div>
-        </div>
-    </div>
-    <!-- Topbar End -->
-    <!-- Navbar Start -->
-    <div class="container-fluid bg-dark mb-30">
-        <div class="row px-xl-5">
-            <div class="col-lg-3 d-none d-lg-block">
-                <a class="btn d-flex align-items-center justify-content-between bg-primary w-100" data-toggle="collapse" href="#navbar-vertical" style="height: 65px; padding: 0 30px;">
-                    <h6 class="text-dark m-0"><i class="fa fa-bars mr-2"></i>Phân Loại</h6>
-                    <i class="fa fa-angle-down text-dark"></i>
-                </a>
-                <nav class="collapse position-absolute navbar navbar-vertical navbar-light align-items-start p-0 bg-light" id="navbar-vertical" style="width: calc(100% - 30px); z-index: 999;">
-                    <div class="navbar-nav w-100">
-                        @{
-                            var brands = _context.Brands.ToList();
-                            var categories = _context.Categories.ToList();
-                        }
-                        <a asp-controller="Shop" asp-action="Index" class="nav-item nav-link">Tất cả sản phẩm</a>
-                        <div class="nav-item dropdown dropright">
-                            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Danh Mục <i class="fa fa-angle-right float-right mt-1"></i></a>
-                            <div class="dropdown-menu position-absolute rounded-0 border-0 m-0">
-                                @foreach (var category in categories)
-                                {
-                                    <a asp-controller="Shop" asp-action="Index" asp-route-categoryId="@category.CategoryId" class="dropdown-item">@category.Name</a>
-                                }
-                            </div>
-                        </div>
-                        <div class="nav-item dropdown dropright">
-                            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Thương Hiệu <i class="fa fa-angle-right float-right mt-1"></i></a>
-                            <div class="dropdown-menu position-absolute rounded-0 border-0 m-0">
-                                @foreach (var brand in brands)
-                                {
-                                    <a asp-controller="Shop" asp-action="Index" asp-route-brandId="@brand.BrandId" class="dropdown-item">@brand.Name</a>
-                                }
-                            </div>
-                        </div>
-                    </div>
-                </nav>
-            </div>
-            <div class="col-lg-9">
-                <nav class="navbar navbar-expand-lg bg-dark navbar-dark py-3 py-lg-0 px-0">
-                    <a href="" class="text-decoration-none d-block d-lg-none">
-                        <span class="h1 text-uppercase text-dark bg-light px-2">Multi</span>
-                        <span class="h1 text-uppercase text-light bg-primary px-2 ml-n1">Shop</span>
-                    </a>
-                    <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-                    <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
-                        <div class="navbar-nav mr-auto py-0">
-                            <a href="https://localhost:5134/" class="nav-item nav-link">Trang chủ</a>
-                            <a asp-controller="Shop" asp-action="Index" class="nav-item nav-link">Sản phẩm</a>
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="#" id="petServicesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <i class="fas fa-paw"></i> Dịch vụ thú cưng
-                                </a>
-                                <div class="dropdown-menu" aria-labelledby="petServicesDropdown">
-                                    <a class="dropdown-item" asp-controller="UserPets" asp-action="Index">
-                                        <i class="fas fa-dog"></i> Thú cưng của tôi
-                                    </a>
-                                    <a class="dropdown-item" asp-controller="PetServices" asp-action="Index">
-                                        <i class="fas fa-concierge-bell"></i> Đặt dịch vụ
-                                    </a>
-                                    <a class="dropdown-item" asp-controller="PetServices" asp-action="MyBookings">
-                                        <i class="fas fa-calendar-check"></i> Lịch đặt của tôi
-                                    </a>
-                                    <a class="dropdown-item" asp-controller="CustomerPetHotelBooking" asp-action="Index">
-                                        <i class="fas fa-calendar-check"></i> Lịch đặt phòng
-                                    </a>
-                                </div>
-                            </li>
-                            <a asp-controller="CustomerChat" asp-action="Index" class="nav-item nav-link">Hỗ trợ Khách Hàng</a>
-                        </div>
-                        <div class="navbar-nav ml-auto py-0 d-none d-lg-block">
-                            <a asp-controller="Shop" asp-action="FavouriteProducts" class="btn px-0">
-                                <i class="fas fa-heart text-primary"></i>
-                                <span class="badge text-secondary border border-secondary rounded-circle" style="padding-bottom: 2px;">@ViewBag.FavouriteCount</span>
-                            </a>
-                            <a asp-controller="Cart" asp-action="Index" class="btn px-0 ml-3">
-                                <i class="fas fa-shopping-cart text-primary"></i>
-                                <span class="badge text-secondary border border-secondary rounded-circle" style="padding-bottom: 2px;">@ViewBag.CartCount</span>
-                            </a>
-                        </div>
-                    </div>
-                </nav>
-            </div>
-        </div>
-    </div>
-    <!-- Navbar End -->
-    @RenderBody()
-    @await Html.PartialAsync("_Footer")
-    <!-- Back to Top -->
-    <a href="#" class="btn btn-primary back-to-top"><i class="fa fa-angle-double-up"></i></a>
-    <!-- Zalo Button -->
-    <a href="https://zalo.me/0932961658" class="btn btn-primary contact-zalo" target="_blank">
-        <img src="/img/zalo_icon.png" alt="Zalo" style="width: 20px;">
-    </a>
-    <!-- JavaScript Libraries -->
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
-    <script src="~/lib/easing/easing.min.js"></script>
-    <script src="~/lib/owlcarousel/owl.carousel.min.js"></script>
-    <!-- Contact Javascript File -->
-    <script src="mail/jqBootstrapValidation.min.js"></script>
-    <script src="mail/contact.js"></script>
-    <script src="https://app.preny.ai/embed-global.js"
-            data-button-style="width:200px;height:200px"
-            async
-            defer
-            data-preny-bot-id="6812515e3d3e225ee029d289" />
-    <!-- Template Javascript -->
-    <script src="~/js/main.js"></script>
-    <!-- Search and Voice Search Script -->
-    <script>
-               $(document).ready(function () {
-            // Gợi ý tìm kiếm (unchanged)
-            let debounceTimer;
-            $('#searchInput').on('input', function () {
-                clearTimeout(debounceTimer);
-                debounceTimer = setTimeout(() => {
-                    var searchString = $(this).val().trim();
-                    if (searchString.length < 2) {
-                        $('#searchSuggestions').hide();
-                        return;
-                    }
-                    $.ajax({
-                        url: '/Shop/SearchSuggestions',
-                        type: 'GET',
-                        data: { searchString: searchString },
-                        success: function (data) {
-                            if (data.length > 0) {
-                                var suggestionsHtml = '';
-                                data.forEach(function (product) {
-                                    suggestionsHtml += `
-                                        <div class="search-suggestion-item" onclick="window.location.href='/Shop/Details/${product.productId}'">
-                                            <img src="${product.imageUrl || '/img/default-product.jpg'}" alt="${product.name}" />
-                                            <div>
-                                                <div>${product.name}</div>
-                                                <div>${product.minPrice.toLocaleString('vi-VN')} VNĐ</div>
-                                            </div>
-                                        </div>`;
-                                });
-                                $('#searchSuggestions').html(suggestionsHtml).show();
-                            } else {
-                                $('#searchSuggestions').html('<div class="search-suggestion-item">Không tìm thấy sản phẩm</div>').show();
-                            }
-                        },
-                        error: function () {
-                            $('#searchSuggestions').html('<div class="search-suggestion-item">Đã có lỗi xảy ra</div>').show();
-                        }
-                    });
-                }, 300);
-            });
+	<!-- Topbar Start -->
+	<div class="container-fluid">
+		<div class="row bg-secondary py-1 px-xl-5">
+			<div class="col-lg-6 d-none d-lg-block">
+				<div class="d-inline-flex align-items-center h-100">
+					<a class="text-body mr-3" href="">About</a>
+					<a class="text-body mr-3" href="">Contact</a>
+					<a class="text-body mr-3" href="">Help</a>
+					<a class="text-body mr-3" href="">FAQs</a>
+				</div>
+			</div>
+			<div class="col-lg-6 text-center text-lg-right">
+				<div class="d-inline-flex align-items-center">
+					<div class="btn-group">
+						@if (SignInManager.IsSignedIn(User))
+						{
+							<button type="button" class="btn btn-sm btn-light dropdown-toggle" data-toggle="dropdown">
+								<i class="fas fa-user"></i> @User.Identity.Name
+							</button>
+						}
+						else
+						{
+							<button type="button" class="btn btn-sm btn-light dropdown-toggle" data-toggle="dropdown">Tài khoản</button>
+						}
+						<div class="dropdown-menu dropdown-menu-right">
+							@if (SignInManager.IsSignedIn(User))
+							{
+								<h6 class="dropdown-header">Xin chào, @User.Identity.Name!</h6>
+								<div class="dropdown-divider"></div>
+								<a class="dropdown-item" form asp-area="Identity" asp-page="/Account/Manage">
+									<i class="fas fa-user-circle mr-2"></i>Thông tin tài khoản
+								</a>
+								<a class="dropdown-item" asp-controller="HistoryOrder" asp-action="OrderHistory">
+									<i class="fas fa-shopping-bag mr-2"></i>Đơn hàng của tôi
+								</a>
+								<div class="dropdown-divider"></div>
+								<form asp-controller="Account" asp-action="Logout" method="post">
+									<button type="submit" class="dropdown-item text-danger">
+										<i class="fas fa-sign-out-alt mr-2"></i>Đăng xuất
+									</button>
+								</form>
+							}
+							else
+							{
+								<a class="dropdown-item" asp-area="Identity" asp-page="/Account/Login">
+									<i class="fas fa-sign-in-alt mr-2"></i>Đăng nhập
+								</a>
+								<a class="dropdown-item" asp-area="Identity" asp-page="/Account/Register">
+									<i class="fas fa-user-plus mr-2"></i>Đăng ký
+								</a>
+								<div class="dropdown-divider"></div>
+								<a asp-area="Identity" asp-controller="Account" asp-action="LoginByGoogle" class="dropdown-item">
+									<i class="fab fa-google mr-2"></i>Đăng nhập bằng Google
+								</a>
+							}
+						</div>
+					</div>
+					<div class="btn-group mx-2">
+						<button type="button" class="btn btn-sm btn-light dropdown-toggle" data-toggle="dropdown">VNĐ</button>
+						<div class="dropdown-menu dropdown-menu-right">
+							<button class="dropdown-item" type="button">USA</button>
+						</div>
+					</div>
+					<div class="btn-group">
+						<button type="button" class="btn btn-sm btn-light dropdown-toggle" data-toggle="dropdown">VN</button>
+						<div class="dropdown-menu dropdown-menu-right">
+							<button class="dropdown-item" type="button">ENG</button>
+						</div>
+					</div>
+				</div>
+				<div class="d-inline-flex align-items-center d-block d-lg-none">
+					<a href="" class="btn px-0 ml-2">
+						<i class="fas fa-heart text-dark"></i>
+						<span class="badge text-dark border border-dark rounded-circle" style="padding-bottom: 2px;">0</span>
+					</a>
+					<a href="" class="btn px-0 ml-2">
+						<i class="fas fa-shopping-cart text-dark"></i>
+						<span class="badge text-dark border border-dark rounded-circle" style="padding-bottom: 2px;">0</span>
+					</a>
+				</div>
+			</div>
+		</div>
+		<div class="row align-items-center bg-light py-3 px-xl-5 d-none d-lg-flex">
+			<div class="col-lg-4">
+				<a href="" class="text-decoration-none">
+					<span class="h1 text-uppercase text-primary bg-dark px-2">PET</span>
+					<span class="h1 text-uppercase text-dark bg-primary px-2 ml-n1">LOVER</span>
+				</a>
+			</div>
+			<div class="col-lg-4 col-6 text-left">
+				<form asp-controller="Shop" asp-action="Index" method="get" class="search-container">
+					<div class="input-group">
+						<input type="text" class="form-control" name="searchTerm" id="searchInput" placeholder="Tìm kiếm sản phẩm..." value="@Context.Request.Query["searchTerm"]" autocomplete="off">
+						<div id="searchSuggestions" class="search-suggestions" style="display: none;"></div>
+						<div class="input-group-append">
+							<button class="btn btn-primary" type="submit">
+								<i class="fa fa-search"></i>
+							</button>
+							<button type="button" class="btn btn-mic" id="micButton" title="Tìm kiếm bằng giọng nói">
+								<i class="fas fa-microphone"></i>
+							</button>
+						</div>
+					</div>
+				</form>
+			</div>
+			<div class="col-lg-4 col-6 text-right">
+				<p class="m-0">Chăm sóc khách hàng</p>
+				<h5 class="m-0">(+84)339542115</h5>
+			</div>
+		</div>
+	</div>
+	<!-- Topbar End -->
+	<!-- Navbar Start -->
+	<div class="container-fluid bg-dark mb-30">
+		<div class="row px-xl-5">
+			<div class="col-lg-3 d-none d-lg-block">
+				<a class="btn d-flex align-items-center justify-content-between bg-primary w-100" data-toggle="collapse" href="#navbar-vertical" style="height: 65px; padding: 0 30px;">
+					<h6 class="text-dark m-0"><i class="fa fa-bars mr-2"></i>Phân Loại</h6>
+					<i class="fa fa-angle-down text-dark"></i>
+				</a>
+				<nav class="collapse position-absolute navbar navbar-vertical navbar-light align-items-start p-0 bg-light" id="navbar-vertical" style="width: calc(100% - 30px); z-index: 999;">
+					<div class="navbar-nav w-100">
+						@{
+							var brands = _context.Brands.ToList();
+							var categories = _context.Categories.ToList();
+						}
+						<a asp-controller="Shop" asp-action="Index" class="nav-item nav-link">Tất cả sản phẩm</a>
+						<div class="nav-item dropdown dropright">
+							<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Danh Mục <i class="fa fa-angle-right float-right mt-1"></i></a>
+							<div class="dropdown-menu position-absolute rounded-0 border-0 m-0">
+								@foreach (var category in categories)
+								{
+									<a asp-controller="Shop" asp-action="Index" asp-route-categoryId="@category.CategoryId" class="dropdown-item">@category.Name</a>
+								}
+							</div>
+						</div>
+						<div class="nav-item dropdown dropright">
+							<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Thương Hiệu <i class="fa fa-angle-right float-right mt-1"></i></a>
+							<div class="dropdown-menu position-absolute rounded-0 border-0 m-0">
+								@foreach (var brand in brands)
+								{
+									<a asp-controller="Shop" asp-action="Index" asp-route-brandId="@brand.BrandId" class="dropdown-item">@brand.Name</a>
+								}
+							</div>
+						</div>
+					</div>
+				</nav>
+			</div>
+			<div class="col-lg-9">
+				<nav class="navbar navbar-expand-lg bg-dark navbar-dark py-3 py-lg-0 px-0">
+					<a href="" class="text-decoration-none d-block d-lg-none">
+						<span class="h1 text-uppercase text-dark bg-light px-2">Multi</span>
+						<span class="h1 text-uppercase text-light bg-primary px-2 ml-n1">Shop</span>
+					</a>
+					<button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+						<span class="navbar-toggler-icon"></span>
+					</button>
+					<div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
+						<div class="navbar-nav mr-auto py-0">
+							<a asp-controller="Home" asp-action="Index" class="nav-item nav-link">Trang chủ</a>
+							<a asp-controller="Shop" asp-action="Index" class="nav-item nav-link">Sản phẩm</a>
+							<li class="nav-item dropdown">
+								<a class="nav-link dropdown-toggle" href="#" id="petServicesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+									<i class="fas fa-paw"></i> Dịch vụ thú cưng
+								</a>
+								<div class="dropdown-menu" aria-labelledby="petServicesDropdown">
+									<a class="dropdown-item" asp-controller="UserPets" asp-action="Index">
+										<i class="fas fa-dog"></i> Thú cưng của tôi
+									</a>
+									<a class="dropdown-item" asp-controller="PetServices" asp-action="Index">
+										<i class="fas fa-concierge-bell"></i> Đặt dịch vụ
+									</a>
+									<a class="dropdown-item" asp-controller="PetServices" asp-action="MyBookings">
+										<i class="fas fa-calendar-check"></i> Lịch đặt của tôi
+									</a>
+									<a class="dropdown-item" asp-controller="CustomerPetHotelBooking" asp-action="Index">
+										<i class="fas fa-calendar-check"></i> Lịch đặt phòng
+									</a>
+								</div>
+							</li>
+							<a asp-controller="Forum" asp-action="Index" class="nav-item nav-link">Diễn đàn</a>
+						</div>
+						<div class="navbar-nav ml-auto py-0 d-none d-lg-block">
+							<a asp-controller="Shop" asp-action="FavouriteProducts" class="btn px-0">
+								<i class="fas fa-heart text-primary"></i>
+								<span class="badge text-secondary border border-secondary rounded-circle" style="padding-bottom: 2px;">@ViewBag.FavouriteCount</span>
+							</a>
+							<a asp-controller="Cart" asp-action="Index" class="btn px-0 ml-3">
+								<i class="fas fa-shopping-cart text-primary"></i>
+								<span class="badge text-secondary border border-secondary rounded-circle" style="padding-bottom: 2px;">@ViewBag.CartCount</span>
+							</a>
+						</div>
+					</div>
+				</nav>
+			</div>
+		</div>
+	</div>
+	<!-- Navbar End -->
+	@RenderBody()
 
-            // Ẩn gợi ý khi click ra ngoài
-            $(document).click(function (e) {
-                if (!$(e.target).closest('.search-container').length) {
-                    $('#searchSuggestions').hide();
-                }
-            });
+	<!-- Back to Top -->
+	<a href="#" class="btn btn-primary back-to-top">
+		<i class="fa fa-angle-double-up"></i>
+	</a>
 
-            // Tìm kiếm bằng giọng nói
-            function initializeSpeechRecognition() {
-                const micButton = document.getElementById('micButton');
-                const searchInput = document.getElementById('searchInput');
-                let recognition = null;
+	<!-- Zalo Button -->
+	<a href="https://zalo.me/0932961658" class="btn btn-primary contact-zalo" target="_blank">
+		<img src="/img/zalo_icon.png" alt="Zalo" style="width: 20px;">
+	</a>
 
-                if ('SpeechRecognition' in window || 'webkitSpeechRecognition' in window) {
-                    recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
-                    recognition.lang = 'vi-VN';
-                    recognition.interimResults = false;
-                    recognition.maxAlternatives = 1;
+	<!-- Chat Button -->
+	<button class="btn btn-primary contact-chat" onclick="toggleChatDialog()" title="Chat với nhân viên">
+		<i class="fa-solid fa-headset"></i>
+	</button>
 
-                    micButton.addEventListener('click', () => {
-                        if (micButton.classList.contains('recording')) {
-                            recognition.stop();
-                        } else {
-                            try {
-                                recognition.start();
-                                micButton.classList.add('recording');
-                                micButton.querySelector('i').classList.remove('fa-microphone');
-                                micButton.querySelector('i').classList.add('fa-stop');
-                            } catch (e) {
-                                alert('Không thể bắt đầu nhận diện giọng nói: ' + e.message);
-                            }
-                        }
-                    });
 
-                    recognition.onresult = (event) => {
-                        const transcript = event.results[0][0].transcript;
-                        if (transcript.trim()) {
-                            searchInput.value = transcript;
-                            searchInput.closest('form').submit();
-                        } else {
-                            alert('Không nhận diện được giọng nói. Vui lòng thử lại.');
-                        }
-                    };
+	<!-- Chat Dialog -->
+	<div id="chatDialog" class="chat-dialog" style="display: none;">
+		<div class="chat-header">
+			<span style="color: black " id="chatEmployeeName">Chat với nhân viên</span>
+			<button onclick="toggleChatDialog()" class="chat-close-btn">×</button>
+		</div>
+		<div id="chatMessages" class="chat-messages"></div>
+		<div class="chat-input">
+			<input type="text" id="chatInput" placeholder="Nhập tin nhắn..." onkeypress="if(event.key === 'Enter') sendMessage();" />
+			<button style="background-color: dimgray" onclick="sendMessage()">Gửi</button>
+		</div>
+		<div id="chatError" class="chat-error" style="display: none;"></div>
+	</div>
 
-                    recognition.onend = () => {
-                        micButton.classList.remove('recording');
-                        micButton.querySelector('i').classList.remove('fa-stop');
-                        micButton.querySelector('i').classList.add('fa-microphone');
-                    };
+	<!-- Chat Styles -->
+	<style>
+		.chat-dialog {
+			position: fixed;
+			bottom: 20px;
+			right: 20px;
+			width: 300px;
+			background: #fff;
+			border: 1px solid #ccc;
+			border-radius: 10px;
+			box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+			font-family: Arial, sans-serif;
+		}
 
-                    recognition.onerror = (event) => {
-                        let errorMessage = 'Đã xảy ra lỗi khi nhận diện giọng nói: ';
-                        switch (event.error) {
-                            case 'no-speech':
-                                errorMessage += 'Không nhận diện được giọng nói. Vui lòng thử lại.';
-                                break;
-                            case 'not-allowed':
-                                errorMessage += 'Microphone bị từ chối. Vui lòng cấp quyền truy cập microphone.';
-                                break;
-                            case 'network':
-                                errorMessage += 'Lỗi mạng. Vui lòng kiểm tra kết nối internet.';
-                                break;
-                            default:
-                                errorMessage += event.error;
-                        }
-                        alert(errorMessage);
-                        micButton.classList.remove('recording');
-                        micButton.querySelector('i').classList.remove('fa-stop');
-                        micButton.querySelector('i').classList.add('fa-microphone');
-                    };
-                } else {
-                    micButton.disabled = true;
-                    micButton.title = 'Trình duyệt không hỗ trợ tìm kiếm bằng giọng nói';
-                    micButton.style.opacity = '0.5';
-                    micButton.style.cursor = 'not-allowed';
-                    console.log('SpeechRecognition not supported in this browser.');
-                }
-            }
+		.chat-header {
+			background: #FFD700;
+			color: #fff;
+			padding: 10px;
+			border-top-left-radius: 10px;
+			border-top-right-radius: 10px;
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+		}
 
-            initializeSpeechRecognition();
-        });
-    </script>
-    @RenderSection("Scripts", required: false)
+		.chat-close-btn {
+			background: none;
+			border: none;
+			color: #fff;
+			font-size: 16px;
+			cursor: pointer;
+		}
+
+		.chat-messages {
+			max-height: 300px;
+			overflow-y: auto;
+			padding: 10px;
+			background: #f0f2f5;
+		}
+
+		.message {
+			margin-bottom: 10px;
+			display: flex;
+			flex-direction: column; /* Sắp xếp các phần tử con theo chiều dọc */
+		}
+
+			.message.sent {
+				align-items: flex-end; /* Căn phải cho tin nhắn gửi đi */
+			}
+
+			.message.received {
+				align-items: flex-start; /* Căn trái cho tin nhắn nhận được */
+			}
+
+		.message-content {
+			color: black;
+			max-width: 70%;
+			padding: 8px 12px;
+			border-radius: 15px;
+			font-size: 14px;
+			line-height: 1.4;
+			word-wrap: break-word;
+		}
+
+		.message.sent .message-content {
+			background: #FFD700;
+			color: black;
+		}
+
+		.message.received .message-content {
+			background: #fff;
+			color: #333;
+			border: 1px solid #ddd;
+		}
+
+		.message-time {
+			font-size: 10px;
+			color: #999;
+			margin-top: 2px;
+			margin-left: 5px;
+			margin-right: 5px;
+		}
+
+		.message.sent .message-time {
+			text-align: right; /* Căn phải cho thời gian của tin nhắn gửi đi */
+		}
+
+		.message.received .message-time {
+			text-align: left; /* Căn trái cho thời gian của tin nhắn nhận được */
+		}
+
+		.chat-input {
+			padding: 10px;
+			display: flex;
+			gap: 10px;
+			border-top: 1px solid #ddd;
+		}
+
+			.chat-input input {
+				flex: 1;
+				padding: 8px;
+				border: 1px solid #ddd;
+				border-radius: 20px;
+				outline: none;
+			}
+
+			.chat-input button {
+				padding: 8px 15px;
+				background: #0084ff;
+				color: #fff;
+				border: none;
+				border-radius: 20px;
+				cursor: pointer;
+			}
+
+		.chat-error {
+			color: red;
+			padding: 10px;
+			font-size: 12px;
+		}
+	</style>
+
+	<!-- Chat Script -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/6.0.1/signalr.min.js"></script>
+	<script>
+		const connection = new signalR.HubConnectionBuilder()
+			.withUrl("/chatHub", { withCredentials: true })
+			.withAutomaticReconnect()
+			.build();
+
+		let employeeId = null;
+		let currentUserId = '@(SignInManager.IsSignedIn(User) ? UserManager.GetUserId(User) : "")';
+
+		function toggleChatDialog() {
+			const chatDialog = document.getElementById("chatDialog");
+			chatDialog.style.display = chatDialog.style.display === "none" || chatDialog.style.display === "" ? "block" : "none";
+
+			if (chatDialog.style.display === "block") {
+				if (!currentUserId) {
+					document.getElementById("chatError").textContent = "Vui lòng đăng nhập để sử dụng chat.";
+					document.getElementById("chatError").style.display = "block";
+					return;
+				}
+				fetchEmployeeInfo();
+			} else {
+				clearChat();
+			}
+		}
+
+		async function fetchEmployeeInfo() {
+			try {
+				const response = await fetch('/CustomerChat/Index', {
+					method: 'GET',
+					headers: { 'Accept': 'application/json' }
+				});
+				if (!response.ok) {
+					throw new Error(`HTTP error! Status: ${response.status}`);
+				}
+				const data = await response.json();
+				const employeeNameElement = document.getElementById("chatEmployeeName");
+				const chatErrorElement = document.getElementById("chatError");
+
+				if (data.errorMessage) {
+					chatErrorElement.textContent = data.errorMessage;
+					chatErrorElement.style.display = "block";
+					employeeNameElement.textContent = "Chat với nhân viên";
+				} else {
+					employeeId = data.employeeId;
+					// Không cập nhật tên nhân viên, giữ nguyên "Chat với nhân viên"
+					employeeNameElement.textContent = "Chat với nhân viên";
+					chatErrorElement.style.display = "none";
+					loadConversation(data.employeeId);
+				}
+			} catch (error) {
+				console.error("Error fetching employee info:", error);
+				document.getElementById("chatError").textContent = "Đã xảy ra lỗi khi tải dữ liệu chat: " + error.message;
+				document.getElementById("chatError").style.display = "block";
+			}
+		}
+
+		async function loadConversation(otherUserId) {
+			try {
+				await connection.invoke("GetConversation", otherUserId);
+				await connection.invoke("MarkAsRead", otherUserId);
+			} catch (error) {
+				console.error("Error loading conversation:", error);
+				document.getElementById("chatError").textContent = "Không thể tải lịch sử trò chuyện: " + error.message;
+				document.getElementById("chatError").style.display = "block";
+			}
+		}
+
+		async function sendMessage() {
+			const chatInput = document.getElementById("chatInput");
+			const message = chatInput.value.trim();
+			if (!message || !employeeId) {
+				document.getElementById("chatError").textContent = !message ? "Vui lòng nhập tin nhắn." : "Không tìm thấy nhân viên để chat.";
+				document.getElementById("chatError").style.display = "block";
+				return;
+			}
+			try {
+				await connection.invoke("SendMessage", employeeId, message);
+				chatInput.value = "";
+				document.getElementById("chatError").style.display = "none";
+			} catch (error) {
+				console.error("Error sending message:", error);
+				document.getElementById("chatError").textContent = "Không thể gửi tin nhắn: " + error.message;
+				document.getElementById("chatError").style.display = "block";
+			}
+		}
+
+		connection.on("ReceiveMessage", (senderId, senderName, content, timestamp) => {
+			const chatMessages = document.getElementById("chatMessages");
+			const messageElement = document.createElement("div");
+			messageElement.className = senderId === currentUserId ? "message sent" : "message received";
+
+			const messageContent = document.createElement("div");
+			messageContent.className = "message-content";
+			messageContent.textContent = content;
+
+			const messageTime = document.createElement("div");
+			messageTime.className = "message-time";
+			messageTime.textContent = new Date(timestamp).toLocaleTimeString();
+
+			messageElement.appendChild(messageContent);
+			messageElement.appendChild(messageTime);
+			chatMessages.appendChild(messageElement);
+			chatMessages.scrollTop = chatMessages.scrollHeight;
+		});
+
+		connection.on("LoadConversation", (messages) => {
+			const chatMessages = document.getElementById("chatMessages");
+			chatMessages.innerHTML = "";
+			messages.forEach(msg => {
+				const messageElement = document.createElement("div");
+				messageElement.className = msg.senderId === currentUserId ? "message sent" : "message received";
+
+				const messageContent = document.createElement("div");
+				messageContent.className = "message-content";
+				messageContent.textContent = msg.content;
+
+				const messageTime = document.createElement("div");
+				messageTime.className = "message-time";
+				messageTime.textContent = new Date(msg.timestamp).toLocaleTimeString();
+
+				messageElement.appendChild(messageContent);
+				messageElement.appendChild(messageTime);
+				chatMessages.appendChild(messageElement);
+			});
+			chatMessages.scrollTop = chatMessages.scrollHeight;
+		});
+
+		function clearChat() {
+			document.getElementById("chatMessages").innerHTML = "";
+			document.getElementById("chatError").style.display = "none";
+			document.getElementById("chatEmployeeName").textContent = "Chat với nhân viên";
+			employeeId = null;
+		}
+
+		async function startConnection() {
+			try {
+				await connection.start();
+				console.log("SignalR connected.");
+				if (employeeId) {
+					await loadConversation(employeeId);
+				}
+			} catch (error) {
+				console.error("Error connecting to SignalR:", error);
+				document.getElementById("chatError").textContent = "Không thể kết nối tới hệ thống chat: " + error.message;
+				document.getElementById("chatError").style.display = "block";
+				setTimeout(startConnection, 5000);
+			}
+		}
+
+		if (currentUserId) {
+			startConnection();
+		} else {
+			console.log("User not authenticated, SignalR connection not started.");
+		}
+	</script>
+
+
+
+
+	@await Html.PartialAsync("_Footer")
+
+	<!-- JavaScript Libraries -->
+	<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+	<script src="~/lib/easing/easing.min.js"></script>
+	<script src="~/lib/owlcarousel/owl.carousel.min.js"></script>
+
+
+
+	<!-- Search and Voice Search Script -->
+	<script>
+			   $(document).ready(function () {
+			// Gợi ý tìm kiếm (unchanged)
+			let debounceTimer;
+			$('#searchInput').on('input', function () {
+				clearTimeout(debounceTimer);
+				debounceTimer = setTimeout(() => {
+					var searchString = $(this).val().trim();
+					if (searchString.length < 2) {
+						$('#searchSuggestions').hide();
+						return;
+					}
+					$.ajax({
+						url: '/Shop/SearchSuggestions',
+						type: 'GET',
+						data: { searchString: searchString },
+						success: function (data) {
+							if (data.length > 0) {
+								var suggestionsHtml = '';
+								data.forEach(function (product) {
+									suggestionsHtml += `
+										<div class="search-suggestion-item" onclick="window.location.href='/Shop/Details/${product.productId}'">
+											<img src="${product.imageUrl || '/img/default-product.jpg'}" alt="${product.name}" />
+											<div>
+												<div>${product.name}</div>
+												<div>${product.minPrice.toLocaleString('vi-VN')} VNĐ</div>
+											</div>
+										</div>`;
+								});
+								$('#searchSuggestions').html(suggestionsHtml).show();
+							} else {
+								$('#searchSuggestions').html('<div class="search-suggestion-item">Không tìm thấy sản phẩm</div>').show();
+							}
+						},
+						error: function () {
+							$('#searchSuggestions').html('<div class="search-suggestion-item">Đã có lỗi xảy ra</div>').show();
+						}
+					});
+				}, 300);
+			});
+
+			// Ẩn gợi ý khi click ra ngoài
+			$(document).click(function (e) {
+				if (!$(e.target).closest('.search-container').length) {
+					$('#searchSuggestions').hide();
+				}
+			});
+
+			// Tìm kiếm bằng giọng nói
+			function initializeSpeechRecognition() {
+				const micButton = document.getElementById('micButton');
+				const searchInput = document.getElementById('searchInput');
+				let recognition = null;
+
+				if ('SpeechRecognition' in window || 'webkitSpeechRecognition' in window) {
+					recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+					recognition.lang = 'vi-VN';
+					recognition.interimResults = false;
+					recognition.maxAlternatives = 1;
+
+					micButton.addEventListener('click', () => {
+						if (micButton.classList.contains('recording')) {
+							recognition.stop();
+						} else {
+							try {
+								recognition.start();
+								micButton.classList.add('recording');
+								micButton.querySelector('i').classList.remove('fa-microphone');
+								micButton.querySelector('i').classList.add('fa-stop');
+							} catch (e) {
+								alert('Không thể bắt đầu nhận diện giọng nói: ' + e.message);
+							}
+						}
+					});
+
+					recognition.onresult = (event) => {
+						const transcript = event.results[0][0].transcript;
+						if (transcript.trim()) {
+							searchInput.value = transcript;
+							searchInput.closest('form').submit();
+						} else {
+							alert('Không nhận diện được giọng nói. Vui lòng thử lại.');
+						}
+					};
+
+					recognition.onend = () => {
+						micButton.classList.remove('recording');
+						micButton.querySelector('i').classList.remove('fa-stop');
+						micButton.querySelector('i').classList.add('fa-microphone');
+					};
+
+					recognition.onerror = (event) => {
+						let errorMessage = 'Đã xảy ra lỗi khi nhận diện giọng nói: ';
+						switch (event.error) {
+							case 'no-speech':
+								errorMessage += 'Không nhận diện được giọng nói. Vui lòng thử lại.';
+								break;
+							case 'not-allowed':
+								errorMessage += 'Microphone bị từ chối. Vui lòng cấp quyền truy cập microphone.';
+								break;
+							case 'network':
+								errorMessage += 'Lỗi mạng. Vui lòng kiểm tra kết nối internet.';
+								break;
+							default:
+								errorMessage += event.error;
+						}
+						alert(errorMessage);
+						    micButton.classList.remove('recording');
+						micButton.querySelector('i').classList.remove('fa-stop');
+						micButton.querySelector('i').classList.add('fa-microphone');
+					};
+				} else {
+					micButton.disabled = true;
+					micButton.title = 'Trình duyệt không hỗ trợ tìm kiếm bằng giọng nói';
+					micButton.style.opacity = '0.5';
+					micButton.style.cursor = 'not-allowed';
+					console.log('SpeechRecognition not supported in this browser.');
+				}
+			}
+
+			initializeSpeechRecognition();
+		});
+	</script>
+	@RenderSection("Scripts", required: false)
 </body>
 </html>
