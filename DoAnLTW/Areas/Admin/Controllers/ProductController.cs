@@ -13,22 +13,28 @@ namespace DoAnLTW.Areas.Admin.Controllers
     [Authorize(Roles = "Admin,Employee")]
     public class ProductController : Controller
     {
+        private readonly IOrderRepository _orderRepository;
+
+
         private readonly ApplicationDbContext _context;
         private readonly IWebHostEnvironment _webHostEnvironment;
         private readonly IProductRepository _productRepository;
         private readonly ICategoryRepository _categoryRepository;
 
         public ProductController(
-            ApplicationDbContext context,
-            IWebHostEnvironment webHostEnvironment,
-            IProductRepository productRepository,
-            ICategoryRepository categoryRepository)
+         ApplicationDbContext context,
+         IWebHostEnvironment webHostEnvironment,
+         IProductRepository productRepository,
+         ICategoryRepository categoryRepository,
+         IOrderRepository orderRepository) // Thêm tham số này
         {
             _context = context;
             _webHostEnvironment = webHostEnvironment;
             _productRepository = productRepository;
             _categoryRepository = categoryRepository;
+            _orderRepository = orderRepository; // Gán giá trị
         }
+
 
         // 1. Danh sách sản phẩm
         public async Task<IActionResult> Index()
@@ -226,7 +232,6 @@ namespace DoAnLTW.Areas.Admin.Controllers
             return View(product);
         }
 
-        // 9. Xóa sản phẩm - POST
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
@@ -239,12 +244,21 @@ namespace DoAnLTW.Areas.Admin.Controllers
                     return NotFound();
                 }
 
+                // Kiểm tra xem sản phẩm có trong đơn hàng nào không
+                var hasOrders = await _orderRepository.HasOrdersForProductAsync(id);
+                if (hasOrders)
+                {
+                    TempData["ErrorMessage"] = "Không thể xóa sản phẩm vì sản phẩm đang tồn tại trong đơn hàng.";
+                    return RedirectToAction("Delete", new { id });
+                }
+
                 // Xóa hình ảnh
                 foreach (var img in product.Images)
                 {
                     await DeleteImageFile(img.ImageUrl);
                 }
 
+                // Tiến hành xóa sản phẩm
                 await _productRepository.DeleteAsync(id);
                 TempData["SuccessMessage"] = "Xóa sản phẩm thành công!";
                 return RedirectToAction("Index");
@@ -254,6 +268,7 @@ namespace DoAnLTW.Areas.Admin.Controllers
                 TempData["ErrorMessage"] = $"Lỗi khi xóa sản phẩm: {ex.Message}";
                 return RedirectToAction("Delete", new { id });
             }
+
         }
 
         // Hàm hỗ trợ

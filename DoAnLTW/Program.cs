@@ -193,7 +193,7 @@ catch (Exception ex)
     Log.Fatal(ex, "Ứng dụng không thể khởi động.");
     throw;
 }
-finally
+finally 
 {
     Log.CloseAndFlush();
 }

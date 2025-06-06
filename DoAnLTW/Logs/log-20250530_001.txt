@@ -1,0 +1,1868 @@
+2025-05-30 07:55:53.273 +07:00 [INF] User profile is available. Using 'C:\Users\admin\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2025-05-30 07:55:53.583 +07:00 [ERR] Hosting failed to start
+System.IO.IOException: Failed to bind to address https://127.0.0.1:5134: address already in use.
+ ---> Microsoft.AspNetCore.Connections.AddressInUseException: Only one usage of each socket address (protocol/network address/port) is normally permitted.
+ ---> System.Net.Sockets.SocketException (10048): Only one usage of each socket address (protocol/network address/port) is normally permitted.
+   at System.Net.Sockets.Socket.UpdateStatusAfterSocketErrorAndThrowException(SocketError error, Boolean disconnectOnFailure, String callerName)
+   at System.Net.Sockets.Socket.DoBind(EndPoint endPointSnapshot, SocketAddress socketAddress)
+   at System.Net.Sockets.Socket.Bind(EndPoint localEP)
+   at Microsoft.AspNetCore.Server.Kestrel.Transport.Sockets.SocketTransportOptions.CreateDefaultBoundListenSocket(EndPoint endpoint)
+   at Microsoft.AspNetCore.Server.Kestrel.Transport.Sockets.SocketConnectionListener.Bind()
+   --- End of inner exception stack trace ---
+   at Microsoft.AspNetCore.Server.Kestrel.Transport.Sockets.SocketConnectionListener.Bind()
+   at Microsoft.AspNetCore.Server.Kestrel.Transport.Sockets.SocketTransportFactory.BindAsync(EndPoint endpoint, CancellationToken cancellationToken)
+   at Microsoft.AspNetCore.Server.Kestrel.Core.Internal.Infrastructure.TransportManager.BindAsync(EndPoint endPoint, ConnectionDelegate connectionDelegate, EndpointConfig endpointConfig, CancellationToken cancellationToken)
+   at Microsoft.AspNetCore.Server.Kestrel.Core.KestrelServerImpl.<>c__DisplayClass28_0`1.<<StartAsync>g__OnBind|0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Server.Kestrel.Core.Internal.AddressBinder.BindEndpointAsync(ListenOptions endpoint, AddressBindContext context, CancellationToken cancellationToken)
+   --- End of inner exception stack trace ---
+   at Microsoft.AspNetCore.Server.Kestrel.Core.Internal.AddressBinder.BindEndpointAsync(ListenOptions endpoint, AddressBindContext context, CancellationToken cancellationToken)
+   at Microsoft.AspNetCore.Server.Kestrel.Core.LocalhostListenOptions.BindAsync(AddressBindContext context, CancellationToken cancellationToken)
+   at Microsoft.AspNetCore.Server.Kestrel.Core.Internal.AddressBinder.AddressesStrategy.BindAsync(AddressBindContext context, CancellationToken cancellationToken)
+   at Microsoft.AspNetCore.Server.Kestrel.Core.KestrelServerImpl.BindAsync(CancellationToken cancellationToken)
+   at Microsoft.AspNetCore.Server.Kestrel.Core.KestrelServerImpl.StartAsync[TContext](IHttpApplication`1 application, CancellationToken cancellationToken)
+   at Microsoft.AspNetCore.Hosting.GenericWebHostService.StartAsync(CancellationToken cancellationToken)
+   at Microsoft.Extensions.Hosting.Internal.Host.<StartAsync>b__14_1(IHostedService service, CancellationToken token)
+   at Microsoft.Extensions.Hosting.Internal.Host.ForeachService[T](IEnumerable`1 services, CancellationToken token, Boolean concurrent, Boolean abortOnFirstException, List`1 exceptions, Func`3 operation)
+2025-05-30 07:55:53.623 +07:00 [FTL] Ứng dụng không thể khởi động.
+System.IO.IOException: Failed to bind to address https://127.0.0.1:5134: address already in use.
+ ---> Microsoft.AspNetCore.Connections.AddressInUseException: Only one usage of each socket address (protocol/network address/port) is normally permitted.
+ ---> System.Net.Sockets.SocketException (10048): Only one usage of each socket address (protocol/network address/port) is normally permitted.
+   at System.Net.Sockets.Socket.UpdateStatusAfterSocketErrorAndThrowException(SocketError error, Boolean disconnectOnFailure, String callerName)
+   at System.Net.Sockets.Socket.DoBind(EndPoint endPointSnapshot, SocketAddress socketAddress)
+   at System.Net.Sockets.Socket.Bind(EndPoint localEP)
+   at Microsoft.AspNetCore.Server.Kestrel.Transport.Sockets.SocketTransportOptions.CreateDefaultBoundListenSocket(EndPoint endpoint)
+   at Microsoft.AspNetCore.Server.Kestrel.Transport.Sockets.SocketConnectionListener.Bind()
+   --- End of inner exception stack trace ---
+   at Microsoft.AspNetCore.Server.Kestrel.Transport.Sockets.SocketConnectionListener.Bind()
+   at Microsoft.AspNetCore.Server.Kestrel.Transport.Sockets.SocketTransportFactory.BindAsync(EndPoint endpoint, CancellationToken cancellationToken)
+   at Microsoft.AspNetCore.Server.Kestrel.Core.Internal.Infrastructure.TransportManager.BindAsync(EndPoint endPoint, ConnectionDelegate connectionDelegate, EndpointConfig endpointConfig, CancellationToken cancellationToken)
+   at Microsoft.AspNetCore.Server.Kestrel.Core.KestrelServerImpl.<>c__DisplayClass28_0`1.<<StartAsync>g__OnBind|0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Server.Kestrel.Core.Internal.AddressBinder.BindEndpointAsync(ListenOptions endpoint, AddressBindContext context, CancellationToken cancellationToken)
+   --- End of inner exception stack trace ---
+   at Microsoft.AspNetCore.Server.Kestrel.Core.Internal.AddressBinder.BindEndpointAsync(ListenOptions endpoint, AddressBindContext context, CancellationToken cancellationToken)
+   at Microsoft.AspNetCore.Server.Kestrel.Core.LocalhostListenOptions.BindAsync(AddressBindContext context, CancellationToken cancellationToken)
+   at Microsoft.AspNetCore.Server.Kestrel.Core.Internal.AddressBinder.AddressesStrategy.BindAsync(AddressBindContext context, CancellationToken cancellationToken)
+   at Microsoft.AspNetCore.Server.Kestrel.Core.KestrelServerImpl.BindAsync(CancellationToken cancellationToken)
+   at Microsoft.AspNetCore.Server.Kestrel.Core.KestrelServerImpl.StartAsync[TContext](IHttpApplication`1 application, CancellationToken cancellationToken)
+   at Microsoft.AspNetCore.Hosting.GenericWebHostService.StartAsync(CancellationToken cancellationToken)
+   at Microsoft.Extensions.Hosting.Internal.Host.<StartAsync>b__14_1(IHostedService service, CancellationToken token)
+   at Microsoft.Extensions.Hosting.Internal.Host.ForeachService[T](IEnumerable`1 services, CancellationToken token, Boolean concurrent, Boolean abortOnFirstException, List`1 exceptions, Func`3 operation)
+   at Microsoft.Extensions.Hosting.Internal.Host.StartAsync(CancellationToken cancellationToken)
+   at Microsoft.Extensions.Hosting.HostingAbstractionsHostExtensions.RunAsync(IHost host, CancellationToken token)
+   at Microsoft.Extensions.Hosting.HostingAbstractionsHostExtensions.RunAsync(IHost host, CancellationToken token)
+   at Microsoft.Extensions.Hosting.HostingAbstractionsHostExtensions.Run(IHost host)
+   at Program.<Main>$(String[] args) in H:\DoAnCoSo\DoAnLTW\Program.cs:line 189
+2025-05-30 18:37:47.415 +07:00 [INF] User profile is available. Using 'C:\Users\admin\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2025-05-30 18:37:48.878 +07:00 [INF] Now listening on: https://localhost:5134
+2025-05-30 18:37:48.922 +07:00 [INF] Application started. Press Ctrl+C to shut down.
+2025-05-30 18:37:48.924 +07:00 [INF] Hosting environment: Development
+2025-05-30 18:37:48.927 +07:00 [INF] Content root path: H:\DoAnCoSo\DoAnLTW
+2025-05-30 18:37:49.809 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/ - null null
+2025-05-30 18:37:50.172 +07:00 [INF] Executing endpoint 'DoAnLTW.Controllers.HomeController.Index (DoAnLTW)'
+2025-05-30 18:37:50.197 +07:00 [INF] Route matched with {action = "Index", controller = "Home", area = "", page = ""}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Index() on controller DoAnLTW.Controllers.HomeController (DoAnLTW).
+2025-05-30 18:37:53.527 +07:00 [INF] Executed DbCommand (53ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [c].[CategoryId], [c].[ImageUrl], [c].[Name]
+FROM [Categories] AS [c]
+2025-05-30 18:37:53.695 +07:00 [INF] Executed DbCommand (27ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [b].[BrandId], [b].[ImageUrl], [b].[Name]
+FROM [Brands] AS [b]
+2025-05-30 18:37:54.029 +07:00 [WRN] Compiling a query which loads related collections for more than one collection navigation, either via 'Include' or through projection, but no 'QuerySplittingBehavior' has been configured. By default, Entity Framework will use 'QuerySplittingBehavior.SingleQuery', which can potentially result in slow query performance. See https://go.microsoft.com/fwlink/?linkid=2134277 for more information. To identify the query that's triggering this warning call 'ConfigureWarnings(w => w.Throw(RelationalEventId.MultipleCollectionIncludeWarning))'.
+2025-05-30 18:37:54.108 +07:00 [INF] Executed DbCommand (34ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [p].[ProductId], [p].[BrandId], [p].[CategoryId], [p].[Description], [p].[Name], [c].[CategoryId], [c].[ImageUrl], [c].[Name], [b].[BrandId], [b].[ImageUrl], [b].[Name], [s0].[ProductId], [s0].[SizeId], [s0].[Price], [s0].[Stock], [s0].[SizeId0], [s0].[size], [p1].[Product_ImagesId], [p1].[ImageUrl], [p1].[ProductId]
+FROM [Products] AS [p]
+INNER JOIN [Categories] AS [c] ON [p].[CategoryId] = [c].[CategoryId]
+INNER JOIN [Brands] AS [b] ON [p].[BrandId] = [b].[BrandId]
+LEFT JOIN (
+    SELECT [p0].[ProductId], [p0].[SizeId], [p0].[Price], [p0].[Stock], [s].[SizeId] AS [SizeId0], [s].[size]
+    FROM [ProductSizes] AS [p0]
+    INNER JOIN [Sizes] AS [s] ON [p0].[SizeId] = [s].[SizeId]
+) AS [s0] ON [p].[ProductId] = [s0].[ProductId]
+LEFT JOIN [ProductImages] AS [p1] ON [p].[ProductId] = [p1].[ProductId]
+ORDER BY [p].[ProductId], [c].[CategoryId], [b].[BrandId], [s0].[ProductId], [s0].[SizeId], [s0].[SizeId0]
+2025-05-30 18:37:54.376 +07:00 [INF] Executed DbCommand (12ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [p].[Id], [p].[Code], [p].[DiscountAmount], [p].[DiscountPercentage], [p].[EndDate], [p].[IsActive], [p].[MaxUsage], [p].[StartDate], [p].[UsageCount]
+FROM [PromotionCodes] AS [p]
+WHERE [p].[IsActive] = CAST(1 AS bit) AND ([p].[StartDate] IS NULL OR [p].[StartDate] <= GETDATE()) AND ([p].[EndDate] IS NULL OR [p].[EndDate] >= GETDATE()) AND ([p].[MaxUsage] = 0 OR [p].[UsageCount] < [p].[MaxUsage])
+2025-05-30 18:37:54.440 +07:00 [INF] Executing ViewResult, running view Index.
+2025-05-30 18:37:54.768 +07:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [b].[BrandId], [b].[ImageUrl], [b].[Name]
+FROM [Brands] AS [b]
+2025-05-30 18:37:54.789 +07:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [c].[CategoryId], [c].[ImageUrl], [c].[Name]
+FROM [Categories] AS [c]
+2025-05-30 18:37:54.993 +07:00 [INF] Executed ViewResult - view Index executed in 557.7401ms.
+2025-05-30 18:37:55.008 +07:00 [INF] Executed action DoAnLTW.Controllers.HomeController.Index (DoAnLTW) in 4806.444ms
+2025-05-30 18:37:55.014 +07:00 [INF] Executed endpoint 'DoAnLTW.Controllers.HomeController.Index (DoAnLTW)'
+2025-05-30 18:37:55.023 +07:00 [INF] HTTP GET / responded 200 in 4956.7836 ms
+2025-05-30 18:37:55.032 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/lib/animate/animate.min.css - null null
+2025-05-30 18:37:55.053 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/ - 200 null text/html; charset=utf-8 5258.8533ms
+2025-05-30 18:37:55.053 +07:00 [INF] The file /lib/animate/animate.min.css was not modified
+2025-05-30 18:37:55.061 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/lib/owlcarousel/assets/owl.carousel.min.css - null null
+2025-05-30 18:37:55.061 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/css/style.css - null null
+2025-05-30 18:37:55.063 +07:00 [INF] HTTP GET /lib/animate/animate.min.css responded 304 in 25.4025 ms
+2025-05-30 18:37:55.066 +07:00 [INF] The file /lib/owlcarousel/assets/owl.carousel.min.css was not modified
+2025-05-30 18:37:55.069 +07:00 [INF] The file /css/style.css was not modified
+2025-05-30 18:37:55.072 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/lib/animate/animate.min.css - 304 null text/css 39.5733ms
+2025-05-30 18:37:55.073 +07:00 [INF] HTTP GET /lib/owlcarousel/assets/owl.carousel.min.css responded 304 in 7.8533 ms
+2025-05-30 18:37:55.076 +07:00 [INF] HTTP GET /css/style.css responded 304 in 7.6322 ms
+2025-05-30 18:37:55.089 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/lib/owlcarousel/assets/owl.carousel.min.css - 304 null text/css 28.3317ms
+2025-05-30 18:37:55.093 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/css/style.css - 304 null text/css 31.6208ms
+2025-05-30 18:37:55.107 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/img/slider1.jpg - null null
+2025-05-30 18:37:55.107 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/img/slider2.jpg - null null
+2025-05-30 18:37:55.112 +07:00 [INF] The file /img/slider1.jpg was not modified
+2025-05-30 18:37:55.114 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/img/slider3.jpg - null null
+2025-05-30 18:37:55.116 +07:00 [INF] The file /img/slider2.jpg was not modified
+2025-05-30 18:37:55.117 +07:00 [INF] HTTP GET /img/slider1.jpg responded 304 in 4.6572 ms
+2025-05-30 18:37:55.123 +07:00 [INF] The file /img/slider3.jpg was not modified
+2025-05-30 18:37:55.124 +07:00 [INF] HTTP GET /img/slider2.jpg responded 304 in 8.7343 ms
+2025-05-30 18:37:55.127 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/img/slider1.jpg - 304 null image/jpeg 20.2547ms
+2025-05-30 18:37:55.128 +07:00 [INF] HTTP GET /img/slider3.jpg responded 304 in 5.4286 ms
+2025-05-30 18:37:55.132 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/img/slider2.jpg - 304 null image/jpeg 24.7082ms
+2025-05-30 18:37:55.141 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/img/slider3.jpg - 304 null image/jpeg 26.8402ms
+2025-05-30 18:37:55.155 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/img/giamgia1.jpg - null null
+2025-05-30 18:37:55.160 +07:00 [INF] The file /img/giamgia1.jpg was not modified
+2025-05-30 18:37:55.161 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/img/giamgia2.jpg - null null
+2025-05-30 18:37:55.162 +07:00 [INF] HTTP GET /img/giamgia1.jpg responded 304 in 2.5174 ms
+2025-05-30 18:37:55.166 +07:00 [INF] The file /img/giamgia2.jpg was not modified
+2025-05-30 18:37:55.169 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/img/giamgia1.jpg - 304 null image/jpeg 14.2743ms
+2025-05-30 18:37:55.170 +07:00 [INF] HTTP GET /img/giamgia2.jpg responded 304 in 4.3175 ms
+2025-05-30 18:37:55.179 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/img/giamgia2.jpg - 304 null image/jpeg 18.4846ms
+2025-05-30 18:37:55.201 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/lib/easing/easing.min.js - null null
+2025-05-30 18:37:55.201 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/lib/owlcarousel/owl.carousel.min.js - null null
+2025-05-30 18:37:55.206 +07:00 [INF] The file /lib/easing/easing.min.js was not modified
+2025-05-30 18:37:55.209 +07:00 [INF] The file /lib/owlcarousel/owl.carousel.min.js was not modified
+2025-05-30 18:37:55.211 +07:00 [INF] HTTP GET /lib/easing/easing.min.js responded 304 in 4.7759 ms
+2025-05-30 18:37:55.212 +07:00 [INF] HTTP GET /lib/owlcarousel/owl.carousel.min.js responded 304 in 3.2162 ms
+2025-05-30 18:37:55.217 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/lib/easing/easing.min.js - 304 null text/javascript 15.4418ms
+2025-05-30 18:37:55.219 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/lib/owlcarousel/owl.carousel.min.js - 304 null text/javascript 18.1588ms
+2025-05-30 18:37:55.225 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/_framework/aspnetcore-browser-refresh.js - null null
+2025-05-30 18:37:55.228 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/img/50fe1b42-8cce-4c36-a350-48fa86723e58.jpg - null null
+2025-05-30 18:37:55.237 +07:00 [INF] The file /img/50fe1b42-8cce-4c36-a350-48fa86723e58.jpg was not modified
+2025-05-30 18:37:55.238 +07:00 [INF] HTTP GET /img/50fe1b42-8cce-4c36-a350-48fa86723e58.jpg responded 304 in 1.8402 ms
+2025-05-30 18:37:55.238 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/_framework/aspnetcore-browser-refresh.js - 200 16499 application/javascript; charset=utf-8 13.8271ms
+2025-05-30 18:37:55.238 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/img/95b53008-83ed-40cf-9f5b-1c874ab7ef98.jpg - null null
+2025-05-30 18:37:55.249 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/img/c4627a56-a309-4e02-9629-a9e7b8aff5cb.jpg - null null
+2025-05-30 18:37:55.251 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/img/50fe1b42-8cce-4c36-a350-48fa86723e58.jpg - 304 null image/jpeg 23.483ms
+2025-05-30 18:37:55.261 +07:00 [INF] The file /img/95b53008-83ed-40cf-9f5b-1c874ab7ef98.jpg was not modified
+2025-05-30 18:37:55.265 +07:00 [INF] The file /img/c4627a56-a309-4e02-9629-a9e7b8aff5cb.jpg was not modified
+2025-05-30 18:37:55.265 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/img/0409374e-ef4c-4670-87f2-6c692feb0542.jpg - null null
+2025-05-30 18:37:55.270 +07:00 [INF] HTTP GET /img/95b53008-83ed-40cf-9f5b-1c874ab7ef98.jpg responded 304 in 8.8837 ms
+2025-05-30 18:37:55.271 +07:00 [INF] HTTP GET /img/c4627a56-a309-4e02-9629-a9e7b8aff5cb.jpg responded 304 in 6.5341 ms
+2025-05-30 18:37:55.275 +07:00 [INF] The file /img/0409374e-ef4c-4670-87f2-6c692feb0542.jpg was not modified
+2025-05-30 18:37:55.278 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/img/95b53008-83ed-40cf-9f5b-1c874ab7ef98.jpg - 304 null image/jpeg 39.4529ms
+2025-05-30 18:37:55.283 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/img/c4627a56-a309-4e02-9629-a9e7b8aff5cb.jpg - 304 null image/jpeg 33.9702ms
+2025-05-30 18:37:55.285 +07:00 [INF] HTTP GET /img/0409374e-ef4c-4670-87f2-6c692feb0542.jpg responded 304 in 9.5650 ms
+2025-05-30 18:37:55.290 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/img/d9234015-3d2a-4d1b-86da-cea3a347cdf6.jpg - null null
+2025-05-30 18:37:55.295 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/img/01bd8faa-dd00-4fb5-bb0f-8fa12088f3a6.jpg - null null
+2025-05-30 18:37:55.300 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/img/0409374e-ef4c-4670-87f2-6c692feb0542.jpg - 304 null image/jpeg 34.8553ms
+2025-05-30 18:37:55.304 +07:00 [INF] The file /img/d9234015-3d2a-4d1b-86da-cea3a347cdf6.jpg was not modified
+2025-05-30 18:37:55.306 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/img/products/37ba7691-6e2c-49de-b6ca-b3348230ed5b.jpg - null null
+2025-05-30 18:37:55.309 +07:00 [INF] The file /img/01bd8faa-dd00-4fb5-bb0f-8fa12088f3a6.jpg was not modified
+2025-05-30 18:37:55.317 +07:00 [INF] HTTP GET /img/d9234015-3d2a-4d1b-86da-cea3a347cdf6.jpg responded 304 in 13.0895 ms
+2025-05-30 18:37:55.322 +07:00 [INF] The file /img/products/37ba7691-6e2c-49de-b6ca-b3348230ed5b.jpg was not modified
+2025-05-30 18:37:55.323 +07:00 [INF] HTTP GET /img/01bd8faa-dd00-4fb5-bb0f-8fa12088f3a6.jpg responded 304 in 14.2420 ms
+2025-05-30 18:37:55.326 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/img/d9234015-3d2a-4d1b-86da-cea3a347cdf6.jpg - 304 null image/jpeg 35.8317ms
+2025-05-30 18:37:55.328 +07:00 [INF] HTTP GET /img/products/37ba7691-6e2c-49de-b6ca-b3348230ed5b.jpg responded 304 in 6.1494 ms
+2025-05-30 18:37:55.331 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/img/01bd8faa-dd00-4fb5-bb0f-8fa12088f3a6.jpg - 304 null image/jpeg 36.4477ms
+2025-05-30 18:37:55.340 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/img/products/60d73f54-c3c3-443b-86a9-f2c19ce0d0b7.jpg - null null
+2025-05-30 18:37:55.342 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/img/products/69001358-13af-48c1-9cf0-26056c765bdb.jpg - null null
+2025-05-30 18:37:55.342 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/img/products/37ba7691-6e2c-49de-b6ca-b3348230ed5b.jpg - 304 null image/jpeg 36.7208ms
+2025-05-30 18:37:55.349 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/img/products/f37e33fb-809a-4240-990d-9344cdc138e1.jpg - null null
+2025-05-30 18:37:55.351 +07:00 [INF] The file /img/products/60d73f54-c3c3-443b-86a9-f2c19ce0d0b7.jpg was not modified
+2025-05-30 18:37:55.356 +07:00 [INF] The file /img/products/69001358-13af-48c1-9cf0-26056c765bdb.jpg was not modified
+2025-05-30 18:37:55.366 +07:00 [INF] The file /img/products/f37e33fb-809a-4240-990d-9344cdc138e1.jpg was not modified
+2025-05-30 18:37:55.367 +07:00 [INF] HTTP GET /img/products/60d73f54-c3c3-443b-86a9-f2c19ce0d0b7.jpg responded 304 in 16.9736 ms
+2025-05-30 18:37:55.370 +07:00 [INF] HTTP GET /img/products/69001358-13af-48c1-9cf0-26056c765bdb.jpg responded 304 in 14.3302 ms
+2025-05-30 18:37:55.371 +07:00 [INF] HTTP GET /img/products/f37e33fb-809a-4240-990d-9344cdc138e1.jpg responded 304 in 5.7343 ms
+2025-05-30 18:37:55.375 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/img/products/60d73f54-c3c3-443b-86a9-f2c19ce0d0b7.jpg - 304 null image/jpeg 35.0963ms
+2025-05-30 18:37:55.377 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/img/products/69001358-13af-48c1-9cf0-26056c765bdb.jpg - 304 null image/jpeg 35.4221ms
+2025-05-30 18:37:55.380 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/img/products/f37e33fb-809a-4240-990d-9344cdc138e1.jpg - 304 null image/jpeg 30.5141ms
+2025-05-30 18:37:55.386 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/img/products/89668607-d553-4501-8eed-ac8772806da6.jpg - null null
+2025-05-30 18:37:55.386 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/img/products/c50d7835-aa10-4ef4-958f-7ee6a778c99c.jpg - null null
+2025-05-30 18:37:55.387 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/img/products/1d193407-aba9-4e91-baa0-2ff2d21ab364.jpg - null null
+2025-05-30 18:37:55.399 +07:00 [INF] The file /img/products/89668607-d553-4501-8eed-ac8772806da6.jpg was not modified
+2025-05-30 18:37:55.404 +07:00 [INF] The file /img/products/c50d7835-aa10-4ef4-958f-7ee6a778c99c.jpg was not modified
+2025-05-30 18:37:55.413 +07:00 [INF] The file /img/products/1d193407-aba9-4e91-baa0-2ff2d21ab364.jpg was not modified
+2025-05-30 18:37:55.415 +07:00 [INF] HTTP GET /img/products/89668607-d553-4501-8eed-ac8772806da6.jpg responded 304 in 16.0573 ms
+2025-05-30 18:37:55.416 +07:00 [INF] HTTP GET /img/products/c50d7835-aa10-4ef4-958f-7ee6a778c99c.jpg responded 304 in 12.8301 ms
+2025-05-30 18:37:55.417 +07:00 [INF] HTTP GET /img/products/1d193407-aba9-4e91-baa0-2ff2d21ab364.jpg responded 304 in 4.4613 ms
+2025-05-30 18:37:55.420 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/img/products/89668607-d553-4501-8eed-ac8772806da6.jpg - 304 null image/jpeg 34.769ms
+2025-05-30 18:37:55.424 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/img/products/c50d7835-aa10-4ef4-958f-7ee6a778c99c.jpg - 304 null image/jpeg 37.9539ms
+2025-05-30 18:37:55.427 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/img/products/1d193407-aba9-4e91-baa0-2ff2d21ab364.jpg - 304 null image/jpeg 40.6122ms
+2025-05-30 18:37:55.433 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/img/products/7eb073ea-ed48-4420-9379-d183c6d54941.jpg - null null
+2025-05-30 18:37:55.434 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/img/products/b21035a7-0ca3-49d3-94af-4dc2cff6c2f8.jpg - null null
+2025-05-30 18:37:55.436 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/img/products/ae973fc3-8baa-4514-9fac-b0576c1e4437.jpg - null null
+2025-05-30 18:37:55.520 +07:00 [INF] The file /img/products/7eb073ea-ed48-4420-9379-d183c6d54941.jpg was not modified
+2025-05-30 18:37:55.525 +07:00 [INF] The file /img/products/b21035a7-0ca3-49d3-94af-4dc2cff6c2f8.jpg was not modified
+2025-05-30 18:37:55.529 +07:00 [INF] The file /img/products/ae973fc3-8baa-4514-9fac-b0576c1e4437.jpg was not modified
+2025-05-30 18:37:55.530 +07:00 [INF] HTTP GET /img/products/7eb073ea-ed48-4420-9379-d183c6d54941.jpg responded 304 in 10.5811 ms
+2025-05-30 18:37:55.533 +07:00 [INF] HTTP GET /img/products/b21035a7-0ca3-49d3-94af-4dc2cff6c2f8.jpg responded 304 in 9.1681 ms
+2025-05-30 18:37:55.535 +07:00 [INF] HTTP GET /img/products/ae973fc3-8baa-4514-9fac-b0576c1e4437.jpg responded 304 in 6.4551 ms
+2025-05-30 18:37:55.538 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/img/products/7eb073ea-ed48-4420-9379-d183c6d54941.jpg - 304 null image/jpeg 105.0621ms
+2025-05-30 18:37:55.541 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/img/products/b21035a7-0ca3-49d3-94af-4dc2cff6c2f8.jpg - 304 null image/jpeg 106.7801ms
+2025-05-30 18:37:55.544 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/img/products/ae973fc3-8baa-4514-9fac-b0576c1e4437.jpg - 304 null image/jpeg 108.1424ms
+2025-05-30 18:37:55.551 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/img/products/3345ee56-9133-4e14-a6a3-06560acd6403.jpg - null null
+2025-05-30 18:37:55.561 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/img/products/3fee581e-1506-4ae5-8503-06cbab130d12.jpg - null null
+2025-05-30 18:37:55.561 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/img/products/a7c410d5-8508-4474-81ac-c7293536acbf.jpg - null null
+2025-05-30 18:37:55.570 +07:00 [INF] The file /img/products/3345ee56-9133-4e14-a6a3-06560acd6403.jpg was not modified
+2025-05-30 18:37:55.573 +07:00 [INF] The file /img/products/3fee581e-1506-4ae5-8503-06cbab130d12.jpg was not modified
+2025-05-30 18:37:55.577 +07:00 [INF] The file /img/products/a7c410d5-8508-4474-81ac-c7293536acbf.jpg was not modified
+2025-05-30 18:37:55.578 +07:00 [INF] HTTP GET /img/products/3345ee56-9133-4e14-a6a3-06560acd6403.jpg responded 304 in 8.3264 ms
+2025-05-30 18:37:55.580 +07:00 [INF] HTTP GET /img/products/3fee581e-1506-4ae5-8503-06cbab130d12.jpg responded 304 in 6.8724 ms
+2025-05-30 18:37:55.582 +07:00 [INF] HTTP GET /img/products/a7c410d5-8508-4474-81ac-c7293536acbf.jpg responded 304 in 5.0688 ms
+2025-05-30 18:37:55.585 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/img/products/3345ee56-9133-4e14-a6a3-06560acd6403.jpg - 304 null image/jpeg 33.3941ms
+2025-05-30 18:37:55.587 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/img/products/3fee581e-1506-4ae5-8503-06cbab130d12.jpg - 304 null image/jpeg 26.9515ms
+2025-05-30 18:37:55.590 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/img/products/a7c410d5-8508-4474-81ac-c7293536acbf.jpg - 304 null image/jpeg 29.3955ms
+2025-05-30 18:37:55.604 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/img/products/bfc876ad-6aac-45e0-8b18-42473db4e447.jpg - null null
+2025-05-30 18:37:55.606 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/img/products/331246df-2e4d-4049-805a-a554185766d1.jpg - null null
+2025-05-30 18:37:55.606 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/img/products/857b0254-999d-4823-b856-fb74e7d09b0f.jpg - null null
+2025-05-30 18:37:55.619 +07:00 [INF] The file /img/products/bfc876ad-6aac-45e0-8b18-42473db4e447.jpg was not modified
+2025-05-30 18:37:55.623 +07:00 [INF] The file /img/products/331246df-2e4d-4049-805a-a554185766d1.jpg was not modified
+2025-05-30 18:37:55.629 +07:00 [INF] The file /img/products/857b0254-999d-4823-b856-fb74e7d09b0f.jpg was not modified
+2025-05-30 18:37:55.630 +07:00 [INF] HTTP GET /img/products/bfc876ad-6aac-45e0-8b18-42473db4e447.jpg responded 304 in 11.4056 ms
+2025-05-30 18:37:55.631 +07:00 [INF] HTTP GET /img/products/331246df-2e4d-4049-805a-a554185766d1.jpg responded 304 in 8.4324 ms
+2025-05-30 18:37:55.634 +07:00 [INF] HTTP GET /img/products/857b0254-999d-4823-b856-fb74e7d09b0f.jpg responded 304 in 5.3359 ms
+2025-05-30 18:37:55.637 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/img/products/bfc876ad-6aac-45e0-8b18-42473db4e447.jpg - 304 null image/jpeg 33.6368ms
+2025-05-30 18:37:55.642 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/img/products/331246df-2e4d-4049-805a-a554185766d1.jpg - 304 null image/jpeg 35.3324ms
+2025-05-30 18:37:55.646 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/img/products/857b0254-999d-4823-b856-fb74e7d09b0f.jpg - 304 null image/jpeg 39.8089ms
+2025-05-30 18:37:55.659 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/img/51f3ee2e-4a1b-46ee-b5c5-6ab65c2a1935.png - null null
+2025-05-30 18:37:55.660 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/img/e1400d2f-3c74-448b-974e-9f9aa2f9bf2d.png - null null
+2025-05-30 18:37:55.660 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/img/ef2d89df-37bf-4323-9b40-4c5c9092dd96.png - null null
+2025-05-30 18:37:55.675 +07:00 [INF] The file /img/51f3ee2e-4a1b-46ee-b5c5-6ab65c2a1935.png was not modified
+2025-05-30 18:37:55.680 +07:00 [INF] The file /img/e1400d2f-3c74-448b-974e-9f9aa2f9bf2d.png was not modified
+2025-05-30 18:37:55.684 +07:00 [INF] The file /img/ef2d89df-37bf-4323-9b40-4c5c9092dd96.png was not modified
+2025-05-30 18:37:55.685 +07:00 [INF] HTTP GET /img/51f3ee2e-4a1b-46ee-b5c5-6ab65c2a1935.png responded 304 in 10.9151 ms
+2025-05-30 18:37:55.686 +07:00 [INF] HTTP GET /img/e1400d2f-3c74-448b-974e-9f9aa2f9bf2d.png responded 304 in 6.3980 ms
+2025-05-30 18:37:55.689 +07:00 [INF] HTTP GET /img/ef2d89df-37bf-4323-9b40-4c5c9092dd96.png responded 304 in 5.7690 ms
+2025-05-30 18:37:55.692 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/img/51f3ee2e-4a1b-46ee-b5c5-6ab65c2a1935.png - 304 null image/png 33.2313ms
+2025-05-30 18:37:55.696 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/img/e1400d2f-3c74-448b-974e-9f9aa2f9bf2d.png - 304 null image/png 35.2582ms
+2025-05-30 18:37:55.700 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/img/ef2d89df-37bf-4323-9b40-4c5c9092dd96.png - 304 null image/png 39.9569ms
+2025-05-30 18:37:55.712 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/img/4cda1167-c4af-4c5e-b1b5-9823ee971b7d.png - null null
+2025-05-30 18:37:55.714 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/img/86d82583-9bdd-4aae-95bc-1d54b4bf6983.png - null null
+2025-05-30 18:37:55.714 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/img/d5eae07d-04ff-44db-ad7d-759375d2c256.png - null null
+2025-05-30 18:37:55.721 +07:00 [INF] The file /img/4cda1167-c4af-4c5e-b1b5-9823ee971b7d.png was not modified
+2025-05-30 18:37:55.725 +07:00 [INF] The file /img/86d82583-9bdd-4aae-95bc-1d54b4bf6983.png was not modified
+2025-05-30 18:37:55.731 +07:00 [INF] The file /img/d5eae07d-04ff-44db-ad7d-759375d2c256.png was not modified
+2025-05-30 18:37:55.733 +07:00 [INF] HTTP GET /img/4cda1167-c4af-4c5e-b1b5-9823ee971b7d.png responded 304 in 11.7719 ms
+2025-05-30 18:37:55.734 +07:00 [INF] HTTP GET /img/86d82583-9bdd-4aae-95bc-1d54b4bf6983.png responded 304 in 8.9992 ms
+2025-05-30 18:37:55.740 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/img/4cda1167-c4af-4c5e-b1b5-9823ee971b7d.png - 304 null image/png 27.7112ms
+2025-05-30 18:37:55.743 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/img/86d82583-9bdd-4aae-95bc-1d54b4bf6983.png - 304 null image/png 29.1091ms
+2025-05-30 18:37:55.750 +07:00 [INF] HTTP GET /img/d5eae07d-04ff-44db-ad7d-759375d2c256.png responded 304 in 19.6553 ms
+2025-05-30 18:37:55.759 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/img/4b3ad4f5-bb03-40da-870e-e81926a37c19.png - null null
+2025-05-30 18:37:55.768 +07:00 [INF] The file /img/4b3ad4f5-bb03-40da-870e-e81926a37c19.png was not modified
+2025-05-30 18:37:55.763 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/img/d5eae07d-04ff-44db-ad7d-759375d2c256.png - 304 null image/png 49.4826ms
+2025-05-30 18:37:55.761 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/img/111680b7-7d3d-433b-9326-b7f97bdfa552.png - null null
+2025-05-30 18:37:55.777 +07:00 [INF] HTTP GET /img/4b3ad4f5-bb03-40da-870e-e81926a37c19.png responded 304 in 9.1838 ms
+2025-05-30 18:37:55.788 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/img/2d8a5252-6856-4197-9462-230877684ce3.png - null null
+2025-05-30 18:37:55.790 +07:00 [INF] The file /img/111680b7-7d3d-433b-9326-b7f97bdfa552.png was not modified
+2025-05-30 18:37:55.792 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/img/4b3ad4f5-bb03-40da-870e-e81926a37c19.png - 304 null image/png 33.0834ms
+2025-05-30 18:37:55.796 +07:00 [INF] The file /img/2d8a5252-6856-4197-9462-230877684ce3.png was not modified
+2025-05-30 18:37:55.798 +07:00 [INF] HTTP GET /img/111680b7-7d3d-433b-9326-b7f97bdfa552.png responded 304 in 7.9206 ms
+2025-05-30 18:37:55.802 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/img/2bb7629b-db5b-446b-bde2-3e6ee2368855.png - null null
+2025-05-30 18:37:55.804 +07:00 [INF] HTTP GET /img/2d8a5252-6856-4197-9462-230877684ce3.png responded 304 in 8.4153 ms
+2025-05-30 18:37:55.811 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/img/111680b7-7d3d-433b-9326-b7f97bdfa552.png - 304 null image/png 50.3518ms
+2025-05-30 18:37:55.817 +07:00 [INF] The file /img/2bb7629b-db5b-446b-bde2-3e6ee2368855.png was not modified
+2025-05-30 18:37:55.819 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/img/2d8a5252-6856-4197-9462-230877684ce3.png - 304 null image/png 31.428ms
+2025-05-30 18:37:55.822 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/img/5902e262-4f41-49e3-9d58-cd25651d7a91.png - null null
+2025-05-30 18:37:55.825 +07:00 [INF] HTTP GET /img/2bb7629b-db5b-446b-bde2-3e6ee2368855.png responded 304 in 8.7352 ms
+2025-05-30 18:37:55.827 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/img/b173a0bb-5c51-4e1e-9299-1c64b0c750ea.jpg - null null
+2025-05-30 18:37:55.835 +07:00 [INF] The file /img/5902e262-4f41-49e3-9d58-cd25651d7a91.png was not modified
+2025-05-30 18:37:55.838 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/img/2bb7629b-db5b-446b-bde2-3e6ee2368855.png - 304 null image/png 35.6848ms
+2025-05-30 18:37:55.844 +07:00 [INF] The file /img/b173a0bb-5c51-4e1e-9299-1c64b0c750ea.jpg was not modified
+2025-05-30 18:37:55.845 +07:00 [INF] HTTP GET /img/5902e262-4f41-49e3-9d58-cd25651d7a91.png responded 304 in 10.0789 ms
+2025-05-30 18:37:55.847 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/img/zalo_icon.png - null null
+2025-05-30 18:37:55.851 +07:00 [INF] HTTP GET /img/b173a0bb-5c51-4e1e-9299-1c64b0c750ea.jpg responded 304 in 7.5710 ms
+2025-05-30 18:37:55.854 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/img/5902e262-4f41-49e3-9d58-cd25651d7a91.png - 304 null image/png 32.097ms
+2025-05-30 18:37:55.859 +07:00 [INF] The file /img/zalo_icon.png was not modified
+2025-05-30 18:37:55.861 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/img/b173a0bb-5c51-4e1e-9299-1c64b0c750ea.jpg - 304 null image/jpeg 34.5059ms
+2025-05-30 18:37:55.863 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/img/payments.png - null null
+2025-05-30 18:37:55.867 +07:00 [INF] HTTP GET /img/zalo_icon.png responded 304 in 9.1421 ms
+2025-05-30 18:37:55.868 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/img/Wikas.png - null null
+2025-05-30 18:37:55.880 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/img/zalo_icon.png - 304 null image/png 33.044ms
+2025-05-30 18:37:55.885 +07:00 [INF] The file /img/Wikas.png was not modified
+2025-05-30 18:37:55.888 +07:00 [INF] HTTP GET /img/payments.png responded 404 in 12.1681 ms
+2025-05-30 18:37:55.897 +07:00 [INF] HTTP GET /img/Wikas.png responded 304 in 11.2103 ms
+2025-05-30 18:37:55.901 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/img/payments.png - 404 0 null 38.3792ms
+2025-05-30 18:37:55.903 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/img/Wikas.png - 304 null image/png 34.5874ms
+2025-05-30 18:37:55.906 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/_vs/browserLink - null null
+2025-05-30 18:37:55.912 +07:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET https://localhost:5134/img/payments.png, Response status code: 404
+2025-05-30 18:37:56.024 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/_vs/browserLink - 200 null text/javascript; charset=UTF-8 117.4749ms
+2025-05-30 18:37:56.965 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/img/favicon.ico - null null
+2025-05-30 18:37:56.980 +07:00 [INF] HTTP GET /img/favicon.ico responded 404 in 7.4915 ms
+2025-05-30 18:37:56.984 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/img/favicon.ico - 404 0 null 18.8776ms
+2025-05-30 18:37:56.991 +07:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET https://localhost:5134/img/favicon.ico, Response status code: 404
+2025-05-30 18:38:22.401 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/ - null null
+2025-05-30 18:38:22.426 +07:00 [INF] Executing endpoint 'DoAnLTW.Controllers.HomeController.Index (DoAnLTW)'
+2025-05-30 18:38:22.429 +07:00 [INF] Route matched with {action = "Index", controller = "Home", area = "", page = ""}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Index() on controller DoAnLTW.Controllers.HomeController (DoAnLTW).
+2025-05-30 18:38:22.495 +07:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [c].[CategoryId], [c].[ImageUrl], [c].[Name]
+FROM [Categories] AS [c]
+2025-05-30 18:38:22.504 +07:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [b].[BrandId], [b].[ImageUrl], [b].[Name]
+FROM [Brands] AS [b]
+2025-05-30 18:38:22.522 +07:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [p].[ProductId], [p].[BrandId], [p].[CategoryId], [p].[Description], [p].[Name], [c].[CategoryId], [c].[ImageUrl], [c].[Name], [b].[BrandId], [b].[ImageUrl], [b].[Name], [s0].[ProductId], [s0].[SizeId], [s0].[Price], [s0].[Stock], [s0].[SizeId0], [s0].[size], [p1].[Product_ImagesId], [p1].[ImageUrl], [p1].[ProductId]
+FROM [Products] AS [p]
+INNER JOIN [Categories] AS [c] ON [p].[CategoryId] = [c].[CategoryId]
+INNER JOIN [Brands] AS [b] ON [p].[BrandId] = [b].[BrandId]
+LEFT JOIN (
+    SELECT [p0].[ProductId], [p0].[SizeId], [p0].[Price], [p0].[Stock], [s].[SizeId] AS [SizeId0], [s].[size]
+    FROM [ProductSizes] AS [p0]
+    INNER JOIN [Sizes] AS [s] ON [p0].[SizeId] = [s].[SizeId]
+) AS [s0] ON [p].[ProductId] = [s0].[ProductId]
+LEFT JOIN [ProductImages] AS [p1] ON [p].[ProductId] = [p1].[ProductId]
+ORDER BY [p].[ProductId], [c].[CategoryId], [b].[BrandId], [s0].[ProductId], [s0].[SizeId], [s0].[SizeId0]
+2025-05-30 18:38:22.547 +07:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [p].[Id], [p].[Code], [p].[DiscountAmount], [p].[DiscountPercentage], [p].[EndDate], [p].[IsActive], [p].[MaxUsage], [p].[StartDate], [p].[UsageCount]
+FROM [PromotionCodes] AS [p]
+WHERE [p].[IsActive] = CAST(1 AS bit) AND ([p].[StartDate] IS NULL OR [p].[StartDate] <= GETDATE()) AND ([p].[EndDate] IS NULL OR [p].[EndDate] >= GETDATE()) AND ([p].[MaxUsage] = 0 OR [p].[UsageCount] < [p].[MaxUsage])
+2025-05-30 18:38:22.556 +07:00 [INF] Executing ViewResult, running view Index.
+2025-05-30 18:38:22.645 +07:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [b].[BrandId], [b].[ImageUrl], [b].[Name]
+FROM [Brands] AS [b]
+2025-05-30 18:38:22.655 +07:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [c].[CategoryId], [c].[ImageUrl], [c].[Name]
+FROM [Categories] AS [c]
+2025-05-30 18:38:22.671 +07:00 [INF] Executed ViewResult - view Index executed in 116.3322ms.
+2025-05-30 18:38:22.675 +07:00 [INF] Executed action DoAnLTW.Controllers.HomeController.Index (DoAnLTW) in 241.5705ms
+2025-05-30 18:38:22.678 +07:00 [INF] Executed endpoint 'DoAnLTW.Controllers.HomeController.Index (DoAnLTW)'
+2025-05-30 18:38:22.682 +07:00 [INF] HTTP GET / responded 200 in 256.9111 ms
+2025-05-30 18:38:22.690 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/ - 200 null text/html; charset=utf-8 289.64ms
+2025-05-30 18:38:22.791 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/img/payments.png - null null
+2025-05-30 18:38:22.814 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/_vs/browserLink - null null
+2025-05-30 18:38:22.815 +07:00 [INF] HTTP GET /img/payments.png responded 404 in 2.2074 ms
+2025-05-30 18:38:22.822 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/img/payments.png - 404 0 null 31.2312ms
+2025-05-30 18:38:22.824 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/_framework/aspnetcore-browser-refresh.js - null null
+2025-05-30 18:38:22.826 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/_vs/browserLink - 200 null text/javascript; charset=UTF-8 12.4041ms
+2025-05-30 18:38:22.828 +07:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET https://localhost:5134/img/payments.png, Response status code: 404
+2025-05-30 18:38:22.832 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/_framework/aspnetcore-browser-refresh.js - 200 16499 application/javascript; charset=utf-8 7.8505ms
+2025-05-30 18:38:35.461 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/Shop - null null
+2025-05-30 18:38:35.473 +07:00 [INF] Executing endpoint 'DoAnLTW.Controllers.ShopController.Index (DoAnLTW)'
+2025-05-30 18:38:35.505 +07:00 [INF] Route matched with {action = "Index", controller = "Shop", area = "", page = ""}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Index(System.String, System.Nullable`1[System.Int32], System.Nullable`1[System.Int32], System.Nullable`1[System.Int32], System.Nullable`1[System.Decimal], System.Nullable`1[System.Decimal], System.String) on controller DoAnLTW.Controllers.ShopController (DoAnLTW).
+2025-05-30 18:38:35.640 +07:00 [WRN] Compiling a query which loads related collections for more than one collection navigation, either via 'Include' or through projection, but no 'QuerySplittingBehavior' has been configured. By default, Entity Framework will use 'QuerySplittingBehavior.SingleQuery', which can potentially result in slow query performance. See https://go.microsoft.com/fwlink/?linkid=2134277 for more information. To identify the query that's triggering this warning call 'ConfigureWarnings(w => w.Throw(RelationalEventId.MultipleCollectionIncludeWarning))'.
+2025-05-30 18:38:35.703 +07:00 [INF] Executed DbCommand (33ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [p].[ProductId], [p].[BrandId], [p].[CategoryId], [p].[Description], [p].[Name], [c].[CategoryId], [c].[ImageUrl], [c].[Name], [b].[BrandId], [b].[ImageUrl], [b].[Name], [s0].[ProductId], [s0].[SizeId], [s0].[Price], [s0].[Stock], [s0].[SizeId0], [s0].[size], [p1].[Product_ImagesId], [p1].[ImageUrl], [p1].[ProductId], [r].[ReviewId], [r].[Comment], [r].[CreatedAt], [r].[ProductId], [r].[Rating], [r].[UserId]
+FROM [Products] AS [p]
+INNER JOIN [Categories] AS [c] ON [p].[CategoryId] = [c].[CategoryId]
+INNER JOIN [Brands] AS [b] ON [p].[BrandId] = [b].[BrandId]
+LEFT JOIN (
+    SELECT [p0].[ProductId], [p0].[SizeId], [p0].[Price], [p0].[Stock], [s].[SizeId] AS [SizeId0], [s].[size]
+    FROM [ProductSizes] AS [p0]
+    INNER JOIN [Sizes] AS [s] ON [p0].[SizeId] = [s].[SizeId]
+) AS [s0] ON [p].[ProductId] = [s0].[ProductId]
+LEFT JOIN [ProductImages] AS [p1] ON [p].[ProductId] = [p1].[ProductId]
+LEFT JOIN [Reviews] AS [r] ON [p].[ProductId] = [r].[ProductId]
+ORDER BY [p].[Name], [p].[ProductId], [c].[CategoryId], [b].[BrandId], [s0].[ProductId], [s0].[SizeId], [s0].[SizeId0], [p1].[Product_ImagesId]
+2025-05-30 18:38:35.767 +07:00 [INF] Executed DbCommand (9ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [b].[BrandId], [b].[Name], (
+    SELECT COUNT(*)
+    FROM [Products] AS [p]
+    WHERE [p].[BrandId] = [b].[BrandId]) AS [ProductCount]
+FROM [Brands] AS [b]
+2025-05-30 18:38:35.791 +07:00 [INF] Executed DbCommand (8ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [s].[SizeId], [s].[size] AS [SizeDisplay], (
+    SELECT COUNT(*)
+    FROM [ProductSizes] AS [p]
+    WHERE [p].[SizeId] = [s].[SizeId]) AS [ProductCount]
+FROM [Sizes] AS [s]
+ORDER BY [s].[size]
+2025-05-30 18:38:35.809 +07:00 [INF] Executed DbCommand (7ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [c].[CategoryId], [c].[Name], (
+    SELECT COUNT(*)
+    FROM [Products] AS [p]
+    WHERE [p].[CategoryId] = [c].[CategoryId]) AS [ProductCount]
+FROM [Categories] AS [c]
+2025-05-30 18:38:36.055 +07:00 [INF] Executed DbCommand (191ms) [Parameters=[@__range_Min_0='?' (Precision = 18) (Scale = 2) (DbType = Decimal), @__range_Max_Value_1='?' (Precision = 18) (Scale = 2) (DbType = Decimal)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM (
+    SELECT DISTINCT [p].[ProductId]
+    FROM [ProductSizes] AS [p]
+    WHERE [p].[Price] >= @__range_Min_0 AND [p].[Price] <= @__range_Max_Value_1
+) AS [p0]
+2025-05-30 18:38:36.069 +07:00 [INF] Executed DbCommand (5ms) [Parameters=[@__range_Min_0='?' (Precision = 18) (Scale = 2) (DbType = Decimal), @__range_Max_Value_1='?' (Precision = 18) (Scale = 2) (DbType = Decimal)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM (
+    SELECT DISTINCT [p].[ProductId]
+    FROM [ProductSizes] AS [p]
+    WHERE [p].[Price] >= @__range_Min_0 AND [p].[Price] <= @__range_Max_Value_1
+) AS [p0]
+2025-05-30 18:38:36.084 +07:00 [INF] Executed DbCommand (10ms) [Parameters=[@__range_Min_0='?' (Precision = 18) (Scale = 2) (DbType = Decimal), @__range_Max_Value_1='?' (Precision = 18) (Scale = 2) (DbType = Decimal)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM (
+    SELECT DISTINCT [p].[ProductId]
+    FROM [ProductSizes] AS [p]
+    WHERE [p].[Price] >= @__range_Min_0 AND [p].[Price] <= @__range_Max_Value_1
+) AS [p0]
+2025-05-30 18:38:36.099 +07:00 [INF] Executed DbCommand (6ms) [Parameters=[@__range_Min_0='?' (Precision = 18) (Scale = 2) (DbType = Decimal), @__range_Max_Value_1='?' (Precision = 18) (Scale = 2) (DbType = Decimal)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM (
+    SELECT DISTINCT [p].[ProductId]
+    FROM [ProductSizes] AS [p]
+    WHERE [p].[Price] >= @__range_Min_0 AND [p].[Price] <= @__range_Max_Value_1
+) AS [p0]
+2025-05-30 18:38:36.120 +07:00 [INF] Executed DbCommand (9ms) [Parameters=[@__range_Min_0='?' (Precision = 18) (Scale = 2) (DbType = Decimal)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM (
+    SELECT DISTINCT [p].[ProductId]
+    FROM [ProductSizes] AS [p]
+    WHERE [p].[Price] >= @__range_Min_0
+) AS [p0]
+2025-05-30 18:38:36.150 +07:00 [INF] Executed DbCommand (4ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [Products] AS [p]
+2025-05-30 18:38:36.169 +07:00 [INF] Executing ViewResult, running view Index.
+2025-05-30 18:38:36.282 +07:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [b].[BrandId], [b].[ImageUrl], [b].[Name]
+FROM [Brands] AS [b]
+2025-05-30 18:38:36.291 +07:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [c].[CategoryId], [c].[ImageUrl], [c].[Name]
+FROM [Categories] AS [c]
+2025-05-30 18:38:36.315 +07:00 [INF] Executed ViewResult - view Index executed in 146.7034ms.
+2025-05-30 18:38:36.321 +07:00 [INF] Executed action DoAnLTW.Controllers.ShopController.Index (DoAnLTW) in 810.0813ms
+2025-05-30 18:38:36.325 +07:00 [INF] Executed endpoint 'DoAnLTW.Controllers.ShopController.Index (DoAnLTW)'
+2025-05-30 18:38:36.329 +07:00 [INF] HTTP GET /Shop responded 200 in 857.1326 ms
+2025-05-30 18:38:36.336 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/Shop - 200 null text/html; charset=utf-8 875.8783ms
+2025-05-30 18:38:36.411 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/_framework/aspnetcore-browser-refresh.js - null null
+2025-05-30 18:38:36.411 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/img/payments.png - null null
+2025-05-30 18:38:36.411 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/_vs/browserLink - null null
+2025-05-30 18:38:36.418 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/_framework/aspnetcore-browser-refresh.js - 200 16499 application/javascript; charset=utf-8 7.1076ms
+2025-05-30 18:38:36.425 +07:00 [INF] HTTP GET /img/payments.png responded 404 in 1.5050 ms
+2025-05-30 18:38:36.443 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/img/payments.png - 404 0 null 31.9947ms
+2025-05-30 18:38:36.448 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/_vs/browserLink - 200 null text/javascript; charset=UTF-8 36.1942ms
+2025-05-30 18:38:36.452 +07:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET https://localhost:5134/img/payments.png, Response status code: 404
+2025-05-30 18:39:13.046 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/Identity/Account/Login - null null
+2025-05-30 18:39:13.065 +07:00 [INF] Executing endpoint '/Account/Login'
+2025-05-30 18:39:13.101 +07:00 [INF] Route matched with {page = "/Account/Login", area = "Identity", action = "", controller = ""}. Executing page /Account/Login
+2025-05-30 18:39:13.129 +07:00 [INF] Executing handler method DoAnLTW.Areas.Identity.Pages.Account.LoginModel.OnGetAsync - ModelState is "Valid"
+2025-05-30 18:39:13.136 +07:00 [INF] AuthenticationScheme: Identity.External signed out.
+2025-05-30 18:39:13.141 +07:00 [INF] Executed handler method OnGetAsync, returned result .
+2025-05-30 18:39:13.149 +07:00 [INF] Executing an implicit handler method - ModelState is "Valid"
+2025-05-30 18:39:13.153 +07:00 [INF] Executed an implicit handler method, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2025-05-30 18:39:13.237 +07:00 [INF] Executed DbCommand (3ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [b].[BrandId], [b].[ImageUrl], [b].[Name]
+FROM [Brands] AS [b]
+2025-05-30 18:39:13.242 +07:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [c].[CategoryId], [c].[ImageUrl], [c].[Name]
+FROM [Categories] AS [c]
+2025-05-30 18:39:13.327 +07:00 [INF] Executed page /Account/Login in 221.9692ms
+2025-05-30 18:39:13.330 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/css/custom.css - null null
+2025-05-30 18:39:13.331 +07:00 [INF] Executed endpoint '/Account/Login'
+2025-05-30 18:39:13.331 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/_framework/aspnetcore-browser-refresh.js - null null
+2025-05-30 18:39:13.369 +07:00 [INF] The file /css/custom.css was not modified
+2025-05-30 18:39:13.370 +07:00 [INF] HTTP GET /Identity/Account/Login responded 200 in 305.9346 ms
+2025-05-30 18:39:13.380 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/_framework/aspnetcore-browser-refresh.js - 200 16499 application/javascript; charset=utf-8 48.915ms
+2025-05-30 18:39:13.332 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/lib/jquery-validation/dist/jquery.validate.min.js - null null
+2025-05-30 18:39:13.331 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/Identity/Account/img/payments.png - null null
+2025-05-30 18:39:13.339 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/lib/jquery-validation-unobtrusive/dist/jquery.validate.unobtrusive.min.js - null null
+2025-05-30 18:39:13.367 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/_vs/browserLink - null null
+2025-05-30 18:39:13.388 +07:00 [INF] HTTP GET /css/custom.css responded 304 in 19.8635 ms
+2025-05-30 18:39:13.391 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/Identity/Account/Login - 200 null text/html; charset=utf-8 345.7508ms
+2025-05-30 18:39:13.399 +07:00 [INF] HTTP GET /lib/jquery-validation/dist/jquery.validate.min.js responded 404 in 0.3584 ms
+2025-05-30 18:39:13.403 +07:00 [INF] HTTP GET /Identity/Account/img/payments.png responded 404 in 1.4939 ms
+2025-05-30 18:39:13.407 +07:00 [INF] HTTP GET /lib/jquery-validation-unobtrusive/dist/jquery.validate.unobtrusive.min.js responded 404 in 0.9879 ms
+2025-05-30 18:39:13.419 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/css/custom.css - 304 null text/css 88.6638ms
+2025-05-30 18:39:13.421 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/_vs/browserLink - 200 null text/javascript; charset=UTF-8 54.5193ms
+2025-05-30 18:39:13.434 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/lib/jquery-validation/dist/jquery.validate.min.js - 404 0 null 101.4602ms
+2025-05-30 18:39:13.438 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/Identity/Account/img/payments.png - 404 0 null 106.9078ms
+2025-05-30 18:39:13.441 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/lib/jquery-validation-unobtrusive/dist/jquery.validate.unobtrusive.min.js - 404 0 null 101.9286ms
+2025-05-30 18:39:13.468 +07:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET https://localhost:5134/lib/jquery-validation/dist/jquery.validate.min.js, Response status code: 404
+2025-05-30 18:39:13.475 +07:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET https://localhost:5134/Identity/Account/img/payments.png, Response status code: 404
+2025-05-30 18:39:13.480 +07:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET https://localhost:5134/lib/jquery-validation-unobtrusive/dist/jquery.validate.unobtrusive.min.js, Response status code: 404
+2025-05-30 18:39:13.812 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/Identity/Account/img/favicon.ico - null null
+2025-05-30 18:39:13.822 +07:00 [INF] HTTP GET /Identity/Account/img/favicon.ico responded 404 in 0.5799 ms
+2025-05-30 18:39:13.829 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/Identity/Account/img/favicon.ico - 404 0 null 17.0235ms
+2025-05-30 18:39:13.843 +07:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET https://localhost:5134/Identity/Account/img/favicon.ico, Response status code: 404
+2025-05-30 18:39:16.639 +07:00 [INF] Request starting HTTP/2 POST https://localhost:5134/Identity/Account/Login - application/x-www-form-urlencoded 269
+2025-05-30 18:39:16.654 +07:00 [INF] CORS policy execution successful.
+2025-05-30 18:39:16.660 +07:00 [INF] Executing endpoint '/Account/Login'
+2025-05-30 18:39:16.663 +07:00 [INF] Route matched with {page = "/Account/Login", area = "Identity", action = "", controller = ""}. Executing page /Account/Login
+2025-05-30 18:39:16.713 +07:00 [INF] Executing handler method DoAnLTW.Areas.Identity.Pages.Account.LoginModel.OnPostAsync - ModelState is "Valid"
+2025-05-30 18:39:16.759 +07:00 [INF] Executed DbCommand (13ms) [Parameters=[@__normalizedUserName_0='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[SecurityStamp], [a].[TwoFactorEnabled], [a].[UserName]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[NormalizedUserName] = @__normalizedUserName_0
+2025-05-30 18:39:16.909 +07:00 [INF] Executed DbCommand (5ms) [Parameters=[@__user_Id_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a].[Id], [a].[ClaimType], [a].[ClaimValue], [a].[UserId]
+FROM [AspNetUserClaims] AS [a]
+WHERE [a].[UserId] = @__user_Id_0
+2025-05-30 18:39:16.939 +07:00 [INF] Executed DbCommand (5ms) [Parameters=[@__userId_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a0].[Name]
+FROM [AspNetUserRoles] AS [a]
+INNER JOIN [AspNetRoles] AS [a0] ON [a].[RoleId] = [a0].[Id]
+WHERE [a].[UserId] = @__userId_0
+2025-05-30 18:39:16.962 +07:00 [INF] Executed DbCommand (3ms) [Parameters=[@__normalizedName_0='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[ConcurrencyStamp], [a].[Name], [a].[NormalizedName]
+FROM [AspNetRoles] AS [a]
+WHERE [a].[NormalizedName] = @__normalizedName_0
+2025-05-30 18:39:16.983 +07:00 [INF] Executed DbCommand (4ms) [Parameters=[@__role_Id_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a].[ClaimType], [a].[ClaimValue]
+FROM [AspNetRoleClaims] AS [a]
+WHERE [a].[RoleId] = @__role_Id_0
+2025-05-30 18:39:16.995 +07:00 [INF] AuthenticationScheme: Identity.Application signed in.
+2025-05-30 18:39:17.013 +07:00 [INF] Executed DbCommand (4ms) [Parameters=[@__normalizedEmail_0='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(2) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[SecurityStamp], [a].[TwoFactorEnabled], [a].[UserName]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[NormalizedEmail] = @__normalizedEmail_0
+2025-05-30 18:39:17.026 +07:00 [INF] Executed DbCommand (1ms) [Parameters=[@__userId_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a0].[Name]
+FROM [AspNetUserRoles] AS [a]
+INNER JOIN [AspNetRoles] AS [a0] ON [a].[RoleId] = [a0].[Id]
+WHERE [a].[UserId] = @__userId_0
+2025-05-30 18:39:17.035 +07:00 [INF] Executed handler method OnPostAsync, returned result Microsoft.AspNetCore.Mvc.LocalRedirectResult.
+2025-05-30 18:39:17.042 +07:00 [INF] Executing LocalRedirectResult, redirecting to /.
+2025-05-30 18:39:17.046 +07:00 [INF] Executed page /Account/Login in 380.1591ms
+2025-05-30 18:39:17.051 +07:00 [INF] Executed endpoint '/Account/Login'
+2025-05-30 18:39:17.055 +07:00 [INF] HTTP POST /Identity/Account/Login responded 302 in 404.7299 ms
+2025-05-30 18:39:17.060 +07:00 [INF] Request finished HTTP/2 POST https://localhost:5134/Identity/Account/Login - 302 0 null 421.0282ms
+2025-05-30 18:39:17.070 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/ - null null
+2025-05-30 18:39:17.102 +07:00 [INF] Executed DbCommand (7ms) [Parameters=[@__p_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[SecurityStamp], [a].[TwoFactorEnabled], [a].[UserName]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[Id] = @__p_0
+2025-05-30 18:39:17.110 +07:00 [INF] Executed DbCommand (1ms) [Parameters=[@__userId_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a0].[Name]
+FROM [AspNetUserRoles] AS [a]
+INNER JOIN [AspNetRoles] AS [a0] ON [a].[RoleId] = [a0].[Id]
+WHERE [a].[UserId] = @__userId_0
+2025-05-30 18:39:17.114 +07:00 [INF] Executing endpoint 'DoAnLTW.Controllers.HomeController.Index (DoAnLTW)'
+2025-05-30 18:39:17.117 +07:00 [INF] Route matched with {action = "Index", controller = "Home", area = "", page = ""}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Index() on controller DoAnLTW.Controllers.HomeController (DoAnLTW).
+2025-05-30 18:39:17.131 +07:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [c].[CategoryId], [c].[ImageUrl], [c].[Name]
+FROM [Categories] AS [c]
+2025-05-30 18:39:17.140 +07:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [b].[BrandId], [b].[ImageUrl], [b].[Name]
+FROM [Brands] AS [b]
+2025-05-30 18:39:17.165 +07:00 [INF] Executed DbCommand (21ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [p].[ProductId], [p].[BrandId], [p].[CategoryId], [p].[Description], [p].[Name], [c].[CategoryId], [c].[ImageUrl], [c].[Name], [b].[BrandId], [b].[ImageUrl], [b].[Name], [s0].[ProductId], [s0].[SizeId], [s0].[Price], [s0].[Stock], [s0].[SizeId0], [s0].[size], [p1].[Product_ImagesId], [p1].[ImageUrl], [p1].[ProductId]
+FROM [Products] AS [p]
+INNER JOIN [Categories] AS [c] ON [p].[CategoryId] = [c].[CategoryId]
+INNER JOIN [Brands] AS [b] ON [p].[BrandId] = [b].[BrandId]
+LEFT JOIN (
+    SELECT [p0].[ProductId], [p0].[SizeId], [p0].[Price], [p0].[Stock], [s].[SizeId] AS [SizeId0], [s].[size]
+    FROM [ProductSizes] AS [p0]
+    INNER JOIN [Sizes] AS [s] ON [p0].[SizeId] = [s].[SizeId]
+) AS [s0] ON [p].[ProductId] = [s0].[ProductId]
+LEFT JOIN [ProductImages] AS [p1] ON [p].[ProductId] = [p1].[ProductId]
+ORDER BY [p].[ProductId], [c].[CategoryId], [b].[BrandId], [s0].[ProductId], [s0].[SizeId], [s0].[SizeId0]
+2025-05-30 18:39:17.182 +07:00 [INF] Executed DbCommand (5ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [p].[Id], [p].[Code], [p].[DiscountAmount], [p].[DiscountPercentage], [p].[EndDate], [p].[IsActive], [p].[MaxUsage], [p].[StartDate], [p].[UsageCount]
+FROM [PromotionCodes] AS [p]
+WHERE [p].[IsActive] = CAST(1 AS bit) AND ([p].[StartDate] IS NULL OR [p].[StartDate] <= GETDATE()) AND ([p].[EndDate] IS NULL OR [p].[EndDate] >= GETDATE()) AND ([p].[MaxUsage] = 0 OR [p].[UsageCount] < [p].[MaxUsage])
+2025-05-30 18:39:17.186 +07:00 [INF] Executing ViewResult, running view Index.
+2025-05-30 18:39:17.199 +07:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [b].[BrandId], [b].[ImageUrl], [b].[Name]
+FROM [Brands] AS [b]
+2025-05-30 18:39:17.205 +07:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [c].[CategoryId], [c].[ImageUrl], [c].[Name]
+FROM [Categories] AS [c]
+2025-05-30 18:39:17.213 +07:00 [INF] Executed ViewResult - view Index executed in 27.7888ms.
+2025-05-30 18:39:17.217 +07:00 [INF] Executed action DoAnLTW.Controllers.HomeController.Index (DoAnLTW) in 93.9882ms
+2025-05-30 18:39:17.221 +07:00 [INF] Executed endpoint 'DoAnLTW.Controllers.HomeController.Index (DoAnLTW)'
+2025-05-30 18:39:17.224 +07:00 [INF] HTTP GET / responded 200 in 147.4285 ms
+2025-05-30 18:39:17.230 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/ - 200 null text/html; charset=utf-8 160.61ms
+2025-05-30 18:39:17.276 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/_framework/aspnetcore-browser-refresh.js - null null
+2025-05-30 18:39:17.277 +07:00 [INF] Request starting HTTP/2 POST https://localhost:5134/chatHub/negotiate?negotiateVersion=1 - text/plain;charset=UTF-8 0
+2025-05-30 18:39:17.279 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/img/payments.png - null null
+2025-05-30 18:39:17.279 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/_vs/browserLink - null null
+2025-05-30 18:39:17.282 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/_framework/aspnetcore-browser-refresh.js - 200 16499 application/javascript; charset=utf-8 6.125ms
+2025-05-30 18:39:17.289 +07:00 [INF] CORS policy execution successful.
+2025-05-30 18:39:17.323 +07:00 [INF] Executed DbCommand (12ms) [Parameters=[@__p_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[SecurityStamp], [a].[TwoFactorEnabled], [a].[UserName]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[Id] = @__p_0
+2025-05-30 18:39:17.334 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/_vs/browserLink - 200 null text/javascript; charset=UTF-8 55.1991ms
+2025-05-30 18:39:17.340 +07:00 [INF] Executed DbCommand (1ms) [Parameters=[@__userId_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a0].[Name]
+FROM [AspNetUserRoles] AS [a]
+INNER JOIN [AspNetRoles] AS [a0] ON [a].[RoleId] = [a0].[Id]
+WHERE [a].[UserId] = @__userId_0
+2025-05-30 18:39:17.350 +07:00 [INF] Executed DbCommand (2ms) [Parameters=[@__p_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[SecurityStamp], [a].[TwoFactorEnabled], [a].[UserName]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[Id] = @__p_0
+2025-05-30 18:39:17.354 +07:00 [INF] HTTP GET /img/payments.png responded 404 in 61.2569 ms
+2025-05-30 18:39:17.364 +07:00 [INF] Executed DbCommand (2ms) [Parameters=[@__userId_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a0].[Name]
+FROM [AspNetUserRoles] AS [a]
+INNER JOIN [AspNetRoles] AS [a0] ON [a].[RoleId] = [a0].[Id]
+WHERE [a].[UserId] = @__userId_0
+2025-05-30 18:39:17.365 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/img/payments.png - 404 0 null 86.1693ms
+2025-05-30 18:39:17.377 +07:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET https://localhost:5134/img/payments.png, Response status code: 404
+2025-05-30 18:39:17.378 +07:00 [INF] Executing endpoint '/chatHub/negotiate'
+2025-05-30 18:39:17.404 +07:00 [INF] Executed endpoint '/chatHub/negotiate'
+2025-05-30 18:39:17.408 +07:00 [INF] HTTP POST /chatHub/negotiate responded 200 in 119.3645 ms
+2025-05-30 18:39:17.412 +07:00 [INF] Request finished HTTP/2 POST https://localhost:5134/chatHub/negotiate?negotiateVersion=1 - 200 316 application/json 135.0075ms
+2025-05-30 18:39:17.761 +07:00 [INF] Request starting HTTP/2 CONNECT https://localhost:5134/chatHub?id=GdRxYIUX4SzzkYbaGbSFEQ - null null
+2025-05-30 18:39:17.767 +07:00 [INF] CORS policy execution successful.
+2025-05-30 18:39:17.777 +07:00 [INF] Executed DbCommand (2ms) [Parameters=[@__p_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[SecurityStamp], [a].[TwoFactorEnabled], [a].[UserName]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[Id] = @__p_0
+2025-05-30 18:39:17.783 +07:00 [INF] Executed DbCommand (1ms) [Parameters=[@__userId_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a0].[Name]
+FROM [AspNetUserRoles] AS [a]
+INNER JOIN [AspNetRoles] AS [a0] ON [a].[RoleId] = [a0].[Id]
+WHERE [a].[UserId] = @__userId_0
+2025-05-30 18:39:17.793 +07:00 [INF] Executing endpoint '/chatHub'
+2025-05-30 18:39:17.900 +07:00 [INF] Executed DbCommand (1ms) [Parameters=[@__p_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[SecurityStamp], [a].[TwoFactorEnabled], [a].[UserName]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[Id] = @__p_0
+2025-05-30 18:39:17.935 +07:00 [INF] Executed DbCommand (1ms) [Parameters=[@__userId_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a0].[Name]
+FROM [AspNetUserRoles] AS [a]
+INNER JOIN [AspNetRoles] AS [a0] ON [a].[RoleId] = [a0].[Id]
+WHERE [a].[UserId] = @__userId_0
+2025-05-30 18:39:34.894 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/Shop - null null
+2025-05-30 18:39:34.904 +07:00 [INF] Executed DbCommand (1ms) [Parameters=[@__p_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[SecurityStamp], [a].[TwoFactorEnabled], [a].[UserName]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[Id] = @__p_0
+2025-05-30 18:39:34.914 +07:00 [INF] Executed DbCommand (2ms) [Parameters=[@__userId_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a0].[Name]
+FROM [AspNetUserRoles] AS [a]
+INNER JOIN [AspNetRoles] AS [a0] ON [a].[RoleId] = [a0].[Id]
+WHERE [a].[UserId] = @__userId_0
+2025-05-30 18:39:34.920 +07:00 [INF] Executing endpoint 'DoAnLTW.Controllers.ShopController.Index (DoAnLTW)'
+2025-05-30 18:39:34.923 +07:00 [INF] Route matched with {action = "Index", controller = "Shop", area = "", page = ""}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Index(System.String, System.Nullable`1[System.Int32], System.Nullable`1[System.Int32], System.Nullable`1[System.Int32], System.Nullable`1[System.Decimal], System.Nullable`1[System.Decimal], System.String) on controller DoAnLTW.Controllers.ShopController (DoAnLTW).
+2025-05-30 18:39:34.956 +07:00 [INF] Executed DbCommand (28ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [p].[ProductId], [p].[BrandId], [p].[CategoryId], [p].[Description], [p].[Name], [c].[CategoryId], [c].[ImageUrl], [c].[Name], [b].[BrandId], [b].[ImageUrl], [b].[Name], [s0].[ProductId], [s0].[SizeId], [s0].[Price], [s0].[Stock], [s0].[SizeId0], [s0].[size], [p1].[Product_ImagesId], [p1].[ImageUrl], [p1].[ProductId], [r].[ReviewId], [r].[Comment], [r].[CreatedAt], [r].[ProductId], [r].[Rating], [r].[UserId]
+FROM [Products] AS [p]
+INNER JOIN [Categories] AS [c] ON [p].[CategoryId] = [c].[CategoryId]
+INNER JOIN [Brands] AS [b] ON [p].[BrandId] = [b].[BrandId]
+LEFT JOIN (
+    SELECT [p0].[ProductId], [p0].[SizeId], [p0].[Price], [p0].[Stock], [s].[SizeId] AS [SizeId0], [s].[size]
+    FROM [ProductSizes] AS [p0]
+    INNER JOIN [Sizes] AS [s] ON [p0].[SizeId] = [s].[SizeId]
+) AS [s0] ON [p].[ProductId] = [s0].[ProductId]
+LEFT JOIN [ProductImages] AS [p1] ON [p].[ProductId] = [p1].[ProductId]
+LEFT JOIN [Reviews] AS [r] ON [p].[ProductId] = [r].[ProductId]
+ORDER BY [p].[Name], [p].[ProductId], [c].[CategoryId], [b].[BrandId], [s0].[ProductId], [s0].[SizeId], [s0].[SizeId0], [p1].[Product_ImagesId]
+2025-05-30 18:39:34.972 +07:00 [INF] Executed DbCommand (5ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [b].[BrandId], [b].[Name], (
+    SELECT COUNT(*)
+    FROM [Products] AS [p]
+    WHERE [p].[BrandId] = [b].[BrandId]) AS [ProductCount]
+FROM [Brands] AS [b]
+2025-05-30 18:39:34.987 +07:00 [INF] Executed DbCommand (10ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [s].[SizeId], [s].[size] AS [SizeDisplay], (
+    SELECT COUNT(*)
+    FROM [ProductSizes] AS [p]
+    WHERE [p].[SizeId] = [s].[SizeId]) AS [ProductCount]
+FROM [Sizes] AS [s]
+ORDER BY [s].[size]
+2025-05-30 18:39:35.000 +07:00 [INF] Executed DbCommand (7ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [c].[CategoryId], [c].[Name], (
+    SELECT COUNT(*)
+    FROM [Products] AS [p]
+    WHERE [p].[CategoryId] = [c].[CategoryId]) AS [ProductCount]
+FROM [Categories] AS [c]
+2025-05-30 18:39:35.012 +07:00 [INF] Executed DbCommand (4ms) [Parameters=[@__range_Min_0='?' (Precision = 18) (Scale = 2) (DbType = Decimal), @__range_Max_Value_1='?' (Precision = 18) (Scale = 2) (DbType = Decimal)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM (
+    SELECT DISTINCT [p].[ProductId]
+    FROM [ProductSizes] AS [p]
+    WHERE [p].[Price] >= @__range_Min_0 AND [p].[Price] <= @__range_Max_Value_1
+) AS [p0]
+2025-05-30 18:39:35.018 +07:00 [INF] Executed DbCommand (2ms) [Parameters=[@__range_Min_0='?' (Precision = 18) (Scale = 2) (DbType = Decimal), @__range_Max_Value_1='?' (Precision = 18) (Scale = 2) (DbType = Decimal)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM (
+    SELECT DISTINCT [p].[ProductId]
+    FROM [ProductSizes] AS [p]
+    WHERE [p].[Price] >= @__range_Min_0 AND [p].[Price] <= @__range_Max_Value_1
+) AS [p0]
+2025-05-30 18:39:35.025 +07:00 [INF] Executed DbCommand (1ms) [Parameters=[@__range_Min_0='?' (Precision = 18) (Scale = 2) (DbType = Decimal), @__range_Max_Value_1='?' (Precision = 18) (Scale = 2) (DbType = Decimal)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM (
+    SELECT DISTINCT [p].[ProductId]
+    FROM [ProductSizes] AS [p]
+    WHERE [p].[Price] >= @__range_Min_0 AND [p].[Price] <= @__range_Max_Value_1
+) AS [p0]
+2025-05-30 18:39:35.030 +07:00 [INF] Executed DbCommand (1ms) [Parameters=[@__range_Min_0='?' (Precision = 18) (Scale = 2) (DbType = Decimal), @__range_Max_Value_1='?' (Precision = 18) (Scale = 2) (DbType = Decimal)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM (
+    SELECT DISTINCT [p].[ProductId]
+    FROM [ProductSizes] AS [p]
+    WHERE [p].[Price] >= @__range_Min_0 AND [p].[Price] <= @__range_Max_Value_1
+) AS [p0]
+2025-05-30 18:39:35.038 +07:00 [INF] Executed DbCommand (5ms) [Parameters=[@__range_Min_0='?' (Precision = 18) (Scale = 2) (DbType = Decimal)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM (
+    SELECT DISTINCT [p].[ProductId]
+    FROM [ProductSizes] AS [p]
+    WHERE [p].[Price] >= @__range_Min_0
+) AS [p0]
+2025-05-30 18:39:35.045 +07:00 [INF] Executed DbCommand (3ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [Products] AS [p]
+2025-05-30 18:39:35.050 +07:00 [INF] Executing ViewResult, running view Index.
+2025-05-30 18:39:35.057 +07:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [b].[BrandId], [b].[ImageUrl], [b].[Name]
+FROM [Brands] AS [b]
+2025-05-30 18:39:35.061 +07:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [c].[CategoryId], [c].[ImageUrl], [c].[Name]
+FROM [Categories] AS [c]
+2025-05-30 18:39:35.065 +07:00 [INF] Executed ViewResult - view Index executed in 15.9771ms.
+2025-05-30 18:39:35.067 +07:00 [INF] Executed action DoAnLTW.Controllers.ShopController.Index (DoAnLTW) in 140.7701ms
+2025-05-30 18:39:35.069 +07:00 [INF] Executed endpoint 'DoAnLTW.Controllers.ShopController.Index (DoAnLTW)'
+2025-05-30 18:39:35.071 +07:00 [INF] HTTP GET /Shop responded 200 in 170.1782 ms
+2025-05-30 18:39:35.073 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/Shop - 200 null text/html; charset=utf-8 179.2984ms
+2025-05-30 18:39:35.113 +07:00 [INF] Executed DbCommand (1ms) [Parameters=[@__p_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[SecurityStamp], [a].[TwoFactorEnabled], [a].[UserName]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[Id] = @__p_0
+2025-05-30 18:39:35.122 +07:00 [INF] Executed DbCommand (1ms) [Parameters=[@__userId_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a0].[Name]
+FROM [AspNetUserRoles] AS [a]
+INNER JOIN [AspNetRoles] AS [a0] ON [a].[RoleId] = [a0].[Id]
+WHERE [a].[UserId] = @__userId_0
+2025-05-30 18:39:35.132 +07:00 [INF] Executed endpoint '/chatHub'
+2025-05-30 18:39:35.136 +07:00 [INF] HTTP CONNECT /chatHub responded 200 in 17370.5510 ms
+2025-05-30 18:39:35.140 +07:00 [INF] Request finished HTTP/2 CONNECT https://localhost:5134/chatHub?id=GdRxYIUX4SzzkYbaGbSFEQ - 200 null null 17378.9642ms
+2025-05-30 18:39:35.150 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/img/payments.png - null null
+2025-05-30 18:39:35.156 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/_vs/browserLink - null null
+2025-05-30 18:39:35.157 +07:00 [INF] Request starting HTTP/2 POST https://localhost:5134/chatHub/negotiate?negotiateVersion=1 - text/plain;charset=UTF-8 0
+2025-05-30 18:39:35.157 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/_framework/aspnetcore-browser-refresh.js - null null
+2025-05-30 18:39:35.165 +07:00 [INF] Executed DbCommand (1ms) [Parameters=[@__p_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[SecurityStamp], [a].[TwoFactorEnabled], [a].[UserName]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[Id] = @__p_0
+2025-05-30 18:39:35.172 +07:00 [INF] CORS policy execution successful.
+2025-05-30 18:39:35.174 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/_vs/browserLink - 200 null text/javascript; charset=UTF-8 18.3588ms
+2025-05-30 18:39:35.179 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/_framework/aspnetcore-browser-refresh.js - 200 16499 application/javascript; charset=utf-8 22.1793ms
+2025-05-30 18:39:35.185 +07:00 [INF] Executed DbCommand (1ms) [Parameters=[@__userId_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a0].[Name]
+FROM [AspNetUserRoles] AS [a]
+INNER JOIN [AspNetRoles] AS [a0] ON [a].[RoleId] = [a0].[Id]
+WHERE [a].[UserId] = @__userId_0
+2025-05-30 18:39:35.189 +07:00 [INF] Executed DbCommand (1ms) [Parameters=[@__p_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[SecurityStamp], [a].[TwoFactorEnabled], [a].[UserName]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[Id] = @__p_0
+2025-05-30 18:39:35.200 +07:00 [INF] HTTP GET /img/payments.png responded 404 in 42.8089 ms
+2025-05-30 18:39:35.203 +07:00 [INF] Executed DbCommand (1ms) [Parameters=[@__userId_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a0].[Name]
+FROM [AspNetUserRoles] AS [a]
+INNER JOIN [AspNetRoles] AS [a0] ON [a].[RoleId] = [a0].[Id]
+WHERE [a].[UserId] = @__userId_0
+2025-05-30 18:39:35.205 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/img/payments.png - 404 0 null 54.6048ms
+2025-05-30 18:39:35.209 +07:00 [INF] Executing endpoint '/chatHub/negotiate'
+2025-05-30 18:39:35.211 +07:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET https://localhost:5134/img/payments.png, Response status code: 404
+2025-05-30 18:39:35.213 +07:00 [INF] Executed endpoint '/chatHub/negotiate'
+2025-05-30 18:39:35.218 +07:00 [INF] HTTP POST /chatHub/negotiate responded 200 in 45.7361 ms
+2025-05-30 18:39:35.221 +07:00 [INF] Request finished HTTP/2 POST https://localhost:5134/chatHub/negotiate?negotiateVersion=1 - 200 316 application/json 63.5203ms
+2025-05-30 18:39:35.246 +07:00 [INF] Request starting HTTP/2 CONNECT https://localhost:5134/chatHub?id=14tQYhoecJIFQ2ZmhMJ-Eg - null null
+2025-05-30 18:39:35.251 +07:00 [INF] CORS policy execution successful.
+2025-05-30 18:39:35.259 +07:00 [INF] Executed DbCommand (1ms) [Parameters=[@__p_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[SecurityStamp], [a].[TwoFactorEnabled], [a].[UserName]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[Id] = @__p_0
+2025-05-30 18:39:35.266 +07:00 [INF] Executed DbCommand (1ms) [Parameters=[@__userId_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a0].[Name]
+FROM [AspNetUserRoles] AS [a]
+INNER JOIN [AspNetRoles] AS [a0] ON [a].[RoleId] = [a0].[Id]
+WHERE [a].[UserId] = @__userId_0
+2025-05-30 18:39:35.270 +07:00 [INF] Executing endpoint '/chatHub'
+2025-05-30 18:39:35.279 +07:00 [INF] Executed DbCommand (1ms) [Parameters=[@__p_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[SecurityStamp], [a].[TwoFactorEnabled], [a].[UserName]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[Id] = @__p_0
+2025-05-30 18:39:35.285 +07:00 [INF] Executed DbCommand (1ms) [Parameters=[@__userId_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a0].[Name]
+FROM [AspNetUserRoles] AS [a]
+INNER JOIN [AspNetRoles] AS [a0] ON [a].[RoleId] = [a0].[Id]
+WHERE [a].[UserId] = @__userId_0
+2025-05-30 18:39:37.591 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/Shop/Details/17 - null null
+2025-05-30 18:39:37.608 +07:00 [INF] Executed DbCommand (6ms) [Parameters=[@__p_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[SecurityStamp], [a].[TwoFactorEnabled], [a].[UserName]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[Id] = @__p_0
+2025-05-30 18:39:37.631 +07:00 [INF] Executed DbCommand (16ms) [Parameters=[@__userId_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a0].[Name]
+FROM [AspNetUserRoles] AS [a]
+INNER JOIN [AspNetRoles] AS [a0] ON [a].[RoleId] = [a0].[Id]
+WHERE [a].[UserId] = @__userId_0
+2025-05-30 18:39:37.639 +07:00 [INF] Executing endpoint 'DoAnLTW.Controllers.ShopController.Details (DoAnLTW)'
+2025-05-30 18:39:37.645 +07:00 [INF] Route matched with {action = "Details", controller = "Shop", area = "", page = ""}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Details(Int32) on controller DoAnLTW.Controllers.ShopController (DoAnLTW).
+2025-05-30 18:39:37.673 +07:00 [WRN] Compiling a query which loads related collections for more than one collection navigation, either via 'Include' or through projection, but no 'QuerySplittingBehavior' has been configured. By default, Entity Framework will use 'QuerySplittingBehavior.SingleQuery', which can potentially result in slow query performance. See https://go.microsoft.com/fwlink/?linkid=2134277 for more information. To identify the query that's triggering this warning call 'ConfigureWarnings(w => w.Throw(RelationalEventId.MultipleCollectionIncludeWarning))'.
+2025-05-30 18:39:37.736 +07:00 [INF] Executed DbCommand (28ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [s0].[ProductId], [s0].[BrandId], [s0].[CategoryId], [s0].[Description], [s0].[Name], [s0].[CategoryId0], [s0].[ImageUrl], [s0].[Name0], [s0].[BrandId0], [s0].[ImageUrl0], [s0].[Name1], [p0].[Product_ImagesId], [p0].[ImageUrl], [p0].[ProductId], [s1].[ProductId], [s1].[SizeId], [s1].[Price], [s1].[Stock], [s1].[SizeId0], [s1].[size], [r].[ReviewId], [r].[Comment], [r].[CreatedAt], [r].[ProductId], [r].[Rating], [r].[UserId]
+FROM (
+    SELECT TOP(1) [p].[ProductId], [p].[BrandId], [p].[CategoryId], [p].[Description], [p].[Name], [c].[CategoryId] AS [CategoryId0], [c].[ImageUrl], [c].[Name] AS [Name0], [b].[BrandId] AS [BrandId0], [b].[ImageUrl] AS [ImageUrl0], [b].[Name] AS [Name1]
+    FROM [Products] AS [p]
+    INNER JOIN [Categories] AS [c] ON [p].[CategoryId] = [c].[CategoryId]
+    INNER JOIN [Brands] AS [b] ON [p].[BrandId] = [b].[BrandId]
+    WHERE [p].[ProductId] = @__id_0
+) AS [s0]
+LEFT JOIN [ProductImages] AS [p0] ON [s0].[ProductId] = [p0].[ProductId]
+LEFT JOIN (
+    SELECT [p1].[ProductId], [p1].[SizeId], [p1].[Price], [p1].[Stock], [s].[SizeId] AS [SizeId0], [s].[size]
+    FROM [ProductSizes] AS [p1]
+    INNER JOIN [Sizes] AS [s] ON [p1].[SizeId] = [s].[SizeId]
+) AS [s1] ON [s0].[ProductId] = [s1].[ProductId]
+LEFT JOIN [Reviews] AS [r] ON [s0].[ProductId] = [r].[ProductId]
+ORDER BY [s0].[ProductId], [s0].[CategoryId0], [s0].[BrandId0], [p0].[Product_ImagesId], [s1].[ProductId], [s1].[SizeId], [s1].[SizeId0]
+2025-05-30 18:39:37.753 +07:00 [WRN] The query uses a row limiting operator ('Skip'/'Take') without an 'OrderBy' operator. This may lead to unpredictable results. If the 'Distinct' operator is used after 'OrderBy', then make sure to use the 'OrderBy' operator after 'Distinct' as the ordering would otherwise get erased.
+2025-05-30 18:39:37.768 +07:00 [WRN] Compiling a query which loads related collections for more than one collection navigation, either via 'Include' or through projection, but no 'QuerySplittingBehavior' has been configured. By default, Entity Framework will use 'QuerySplittingBehavior.SingleQuery', which can potentially result in slow query performance. See https://go.microsoft.com/fwlink/?linkid=2134277 for more information. To identify the query that's triggering this warning call 'ConfigureWarnings(w => w.Throw(RelationalEventId.MultipleCollectionIncludeWarning))'.
+2025-05-30 18:39:37.838 +07:00 [INF] Executed DbCommand (33ms) [Parameters=[@__p_2='?' (DbType = Int32), @__product_CategoryId_0='?' (DbType = Int32), @__id_1='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [p0].[ProductId], [p0].[BrandId], [p0].[CategoryId], [p0].[Description], [p0].[Name], [c].[CategoryId], [c].[ImageUrl], [c].[Name], [b].[BrandId], [b].[ImageUrl], [b].[Name], [p1].[Product_ImagesId], [p1].[ImageUrl], [p1].[ProductId], [s0].[ProductId], [s0].[SizeId], [s0].[Price], [s0].[Stock], [s0].[SizeId0], [s0].[size], [r].[ReviewId], [r].[Comment], [r].[CreatedAt], [r].[ProductId], [r].[Rating], [r].[UserId]
+FROM (
+    SELECT TOP(@__p_2) [p].[ProductId], [p].[BrandId], [p].[CategoryId], [p].[Description], [p].[Name]
+    FROM [Products] AS [p]
+    WHERE [p].[CategoryId] = @__product_CategoryId_0 AND [p].[ProductId] <> @__id_1
+) AS [p0]
+INNER JOIN [Categories] AS [c] ON [p0].[CategoryId] = [c].[CategoryId]
+INNER JOIN [Brands] AS [b] ON [p0].[BrandId] = [b].[BrandId]
+LEFT JOIN [ProductImages] AS [p1] ON [p0].[ProductId] = [p1].[ProductId]
+LEFT JOIN (
+    SELECT [p2].[ProductId], [p2].[SizeId], [p2].[Price], [p2].[Stock], [s].[SizeId] AS [SizeId0], [s].[size]
+    FROM [ProductSizes] AS [p2]
+    INNER JOIN [Sizes] AS [s] ON [p2].[SizeId] = [s].[SizeId]
+) AS [s0] ON [p0].[ProductId] = [s0].[ProductId]
+LEFT JOIN [Reviews] AS [r] ON [p0].[ProductId] = [r].[ProductId]
+ORDER BY [p0].[ProductId], [c].[CategoryId], [b].[BrandId], [p1].[Product_ImagesId], [s0].[ProductId], [s0].[SizeId], [s0].[SizeId0]
+2025-05-30 18:39:37.923 +07:00 [INF] Executed DbCommand (21ms) [Parameters=[@__user_Email_0='?' (Size = 4000), @__id_1='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [Orders] AS [o]
+        WHERE [o].[Email] = @__user_Email_0 AND [o].[Status] <> 3 AND [o].[Status] <> 0 AND EXISTS (
+            SELECT 1
+            FROM [OrderDetails] AS [o0]
+            WHERE [o].[Id] = [o0].[OrderId] AND [o0].[ProductId] = @__id_1)) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2025-05-30 18:39:37.939 +07:00 [INF] Executing ViewResult, running view Details.
+2025-05-30 18:39:37.977 +07:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [b].[BrandId], [b].[ImageUrl], [b].[Name]
+FROM [Brands] AS [b]
+2025-05-30 18:39:37.984 +07:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [c].[CategoryId], [c].[ImageUrl], [c].[Name]
+FROM [Categories] AS [c]
+2025-05-30 18:39:37.990 +07:00 [INF] Executed ViewResult - view Details executed in 52.279ms.
+2025-05-30 18:39:37.994 +07:00 [INF] Executed action DoAnLTW.Controllers.ShopController.Details (DoAnLTW) in 342.671ms
+2025-05-30 18:39:37.997 +07:00 [INF] Executed endpoint 'DoAnLTW.Controllers.ShopController.Details (DoAnLTW)'
+2025-05-30 18:39:38.000 +07:00 [INF] HTTP GET /Shop/Details/17 responded 200 in 399.2384 ms
+2025-05-30 18:39:38.003 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/Shop/Details/17 - 200 null text/html; charset=utf-8 411.8194ms
+2025-05-30 18:39:38.017 +07:00 [INF] Executed DbCommand (4ms) [Parameters=[@__p_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[SecurityStamp], [a].[TwoFactorEnabled], [a].[UserName]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[Id] = @__p_0
+2025-05-30 18:39:38.027 +07:00 [INF] Executed DbCommand (6ms) [Parameters=[@__userId_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a0].[Name]
+FROM [AspNetUserRoles] AS [a]
+INNER JOIN [AspNetRoles] AS [a0] ON [a].[RoleId] = [a0].[Id]
+WHERE [a].[UserId] = @__userId_0
+2025-05-30 18:39:38.033 +07:00 [INF] Executed endpoint '/chatHub'
+2025-05-30 18:39:38.035 +07:00 [INF] HTTP CONNECT /chatHub responded 200 in 2784.7684 ms
+2025-05-30 18:39:38.040 +07:00 [INF] Request finished HTTP/2 CONNECT https://localhost:5134/chatHub?id=14tQYhoecJIFQ2ZmhMJ-Eg - 200 null null 2793.5682ms
+2025-05-30 18:39:38.060 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/img/products/1979762a-15a3-472b-96ae-e77e4871d52d.jpg - null null
+2025-05-30 18:39:38.067 +07:00 [INF] The file /img/products/1979762a-15a3-472b-96ae-e77e4871d52d.jpg was not modified
+2025-05-30 18:39:38.072 +07:00 [INF] HTTP GET /img/products/1979762a-15a3-472b-96ae-e77e4871d52d.jpg responded 304 in 5.1925 ms
+2025-05-30 18:39:38.077 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/img/products/1979762a-15a3-472b-96ae-e77e4871d52d.jpg - 304 null image/jpeg 17.6633ms
+2025-05-30 18:39:38.079 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/img/products/42d9394c-9ab1-44a3-8058-8cebcb6622e9.jpg - null null
+2025-05-30 18:39:38.088 +07:00 [INF] Request starting HTTP/2 POST https://localhost:5134/chatHub/negotiate?negotiateVersion=1 - text/plain;charset=UTF-8 0
+2025-05-30 18:39:38.088 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/_framework/aspnetcore-browser-refresh.js - null null
+2025-05-30 18:39:38.089 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/img/user.jpg - null null
+2025-05-30 18:39:38.089 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/_vs/browserLink - null null
+2025-05-30 18:39:38.089 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/Shop/Details/img/payments.png - null null
+2025-05-30 18:39:38.101 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/_framework/aspnetcore-browser-refresh.js - 200 16499 application/javascript; charset=utf-8 13.1759ms
+2025-05-30 18:39:38.114 +07:00 [INF] Executed DbCommand (5ms) [Parameters=[@__p_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[SecurityStamp], [a].[TwoFactorEnabled], [a].[UserName]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[Id] = @__p_0
+2025-05-30 18:39:38.089 +07:00 [INF] The file /img/products/42d9394c-9ab1-44a3-8058-8cebcb6622e9.jpg was not modified
+2025-05-30 18:39:38.097 +07:00 [INF] CORS policy execution successful.
+2025-05-30 18:39:38.150 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/_vs/browserLink - 200 null text/javascript; charset=UTF-8 61.3779ms
+2025-05-30 18:39:38.154 +07:00 [INF] Executed DbCommand (4ms) [Parameters=[@__p_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[SecurityStamp], [a].[TwoFactorEnabled], [a].[UserName]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[Id] = @__p_0
+2025-05-30 18:39:38.157 +07:00 [INF] HTTP GET /img/products/42d9394c-9ab1-44a3-8058-8cebcb6622e9.jpg responded 304 in 67.7068 ms
+2025-05-30 18:39:38.169 +07:00 [INF] Executed DbCommand (12ms) [Parameters=[@__userId_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a0].[Name]
+FROM [AspNetUserRoles] AS [a]
+INNER JOIN [AspNetRoles] AS [a0] ON [a].[RoleId] = [a0].[Id]
+WHERE [a].[UserId] = @__userId_0
+2025-05-30 18:39:38.175 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/img/products/42d9394c-9ab1-44a3-8058-8cebcb6622e9.jpg - 304 null image/jpeg 96.3714ms
+2025-05-30 18:39:38.213 +07:00 [INF] Executed DbCommand (38ms) [Parameters=[@__userId_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a0].[Name]
+FROM [AspNetUserRoles] AS [a]
+INNER JOIN [AspNetRoles] AS [a0] ON [a].[RoleId] = [a0].[Id]
+WHERE [a].[UserId] = @__userId_0
+2025-05-30 18:39:38.219 +07:00 [INF] HTTP GET /img/user.jpg responded 404 in 113.2983 ms
+2025-05-30 18:39:38.223 +07:00 [INF] Executed DbCommand (46ms) [Parameters=[@__p_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[SecurityStamp], [a].[TwoFactorEnabled], [a].[UserName]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[Id] = @__p_0
+2025-05-30 18:39:38.231 +07:00 [INF] HTTP GET /Shop/Details/img/payments.png responded 404 in 117.9472 ms
+2025-05-30 18:39:38.235 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/img/user.jpg - 404 0 null 146.3393ms
+2025-05-30 18:39:38.243 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/Shop/Details/img/payments.png - 404 0 null 154.101ms
+2025-05-30 18:39:38.251 +07:00 [INF] Executed DbCommand (11ms) [Parameters=[@__userId_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a0].[Name]
+FROM [AspNetUserRoles] AS [a]
+INNER JOIN [AspNetRoles] AS [a0] ON [a].[RoleId] = [a0].[Id]
+WHERE [a].[UserId] = @__userId_0
+2025-05-30 18:39:38.252 +07:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET https://localhost:5134/img/user.jpg, Response status code: 404
+2025-05-30 18:39:38.258 +07:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET https://localhost:5134/Shop/Details/img/payments.png, Response status code: 404
+2025-05-30 18:39:38.261 +07:00 [INF] Executing endpoint '/chatHub/negotiate'
+2025-05-30 18:39:38.269 +07:00 [INF] Executed endpoint '/chatHub/negotiate'
+2025-05-30 18:39:38.271 +07:00 [INF] HTTP POST /chatHub/negotiate responded 200 in 174.1017 ms
+2025-05-30 18:39:38.275 +07:00 [INF] Request finished HTTP/2 POST https://localhost:5134/chatHub/negotiate?negotiateVersion=1 - 200 316 application/json 187.185ms
+2025-05-30 18:39:38.279 +07:00 [INF] Request starting HTTP/2 CONNECT https://localhost:5134/chatHub?id=ne4aZ_vFKhLER0DC3kBt2Q - null null
+2025-05-30 18:39:38.288 +07:00 [INF] CORS policy execution successful.
+2025-05-30 18:39:38.300 +07:00 [INF] Executed DbCommand (5ms) [Parameters=[@__p_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[SecurityStamp], [a].[TwoFactorEnabled], [a].[UserName]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[Id] = @__p_0
+2025-05-30 18:39:38.308 +07:00 [INF] Executed DbCommand (2ms) [Parameters=[@__userId_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a0].[Name]
+FROM [AspNetUserRoles] AS [a]
+INNER JOIN [AspNetRoles] AS [a0] ON [a].[RoleId] = [a0].[Id]
+WHERE [a].[UserId] = @__userId_0
+2025-05-30 18:39:38.312 +07:00 [INF] Executing endpoint '/chatHub'
+2025-05-30 18:39:38.317 +07:00 [INF] Executed DbCommand (0ms) [Parameters=[@__p_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[SecurityStamp], [a].[TwoFactorEnabled], [a].[UserName]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[Id] = @__p_0
+2025-05-30 18:39:38.322 +07:00 [INF] Executed DbCommand (1ms) [Parameters=[@__userId_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a0].[Name]
+FROM [AspNetUserRoles] AS [a]
+INNER JOIN [AspNetRoles] AS [a0] ON [a].[RoleId] = [a0].[Id]
+WHERE [a].[UserId] = @__userId_0
+2025-05-30 18:39:38.513 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/Shop/Details/img/favicon.ico - null null
+2025-05-30 18:39:38.551 +07:00 [INF] Executed DbCommand (14ms) [Parameters=[@__p_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[SecurityStamp], [a].[TwoFactorEnabled], [a].[UserName]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[Id] = @__p_0
+2025-05-30 18:39:38.574 +07:00 [INF] Executed DbCommand (7ms) [Parameters=[@__userId_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a0].[Name]
+FROM [AspNetUserRoles] AS [a]
+INNER JOIN [AspNetRoles] AS [a0] ON [a].[RoleId] = [a0].[Id]
+WHERE [a].[UserId] = @__userId_0
+2025-05-30 18:39:38.579 +07:00 [INF] HTTP GET /Shop/Details/img/favicon.ico responded 404 in 52.3273 ms
+2025-05-30 18:39:38.583 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/Shop/Details/img/favicon.ico - 404 0 null 70.2642ms
+2025-05-30 18:39:38.589 +07:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET https://localhost:5134/Shop/Details/img/favicon.ico, Response status code: 404
+2025-05-30 18:39:43.594 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/UserPets - null null
+2025-05-30 18:39:43.608 +07:00 [INF] Executed DbCommand (4ms) [Parameters=[@__p_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[SecurityStamp], [a].[TwoFactorEnabled], [a].[UserName]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[Id] = @__p_0
+2025-05-30 18:39:43.624 +07:00 [INF] Executed DbCommand (11ms) [Parameters=[@__userId_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a0].[Name]
+FROM [AspNetUserRoles] AS [a]
+INNER JOIN [AspNetRoles] AS [a0] ON [a].[RoleId] = [a0].[Id]
+WHERE [a].[UserId] = @__userId_0
+2025-05-30 18:39:43.631 +07:00 [INF] Executing endpoint 'DoAnLTW.Controllers.UserPetsController.Index (DoAnLTW)'
+2025-05-30 18:39:43.636 +07:00 [INF] Route matched with {action = "Index", controller = "UserPets", area = "", page = ""}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Index() on controller DoAnLTW.Controllers.UserPetsController (DoAnLTW).
+2025-05-30 18:39:43.670 +07:00 [INF] Executed DbCommand (8ms) [Parameters=[@__userId_0='?' (Size = 4000)], CommandType='"Text"', CommandTimeout='30']
+SELECT [p].[PetId], [p].[Age], [p].[Breed], [p].[Description], [p].[Gender], [p].[Name], [p].[Type], [p].[UserId], [p0].[Id], [p0].[ImageUrl], [p0].[IsMainImage], [p0].[PetId]
+FROM [Pets] AS [p]
+LEFT JOIN [PetImages] AS [p0] ON [p].[PetId] = [p0].[PetId]
+WHERE [p].[UserId] = @__userId_0
+ORDER BY [p].[PetId]
+2025-05-30 18:39:43.697 +07:00 [INF] Executing ViewResult, running view Index.
+2025-05-30 18:39:43.708 +07:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [b].[BrandId], [b].[ImageUrl], [b].[Name]
+FROM [Brands] AS [b]
+2025-05-30 18:39:43.711 +07:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [c].[CategoryId], [c].[ImageUrl], [c].[Name]
+FROM [Categories] AS [c]
+2025-05-30 18:39:43.718 +07:00 [INF] Executed ViewResult - view Index executed in 22.3748ms.
+2025-05-30 18:39:43.731 +07:00 [INF] Executed action DoAnLTW.Controllers.UserPetsController.Index (DoAnLTW) in 91.7583ms
+2025-05-30 18:39:43.733 +07:00 [INF] Executed endpoint 'DoAnLTW.Controllers.UserPetsController.Index (DoAnLTW)'
+2025-05-30 18:39:43.735 +07:00 [INF] HTTP GET /UserPets responded 200 in 133.2938 ms
+2025-05-30 18:39:43.737 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/UserPets - 200 null text/html; charset=utf-8 142.4493ms
+2025-05-30 18:39:43.737 +07:00 [INF] Executed DbCommand (1ms) [Parameters=[@__p_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[SecurityStamp], [a].[TwoFactorEnabled], [a].[UserName]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[Id] = @__p_0
+2025-05-30 18:39:43.744 +07:00 [INF] Executed DbCommand (1ms) [Parameters=[@__userId_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a0].[Name]
+FROM [AspNetUserRoles] AS [a]
+INNER JOIN [AspNetRoles] AS [a0] ON [a].[RoleId] = [a0].[Id]
+WHERE [a].[UserId] = @__userId_0
+2025-05-30 18:39:43.749 +07:00 [INF] Executed endpoint '/chatHub'
+2025-05-30 18:39:43.752 +07:00 [INF] HTTP CONNECT /chatHub responded 200 in 5463.6387 ms
+2025-05-30 18:39:43.755 +07:00 [INF] Request finished HTTP/2 CONNECT https://localhost:5134/chatHub?id=ne4aZ_vFKhLER0DC3kBt2Q - 200 null null 5475.9007ms
+2025-05-30 18:39:43.778 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/images/pets/0e00fa44-f242-441b-b314-53b89badcd46.jpeg - null null
+2025-05-30 18:39:43.781 +07:00 [INF] The file /images/pets/0e00fa44-f242-441b-b314-53b89badcd46.jpeg was not modified
+2025-05-30 18:39:43.782 +07:00 [INF] HTTP GET /images/pets/0e00fa44-f242-441b-b314-53b89badcd46.jpeg responded 304 in 1.5250 ms
+2025-05-30 18:39:43.785 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/images/pets/0e00fa44-f242-441b-b314-53b89badcd46.jpeg - 304 null image/jpeg 7.2377ms
+2025-05-30 18:39:43.788 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/img/payments.png - null null
+2025-05-30 18:39:43.800 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/_framework/aspnetcore-browser-refresh.js - null null
+2025-05-30 18:39:43.800 +07:00 [INF] Request starting HTTP/2 POST https://localhost:5134/chatHub/negotiate?negotiateVersion=1 - text/plain;charset=UTF-8 0
+2025-05-30 18:39:43.800 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/_vs/browserLink - null null
+2025-05-30 18:39:43.801 +07:00 [INF] Executed DbCommand (1ms) [Parameters=[@__p_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[SecurityStamp], [a].[TwoFactorEnabled], [a].[UserName]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[Id] = @__p_0
+2025-05-30 18:39:43.808 +07:00 [INF] CORS policy execution successful.
+2025-05-30 18:39:43.805 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/_framework/aspnetcore-browser-refresh.js - 200 16499 application/javascript; charset=utf-8 5.0396ms
+2025-05-30 18:39:43.816 +07:00 [INF] Executed DbCommand (2ms) [Parameters=[@__userId_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a0].[Name]
+FROM [AspNetUserRoles] AS [a]
+INNER JOIN [AspNetRoles] AS [a0] ON [a].[RoleId] = [a0].[Id]
+WHERE [a].[UserId] = @__userId_0
+2025-05-30 18:39:43.822 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/_vs/browserLink - 200 null text/javascript; charset=UTF-8 21.2366ms
+2025-05-30 18:39:43.822 +07:00 [INF] Executed DbCommand (4ms) [Parameters=[@__p_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[SecurityStamp], [a].[TwoFactorEnabled], [a].[UserName]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[Id] = @__p_0
+2025-05-30 18:39:43.826 +07:00 [INF] HTTP GET /img/payments.png responded 404 in 29.8304 ms
+2025-05-30 18:39:43.842 +07:00 [INF] Executed DbCommand (1ms) [Parameters=[@__userId_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a0].[Name]
+FROM [AspNetUserRoles] AS [a]
+INNER JOIN [AspNetRoles] AS [a0] ON [a].[RoleId] = [a0].[Id]
+WHERE [a].[UserId] = @__userId_0
+2025-05-30 18:39:43.845 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/img/payments.png - 404 0 null 56.5293ms
+2025-05-30 18:39:43.850 +07:00 [INF] Executing endpoint '/chatHub/negotiate'
+2025-05-30 18:39:43.855 +07:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET https://localhost:5134/img/payments.png, Response status code: 404
+2025-05-30 18:39:43.857 +07:00 [INF] Executed endpoint '/chatHub/negotiate'
+2025-05-30 18:39:43.862 +07:00 [INF] HTTP POST /chatHub/negotiate responded 200 in 53.7236 ms
+2025-05-30 18:39:43.865 +07:00 [INF] Request finished HTTP/2 POST https://localhost:5134/chatHub/negotiate?negotiateVersion=1 - 200 316 application/json 65.9541ms
+2025-05-30 18:39:43.871 +07:00 [INF] Request starting HTTP/2 CONNECT https://localhost:5134/chatHub?id=ivcabm5d8HcTKS-a8-iH-A - null null
+2025-05-30 18:39:43.876 +07:00 [INF] CORS policy execution successful.
+2025-05-30 18:39:43.881 +07:00 [INF] Executed DbCommand (1ms) [Parameters=[@__p_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[SecurityStamp], [a].[TwoFactorEnabled], [a].[UserName]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[Id] = @__p_0
+2025-05-30 18:39:43.888 +07:00 [INF] Executed DbCommand (2ms) [Parameters=[@__userId_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a0].[Name]
+FROM [AspNetUserRoles] AS [a]
+INNER JOIN [AspNetRoles] AS [a0] ON [a].[RoleId] = [a0].[Id]
+WHERE [a].[UserId] = @__userId_0
+2025-05-30 18:39:43.894 +07:00 [INF] Executing endpoint '/chatHub'
+2025-05-30 18:39:43.904 +07:00 [INF] Executed DbCommand (1ms) [Parameters=[@__p_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[SecurityStamp], [a].[TwoFactorEnabled], [a].[UserName]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[Id] = @__p_0
+2025-05-30 18:39:43.910 +07:00 [INF] Executed DbCommand (1ms) [Parameters=[@__userId_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a0].[Name]
+FROM [AspNetUserRoles] AS [a]
+INNER JOIN [AspNetRoles] AS [a0] ON [a].[RoleId] = [a0].[Id]
+WHERE [a].[UserId] = @__userId_0
+2025-05-30 18:39:45.972 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/Shop - null null
+2025-05-30 18:39:45.986 +07:00 [INF] Executed DbCommand (1ms) [Parameters=[@__p_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[SecurityStamp], [a].[TwoFactorEnabled], [a].[UserName]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[Id] = @__p_0
+2025-05-30 18:39:45.996 +07:00 [INF] Executed DbCommand (1ms) [Parameters=[@__userId_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a0].[Name]
+FROM [AspNetUserRoles] AS [a]
+INNER JOIN [AspNetRoles] AS [a0] ON [a].[RoleId] = [a0].[Id]
+WHERE [a].[UserId] = @__userId_0
+2025-05-30 18:39:46.002 +07:00 [INF] Executing endpoint 'DoAnLTW.Controllers.ShopController.Index (DoAnLTW)'
+2025-05-30 18:39:46.004 +07:00 [INF] Route matched with {action = "Index", controller = "Shop", area = "", page = ""}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Index(System.String, System.Nullable`1[System.Int32], System.Nullable`1[System.Int32], System.Nullable`1[System.Int32], System.Nullable`1[System.Decimal], System.Nullable`1[System.Decimal], System.String) on controller DoAnLTW.Controllers.ShopController (DoAnLTW).
+2025-05-30 18:39:46.031 +07:00 [INF] Executed DbCommand (22ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [p].[ProductId], [p].[BrandId], [p].[CategoryId], [p].[Description], [p].[Name], [c].[CategoryId], [c].[ImageUrl], [c].[Name], [b].[BrandId], [b].[ImageUrl], [b].[Name], [s0].[ProductId], [s0].[SizeId], [s0].[Price], [s0].[Stock], [s0].[SizeId0], [s0].[size], [p1].[Product_ImagesId], [p1].[ImageUrl], [p1].[ProductId], [r].[ReviewId], [r].[Comment], [r].[CreatedAt], [r].[ProductId], [r].[Rating], [r].[UserId]
+FROM [Products] AS [p]
+INNER JOIN [Categories] AS [c] ON [p].[CategoryId] = [c].[CategoryId]
+INNER JOIN [Brands] AS [b] ON [p].[BrandId] = [b].[BrandId]
+LEFT JOIN (
+    SELECT [p0].[ProductId], [p0].[SizeId], [p0].[Price], [p0].[Stock], [s].[SizeId] AS [SizeId0], [s].[size]
+    FROM [ProductSizes] AS [p0]
+    INNER JOIN [Sizes] AS [s] ON [p0].[SizeId] = [s].[SizeId]
+) AS [s0] ON [p].[ProductId] = [s0].[ProductId]
+LEFT JOIN [ProductImages] AS [p1] ON [p].[ProductId] = [p1].[ProductId]
+LEFT JOIN [Reviews] AS [r] ON [p].[ProductId] = [r].[ProductId]
+ORDER BY [p].[Name], [p].[ProductId], [c].[CategoryId], [b].[BrandId], [s0].[ProductId], [s0].[SizeId], [s0].[SizeId0], [p1].[Product_ImagesId]
+2025-05-30 18:39:46.052 +07:00 [INF] Executed DbCommand (9ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [b].[BrandId], [b].[Name], (
+    SELECT COUNT(*)
+    FROM [Products] AS [p]
+    WHERE [p].[BrandId] = [b].[BrandId]) AS [ProductCount]
+FROM [Brands] AS [b]
+2025-05-30 18:39:46.061 +07:00 [INF] Executed DbCommand (4ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [s].[SizeId], [s].[size] AS [SizeDisplay], (
+    SELECT COUNT(*)
+    FROM [ProductSizes] AS [p]
+    WHERE [p].[SizeId] = [s].[SizeId]) AS [ProductCount]
+FROM [Sizes] AS [s]
+ORDER BY [s].[size]
+2025-05-30 18:39:46.070 +07:00 [INF] Executed DbCommand (4ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [c].[CategoryId], [c].[Name], (
+    SELECT COUNT(*)
+    FROM [Products] AS [p]
+    WHERE [p].[CategoryId] = [c].[CategoryId]) AS [ProductCount]
+FROM [Categories] AS [c]
+2025-05-30 18:39:46.080 +07:00 [INF] Executed DbCommand (6ms) [Parameters=[@__range_Min_0='?' (Precision = 18) (Scale = 2) (DbType = Decimal), @__range_Max_Value_1='?' (Precision = 18) (Scale = 2) (DbType = Decimal)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM (
+    SELECT DISTINCT [p].[ProductId]
+    FROM [ProductSizes] AS [p]
+    WHERE [p].[Price] >= @__range_Min_0 AND [p].[Price] <= @__range_Max_Value_1
+) AS [p0]
+2025-05-30 18:39:46.088 +07:00 [INF] Executed DbCommand (2ms) [Parameters=[@__range_Min_0='?' (Precision = 18) (Scale = 2) (DbType = Decimal), @__range_Max_Value_1='?' (Precision = 18) (Scale = 2) (DbType = Decimal)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM (
+    SELECT DISTINCT [p].[ProductId]
+    FROM [ProductSizes] AS [p]
+    WHERE [p].[Price] >= @__range_Min_0 AND [p].[Price] <= @__range_Max_Value_1
+) AS [p0]
+2025-05-30 18:39:46.102 +07:00 [INF] Executed DbCommand (1ms) [Parameters=[@__range_Min_0='?' (Precision = 18) (Scale = 2) (DbType = Decimal), @__range_Max_Value_1='?' (Precision = 18) (Scale = 2) (DbType = Decimal)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM (
+    SELECT DISTINCT [p].[ProductId]
+    FROM [ProductSizes] AS [p]
+    WHERE [p].[Price] >= @__range_Min_0 AND [p].[Price] <= @__range_Max_Value_1
+) AS [p0]
+2025-05-30 18:39:46.111 +07:00 [INF] Executed DbCommand (1ms) [Parameters=[@__range_Min_0='?' (Precision = 18) (Scale = 2) (DbType = Decimal), @__range_Max_Value_1='?' (Precision = 18) (Scale = 2) (DbType = Decimal)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM (
+    SELECT DISTINCT [p].[ProductId]
+    FROM [ProductSizes] AS [p]
+    WHERE [p].[Price] >= @__range_Min_0 AND [p].[Price] <= @__range_Max_Value_1
+) AS [p0]
+2025-05-30 18:39:46.127 +07:00 [INF] Executed DbCommand (6ms) [Parameters=[@__range_Min_0='?' (Precision = 18) (Scale = 2) (DbType = Decimal)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM (
+    SELECT DISTINCT [p].[ProductId]
+    FROM [ProductSizes] AS [p]
+    WHERE [p].[Price] >= @__range_Min_0
+) AS [p0]
+2025-05-30 18:39:46.136 +07:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [Products] AS [p]
+2025-05-30 18:39:46.143 +07:00 [INF] Executing ViewResult, running view Index.
+2025-05-30 18:39:46.154 +07:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [b].[BrandId], [b].[ImageUrl], [b].[Name]
+FROM [Brands] AS [b]
+2025-05-30 18:39:46.163 +07:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [c].[CategoryId], [c].[ImageUrl], [c].[Name]
+FROM [Categories] AS [c]
+2025-05-30 18:39:46.170 +07:00 [INF] Executed ViewResult - view Index executed in 27.2552ms.
+2025-05-30 18:39:46.175 +07:00 [INF] Executed action DoAnLTW.Controllers.ShopController.Index (DoAnLTW) in 167.5061ms
+2025-05-30 18:39:46.179 +07:00 [INF] Executed endpoint 'DoAnLTW.Controllers.ShopController.Index (DoAnLTW)'
+2025-05-30 18:39:46.183 +07:00 [INF] HTTP GET /Shop responded 200 in 200.9942 ms
+2025-05-30 18:39:46.184 +07:00 [INF] Executed DbCommand (1ms) [Parameters=[@__p_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[SecurityStamp], [a].[TwoFactorEnabled], [a].[UserName]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[Id] = @__p_0
+2025-05-30 18:39:46.189 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/Shop - 200 null text/html; charset=utf-8 216.8925ms
+2025-05-30 18:39:46.196 +07:00 [INF] Executed DbCommand (1ms) [Parameters=[@__userId_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a0].[Name]
+FROM [AspNetUserRoles] AS [a]
+INNER JOIN [AspNetRoles] AS [a0] ON [a].[RoleId] = [a0].[Id]
+WHERE [a].[UserId] = @__userId_0
+2025-05-30 18:39:46.209 +07:00 [INF] Executed endpoint '/chatHub'
+2025-05-30 18:39:46.211 +07:00 [INF] HTTP CONNECT /chatHub responded 200 in 2335.0110 ms
+2025-05-30 18:39:46.215 +07:00 [INF] Request finished HTTP/2 CONNECT https://localhost:5134/chatHub?id=ivcabm5d8HcTKS-a8-iH-A - 200 null null 2343.7564ms
+2025-05-30 18:39:46.237 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/_framework/aspnetcore-browser-refresh.js - null null
+2025-05-30 18:39:46.243 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/img/payments.png - null null
+2025-05-30 18:39:46.243 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/_vs/browserLink - null null
+2025-05-30 18:39:46.245 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/_framework/aspnetcore-browser-refresh.js - 200 16499 application/javascript; charset=utf-8 7.9746ms
+2025-05-30 18:39:46.252 +07:00 [INF] Executed DbCommand (1ms) [Parameters=[@__p_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[SecurityStamp], [a].[TwoFactorEnabled], [a].[UserName]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[Id] = @__p_0
+2025-05-30 18:39:46.265 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/_vs/browserLink - 200 null text/javascript; charset=UTF-8 21.5674ms
+2025-05-30 18:39:46.265 +07:00 [INF] Request starting HTTP/2 POST https://localhost:5134/chatHub/negotiate?negotiateVersion=1 - text/plain;charset=UTF-8 0
+2025-05-30 18:39:46.267 +07:00 [INF] Executed DbCommand (1ms) [Parameters=[@__userId_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a0].[Name]
+FROM [AspNetUserRoles] AS [a]
+INNER JOIN [AspNetRoles] AS [a0] ON [a].[RoleId] = [a0].[Id]
+WHERE [a].[UserId] = @__userId_0
+2025-05-30 18:39:46.278 +07:00 [INF] CORS policy execution successful.
+2025-05-30 18:39:46.283 +07:00 [INF] HTTP GET /img/payments.png responded 404 in 33.3380 ms
+2025-05-30 18:39:46.289 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/img/payments.png - 404 0 null 46.0808ms
+2025-05-30 18:39:46.291 +07:00 [INF] Executed DbCommand (2ms) [Parameters=[@__p_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[SecurityStamp], [a].[TwoFactorEnabled], [a].[UserName]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[Id] = @__p_0
+2025-05-30 18:39:46.296 +07:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET https://localhost:5134/img/payments.png, Response status code: 404
+2025-05-30 18:39:46.308 +07:00 [INF] Executed DbCommand (3ms) [Parameters=[@__userId_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a0].[Name]
+FROM [AspNetUserRoles] AS [a]
+INNER JOIN [AspNetRoles] AS [a0] ON [a].[RoleId] = [a0].[Id]
+WHERE [a].[UserId] = @__userId_0
+2025-05-30 18:39:46.314 +07:00 [INF] Executing endpoint '/chatHub/negotiate'
+2025-05-30 18:39:46.318 +07:00 [INF] Executed endpoint '/chatHub/negotiate'
+2025-05-30 18:39:46.321 +07:00 [INF] HTTP POST /chatHub/negotiate responded 200 in 43.4366 ms
+2025-05-30 18:39:46.326 +07:00 [INF] Request finished HTTP/2 POST https://localhost:5134/chatHub/negotiate?negotiateVersion=1 - 200 316 application/json 60.3515ms
+2025-05-30 18:39:46.359 +07:00 [INF] Request starting HTTP/2 CONNECT https://localhost:5134/chatHub?id=6Ao6U5fqQF-8srv39F1hzg - null null
+2025-05-30 18:39:46.365 +07:00 [INF] CORS policy execution successful.
+2025-05-30 18:39:46.369 +07:00 [INF] Executed DbCommand (1ms) [Parameters=[@__p_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[SecurityStamp], [a].[TwoFactorEnabled], [a].[UserName]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[Id] = @__p_0
+2025-05-30 18:39:46.373 +07:00 [INF] Executed DbCommand (1ms) [Parameters=[@__userId_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a0].[Name]
+FROM [AspNetUserRoles] AS [a]
+INNER JOIN [AspNetRoles] AS [a0] ON [a].[RoleId] = [a0].[Id]
+WHERE [a].[UserId] = @__userId_0
+2025-05-30 18:39:46.377 +07:00 [INF] Executing endpoint '/chatHub'
+2025-05-30 18:39:46.390 +07:00 [INF] Executed DbCommand (1ms) [Parameters=[@__p_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[SecurityStamp], [a].[TwoFactorEnabled], [a].[UserName]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[Id] = @__p_0
+2025-05-30 18:39:46.397 +07:00 [INF] Executed DbCommand (2ms) [Parameters=[@__userId_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a0].[Name]
+FROM [AspNetUserRoles] AS [a]
+INNER JOIN [AspNetRoles] AS [a0] ON [a].[RoleId] = [a0].[Id]
+WHERE [a].[UserId] = @__userId_0
+2025-05-30 18:39:49.186 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/Shop/Details/17 - null null
+2025-05-30 18:39:49.195 +07:00 [INF] Executed DbCommand (1ms) [Parameters=[@__p_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[SecurityStamp], [a].[TwoFactorEnabled], [a].[UserName]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[Id] = @__p_0
+2025-05-30 18:39:49.202 +07:00 [INF] Executed DbCommand (1ms) [Parameters=[@__userId_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a0].[Name]
+FROM [AspNetUserRoles] AS [a]
+INNER JOIN [AspNetRoles] AS [a0] ON [a].[RoleId] = [a0].[Id]
+WHERE [a].[UserId] = @__userId_0
+2025-05-30 18:39:49.206 +07:00 [INF] Executing endpoint 'DoAnLTW.Controllers.ShopController.Details (DoAnLTW)'
+2025-05-30 18:39:49.208 +07:00 [INF] Route matched with {action = "Details", controller = "Shop", area = "", page = ""}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Details(Int32) on controller DoAnLTW.Controllers.ShopController (DoAnLTW).
+2025-05-30 18:39:49.231 +07:00 [INF] Executed DbCommand (19ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [s0].[ProductId], [s0].[BrandId], [s0].[CategoryId], [s0].[Description], [s0].[Name], [s0].[CategoryId0], [s0].[ImageUrl], [s0].[Name0], [s0].[BrandId0], [s0].[ImageUrl0], [s0].[Name1], [p0].[Product_ImagesId], [p0].[ImageUrl], [p0].[ProductId], [s1].[ProductId], [s1].[SizeId], [s1].[Price], [s1].[Stock], [s1].[SizeId0], [s1].[size], [r].[ReviewId], [r].[Comment], [r].[CreatedAt], [r].[ProductId], [r].[Rating], [r].[UserId]
+FROM (
+    SELECT TOP(1) [p].[ProductId], [p].[BrandId], [p].[CategoryId], [p].[Description], [p].[Name], [c].[CategoryId] AS [CategoryId0], [c].[ImageUrl], [c].[Name] AS [Name0], [b].[BrandId] AS [BrandId0], [b].[ImageUrl] AS [ImageUrl0], [b].[Name] AS [Name1]
+    FROM [Products] AS [p]
+    INNER JOIN [Categories] AS [c] ON [p].[CategoryId] = [c].[CategoryId]
+    INNER JOIN [Brands] AS [b] ON [p].[BrandId] = [b].[BrandId]
+    WHERE [p].[ProductId] = @__id_0
+) AS [s0]
+LEFT JOIN [ProductImages] AS [p0] ON [s0].[ProductId] = [p0].[ProductId]
+LEFT JOIN (
+    SELECT [p1].[ProductId], [p1].[SizeId], [p1].[Price], [p1].[Stock], [s].[SizeId] AS [SizeId0], [s].[size]
+    FROM [ProductSizes] AS [p1]
+    INNER JOIN [Sizes] AS [s] ON [p1].[SizeId] = [s].[SizeId]
+) AS [s1] ON [s0].[ProductId] = [s1].[ProductId]
+LEFT JOIN [Reviews] AS [r] ON [s0].[ProductId] = [r].[ProductId]
+ORDER BY [s0].[ProductId], [s0].[CategoryId0], [s0].[BrandId0], [p0].[Product_ImagesId], [s1].[ProductId], [s1].[SizeId], [s1].[SizeId0]
+2025-05-30 18:39:49.266 +07:00 [INF] Executed DbCommand (24ms) [Parameters=[@__p_2='?' (DbType = Int32), @__product_CategoryId_0='?' (DbType = Int32), @__id_1='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [p0].[ProductId], [p0].[BrandId], [p0].[CategoryId], [p0].[Description], [p0].[Name], [c].[CategoryId], [c].[ImageUrl], [c].[Name], [b].[BrandId], [b].[ImageUrl], [b].[Name], [p1].[Product_ImagesId], [p1].[ImageUrl], [p1].[ProductId], [s0].[ProductId], [s0].[SizeId], [s0].[Price], [s0].[Stock], [s0].[SizeId0], [s0].[size], [r].[ReviewId], [r].[Comment], [r].[CreatedAt], [r].[ProductId], [r].[Rating], [r].[UserId]
+FROM (
+    SELECT TOP(@__p_2) [p].[ProductId], [p].[BrandId], [p].[CategoryId], [p].[Description], [p].[Name]
+    FROM [Products] AS [p]
+    WHERE [p].[CategoryId] = @__product_CategoryId_0 AND [p].[ProductId] <> @__id_1
+) AS [p0]
+INNER JOIN [Categories] AS [c] ON [p0].[CategoryId] = [c].[CategoryId]
+INNER JOIN [Brands] AS [b] ON [p0].[BrandId] = [b].[BrandId]
+LEFT JOIN [ProductImages] AS [p1] ON [p0].[ProductId] = [p1].[ProductId]
+LEFT JOIN (
+    SELECT [p2].[ProductId], [p2].[SizeId], [p2].[Price], [p2].[Stock], [s].[SizeId] AS [SizeId0], [s].[size]
+    FROM [ProductSizes] AS [p2]
+    INNER JOIN [Sizes] AS [s] ON [p2].[SizeId] = [s].[SizeId]
+) AS [s0] ON [p0].[ProductId] = [s0].[ProductId]
+LEFT JOIN [Reviews] AS [r] ON [p0].[ProductId] = [r].[ProductId]
+ORDER BY [p0].[ProductId], [c].[CategoryId], [b].[BrandId], [p1].[Product_ImagesId], [s0].[ProductId], [s0].[SizeId], [s0].[SizeId0]
+2025-05-30 18:39:49.286 +07:00 [INF] Executed DbCommand (13ms) [Parameters=[@__user_Email_0='?' (Size = 4000), @__id_1='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [Orders] AS [o]
+        WHERE [o].[Email] = @__user_Email_0 AND [o].[Status] <> 3 AND [o].[Status] <> 0 AND EXISTS (
+            SELECT 1
+            FROM [OrderDetails] AS [o0]
+            WHERE [o].[Id] = [o0].[OrderId] AND [o0].[ProductId] = @__id_1)) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2025-05-30 18:39:49.296 +07:00 [INF] Executing ViewResult, running view Details.
+2025-05-30 18:39:49.302 +07:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [b].[BrandId], [b].[ImageUrl], [b].[Name]
+FROM [Brands] AS [b]
+2025-05-30 18:39:49.310 +07:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [c].[CategoryId], [c].[ImageUrl], [c].[Name]
+FROM [Categories] AS [c]
+2025-05-30 18:39:49.316 +07:00 [INF] Executed ViewResult - view Details executed in 19.5796ms.
+2025-05-30 18:39:49.321 +07:00 [INF] Executed action DoAnLTW.Controllers.ShopController.Details (DoAnLTW) in 110.8044ms
+2025-05-30 18:39:49.326 +07:00 [INF] Executed endpoint 'DoAnLTW.Controllers.ShopController.Details (DoAnLTW)'
+2025-05-30 18:39:49.331 +07:00 [INF] HTTP GET /Shop/Details/17 responded 200 in 137.8745 ms
+2025-05-30 18:39:49.340 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/Shop/Details/17 - 200 null text/html; charset=utf-8 154.3657ms
+2025-05-30 18:39:49.343 +07:00 [INF] Executed DbCommand (1ms) [Parameters=[@__p_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[SecurityStamp], [a].[TwoFactorEnabled], [a].[UserName]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[Id] = @__p_0
+2025-05-30 18:39:49.361 +07:00 [INF] Executed DbCommand (1ms) [Parameters=[@__userId_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a0].[Name]
+FROM [AspNetUserRoles] AS [a]
+INNER JOIN [AspNetRoles] AS [a0] ON [a].[RoleId] = [a0].[Id]
+WHERE [a].[UserId] = @__userId_0
+2025-05-30 18:39:49.366 +07:00 [INF] Executed endpoint '/chatHub'
+2025-05-30 18:39:49.368 +07:00 [INF] HTTP CONNECT /chatHub responded 200 in 3003.7412 ms
+2025-05-30 18:39:49.374 +07:00 [INF] Request finished HTTP/2 CONNECT https://localhost:5134/chatHub?id=6Ao6U5fqQF-8srv39F1hzg - 200 null null 3014.3074ms
+2025-05-30 18:39:49.411 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/img/user.jpg - null null
+2025-05-30 18:39:49.420 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/Shop/Details/img/payments.png - null null
+2025-05-30 18:39:49.421 +07:00 [INF] Executed DbCommand (1ms) [Parameters=[@__p_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[SecurityStamp], [a].[TwoFactorEnabled], [a].[UserName]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[Id] = @__p_0
+2025-05-30 18:39:49.425 +07:00 [INF] Request starting HTTP/2 POST https://localhost:5134/chatHub/negotiate?negotiateVersion=1 - text/plain;charset=UTF-8 0
+2025-05-30 18:39:49.425 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/_framework/aspnetcore-browser-refresh.js - null null
+2025-05-30 18:39:49.427 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/_vs/browserLink - null null
+2025-05-30 18:39:49.430 +07:00 [INF] Executed DbCommand (1ms) [Parameters=[@__p_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[SecurityStamp], [a].[TwoFactorEnabled], [a].[UserName]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[Id] = @__p_0
+2025-05-30 18:39:49.442 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/_framework/aspnetcore-browser-refresh.js - 200 16499 application/javascript; charset=utf-8 16.4394ms
+2025-05-30 18:39:49.431 +07:00 [INF] Executed DbCommand (1ms) [Parameters=[@__userId_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a0].[Name]
+FROM [AspNetUserRoles] AS [a]
+INNER JOIN [AspNetRoles] AS [a0] ON [a].[RoleId] = [a0].[Id]
+WHERE [a].[UserId] = @__userId_0
+2025-05-30 18:39:49.434 +07:00 [INF] CORS policy execution successful.
+2025-05-30 18:39:49.453 +07:00 [INF] Executed DbCommand (2ms) [Parameters=[@__userId_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a0].[Name]
+FROM [AspNetUserRoles] AS [a]
+INNER JOIN [AspNetRoles] AS [a0] ON [a].[RoleId] = [a0].[Id]
+WHERE [a].[UserId] = @__userId_0
+2025-05-30 18:39:49.456 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/_vs/browserLink - 200 null text/javascript; charset=UTF-8 28.898ms
+2025-05-30 18:39:49.461 +07:00 [INF] HTTP GET /img/user.jpg responded 404 in 44.7052 ms
+2025-05-30 18:39:49.466 +07:00 [INF] HTTP GET /Shop/Details/img/payments.png responded 404 in 40.8012 ms
+2025-05-30 18:39:49.466 +07:00 [INF] Executed DbCommand (2ms) [Parameters=[@__p_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[SecurityStamp], [a].[TwoFactorEnabled], [a].[UserName]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[Id] = @__p_0
+2025-05-30 18:39:49.473 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/img/user.jpg - 404 0 null 61.9706ms
+2025-05-30 18:39:49.476 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/Shop/Details/img/payments.png - 404 0 null 55.8048ms
+2025-05-30 18:39:49.480 +07:00 [INF] Executed DbCommand (1ms) [Parameters=[@__userId_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a0].[Name]
+FROM [AspNetUserRoles] AS [a]
+INNER JOIN [AspNetRoles] AS [a0] ON [a].[RoleId] = [a0].[Id]
+WHERE [a].[UserId] = @__userId_0
+2025-05-30 18:39:49.483 +07:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET https://localhost:5134/img/user.jpg, Response status code: 404
+2025-05-30 18:39:49.488 +07:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET https://localhost:5134/Shop/Details/img/payments.png, Response status code: 404
+2025-05-30 18:39:49.492 +07:00 [INF] Executing endpoint '/chatHub/negotiate'
+2025-05-30 18:39:49.500 +07:00 [INF] Executed endpoint '/chatHub/negotiate'
+2025-05-30 18:39:49.503 +07:00 [INF] HTTP POST /chatHub/negotiate responded 200 in 69.4028 ms
+2025-05-30 18:39:49.506 +07:00 [INF] Request finished HTTP/2 POST https://localhost:5134/chatHub/negotiate?negotiateVersion=1 - 200 316 application/json 81.0532ms
+2025-05-30 18:39:49.510 +07:00 [INF] Request starting HTTP/2 CONNECT https://localhost:5134/chatHub?id=SbwR5EWPKGwH19dMljfNsQ - null null
+2025-05-30 18:39:49.515 +07:00 [INF] CORS policy execution successful.
+2025-05-30 18:39:49.521 +07:00 [INF] Executed DbCommand (1ms) [Parameters=[@__p_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[SecurityStamp], [a].[TwoFactorEnabled], [a].[UserName]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[Id] = @__p_0
+2025-05-30 18:39:49.526 +07:00 [INF] Executed DbCommand (1ms) [Parameters=[@__userId_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a0].[Name]
+FROM [AspNetUserRoles] AS [a]
+INNER JOIN [AspNetRoles] AS [a0] ON [a].[RoleId] = [a0].[Id]
+WHERE [a].[UserId] = @__userId_0
+2025-05-30 18:39:49.528 +07:00 [INF] Executing endpoint '/chatHub'
+2025-05-30 18:39:49.533 +07:00 [INF] Executed DbCommand (1ms) [Parameters=[@__p_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[SecurityStamp], [a].[TwoFactorEnabled], [a].[UserName]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[Id] = @__p_0
+2025-05-30 18:39:49.539 +07:00 [INF] Executed DbCommand (1ms) [Parameters=[@__userId_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a0].[Name]
+FROM [AspNetUserRoles] AS [a]
+INNER JOIN [AspNetRoles] AS [a0] ON [a].[RoleId] = [a0].[Id]
+WHERE [a].[UserId] = @__userId_0
+2025-05-30 18:39:51.372 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/Shop - null null
+2025-05-30 18:39:51.396 +07:00 [INF] Executed DbCommand (3ms) [Parameters=[@__p_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[SecurityStamp], [a].[TwoFactorEnabled], [a].[UserName]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[Id] = @__p_0
+2025-05-30 18:39:51.404 +07:00 [INF] Executed DbCommand (1ms) [Parameters=[@__userId_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a0].[Name]
+FROM [AspNetUserRoles] AS [a]
+INNER JOIN [AspNetRoles] AS [a0] ON [a].[RoleId] = [a0].[Id]
+WHERE [a].[UserId] = @__userId_0
+2025-05-30 18:39:51.409 +07:00 [INF] Executing endpoint 'DoAnLTW.Controllers.ShopController.Index (DoAnLTW)'
+2025-05-30 18:39:51.411 +07:00 [INF] Route matched with {action = "Index", controller = "Shop", area = "", page = ""}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Index(System.String, System.Nullable`1[System.Int32], System.Nullable`1[System.Int32], System.Nullable`1[System.Int32], System.Nullable`1[System.Decimal], System.Nullable`1[System.Decimal], System.String) on controller DoAnLTW.Controllers.ShopController (DoAnLTW).
+2025-05-30 18:39:51.424 +07:00 [INF] Executed DbCommand (6ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [p].[ProductId], [p].[BrandId], [p].[CategoryId], [p].[Description], [p].[Name], [c].[CategoryId], [c].[ImageUrl], [c].[Name], [b].[BrandId], [b].[ImageUrl], [b].[Name], [s0].[ProductId], [s0].[SizeId], [s0].[Price], [s0].[Stock], [s0].[SizeId0], [s0].[size], [p1].[Product_ImagesId], [p1].[ImageUrl], [p1].[ProductId], [r].[ReviewId], [r].[Comment], [r].[CreatedAt], [r].[ProductId], [r].[Rating], [r].[UserId]
+FROM [Products] AS [p]
+INNER JOIN [Categories] AS [c] ON [p].[CategoryId] = [c].[CategoryId]
+INNER JOIN [Brands] AS [b] ON [p].[BrandId] = [b].[BrandId]
+LEFT JOIN (
+    SELECT [p0].[ProductId], [p0].[SizeId], [p0].[Price], [p0].[Stock], [s].[SizeId] AS [SizeId0], [s].[size]
+    FROM [ProductSizes] AS [p0]
+    INNER JOIN [Sizes] AS [s] ON [p0].[SizeId] = [s].[SizeId]
+) AS [s0] ON [p].[ProductId] = [s0].[ProductId]
+LEFT JOIN [ProductImages] AS [p1] ON [p].[ProductId] = [p1].[ProductId]
+LEFT JOIN [Reviews] AS [r] ON [p].[ProductId] = [r].[ProductId]
+ORDER BY [p].[Name], [p].[ProductId], [c].[CategoryId], [b].[BrandId], [s0].[ProductId], [s0].[SizeId], [s0].[SizeId0], [p1].[Product_ImagesId]
+2025-05-30 18:39:51.440 +07:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [b].[BrandId], [b].[Name], (
+    SELECT COUNT(*)
+    FROM [Products] AS [p]
+    WHERE [p].[BrandId] = [b].[BrandId]) AS [ProductCount]
+FROM [Brands] AS [b]
+2025-05-30 18:39:51.445 +07:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [s].[SizeId], [s].[size] AS [SizeDisplay], (
+    SELECT COUNT(*)
+    FROM [ProductSizes] AS [p]
+    WHERE [p].[SizeId] = [s].[SizeId]) AS [ProductCount]
+FROM [Sizes] AS [s]
+ORDER BY [s].[size]
+2025-05-30 18:39:51.452 +07:00 [INF] Executed DbCommand (3ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [c].[CategoryId], [c].[Name], (
+    SELECT COUNT(*)
+    FROM [Products] AS [p]
+    WHERE [p].[CategoryId] = [c].[CategoryId]) AS [ProductCount]
+FROM [Categories] AS [c]
+2025-05-30 18:39:51.461 +07:00 [INF] Executed DbCommand (1ms) [Parameters=[@__range_Min_0='?' (Precision = 18) (Scale = 2) (DbType = Decimal), @__range_Max_Value_1='?' (Precision = 18) (Scale = 2) (DbType = Decimal)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM (
+    SELECT DISTINCT [p].[ProductId]
+    FROM [ProductSizes] AS [p]
+    WHERE [p].[Price] >= @__range_Min_0 AND [p].[Price] <= @__range_Max_Value_1
+) AS [p0]
+2025-05-30 18:39:51.467 +07:00 [INF] Executed DbCommand (1ms) [Parameters=[@__range_Min_0='?' (Precision = 18) (Scale = 2) (DbType = Decimal), @__range_Max_Value_1='?' (Precision = 18) (Scale = 2) (DbType = Decimal)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM (
+    SELECT DISTINCT [p].[ProductId]
+    FROM [ProductSizes] AS [p]
+    WHERE [p].[Price] >= @__range_Min_0 AND [p].[Price] <= @__range_Max_Value_1
+) AS [p0]
+2025-05-30 18:39:51.473 +07:00 [INF] Executed DbCommand (0ms) [Parameters=[@__range_Min_0='?' (Precision = 18) (Scale = 2) (DbType = Decimal), @__range_Max_Value_1='?' (Precision = 18) (Scale = 2) (DbType = Decimal)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM (
+    SELECT DISTINCT [p].[ProductId]
+    FROM [ProductSizes] AS [p]
+    WHERE [p].[Price] >= @__range_Min_0 AND [p].[Price] <= @__range_Max_Value_1
+) AS [p0]
+2025-05-30 18:39:51.480 +07:00 [INF] Executed DbCommand (1ms) [Parameters=[@__range_Min_0='?' (Precision = 18) (Scale = 2) (DbType = Decimal), @__range_Max_Value_1='?' (Precision = 18) (Scale = 2) (DbType = Decimal)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM (
+    SELECT DISTINCT [p].[ProductId]
+    FROM [ProductSizes] AS [p]
+    WHERE [p].[Price] >= @__range_Min_0 AND [p].[Price] <= @__range_Max_Value_1
+) AS [p0]
+2025-05-30 18:39:51.487 +07:00 [INF] Executed DbCommand (1ms) [Parameters=[@__range_Min_0='?' (Precision = 18) (Scale = 2) (DbType = Decimal)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM (
+    SELECT DISTINCT [p].[ProductId]
+    FROM [ProductSizes] AS [p]
+    WHERE [p].[Price] >= @__range_Min_0
+) AS [p0]
+2025-05-30 18:39:51.490 +07:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [Products] AS [p]
+2025-05-30 18:39:51.495 +07:00 [INF] Executing ViewResult, running view Index.
+2025-05-30 18:39:51.500 +07:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [b].[BrandId], [b].[ImageUrl], [b].[Name]
+FROM [Brands] AS [b]
+2025-05-30 18:39:51.505 +07:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [c].[CategoryId], [c].[ImageUrl], [c].[Name]
+FROM [Categories] AS [c]
+2025-05-30 18:39:51.510 +07:00 [INF] Executed ViewResult - view Index executed in 14.9099ms.
+2025-05-30 18:39:51.512 +07:00 [INF] Executed action DoAnLTW.Controllers.ShopController.Index (DoAnLTW) in 96.3124ms
+2025-05-30 18:39:51.513 +07:00 [INF] Executed endpoint 'DoAnLTW.Controllers.ShopController.Index (DoAnLTW)'
+2025-05-30 18:39:51.516 +07:00 [INF] HTTP GET /Shop responded 200 in 123.3313 ms
+2025-05-30 18:39:51.521 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/Shop - 200 null text/html; charset=utf-8 148.6944ms
+2025-05-30 18:39:51.534 +07:00 [INF] Executed DbCommand (1ms) [Parameters=[@__p_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[SecurityStamp], [a].[TwoFactorEnabled], [a].[UserName]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[Id] = @__p_0
+2025-05-30 18:39:51.543 +07:00 [INF] Executed DbCommand (1ms) [Parameters=[@__userId_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a0].[Name]
+FROM [AspNetUserRoles] AS [a]
+INNER JOIN [AspNetRoles] AS [a0] ON [a].[RoleId] = [a0].[Id]
+WHERE [a].[UserId] = @__userId_0
+2025-05-30 18:39:51.550 +07:00 [INF] Executed endpoint '/chatHub'
+2025-05-30 18:39:51.553 +07:00 [INF] HTTP CONNECT /chatHub responded 200 in 2038.6665 ms
+2025-05-30 18:39:51.557 +07:00 [INF] Request finished HTTP/2 CONNECT https://localhost:5134/chatHub?id=SbwR5EWPKGwH19dMljfNsQ - 200 null null 2047.2171ms
+2025-05-30 18:39:51.591 +07:00 [INF] Request starting HTTP/2 POST https://localhost:5134/chatHub/negotiate?negotiateVersion=1 - text/plain;charset=UTF-8 0
+2025-05-30 18:39:51.591 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/_framework/aspnetcore-browser-refresh.js - null null
+2025-05-30 18:39:51.598 +07:00 [INF] CORS policy execution successful.
+2025-05-30 18:39:51.605 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/_framework/aspnetcore-browser-refresh.js - 200 16499 application/javascript; charset=utf-8 14.574ms
+2025-05-30 18:39:51.613 +07:00 [INF] Executed DbCommand (2ms) [Parameters=[@__p_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[SecurityStamp], [a].[TwoFactorEnabled], [a].[UserName]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[Id] = @__p_0
+2025-05-30 18:39:51.621 +07:00 [INF] Executed DbCommand (2ms) [Parameters=[@__userId_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a0].[Name]
+FROM [AspNetUserRoles] AS [a]
+INNER JOIN [AspNetRoles] AS [a0] ON [a].[RoleId] = [a0].[Id]
+WHERE [a].[UserId] = @__userId_0
+2025-05-30 18:39:51.627 +07:00 [INF] Executing endpoint '/chatHub/negotiate'
+2025-05-30 18:39:51.629 +07:00 [INF] Executed endpoint '/chatHub/negotiate'
+2025-05-30 18:39:51.633 +07:00 [INF] HTTP POST /chatHub/negotiate responded 200 in 34.7960 ms
+2025-05-30 18:39:51.637 +07:00 [INF] Request finished HTTP/2 POST https://localhost:5134/chatHub/negotiate?negotiateVersion=1 - 200 316 application/json 46.6889ms
+2025-05-30 18:39:51.671 +07:00 [INF] Request starting HTTP/2 CONNECT https://localhost:5134/chatHub?id=hRsL6-0VzJf0HblMIpE1OQ - null null
+2025-05-30 18:39:51.675 +07:00 [INF] CORS policy execution successful.
+2025-05-30 18:39:51.682 +07:00 [INF] Executed DbCommand (1ms) [Parameters=[@__p_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[SecurityStamp], [a].[TwoFactorEnabled], [a].[UserName]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[Id] = @__p_0
+2025-05-30 18:39:51.690 +07:00 [INF] Executed DbCommand (2ms) [Parameters=[@__userId_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a0].[Name]
+FROM [AspNetUserRoles] AS [a]
+INNER JOIN [AspNetRoles] AS [a0] ON [a].[RoleId] = [a0].[Id]
+WHERE [a].[UserId] = @__userId_0
+2025-05-30 18:39:51.695 +07:00 [INF] Executing endpoint '/chatHub'
+2025-05-30 18:39:51.714 +07:00 [INF] Executed DbCommand (1ms) [Parameters=[@__p_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[SecurityStamp], [a].[TwoFactorEnabled], [a].[UserName]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[Id] = @__p_0
+2025-05-30 18:39:51.718 +07:00 [INF] Executed DbCommand (1ms) [Parameters=[@__userId_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a0].[Name]
+FROM [AspNetUserRoles] AS [a]
+INNER JOIN [AspNetRoles] AS [a0] ON [a].[RoleId] = [a0].[Id]
+WHERE [a].[UserId] = @__userId_0
+2025-05-30 18:39:52.681 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/Shop/Details/10 - null null
+2025-05-30 18:39:52.692 +07:00 [INF] Executed DbCommand (1ms) [Parameters=[@__p_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[SecurityStamp], [a].[TwoFactorEnabled], [a].[UserName]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[Id] = @__p_0
+2025-05-30 18:39:52.700 +07:00 [INF] Executed DbCommand (1ms) [Parameters=[@__userId_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a0].[Name]
+FROM [AspNetUserRoles] AS [a]
+INNER JOIN [AspNetRoles] AS [a0] ON [a].[RoleId] = [a0].[Id]
+WHERE [a].[UserId] = @__userId_0
+2025-05-30 18:39:52.705 +07:00 [INF] Executing endpoint 'DoAnLTW.Controllers.ShopController.Details (DoAnLTW)'
+2025-05-30 18:39:52.708 +07:00 [INF] Route matched with {action = "Details", controller = "Shop", area = "", page = ""}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Details(Int32) on controller DoAnLTW.Controllers.ShopController (DoAnLTW).
+2025-05-30 18:39:52.718 +07:00 [INF] Executed DbCommand (2ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [s0].[ProductId], [s0].[BrandId], [s0].[CategoryId], [s0].[Description], [s0].[Name], [s0].[CategoryId0], [s0].[ImageUrl], [s0].[Name0], [s0].[BrandId0], [s0].[ImageUrl0], [s0].[Name1], [p0].[Product_ImagesId], [p0].[ImageUrl], [p0].[ProductId], [s1].[ProductId], [s1].[SizeId], [s1].[Price], [s1].[Stock], [s1].[SizeId0], [s1].[size], [r].[ReviewId], [r].[Comment], [r].[CreatedAt], [r].[ProductId], [r].[Rating], [r].[UserId]
+FROM (
+    SELECT TOP(1) [p].[ProductId], [p].[BrandId], [p].[CategoryId], [p].[Description], [p].[Name], [c].[CategoryId] AS [CategoryId0], [c].[ImageUrl], [c].[Name] AS [Name0], [b].[BrandId] AS [BrandId0], [b].[ImageUrl] AS [ImageUrl0], [b].[Name] AS [Name1]
+    FROM [Products] AS [p]
+    INNER JOIN [Categories] AS [c] ON [p].[CategoryId] = [c].[CategoryId]
+    INNER JOIN [Brands] AS [b] ON [p].[BrandId] = [b].[BrandId]
+    WHERE [p].[ProductId] = @__id_0
+) AS [s0]
+LEFT JOIN [ProductImages] AS [p0] ON [s0].[ProductId] = [p0].[ProductId]
+LEFT JOIN (
+    SELECT [p1].[ProductId], [p1].[SizeId], [p1].[Price], [p1].[Stock], [s].[SizeId] AS [SizeId0], [s].[size]
+    FROM [ProductSizes] AS [p1]
+    INNER JOIN [Sizes] AS [s] ON [p1].[SizeId] = [s].[SizeId]
+) AS [s1] ON [s0].[ProductId] = [s1].[ProductId]
+LEFT JOIN [Reviews] AS [r] ON [s0].[ProductId] = [r].[ProductId]
+ORDER BY [s0].[ProductId], [s0].[CategoryId0], [s0].[BrandId0], [p0].[Product_ImagesId], [s1].[ProductId], [s1].[SizeId], [s1].[SizeId0]
+2025-05-30 18:39:52.733 +07:00 [INF] Executed DbCommand (2ms) [Parameters=[@__p_2='?' (DbType = Int32), @__product_CategoryId_0='?' (DbType = Int32), @__id_1='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [p0].[ProductId], [p0].[BrandId], [p0].[CategoryId], [p0].[Description], [p0].[Name], [c].[CategoryId], [c].[ImageUrl], [c].[Name], [b].[BrandId], [b].[ImageUrl], [b].[Name], [p1].[Product_ImagesId], [p1].[ImageUrl], [p1].[ProductId], [s0].[ProductId], [s0].[SizeId], [s0].[Price], [s0].[Stock], [s0].[SizeId0], [s0].[size], [r].[ReviewId], [r].[Comment], [r].[CreatedAt], [r].[ProductId], [r].[Rating], [r].[UserId]
+FROM (
+    SELECT TOP(@__p_2) [p].[ProductId], [p].[BrandId], [p].[CategoryId], [p].[Description], [p].[Name]
+    FROM [Products] AS [p]
+    WHERE [p].[CategoryId] = @__product_CategoryId_0 AND [p].[ProductId] <> @__id_1
+) AS [p0]
+INNER JOIN [Categories] AS [c] ON [p0].[CategoryId] = [c].[CategoryId]
+INNER JOIN [Brands] AS [b] ON [p0].[BrandId] = [b].[BrandId]
+LEFT JOIN [ProductImages] AS [p1] ON [p0].[ProductId] = [p1].[ProductId]
+LEFT JOIN (
+    SELECT [p2].[ProductId], [p2].[SizeId], [p2].[Price], [p2].[Stock], [s].[SizeId] AS [SizeId0], [s].[size]
+    FROM [ProductSizes] AS [p2]
+    INNER JOIN [Sizes] AS [s] ON [p2].[SizeId] = [s].[SizeId]
+) AS [s0] ON [p0].[ProductId] = [s0].[ProductId]
+LEFT JOIN [Reviews] AS [r] ON [p0].[ProductId] = [r].[ProductId]
+ORDER BY [p0].[ProductId], [c].[CategoryId], [b].[BrandId], [p1].[Product_ImagesId], [s0].[ProductId], [s0].[SizeId], [s0].[SizeId0]
+2025-05-30 18:39:52.741 +07:00 [INF] Executed DbCommand (1ms) [Parameters=[@__user_Email_0='?' (Size = 4000), @__id_1='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [Orders] AS [o]
+        WHERE [o].[Email] = @__user_Email_0 AND [o].[Status] <> 3 AND [o].[Status] <> 0 AND EXISTS (
+            SELECT 1
+            FROM [OrderDetails] AS [o0]
+            WHERE [o].[Id] = [o0].[OrderId] AND [o0].[ProductId] = @__id_1)) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2025-05-30 18:39:52.749 +07:00 [INF] Executing ViewResult, running view Details.
+2025-05-30 18:39:52.755 +07:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [b].[BrandId], [b].[ImageUrl], [b].[Name]
+FROM [Brands] AS [b]
+2025-05-30 18:39:52.765 +07:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [c].[CategoryId], [c].[ImageUrl], [c].[Name]
+FROM [Categories] AS [c]
+2025-05-30 18:39:52.772 +07:00 [INF] Executed ViewResult - view Details executed in 23.1458ms.
+2025-05-30 18:39:52.777 +07:00 [INF] Executed action DoAnLTW.Controllers.ShopController.Details (DoAnLTW) in 62.5943ms
+2025-05-30 18:39:52.781 +07:00 [INF] Executed endpoint 'DoAnLTW.Controllers.ShopController.Details (DoAnLTW)'
+2025-05-30 18:39:52.784 +07:00 [INF] HTTP GET /Shop/Details/10 responded 200 in 94.3929 ms
+2025-05-30 18:39:52.786 +07:00 [INF] Executed DbCommand (1ms) [Parameters=[@__p_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[SecurityStamp], [a].[TwoFactorEnabled], [a].[UserName]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[Id] = @__p_0
+2025-05-30 18:39:52.788 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/Shop/Details/10 - 200 null text/html; charset=utf-8 106.9303ms
+2025-05-30 18:39:52.797 +07:00 [INF] Executed DbCommand (3ms) [Parameters=[@__userId_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a0].[Name]
+FROM [AspNetUserRoles] AS [a]
+INNER JOIN [AspNetRoles] AS [a0] ON [a].[RoleId] = [a0].[Id]
+WHERE [a].[UserId] = @__userId_0
+2025-05-30 18:39:52.802 +07:00 [INF] Executed endpoint '/chatHub'
+2025-05-30 18:39:52.805 +07:00 [INF] HTTP CONNECT /chatHub responded 200 in 1130.4828 ms
+2025-05-30 18:39:52.809 +07:00 [INF] Request finished HTTP/2 CONNECT https://localhost:5134/chatHub?id=hRsL6-0VzJf0HblMIpE1OQ - 200 null null 1138.7302ms
+2025-05-30 18:39:52.838 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/img/products/db237068-81d7-4cfd-9805-8d2fc4839c99.jpg - null null
+2025-05-30 18:39:52.838 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/img/products/520546c8-6254-4a22-876c-ec00e2cb3079.jpg - null null
+2025-05-30 18:39:52.845 +07:00 [INF] Request starting HTTP/2 POST https://localhost:5134/chatHub/negotiate?negotiateVersion=1 - text/plain;charset=UTF-8 0
+2025-05-30 18:39:52.845 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/_framework/aspnetcore-browser-refresh.js - null null
+2025-05-30 18:39:52.846 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/Shop/Details/img/payments.png - null null
+2025-05-30 18:39:52.847 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/_vs/browserLink - null null
+2025-05-30 18:39:52.847 +07:00 [INF] The file /img/products/db237068-81d7-4cfd-9805-8d2fc4839c99.jpg was not modified
+2025-05-30 18:39:52.880 +07:00 [INF] Executed DbCommand (2ms) [Parameters=[@__p_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[SecurityStamp], [a].[TwoFactorEnabled], [a].[UserName]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[Id] = @__p_0
+2025-05-30 18:39:52.858 +07:00 [INF] CORS policy execution successful.
+2025-05-30 18:39:52.853 +07:00 [INF] The file /img/products/520546c8-6254-4a22-876c-ec00e2cb3079.jpg was not modified
+2025-05-30 18:39:52.867 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/_framework/aspnetcore-browser-refresh.js - 200 16499 application/javascript; charset=utf-8 21.9955ms
+2025-05-30 18:39:52.883 +07:00 [INF] HTTP GET /img/products/db237068-81d7-4cfd-9805-8d2fc4839c99.jpg responded 304 in 36.3994 ms
+2025-05-30 18:39:52.888 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/_vs/browserLink - 200 null text/javascript; charset=UTF-8 41.0342ms
+2025-05-30 18:39:52.889 +07:00 [INF] Executed DbCommand (1ms) [Parameters=[@__userId_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a0].[Name]
+FROM [AspNetUserRoles] AS [a]
+INNER JOIN [AspNetRoles] AS [a0] ON [a].[RoleId] = [a0].[Id]
+WHERE [a].[UserId] = @__userId_0
+2025-05-30 18:39:52.890 +07:00 [INF] HTTP GET /img/products/520546c8-6254-4a22-876c-ec00e2cb3079.jpg responded 304 in 37.9965 ms
+2025-05-30 18:39:52.895 +07:00 [INF] Executed DbCommand (3ms) [Parameters=[@__p_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[SecurityStamp], [a].[TwoFactorEnabled], [a].[UserName]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[Id] = @__p_0
+2025-05-30 18:39:52.901 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/img/products/db237068-81d7-4cfd-9805-8d2fc4839c99.jpg - 304 null image/jpeg 63.0071ms
+2025-05-30 18:39:52.913 +07:00 [INF] HTTP GET /Shop/Details/img/payments.png responded 404 in 39.5568 ms
+2025-05-30 18:39:52.916 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/img/products/520546c8-6254-4a22-876c-ec00e2cb3079.jpg - 304 null image/jpeg 77.1288ms
+2025-05-30 18:39:52.921 +07:00 [INF] Executed DbCommand (1ms) [Parameters=[@__userId_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a0].[Name]
+FROM [AspNetUserRoles] AS [a]
+INNER JOIN [AspNetRoles] AS [a0] ON [a].[RoleId] = [a0].[Id]
+WHERE [a].[UserId] = @__userId_0
+2025-05-30 18:39:52.931 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/Shop/Details/img/payments.png - 404 0 null 84.7564ms
+2025-05-30 18:39:52.939 +07:00 [INF] Executing endpoint '/chatHub/negotiate'
+2025-05-30 18:39:52.944 +07:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET https://localhost:5134/Shop/Details/img/payments.png, Response status code: 404
+2025-05-30 18:39:52.947 +07:00 [INF] Executed endpoint '/chatHub/negotiate'
+2025-05-30 18:39:52.952 +07:00 [INF] HTTP POST /chatHub/negotiate responded 200 in 94.4865 ms
+2025-05-30 18:39:52.955 +07:00 [INF] Request finished HTTP/2 POST https://localhost:5134/chatHub/negotiate?negotiateVersion=1 - 200 316 application/json 110.2046ms
+2025-05-30 18:39:52.961 +07:00 [INF] Request starting HTTP/2 CONNECT https://localhost:5134/chatHub?id=ikgUJ9VReYgg2NfixPw8MQ - null null
+2025-05-30 18:39:52.965 +07:00 [INF] CORS policy execution successful.
+2025-05-30 18:39:52.974 +07:00 [INF] Executed DbCommand (3ms) [Parameters=[@__p_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[SecurityStamp], [a].[TwoFactorEnabled], [a].[UserName]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[Id] = @__p_0
+2025-05-30 18:39:52.982 +07:00 [INF] Executed DbCommand (1ms) [Parameters=[@__userId_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a0].[Name]
+FROM [AspNetUserRoles] AS [a]
+INNER JOIN [AspNetRoles] AS [a0] ON [a].[RoleId] = [a0].[Id]
+WHERE [a].[UserId] = @__userId_0
+2025-05-30 18:39:52.987 +07:00 [INF] Executing endpoint '/chatHub'
+2025-05-30 18:39:52.995 +07:00 [INF] Executed DbCommand (1ms) [Parameters=[@__p_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[SecurityStamp], [a].[TwoFactorEnabled], [a].[UserName]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[Id] = @__p_0
+2025-05-30 18:39:53.005 +07:00 [INF] Executed DbCommand (2ms) [Parameters=[@__userId_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a0].[Name]
+FROM [AspNetUserRoles] AS [a]
+INNER JOIN [AspNetRoles] AS [a0] ON [a].[RoleId] = [a0].[Id]
+WHERE [a].[UserId] = @__userId_0
+2025-05-30 18:39:55.827 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/ - null null
+2025-05-30 18:39:55.841 +07:00 [INF] Executed DbCommand (2ms) [Parameters=[@__p_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[SecurityStamp], [a].[TwoFactorEnabled], [a].[UserName]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[Id] = @__p_0
+2025-05-30 18:39:55.844 +07:00 [INF] Executed DbCommand (1ms) [Parameters=[@__userId_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a0].[Name]
+FROM [AspNetUserRoles] AS [a]
+INNER JOIN [AspNetRoles] AS [a0] ON [a].[RoleId] = [a0].[Id]
+WHERE [a].[UserId] = @__userId_0
+2025-05-30 18:39:55.846 +07:00 [INF] Executing endpoint 'DoAnLTW.Controllers.HomeController.Index (DoAnLTW)'
+2025-05-30 18:39:55.847 +07:00 [INF] Route matched with {action = "Index", controller = "Home", area = "", page = ""}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Index() on controller DoAnLTW.Controllers.HomeController (DoAnLTW).
+2025-05-30 18:39:55.850 +07:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [c].[CategoryId], [c].[ImageUrl], [c].[Name]
+FROM [Categories] AS [c]
+2025-05-30 18:39:55.853 +07:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [b].[BrandId], [b].[ImageUrl], [b].[Name]
+FROM [Brands] AS [b]
+2025-05-30 18:39:55.869 +07:00 [INF] Executed DbCommand (13ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [p].[ProductId], [p].[BrandId], [p].[CategoryId], [p].[Description], [p].[Name], [c].[CategoryId], [c].[ImageUrl], [c].[Name], [b].[BrandId], [b].[ImageUrl], [b].[Name], [s0].[ProductId], [s0].[SizeId], [s0].[Price], [s0].[Stock], [s0].[SizeId0], [s0].[size], [p1].[Product_ImagesId], [p1].[ImageUrl], [p1].[ProductId]
+FROM [Products] AS [p]
+INNER JOIN [Categories] AS [c] ON [p].[CategoryId] = [c].[CategoryId]
+INNER JOIN [Brands] AS [b] ON [p].[BrandId] = [b].[BrandId]
+LEFT JOIN (
+    SELECT [p0].[ProductId], [p0].[SizeId], [p0].[Price], [p0].[Stock], [s].[SizeId] AS [SizeId0], [s].[size]
+    FROM [ProductSizes] AS [p0]
+    INNER JOIN [Sizes] AS [s] ON [p0].[SizeId] = [s].[SizeId]
+) AS [s0] ON [p].[ProductId] = [s0].[ProductId]
+LEFT JOIN [ProductImages] AS [p1] ON [p].[ProductId] = [p1].[ProductId]
+ORDER BY [p].[ProductId], [c].[CategoryId], [b].[BrandId], [s0].[ProductId], [s0].[SizeId], [s0].[SizeId0]
+2025-05-30 18:39:55.885 +07:00 [INF] Executed DbCommand (6ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [p].[Id], [p].[Code], [p].[DiscountAmount], [p].[DiscountPercentage], [p].[EndDate], [p].[IsActive], [p].[MaxUsage], [p].[StartDate], [p].[UsageCount]
+FROM [PromotionCodes] AS [p]
+WHERE [p].[IsActive] = CAST(1 AS bit) AND ([p].[StartDate] IS NULL OR [p].[StartDate] <= GETDATE()) AND ([p].[EndDate] IS NULL OR [p].[EndDate] >= GETDATE()) AND ([p].[MaxUsage] = 0 OR [p].[UsageCount] < [p].[MaxUsage])
+2025-05-30 18:39:55.889 +07:00 [INF] Executing ViewResult, running view Index.
+2025-05-30 18:39:55.892 +07:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [b].[BrandId], [b].[ImageUrl], [b].[Name]
+FROM [Brands] AS [b]
+2025-05-30 18:39:55.895 +07:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [c].[CategoryId], [c].[ImageUrl], [c].[Name]
+FROM [Categories] AS [c]
+2025-05-30 18:39:55.899 +07:00 [INF] Executed ViewResult - view Index executed in 9.8982ms.
+2025-05-30 18:39:55.902 +07:00 [INF] Executed action DoAnLTW.Controllers.HomeController.Index (DoAnLTW) in 52.4541ms
+2025-05-30 18:39:55.904 +07:00 [INF] Executed endpoint 'DoAnLTW.Controllers.HomeController.Index (DoAnLTW)'
+2025-05-30 18:39:55.906 +07:00 [INF] HTTP GET / responded 200 in 69.9096 ms
+2025-05-30 18:39:55.916 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/ - 200 null text/html; charset=utf-8 88.0366ms
+2025-05-30 18:39:55.919 +07:00 [INF] Executed DbCommand (1ms) [Parameters=[@__p_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[SecurityStamp], [a].[TwoFactorEnabled], [a].[UserName]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[Id] = @__p_0
+2025-05-30 18:39:55.926 +07:00 [INF] Executed DbCommand (1ms) [Parameters=[@__userId_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a0].[Name]
+FROM [AspNetUserRoles] AS [a]
+INNER JOIN [AspNetRoles] AS [a0] ON [a].[RoleId] = [a0].[Id]
+WHERE [a].[UserId] = @__userId_0
+2025-05-30 18:39:55.929 +07:00 [INF] Executed endpoint '/chatHub'
+2025-05-30 18:39:55.930 +07:00 [INF] HTTP CONNECT /chatHub responded 200 in 2965.0095 ms
+2025-05-30 18:39:55.932 +07:00 [INF] Request finished HTTP/2 CONNECT https://localhost:5134/chatHub?id=ikgUJ9VReYgg2NfixPw8MQ - 200 null null 2971.643ms
+2025-05-30 18:39:55.995 +07:00 [INF] Request starting HTTP/2 POST https://localhost:5134/chatHub/negotiate?negotiateVersion=1 - text/plain;charset=UTF-8 0
+2025-05-30 18:39:55.995 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/_framework/aspnetcore-browser-refresh.js - null null
+2025-05-30 18:39:55.996 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/img/payments.png - null null
+2025-05-30 18:39:55.997 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/_vs/browserLink - null null
+2025-05-30 18:39:56.002 +07:00 [INF] CORS policy execution successful.
+2025-05-30 18:39:56.007 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/_framework/aspnetcore-browser-refresh.js - 200 16499 application/javascript; charset=utf-8 12.042ms
+2025-05-30 18:39:56.027 +07:00 [INF] Executed DbCommand (2ms) [Parameters=[@__p_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[SecurityStamp], [a].[TwoFactorEnabled], [a].[UserName]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[Id] = @__p_0
+2025-05-30 18:39:56.035 +07:00 [INF] Executed DbCommand (1ms) [Parameters=[@__p_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[SecurityStamp], [a].[TwoFactorEnabled], [a].[UserName]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[Id] = @__p_0
+2025-05-30 18:39:56.037 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/_vs/browserLink - 200 null text/javascript; charset=UTF-8 40.2298ms
+2025-05-30 18:39:56.046 +07:00 [INF] Executed DbCommand (1ms) [Parameters=[@__userId_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a0].[Name]
+FROM [AspNetUserRoles] AS [a]
+INNER JOIN [AspNetRoles] AS [a0] ON [a].[RoleId] = [a0].[Id]
+WHERE [a].[UserId] = @__userId_0
+2025-05-30 18:39:56.051 +07:00 [INF] Executed DbCommand (1ms) [Parameters=[@__userId_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a0].[Name]
+FROM [AspNetUserRoles] AS [a]
+INNER JOIN [AspNetRoles] AS [a0] ON [a].[RoleId] = [a0].[Id]
+WHERE [a].[UserId] = @__userId_0
+2025-05-30 18:39:56.060 +07:00 [INF] HTTP GET /img/payments.png responded 404 in 39.2216 ms
+2025-05-30 18:39:56.063 +07:00 [INF] Executing endpoint '/chatHub/negotiate'
+2025-05-30 18:39:56.066 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/img/payments.png - 404 0 null 69.9089ms
+2025-05-30 18:39:56.067 +07:00 [INF] Executed endpoint '/chatHub/negotiate'
+2025-05-30 18:39:56.072 +07:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET https://localhost:5134/img/payments.png, Response status code: 404
+2025-05-30 18:39:56.074 +07:00 [INF] HTTP POST /chatHub/negotiate responded 200 in 72.2649 ms
+2025-05-30 18:39:56.080 +07:00 [INF] Request finished HTTP/2 POST https://localhost:5134/chatHub/negotiate?negotiateVersion=1 - 200 316 application/json 84.828ms
+2025-05-30 18:39:56.403 +07:00 [INF] Request starting HTTP/2 CONNECT https://localhost:5134/chatHub?id=h0rUFmKowVZyZBg_ypqMkg - null null
+2025-05-30 18:39:56.409 +07:00 [INF] CORS policy execution successful.
+2025-05-30 18:39:56.413 +07:00 [INF] Executed DbCommand (1ms) [Parameters=[@__p_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[SecurityStamp], [a].[TwoFactorEnabled], [a].[UserName]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[Id] = @__p_0
+2025-05-30 18:39:56.422 +07:00 [INF] Executed DbCommand (2ms) [Parameters=[@__userId_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a0].[Name]
+FROM [AspNetUserRoles] AS [a]
+INNER JOIN [AspNetRoles] AS [a0] ON [a].[RoleId] = [a0].[Id]
+WHERE [a].[UserId] = @__userId_0
+2025-05-30 18:39:56.426 +07:00 [INF] Executing endpoint '/chatHub'
+2025-05-30 18:39:56.472 +07:00 [INF] Executed DbCommand (1ms) [Parameters=[@__p_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[SecurityStamp], [a].[TwoFactorEnabled], [a].[UserName]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[Id] = @__p_0
+2025-05-30 18:39:56.476 +07:00 [INF] Executed DbCommand (1ms) [Parameters=[@__userId_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a0].[Name]
+FROM [AspNetUserRoles] AS [a]
+INNER JOIN [AspNetRoles] AS [a0] ON [a].[RoleId] = [a0].[Id]
+WHERE [a].[UserId] = @__userId_0
+2025-05-30 18:40:03.240 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/Forum - null null
+2025-05-30 18:40:03.253 +07:00 [INF] Executed DbCommand (1ms) [Parameters=[@__p_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[SecurityStamp], [a].[TwoFactorEnabled], [a].[UserName]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[Id] = @__p_0
+2025-05-30 18:40:03.260 +07:00 [INF] Executed DbCommand (1ms) [Parameters=[@__userId_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a0].[Name]
+FROM [AspNetUserRoles] AS [a]
+INNER JOIN [AspNetRoles] AS [a0] ON [a].[RoleId] = [a0].[Id]
+WHERE [a].[UserId] = @__userId_0
+2025-05-30 18:40:03.265 +07:00 [INF] Executing endpoint 'DoAnLTW.Controllers.ForumController.Index (DoAnLTW)'
+2025-05-30 18:40:03.274 +07:00 [INF] Route matched with {action = "Index", controller = "Forum", area = "", page = ""}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Index(System.String, System.String) on controller DoAnLTW.Controllers.ForumController (DoAnLTW).
+2025-05-30 18:41:09.595 +07:00 [INF] Executing ViewResult, running view Index.
+2025-05-30 18:41:09.611 +07:00 [INF] Executed DbCommand (3ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [b].[BrandId], [b].[ImageUrl], [b].[Name]
+FROM [Brands] AS [b]
+2025-05-30 18:41:09.617 +07:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [c].[CategoryId], [c].[ImageUrl], [c].[Name]
+FROM [Categories] AS [c]
+2025-05-30 18:41:09.664 +07:00 [INF] Executed ViewResult - view Index executed in 69.9942ms.
+2025-05-30 18:41:09.672 +07:00 [INF] Executed action DoAnLTW.Controllers.ForumController.Index (DoAnLTW) in 66392.3608ms
+2025-05-30 18:41:09.674 +07:00 [INF] Executed endpoint 'DoAnLTW.Controllers.ForumController.Index (DoAnLTW)'
+2025-05-30 18:41:09.675 +07:00 [INF] Executed DbCommand (2ms) [Parameters=[@__p_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[SecurityStamp], [a].[TwoFactorEnabled], [a].[UserName]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[Id] = @__p_0
+2025-05-30 18:41:09.678 +07:00 [INF] HTTP GET /Forum responded 200 in 66427.1636 ms
+2025-05-30 18:41:09.683 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/Forum - 200 null text/html; charset=utf-8 66443.2941ms
+2025-05-30 18:41:09.685 +07:00 [INF] Request starting HTTP/2 POST https://localhost:5134/chatHub/negotiate?negotiateVersion=1 - text/plain;charset=UTF-8 0
+2025-05-30 18:41:09.687 +07:00 [INF] Executed DbCommand (5ms) [Parameters=[@__userId_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a0].[Name]
+FROM [AspNetUserRoles] AS [a]
+INNER JOIN [AspNetRoles] AS [a0] ON [a].[RoleId] = [a0].[Id]
+WHERE [a].[UserId] = @__userId_0
+2025-05-30 18:41:09.689 +07:00 [INF] CORS policy execution successful.
+2025-05-30 18:41:09.690 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/img/payments.png - null null
+2025-05-30 18:41:09.690 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/_framework/aspnetcore-browser-refresh.js - null null
+2025-05-30 18:41:09.724 +07:00 [INF] Request starting HTTP/2 GET https://localhost:5134/_vs/browserLink - null null
+2025-05-30 18:41:09.733 +07:00 [INF] Executed DbCommand (0ms) [Parameters=[@__p_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[SecurityStamp], [a].[TwoFactorEnabled], [a].[UserName]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[Id] = @__p_0
+2025-05-30 18:41:09.728 +07:00 [INF] Executed endpoint '/chatHub'
+2025-05-30 18:41:09.735 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/_framework/aspnetcore-browser-refresh.js - 200 16499 application/javascript; charset=utf-8 45.1564ms
+2025-05-30 18:41:09.745 +07:00 [INF] HTTP CONNECT /chatHub responded 200 in 73336.7882 ms
+2025-05-30 18:41:09.745 +07:00 [INF] Executed DbCommand (1ms) [Parameters=[@__userId_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a0].[Name]
+FROM [AspNetUserRoles] AS [a]
+INNER JOIN [AspNetRoles] AS [a0] ON [a].[RoleId] = [a0].[Id]
+WHERE [a].[UserId] = @__userId_0
+2025-05-30 18:41:09.730 +07:00 [INF] Executed DbCommand (1ms) [Parameters=[@__p_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[SecurityStamp], [a].[TwoFactorEnabled], [a].[UserName]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[Id] = @__p_0
+2025-05-30 18:41:09.755 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/_vs/browserLink - 200 null text/javascript; charset=UTF-8 56.5605ms
+2025-05-30 18:41:09.757 +07:00 [INF] Request finished HTTP/2 CONNECT https://localhost:5134/chatHub?id=h0rUFmKowVZyZBg_ypqMkg - 200 null null 73354.1048ms
+2025-05-30 18:41:09.760 +07:00 [INF] HTTP GET /img/payments.png responded 404 in 27.5005 ms
+2025-05-30 18:41:09.762 +07:00 [INF] Executed DbCommand (0ms) [Parameters=[@__userId_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a0].[Name]
+FROM [AspNetUserRoles] AS [a]
+INNER JOIN [AspNetRoles] AS [a0] ON [a].[RoleId] = [a0].[Id]
+WHERE [a].[UserId] = @__userId_0
+2025-05-30 18:41:09.770 +07:00 [INF] Request finished HTTP/2 GET https://localhost:5134/img/payments.png - 404 0 null 80.173ms
+2025-05-30 18:41:09.772 +07:00 [INF] Executing endpoint '/chatHub/negotiate'
+2025-05-30 18:41:09.776 +07:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET https://localhost:5134/img/payments.png, Response status code: 404
+2025-05-30 18:41:09.777 +07:00 [INF] Executed endpoint '/chatHub/negotiate'
+2025-05-30 18:41:09.779 +07:00 [INF] HTTP POST /chatHub/negotiate responded 200 in 89.6299 ms
+2025-05-30 18:41:09.781 +07:00 [INF] Request finished HTTP/2 POST https://localhost:5134/chatHub/negotiate?negotiateVersion=1 - 200 316 application/json 96.1146ms
+2025-05-30 18:41:09.785 +07:00 [INF] Request starting HTTP/2 CONNECT https://localhost:5134/chatHub?id=BXO2cU2zK_j0kEoT8RPo0A - null null
+2025-05-30 18:41:09.788 +07:00 [INF] CORS policy execution successful.
+2025-05-30 18:41:09.791 +07:00 [INF] Executed DbCommand (1ms) [Parameters=[@__p_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[SecurityStamp], [a].[TwoFactorEnabled], [a].[UserName]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[Id] = @__p_0
+2025-05-30 18:41:09.794 +07:00 [INF] Executed DbCommand (0ms) [Parameters=[@__userId_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a0].[Name]
+FROM [AspNetUserRoles] AS [a]
+INNER JOIN [AspNetRoles] AS [a0] ON [a].[RoleId] = [a0].[Id]
+WHERE [a].[UserId] = @__userId_0
+2025-05-30 18:41:09.796 +07:00 [INF] Executing endpoint '/chatHub'
+2025-05-30 18:41:09.800 +07:00 [INF] Executed DbCommand (1ms) [Parameters=[@__p_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[SecurityStamp], [a].[TwoFactorEnabled], [a].[UserName]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[Id] = @__p_0
+2025-05-30 18:41:09.803 +07:00 [INF] Executed DbCommand (0ms) [Parameters=[@__userId_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a0].[Name]
+FROM [AspNetUserRoles] AS [a]
+INNER JOIN [AspNetRoles] AS [a0] ON [a].[RoleId] = [a0].[Id]
+WHERE [a].[UserId] = @__userId_0
+2025-05-30 18:41:39.646 +07:00 [INF] Executed DbCommand (1ms) [Parameters=[@__p_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[SecurityStamp], [a].[TwoFactorEnabled], [a].[UserName]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[Id] = @__p_0
+2025-05-30 18:41:39.655 +07:00 [INF] Executed DbCommand (1ms) [Parameters=[@__userId_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a0].[Name]
+FROM [AspNetUserRoles] AS [a]
+INNER JOIN [AspNetRoles] AS [a0] ON [a].[RoleId] = [a0].[Id]
+WHERE [a].[UserId] = @__userId_0
+2025-05-30 18:41:39.660 +07:00 [INF] Executed endpoint '/chatHub'
+2025-05-30 18:41:39.663 +07:00 [INF] HTTP CONNECT /chatHub responded 200 in 29875.4685 ms
+2025-05-30 18:41:39.668 +07:00 [INF] Request finished HTTP/2 CONNECT https://localhost:5134/chatHub?id=BXO2cU2zK_j0kEoT8RPo0A - 200 null null 29882.7496ms
+2025-05-30 18:42:30.319 +07:00 [INF] User profile is available. Using 'C:\Users\admin\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2025-05-30 18:42:30.518 +07:00 [INF] Now listening on: http://localhost:5134
+2025-05-30 18:42:30.522 +07:00 [INF] Application started. Press Ctrl+C to shut down.
+2025-05-30 18:42:30.524 +07:00 [INF] Hosting environment: Development
+2025-05-30 18:42:30.526 +07:00 [INF] Content root path: H:\DoAnCoSo\DoAnLTW
+2025-05-30 18:42:34.291 +07:00 [INF] Application is shutting down...
+2025-05-30 18:42:40.188 +07:00 [INF] User profile is available. Using 'C:\Users\admin\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2025-05-30 18:42:40.389 +07:00 [INF] Now listening on: http://localhost:5134
+2025-05-30 18:42:40.392 +07:00 [INF] Application started. Press Ctrl+C to shut down.
+2025-05-30 18:42:40.395 +07:00 [INF] Hosting environment: Development
+2025-05-30 18:42:40.397 +07:00 [INF] Content root path: H:\DoAnCoSo\DoAnLTW
+2025-05-30 18:43:32.301 +07:00 [INF] Application is shutting down...
+2025-05-30 18:43:38.869 +07:00 [INF] User profile is available. Using 'C:\Users\admin\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2025-05-30 18:43:39.051 +07:00 [INF] Now listening on: http://localhost:5134
+2025-05-30 18:43:39.054 +07:00 [INF] Application started. Press Ctrl+C to shut down.
+2025-05-30 18:43:39.057 +07:00 [INF] Hosting environment: Development
+2025-05-30 18:43:39.059 +07:00 [INF] Content root path: H:\DoAnCoSo\DoAnLTW
+2025-05-30 18:44:41.007 +07:00 [INF] Application is shutting down...

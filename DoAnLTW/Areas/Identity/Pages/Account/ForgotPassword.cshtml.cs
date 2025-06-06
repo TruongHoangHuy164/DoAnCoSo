@@ -45,7 +45,7 @@ namespace DoAnLTW.Areas.Identity.Pages.Account
 
                 // Tạo mã OTP (6 chữ số ngẫu nhiên)
                 var otp = new Random().Next(100000, 999999).ToString();
-                var otpExpiration = DateTime.Now.AddSeconds(30); // OTP hết hạn sau 30 giây
+                var otpExpiration = DateTime.Now.AddSeconds(200); // OTP hết hạn sau 200 giây
 
                 // Lưu OTP và thời gian hết hạn (ví dụ: vào TempData hoặc database)
                 // Ở đây sử dụng TempData để đơn giản, nhưng trong thực tế nên dùng database hoặc Redis

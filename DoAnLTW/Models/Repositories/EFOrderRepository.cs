@@ -11,7 +11,10 @@ namespace DoAnLTW.Models.Repositories
         {
             _context = context;
         }
-
+        public async Task<bool> HasOrdersForProductAsync(int productId)
+        {
+            return await _context.OrderDetails.AnyAsync(oi => oi.ProductId == productId);
+        }
         public async Task AddAsync(Order order)
         {
             _context.Orders.Add(order);
